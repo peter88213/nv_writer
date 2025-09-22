@@ -1,0 +1,21 @@
+# nv_typewriter Dictionary (English-German)
+# Copyright (C) 2025 Peter Triesberger
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1.0\n"
+"POT-Creation-Date: 2025-09-22 18:04:56\n"
+"PO-Revision-Date: 2025-09-22 18:04:56\n"
+"Last-Translator: Peter Triesberger\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "Edit in distraction free mode"
+msgstr "Im ablenkungsfreien Modus bearbeiten"
+
+msgid "https://peter88213.github.io/nvhelp-en"
+msgstr "https://peter88213.github.io/nvhelp-de"
+

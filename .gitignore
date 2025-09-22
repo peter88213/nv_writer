@@ -1,0 +1,6 @@
+/test/work/
+/test/temp/
+/test/nv_typewriter.py
+/build/
+*.pyc
+*.bak
