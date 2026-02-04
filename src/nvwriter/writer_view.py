@@ -82,8 +82,17 @@ class WriterView(ModalDialog):
         self._set_editor_colors()
 
         # Add a status bar to the editor window.
-        self._statusBar = tk.Label(
+        self._statusBar = tk.Frame(
             self,
+            background=self._sectionEditor['bg'],
+        )
+        self._statusBar.pack(
+            fill='x',
+        )
+
+        # Navigational breadcrumbs: Book | Chapter | Section.
+        self._breadcrumbs = tk.Label(
+            self._statusBar,
             background=self._sectionEditor['bg'],
             foreground=self._sectionEditor['fg'],
             text='',
@@ -91,8 +100,8 @@ class WriterView(ModalDialog):
             padx=5,
             pady=2,
         )
-        self._statusBar.pack(
-            fill='x',
+        self._breadcrumbs.pack(
+            side='left',
         )
 
         # Add buttons to the bottom line.
@@ -263,7 +272,13 @@ class WriterView(ModalDialog):
             self._section.sectionContent
         )
         self._scId = scId
-        self.title(f'{self._section.title} - {self._mdl.novel.title}, {_("Section")} ID {self._scId}')
+        chId = self._mdl.novel.tree.parent(self._scId)
+
+        self._breadcrumbs['text'] = (
+            f'{self._mdl.novel.title} | '
+            f'{self._mdl.novel.chapters[chId].title} | '
+            f'{self._section.title}'
+        )
 
     def _set_editor_colors(self):
         cm = self.prefs['color_mode']
