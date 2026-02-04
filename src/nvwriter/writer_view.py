@@ -196,6 +196,7 @@ class WriterView(ModalDialog):
 
         # Load the section content into the text editor.
         self._load_section(self._ui.selectedNode)
+        self._sectionEditor.focus()
 
     def on_quit(self, event=None):
         """Exit the editor. Apply changes, if possible."""
