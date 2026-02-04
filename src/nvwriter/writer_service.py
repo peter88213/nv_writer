@@ -14,7 +14,7 @@ class WriterService(SubController):
     INI_FILENAME = 'writer.ini'
     INI_FILEPATH = '.novx/config'
     SETTINGS = dict(
-        color_mode=2,
+        color_mode=1,
         editor_width=800,
         color_bg_bright='white',
         color_fg_bright='black',
@@ -26,7 +26,7 @@ class WriterService(SubController):
         font_family='Courier',
         font_size=14,
         line_spacing=7,
-        paragraph_spacing=7,
+        paragraph_spacing=14,
         margin_x=40,
         margin_y=20,
     )
