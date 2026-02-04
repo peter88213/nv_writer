@@ -12,6 +12,7 @@ from nvlib.novx_globals import CH_ROOT
 from nvlib.novx_globals import SECTION_PREFIX
 from nvwriter.editor_box import EditorBox
 from nvwriter.writer_locale import _
+from nvwriter.platform.platform_settings import KEYS
 import tkinter as tk
 
 
@@ -112,11 +113,15 @@ class WriterView(ModalDialog):
             self._statusBar,
             background=self._sectionEditor['bg'],
             foreground=self._sectionEditor['fg'],
-            text=_('Ctrl-PgUp'),
+            text=KEYS.NEXT[1],
         ).pack(
             padx=(10, 2),
             pady=2,
             side='right',
+        )
+        self._sectionEditor.bind(
+            KEYS.NEXT[0],
+            self._load_next,
         )
 
         closeButton = tk.Label(
@@ -136,11 +141,15 @@ class WriterView(ModalDialog):
             self._statusBar,
             background=self._sectionEditor['bg'],
             foreground=self._sectionEditor['fg'],
-            text=_('Alt-F4'),
+            text=KEYS.QUIT_PROGRAM[1],
         ).pack(
             padx=(10, 2),
             pady=2,
             side='right',
+        )
+        self._sectionEditor.bind(
+            KEYS.QUIT_PROGRAM[0],
+            self.on_quit,
         )
 
         previousButton = tk.Label(
@@ -160,11 +169,15 @@ class WriterView(ModalDialog):
             self._statusBar,
             background=self._sectionEditor['bg'],
             foreground=self._sectionEditor['fg'],
-            text=_('Ctrl-PgDwn'),
+            text=KEYS.PREVIOUS[1],
         ).pack(
             padx=(10, 2),
             pady=2,
             side='right',
+        )
+        self._sectionEditor.bind(
+            KEYS.PREVIOUS[0],
+            self._load_prev,
         )
 
         # Load the section content into the text editor.

@@ -5,9 +5,18 @@ For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from nvwriter.platform.generic_keys import GenericKeys
+from nvwriter.writer_locale import _
 
 
 class MacKeys(GenericKeys):
 
+    APPLY_CHANGES = ('<Command-s>', 'Cmd-S')
+    BOLD = ('<Command-b>', 'Cmd-B')
+    CREATE_SCENE = ('<Command-Alt-n>', 'Cmd-Alt-N')
+    ITALIC = ('<Command-i>', 'Cmd-I')
+    NEXT = ('<Command-Next>', f'Cmd-{_("PgDn")}')
+    PLAIN = ('<Command-m>', 'Cmd-M')
+    PREVIOUS = ('<Command-Prior>', f'Cmd-{_("PgUp")}')
     QUIT_PROGRAM = ('<Command-q>', 'Cmd-Q')
+    SPLIT_SCENE = ('<Command-Alt-s>', 'Cmd-Alt-S')
 

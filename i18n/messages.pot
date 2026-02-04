@@ -1,20 +1,98 @@
-# nv_typewriter Dictionary
-# Copyright (C) 2023 Peter Triesberger
+# nv_writer Dictionary
+# Copyright (C) 2026 Peter Triesberger
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
-"POT-Creation-Date: 2025-09-22 18:04:56\n"
+"POT-Creation-Date: 2026-02-04 19:50:14\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: novxlib pgettext.py 0.3\n"
+"Generated-By: novelibre pgettext.py 1.0\n"
 
+
+msgid "1st Edit"
+msgstr ""
+
+msgid "2nd Edit"
+msgstr ""
+
+msgid "Apply section changes?"
+msgstr ""
+
+msgid "Bio"
+msgstr ""
+
+msgid "Bright mode"
+msgstr ""
+
+msgid "Characterization"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Ctrl"
+msgstr ""
+
+msgid "Dark mode"
+msgstr ""
+
+msgid "Done"
+msgstr ""
+
+msgid "Draft"
+msgstr ""
 
 msgid "Edit in distraction free mode"
+msgstr ""
+
+msgid "Ending"
+msgstr ""
+
+msgid "Goals"
+msgstr ""
+
+msgid "Light mode"
+msgstr ""
+
+msgid "Major Character"
+msgstr ""
+
+msgid "Minor Character"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Opening"
+msgstr ""
+
+msgid "Outline"
+msgstr ""
+
+msgid "Peak emotional moment"
+msgstr ""
+
+msgid "PgDn"
+msgstr ""
+
+msgid "PgUp"
+msgstr ""
+
+msgid "Plot progress"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Section"
+msgstr ""
+
+msgid "World building"
 msgstr ""
 
 msgid "https://peter88213.github.io/nvhelp-en"

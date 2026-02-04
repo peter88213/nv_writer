@@ -1,11 +1,11 @@
 # nv_typewriter Dictionary (English-German)
-# Copyright (C) 2025 Peter Triesberger
+# Copyright (C) Peter Triesberger
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2025-09-22 18:04:56\n"
+"PO-Revision-Date: 2026-02-04 19:48:43\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -13,9 +13,86 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 
+msgid "1st Edit"
+msgstr "1. Überarbeitung"
+
+msgid "2nd Edit"
+msgstr "2. Überarbeitung"
+
+msgid "Apply section changes?"
+msgstr "Änderungen am Abschnitt übernehmen?"
+
+msgid "Bio"
+msgstr "Biographie"
+
+msgid "Bright mode"
+msgstr "Heller Modus"
+
+msgid "Characterization"
+msgstr "Charakterisierung"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Ctrl"
+msgstr "Strg"
+
+msgid "Dark mode"
+msgstr "Dunkler Modus"
+
+msgid "Done"
+msgstr "Fertiggestellt"
+
+msgid "Draft"
+msgstr "Entwurf"
+
 msgid "Edit in distraction free mode"
 msgstr "Im ablenkungsfreien Modus bearbeiten"
 
+msgid "Ending"
+msgstr "Ende"
+
+msgid "Goals"
+msgstr "Ziele"
+
+msgid "Light mode"
+msgstr "Lichter Modus"
+
+msgid "Major Character"
+msgstr "Hauptfigur"
+
+msgid "Minor Character"
+msgstr "Nebenfigur"
+
+msgid "Next"
+msgstr "Vor"
+
+msgid "Opening"
+msgstr "Eröffnung"
+
+msgid "Outline"
+msgstr "Gliederung"
+
+msgid "Peak emotional moment"
+msgstr "Emotionaler Höhepunkt"
+
+msgid "PgDn"
+msgstr "Bild↓"
+
+msgid "PgUp"
+msgstr "Bild↑"
+
+msgid "Plot progress"
+msgstr "Handlungsfortschritt"
+
+msgid "Previous"
+msgstr "Zurück"
+
+msgid "Section"
+msgstr "Abschnitt"
+
+msgid "World building"
+msgstr "Weltenbau"
+
 msgid "https://peter88213.github.io/nvhelp-en"
 msgstr "https://peter88213.github.io/nvhelp-de"
-

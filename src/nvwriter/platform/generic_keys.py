@@ -9,4 +9,17 @@ from nvwriter.writer_locale import _
 
 class GenericKeys:
 
+    APPLY_CHANGES = ('<Control-s>', f'{_("Ctrl")}-S')
+    BOLD = ('<Control-b>', f'{_("Ctrl")}-B')
+    COPY = ('<Control-c>', f'{_("Ctrl")}-C')
+    CREATE_SCENE = ('<Control-Alt-n>', f'{_("Ctrl")}-Alt-N')
+    CUT = ('<Control-x>', f'{_("Ctrl")}-X')
+    ITALIC = ('<Control-i>', f'{_("Ctrl")}-I')
+    NEXT = ('<Control-Next>', f'{_("Ctrl")}-{_("PgDn")}')
+    OPEN_HELP = ('<F1>', 'F1')
+    PASTE = ('<Control-v>', f'{_("Ctrl")}-V')
+    PLAIN = ('<Control-m>', f'{_("Ctrl")}-M')
+    PREVIOUS = ('<Control-Prior>', f'{_("Ctrl")}-{_("PgUp")}')
     QUIT_PROGRAM = ('<Control-q>', f'{_("Ctrl")}-Q')
+    SPLIT_SCENE = ('<Control-Alt-s>', f'{_("Ctrl")}-Alt-S')
+    UPDATE_WORDCOUNT = ('<F5>', 'F5')
