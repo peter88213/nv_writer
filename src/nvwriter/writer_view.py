@@ -63,8 +63,11 @@ class WriterView(ModalDialog):
         )
 
         # Add a text editor with scrollbar to the editor window.
+        cm = self.prefs['color_mode']
         self._sectionEditor = EditorBox(
             editorWindow,
+            background=self.colorModes[cm][2],
+            troughcolor=prefs['color_desktop'],
             wrap='word',
             undo=True,
             autoseparators=True,
@@ -77,9 +80,11 @@ class WriterView(ModalDialog):
                 prefs['font_family'],
                 prefs['font_size'],
             ),
+            fg=self.colorModes[cm][1],
+            bg=self.colorModes[cm][2],
+            insertbackground=self.colorModes[cm][1],
         )
         self._sectionEditor.pack(expand=True, fill='both')
-        self._set_editor_colors()
 
         # Add a status bar to the editor window.
         self._statusBar = tk.Frame(
@@ -279,12 +284,6 @@ class WriterView(ModalDialog):
             f'{self._mdl.novel.chapters[chId].title} | '
             f'{self._section.title}'
         )
-
-    def _set_editor_colors(self):
-        cm = self.prefs['color_mode']
-        self._sectionEditor['fg'] = self.colorModes[cm][1]
-        self._sectionEditor['bg'] = self.colorModes[cm][2]
-        self._sectionEditor['insertbackground'] = self.colorModes[cm][1]
 
     def _transfer_text(self, sectionText):
         """Transfer the changed editor content to the section, if possible.

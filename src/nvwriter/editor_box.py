@@ -1,6 +1,6 @@
 """Provide a text editor widget for the distraction free mode.
 
-Copyright (c) 2025 Peter Triesberger
+Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
@@ -8,6 +8,7 @@ import re
 from tkinter import ttk
 
 from nvlib.model.xml.xml_filter import strip_illegal_characters
+from nvwriter.scrollbar_styles import make_scrollbar_styles
 import tkinter as tk
 import xml.etree.ElementTree as ET
 
@@ -19,13 +20,23 @@ class EditorBox(tk.Text):
     XML_TAG = 'xmlTag'
     COLOR_XML_TAG = 'cornflower blue'
 
-    def __init__(self, master=None, **kw):
+    def __init__(
+        self,
+        master=None,
+        troughcolor='black',
+        background='grey',
+        **kw,
+    ):
         """Copied from tkinter.scrolledtext and modified (use ttk widgets).
         
         Extends the supeclass constructor.
         """
         self.frame = ttk.Frame(master)
-        self.vbar = ttk.Scrollbar(self.frame)
+        __, vstyle = make_scrollbar_styles(
+            troughcolor=troughcolor,
+            background=background,
+        )
+        self.vbar = ttk.Scrollbar(self.frame, style=vstyle)
         self.vbar.pack(side='right', fill='y')
 
         kw.update({'yscrollcommand': self.vbar.set})
