@@ -1,10 +1,10 @@
 """Provide a class with key definitions.
 
 Copyright (c) 2025 Peter Triesberger
-For further information see https://github.com/peter88213/nv_typewriter
+For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
-from nvtypewriter.typewriter_locale import _
+from nvwriter.writer_locale import _
 
 
 class GenericKeys:

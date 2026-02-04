@@ -1,17 +1,17 @@
 """Provide a service class for the distraction free editor mode.
 
 Copyright (c) Peter Triesberger
-For further information see https://github.com/peter88213/nv_typewriter
+For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from pathlib import Path
 
-from nvtypewriter.typewriter_view import TypewriterView
 from nvlib.controller.sub_controller import SubController
+from nvwriter.writer_view import WriterView
 
 
-class TypewriterService(SubController):
-    INI_FILENAME = 'typewriter.ini'
+class WriterService(SubController):
+    INI_FILENAME = 'writer.ini'
     INI_FILEPATH = '.novx/config'
     SETTINGS = dict(
         color_mode=2,
@@ -57,7 +57,7 @@ class TypewriterService(SubController):
         self.prefs.update(self.configuration.options)
 
     def start_editor(self):
-        self.typewriter = TypewriterView(
+        self.writer = WriterView(
             self._mdl,
             self._ui,
             self._ctrl,

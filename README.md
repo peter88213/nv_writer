@@ -1,14 +1,14 @@
-[![Download the latest release](docs/img/download-button.png)](https://github.com/peter88213/nv_typewriter/raw/main/dist/nv_typewriter_v0.1.0.pyz)
+[![Download the latest release](docs/img/download-button.png)](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.1.0.pyz)
 [![Changelog](docs/img/changelog-button.png)](docs/changelog.md)
 [![News/Feedback](docs/img/news-button.png)](https://github.com/peter88213/novelibre/discussions)
-[![Online help](docs/img/help-button.png)](https://peter88213.github.io/nv_typewriter/help/)
+[![Online help](docs/img/help-button.png)](https://peter88213.github.io/nv_writer/help/)
 
 
-# nv_typewriter
+# nv_writer
 
 The [novelibre](https://github.com/peter88213/novelibre/) Python program helps authors organize novels.  
 
-*nv_typewriter* is a "distraction free editor" plugin for novelibre
+*nv_writer* is a "distraction free editor" plugin for novelibre
 
 ![Screenshot](docs/Screenshots/screen01.jpg)
 
@@ -21,10 +21,10 @@ The [novelibre](https://github.com/peter88213/novelibre/) Python program helps a
 
 ### Default: Executable Python zip archive
 
-Download the latest release [nv_typewriter_v0.1.0.pyz](https://github.com/peter88213/nv_typewriter/raw/main/dist/nv_typewriter_v0.1.0.pyz)
+Download the latest release [nv_writer_v0.1.0.pyz](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.1.0.pyz)
 
-- Launch *nv_typewriter_v0.1.0.pyz* by double-clicking (Windows desktop),
-- or execute `python nv_typewriter_v0.1.0.pyz` (Windows), resp. `python3 nv_typewriter_v0.1.0.pyz` (Linux) on the command line.
+- Launch *nv_writer_v0.1.0.pyz* by double-clicking (Windows desktop),
+- or execute `python nv_writer_v0.1.0.pyz` (Windows), resp. `python3 nv_writer_v0.1.0.pyz` (Linux) on the command line.
 
 > [!IMPORTANT]
 > Many web browsers recognize the download as an executable file and offer to open it immediately. 
@@ -39,9 +39,9 @@ Download the latest release [nv_typewriter_v0.1.0.pyz](https://github.com/peter8
 
 ### Alternative: Zip file
 
-The package is also available in zip format: [nv_typewriter_v0.1.0.zip](https://github.com/peter88213/nv_typewriter/raw/main/dist/nv_typewriter_v0.1.0.zip)
+The package is also available in zip format: [nv_writer_v0.1.0.zip](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.1.0.zip)
 
-- Extract the *nv_typewriter_v0.1.0* folder from the downloaded zipfile "nv_typewriter_v0.1.0.zip".
+- Extract the *nv_writer_v0.1.0* folder from the downloaded zipfile "nv_writer_v0.1.0.zip".
 - Move into this new folder and launch *setup.py* by double-clicking (Windows/Linux desktop), 
 - or execute `python setup.py` (Windows), resp. `python3 setup.py` (Linux) on the command line.
 
@@ -51,12 +51,12 @@ The package is also available in zip format: [nv_typewriter_v0.1.0.zip](https://
 
 ## Usage
 
-See the [instructions for use](https://peter88213.github.io/nv_typewriter/help/)
+See the [instructions for use](https://peter88213.github.io/nv_writer/help/)
 
 ---
 
 ## License
 
-This is Open Source software, and the *nv_typewriter* plugin is licensed under GPLv3. See the
+This is Open Source software, and the *nv_writer* plugin is licensed under GPLv3. See the
 [GNU General Public License website](https://www.gnu.org/licenses/gpl-3.0.en.html) for more
-details, or consult the [LICENSE](https://github.com/peter88213/nv_typewriter/blob/main/LICENSE) file.
+details, or consult the [LICENSE](https://github.com/peter88213/nv_writer/blob/main/LICENSE) file.

@@ -1,9 +1,9 @@
-"""Build the nv_typewriter novelibre plugin package.
+"""Build the nv_writer novelibre plugin package.
         
 Note: VERSION must be updated manually before starting this script.
 
 Copyright (c) 2025 Peter Triesberger
-For further information see https://github.com/peter88213/nv_typewriter
+For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 import os
@@ -17,8 +17,8 @@ VERSION = '0.1.0'
 
 class PluginBuilder(PackageBuilder):
 
-    PRJ_NAME = 'nv_typewriter'
-    LOCAL_LIB = 'nvtypewriter'
+    PRJ_NAME = 'nv_writer'
+    LOCAL_LIB = 'nvwriter'
     GERMAN_TRANSLATION = True
 
     def __init__(self, version):

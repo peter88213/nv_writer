@@ -1,11 +1,11 @@
-[Project homepage](https://github.com/peter88213/nv_typewriter) > [Index](../) > User guide
+[Project homepage](https://github.com/peter88213/nv_writer) > [Index](../) > User guide
 
 ---
 
 # User guide
 
 This page refers to the latest 
-[nv_typewriter](https://github.com/peter88213/nv_typewriter/) release.
+[nv_writer](https://github.com/peter88213/nv_writer/) release.
 
 The plugin adds an **Edit in distraction free mode** entry to the *novelibre* **Tools** menu. 
 

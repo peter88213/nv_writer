@@ -2,7 +2,7 @@
 
 Requires Python 3.7+
 Copyright (c) 2025 Peter Triesberger
-For further information see https://github.com/peter88213/nv_typewriter
+For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 This program is free software: you can redistribute it and/or modify
@@ -15,8 +15,8 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 """
-from nvtypewriter.typewriter_locale import _
-from nvtypewriter.typewriter_service import TypewriterService
+from nvwriter.writer_locale import _
+from nvwriter.writer_service import WriterService
 from nvlib.controller.plugin.plugin_base import PluginBase
 
 
@@ -25,8 +25,8 @@ class Plugin(PluginBase):
     VERSION = '@release'
     API_VERSION = '5.38'
     DESCRIPTION = 'Distraction free editor'
-    URL = 'https://github.com/peter88213/nv_typewriter'
-    HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_typewriter'
+    URL = 'https://github.com/peter88213/nv_writer'
+    HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_writer'
 
     FEATURE = _('Edit in distraction free mode')
 
@@ -41,7 +41,7 @@ class Plugin(PluginBase):
         Extends the superclass method.
         """
         super().install(model, view, controller)
-        self.typewriterService = TypewriterService(model, view, controller)
+        self.writerService = WriterService(model, view, controller)
 
         # Create an entry in the Tools menu.
         self._ui.toolsMenu.add_command(
@@ -51,5 +51,5 @@ class Plugin(PluginBase):
         self._ui.toolsMenu.entryconfig(self.FEATURE)
 
     def start_viewer(self):
-        self.typewriterService.start_editor()
+        self.writerService.start_editor()
 

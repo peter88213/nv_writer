@@ -1,7 +1,7 @@
-"""Locale settings for nv_typewriter.
+"""Locale settings for nv_writer.
 
-Copyright (c) 2025 Peter Triesberger
-For further information see https://github.com/peter88213/nv_typewriter
+Copyright (c) Peter Triesberger
+For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 import gettext
@@ -18,7 +18,7 @@ except:
     CURRENT_LANGUAGE = locale.getdefaultlocale()[0][:2]
 try:
     t = gettext.translation(
-        'nv_typewriter',
+        'nv_writer',
         LOCALE_PATH, languages=[CURRENT_LANGUAGE],
     )
     _ = t.gettext

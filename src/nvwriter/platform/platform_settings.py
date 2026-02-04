@@ -1,14 +1,14 @@
-"""Provide platform specific settings for the nv_typewriter plugin.
+"""Provide platform specific settings for the nv_writer plugin.
 
 Copyright (c) 2025 Peter Triesberger
-For further information see https://github.com/peter88213/nv_typewriter
+For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 import platform
 
-from nvtypewriter.platform.generic_keys import GenericKeys
-from nvtypewriter.platform.mac_keys import MacKeys
-from nvtypewriter.platform.windows_keys import WindowsKeys
+from nvwriter.platform.generic_keys import GenericKeys
+from nvwriter.platform.mac_keys import MacKeys
+from nvwriter.platform.windows_keys import WindowsKeys
 
 if platform.system() == 'Windows':
     PLATFORM = 'win'

@@ -1,9 +1,9 @@
-"""nv_typewriter installer library module. 
+"""nv_writer installer library module. 
 
 Version @release
 
 Copyright (c) 2025 Peter Triesberger
-For further information see https://github.com/peter88213/nv_typewriter
+For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 import os
@@ -13,7 +13,7 @@ from shutil import copytree
 import sys
 import zipfile
 
-PLUGIN = 'nv_typewriter.py'
+PLUGIN = 'nv_writer.py'
 VERSION = '@release'
 
 pyz = os.path.dirname(__file__)

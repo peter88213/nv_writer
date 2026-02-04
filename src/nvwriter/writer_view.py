@@ -1,7 +1,7 @@
 """Provide a modal window class for distraction free writing.
 
 Copyright (c) Peter Triesberger
-For further information see https://github.com/peter88213/nv_typewriter
+For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from tkinter import messagebox
@@ -10,12 +10,12 @@ from tkinter import ttk
 from nvlib.gui.widgets.modal_dialog import ModalDialog
 from nvlib.novx_globals import CH_ROOT
 from nvlib.novx_globals import SECTION_PREFIX
-from nvtypewriter.editor_box import EditorBox
-from nvtypewriter.typewriter_locale import _
+from nvwriter.editor_box import EditorBox
+from nvwriter.writer_locale import _
 import tkinter as tk
 
 
-class TypewriterView(ModalDialog):
+class WriterView(ModalDialog):
 
     def __init__(self, model, view, controller, prefs):
         self._mdl = model

@@ -1,4 +1,4 @@
-[Project homepage](https://github.com/peter88213/nv_typewriter) > Index
+[Project homepage](https://github.com/peter88213/nv_writer) > Index
 
 ---
 
