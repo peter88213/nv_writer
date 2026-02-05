@@ -63,28 +63,28 @@ class WriterService(SubController):
         # Customize the scrollbar.
         make_scrollbar_styles(
             troughcolor=self.prefs['color_desktop'],
-            background=editorColors[2],
+            background=editorColors[1],
         )
 
     def get_colors(self):
         colorModes = [
             (
-                _('Dark mode'),
                 self.prefs['color_fg_dark'],
                 self.prefs['color_bg_dark'],
+                _('Dark mode'),
             ),
             (
-                _('Light mode'),
                 self.prefs['color_fg_light'],
                 self.prefs['color_bg_light'],
+                _('Light mode'),
             ),
             (
-                _('Bright mode'),
                 self.prefs['color_fg_bright'],
                 self.prefs['color_bg_bright'],
+                _('Bright mode'),
             ),
         ]
-        # (name, foreground, background) tuples for color modes.
+        # (foreground, background, name) tuples for color modes.
         return colorModes[self.prefs['color_mode']]
 
     def start_editor(self):

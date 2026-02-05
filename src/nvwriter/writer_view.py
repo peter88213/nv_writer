@@ -66,9 +66,9 @@ class WriterView(ModalDialog):
                 prefs['font_family'],
                 prefs['font_size'],
             ),
-            fg=editorColors[1],
-            bg=editorColors[2],
-            insertbackground=editorColors[1],
+            fg=editorColors[0],
+            bg=editorColors[1],
+            insertbackground=editorColors[0],
         )
         self._sectionEditor.pack(expand=True, fill='both')
 
