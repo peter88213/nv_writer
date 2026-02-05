@@ -8,7 +8,6 @@ import re
 from tkinter import ttk
 
 from nvlib.model.xml.xml_filter import strip_illegal_characters
-from nvwriter.scrollbar_styles import make_scrollbar_styles
 import tkinter as tk
 import xml.etree.ElementTree as ET
 
@@ -23,8 +22,7 @@ class EditorBox(tk.Text):
     def __init__(
         self,
         master=None,
-        troughcolor='black',
-        background='grey',
+        vstyle=None,
         **kw,
     ):
         """Copied from tkinter.scrolledtext and modified (use ttk widgets).
@@ -32,11 +30,9 @@ class EditorBox(tk.Text):
         Extends the supeclass constructor.
         """
         self.frame = ttk.Frame(master)
-        __, vstyle = make_scrollbar_styles(
-            troughcolor=troughcolor,
-            background=background,
-        )
-        self.vbar = ttk.Scrollbar(self.frame, style=vstyle)
+        self.vbar = ttk.Scrollbar(self.frame)
+        if vstyle is not None:
+            self.vbar.configure(style=vstyle)
         self.vbar.pack(side='right', fill='y')
 
         kw.update({'yscrollcommand': self.vbar.set})

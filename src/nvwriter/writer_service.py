@@ -7,6 +7,8 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 from pathlib import Path
 
 from nvlib.controller.sub_controller import SubController
+from nvwriter.scrollbar_styles import make_scrollbar_styles
+from nvwriter.writer_locale import _
 from nvwriter.writer_view import WriterView
 
 
@@ -14,7 +16,7 @@ class WriterService(SubController):
     INI_FILENAME = 'writer.ini'
     INI_FILEPATH = '.novx/config'
     SETTINGS = dict(
-        color_mode=1,
+        color_mode=2,
         editor_width=800,
         color_bg_bright='white',
         color_fg_bright='black',
@@ -56,11 +58,41 @@ class WriterService(SubController):
         self.prefs.update(self.configuration.settings)
         self.prefs.update(self.configuration.options)
 
+        colorModes = self.set_colors()
+
+        # Customize the scrollbar.
+        make_scrollbar_styles(
+            troughcolor=self.prefs['color_desktop'],
+            background=colorModes[2],
+        )
+
+    def set_colors(self):
+        allColorModes = [
+            (
+                _('Bright mode'),
+                self.prefs['color_fg_bright'],
+                self.prefs['color_bg_bright'],
+            ),
+            (
+                _('Light mode'),
+                self.prefs['color_fg_light'],
+                self.prefs['color_bg_light'],
+            ),
+            (
+                _('Dark mode'),
+                self.prefs['color_fg_dark'],
+                self.prefs['color_bg_dark'],
+            ),
+        ]
+        # (name, foreground, background) tuples for color modes.
+        return allColorModes[self.prefs['color_mode']]
+
     def start_editor(self):
         self.writer = WriterView(
             self._mdl,
             self._ui,
             self._ctrl,
             self.prefs,
+            self.set_colors(),
         )
 

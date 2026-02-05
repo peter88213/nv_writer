@@ -18,7 +18,14 @@ import tkinter as tk
 
 class WriterView(ModalDialog):
 
-    def __init__(self, model, view, controller, prefs):
+    def __init__(
+            self,
+            model,
+            view,
+            controller,
+            prefs,
+            colorModes,
+    ):
         self._mdl = model
         self._ui = view
         self._ctrl = controller
@@ -27,25 +34,6 @@ class WriterView(ModalDialog):
 
         self._section = None
         self._scId = None
-
-        self.colorModes = [
-            (
-                _('Bright mode'),
-                prefs['color_fg_bright'],
-                prefs['color_bg_bright'],
-            ),
-            (
-                _('Light mode'),
-                prefs['color_fg_light'],
-                prefs['color_bg_light'],
-            ),
-            (
-                _('Dark mode'),
-                prefs['color_fg_dark'],
-                prefs['color_bg_dark'],
-            ),
-        ]
-        # (name, foreground, background) tuples for color modes.
 
         self.attributes('-fullscreen', True)
         self.update_idletasks()
@@ -63,11 +51,9 @@ class WriterView(ModalDialog):
         )
 
         # Add a text editor with scrollbar to the editor window.
-        cm = self.prefs['color_mode']
         self._sectionEditor = EditorBox(
             editorWindow,
-            background=self.colorModes[cm][2],
-            troughcolor=prefs['color_desktop'],
+            vstyle='CustomScrollbarStyle.Vertical.TScrollbar',
             wrap='word',
             undo=True,
             autoseparators=True,
@@ -80,9 +66,9 @@ class WriterView(ModalDialog):
                 prefs['font_family'],
                 prefs['font_size'],
             ),
-            fg=self.colorModes[cm][1],
-            bg=self.colorModes[cm][2],
-            insertbackground=self.colorModes[cm][1],
+            fg=colorModes[1],
+            bg=colorModes[2],
+            insertbackground=colorModes[1],
         )
         self._sectionEditor.pack(expand=True, fill='both')
 

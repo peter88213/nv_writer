@@ -42,13 +42,31 @@ class Plugin(PluginBase):
         """
         super().install(model, view, controller)
         self.writerService = WriterService(model, view, controller)
+        self._icon = self._get_icon('writer.png')
 
-        # Create an entry in the Tools menu.
-        self._ui.toolsMenu.add_command(
-            label=self.FEATURE,
+        # Add the "Edit" command to novelibre's "Section" menu.
+        self._ui.sectionMenu.add_separator()
+
+        label = self.FEATURE
+        self._ui.sectionMenu.add_command(
+            label=label,
+            image=self._icon,
+            compound='left',
+            underline=0,
             command=self.start_viewer,
         )
-        self._ui.toolsMenu.entryconfig(self.FEATURE)
+        self._ui.sectionMenu.disableOnLock.append(label)
+
+        # Add the "Edit" command to novelibre's section context menu.
+        self._ui.sectionContextMenu.add_separator()
+        self._ui.sectionContextMenu.add_command(
+            label=label,
+            image=self._icon,
+            compound='left',
+            underline=0,
+            command=self.start_viewer,
+        )
+        self._ui.sectionContextMenu.disableOnLock.append(label)
 
     def start_viewer(self):
         self.writerService.start_editor()
