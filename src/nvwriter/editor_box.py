@@ -62,6 +62,7 @@ class EditorBox(tk.Text):
         self._contentParser.strongTag = self.STRONG_TAG
         self._contentParser.commentTag = self.COMMENT_TAG
         self._contentParser.noteTag = self.NOTE_TAG
+        self._contentParser.BULLET = '*'
 
         # Configure the editor box.
         self.tag_configure(
@@ -101,11 +102,16 @@ class EditorBox(tk.Text):
         self.delete('1.0', 'end')
 
     def get_text(self, start='1.0', end='end'):
-        """Return the whole text from the editor box."""
-        text = self.get(start, end)
-        text = text.strip(' \n')
-        text = text.replace('\n', '')
-        return strip_illegal_characters(text)
+        """Return the whole text from the editor box in .novx format."""
+
+        def process_triple(key, value, __):
+            if key == 'text':
+                lines.append(value.replace('\n', '</p><p>'))
+
+        lines = ['<p>']
+        self.dump(start, end, command=process_triple)
+        lines.append('</p>')
+        return ''.join(lines)
 
     def set_text(self, text):
         """Put text into the editor box and clear the undo/redo stack."""
