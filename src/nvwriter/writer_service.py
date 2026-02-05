@@ -25,9 +25,9 @@ class WriterService(SubController):
         color_fg='green3',
         color_desktop='gray30',
         font_family='Courier',
-        font_size=14,
+        font_size=13,
         line_spacing=7,
-        paragraph_spacing=14,
+        paragraph_spacing=21,
         margin_x=40,
         margin_y=20,
     )
