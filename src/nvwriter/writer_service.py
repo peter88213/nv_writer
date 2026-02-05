@@ -16,7 +16,7 @@ class WriterService(SubController):
     INI_FILENAME = 'writer.ini'
     INI_FILEPATH = '.novx/config'
     SETTINGS = dict(
-        color_mode=2,
+        color_mode=0,
         editor_width=800,
         color_bg_bright='white',
         color_fg_bright='black',
@@ -69,9 +69,9 @@ class WriterService(SubController):
     def get_colors(self):
         colorModes = [
             (
-                _('Bright mode'),
-                self.prefs['color_fg_bright'],
-                self.prefs['color_bg_bright'],
+                _('Dark mode'),
+                self.prefs['color_fg_dark'],
+                self.prefs['color_bg_dark'],
             ),
             (
                 _('Light mode'),
@@ -79,9 +79,9 @@ class WriterService(SubController):
                 self.prefs['color_bg_light'],
             ),
             (
-                _('Dark mode'),
-                self.prefs['color_fg_dark'],
-                self.prefs['color_bg_dark'],
+                _('Bright mode'),
+                self.prefs['color_fg_bright'],
+                self.prefs['color_bg_bright'],
             ),
         ]
         # (name, foreground, background) tuples for color modes.
