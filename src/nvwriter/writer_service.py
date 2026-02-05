@@ -32,8 +32,7 @@ class WriterService(SubController):
         margin_y=20,
     )
     OPTIONS = dict(
-        show_markup=False,
-        is_open=False
+        live_wordcount=True,
     )
 
     def __init__(self, model, view, controller):

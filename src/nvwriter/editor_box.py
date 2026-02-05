@@ -15,8 +15,6 @@ import xml.etree.ElementTree as ET
 
 class EditorBox(tk.Text):
     """A text editor widget for novelibre raw markup."""
-    _TAGS = ('em', 'strong')
-    # Supported tags.
     COMMENT_TAG = 'commentTag'
     NOTE_TAG = 'noteTag'
     EM_TAG = 'emTag'
@@ -139,7 +137,7 @@ class EditorBox(tk.Text):
         
         Or begin with emphasized input.
         """
-        self._set_format(tag='em')
+        self._set_format(tag=self.EM_TAG)
         return 'break'
 
     def strong_emphasis(self, event=None):
@@ -147,18 +145,12 @@ class EditorBox(tk.Text):
         
         Or begin with strongly emphasized input.
         """
-        self._set_format(tag='strong')
+        self._set_format(tag=self.STRONG_TAG)
         return 'break'
 
     def plain(self, event=None):
         """Remove formatting from the selection."""
         self._set_format()
-        return 'break'
-
-    def new_paragraph(self, event=None):
-        """Insert an opening/closing pair of paragraph tags."""
-        self.insert('insert', '</p>\n<p>')
-        self.colorize()
         return 'break'
 
     def _convert_from_novx(self, text, textTag):
@@ -169,62 +161,34 @@ class EditorBox(tk.Text):
         self._contentParser.feed(text)
         return self._contentParser.taggedText[1:-1]
 
-    def _set_format(self, event=None, tag=''):
-        """Insert an opening/closing pair of novelibre markup tags."""
-        if tag:
-            # Toggle format as specified by tag.
-            if self.tag_ranges('sel'):
-                text = self.get(tk.SEL_FIRST, tk.SEL_LAST)
-                if text.startswith(f'<{tag}>'):
-                    if text.endswith(f'</{tag}>'):
-                        # The selection is already formatted: Remove markup.
-                        text = self._remove_format(text, tag)
-                        self._replace_selected(text)
-                        return
+    def _get_tags(self, start, end):
+        """Get a set of tags between the start and end text mark.     
+        
+        Kudos to Bryan Oakley
+        https://stackoverflow.com/questions/61661490/how-do-you-get-the-tags-from-text-in-a-tkinter-text-widget
+        """
+        index = start
+        tags = []
+        while self.compare(index, '<=', end):
+            tags.extend(self.tag_names(index))
+            index = self.index(f'{index}+1c')
+        return set(tags)
 
-                # Format the selection: Add markup.
-                text = self._remove_format(text, tag)
-                # to make sure that there is no nested markup of the same type
-                self._replace_selected(f'<{tag}>{text}</{tag}>')
-            else:
-                # Add markup to the cursor position.
-                self.insert('insert', f'<{tag}>')
-                endTag = f'</{tag}>'
-                self.insert('insert', endTag)
-                self.mark_set('insert', f'insert-{len(endTag)}c')
-        elif self.tag_ranges('sel'):
-            # Remove all markup from the selection.
-            text = self.get(tk.SEL_FIRST, tk.SEL_LAST)
-            for tag in self._TAGS:
-                text = self._remove_format(text, tag)
-            self._replace_selected(text)
-        self.colorize()
-
-    def _replace_selected(self, text):
-        """Replace the selected passage with text; keep the selection."""
-        self.mark_set('insert', tk.SEL_FIRST)
+    def _replace_selected(self, text, tag):
+        """Replace the selected passage by text; keep the selection."""
+        self.mark_set(tk.INSERT, tk.SEL_FIRST)
         self.delete(tk.SEL_FIRST, tk.SEL_LAST)
-        selFirst = self.index('insert')
-        self.insert('insert', text)
-        selLast = self.index('insert')
-        self.tag_add('sel', selFirst, selLast)
+        selFirst = self.index(tk.INSERT)
+        self.insert(tk.INSERT, text, tag)
+        selLast = self.index(tk.INSERT)
+        self.tag_add(tk.SEL, selFirst, selLast)
 
-    def _remove_format(self, text, tag):
-        """Return text without opening/closing markup, if any."""
-        if tag in self._TAGS:
-            finished = False
-            while not finished:
-                start = text.find(f'<{tag}>')
-                if start >= 0:
-                    end = text.find(f'</{tag}>')
-                    if  start < end:
-                        text = (
-                            f'{text[:start]}{text[start + len(tag) +2:end]}'
-                            f'{text[end + len(tag) + 3:]}'
-                        )
-                    else:
-                        finished = True
-                else:
-                    finished = True
-            return text
+    def _set_format(self, event=None, tag=''):
+        if self.tag_ranges(tk.SEL):
+            text = self.get(tk.SEL_FIRST, tk.SEL_LAST)
+            currentTags = self._get_tags(tk.SEL_FIRST, tk.SEL_LAST)
+            if tag in currentTags:
+                tag = ''
+                # Reset formatting.
+            self._replace_selected(text, tag)
 
