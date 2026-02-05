@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-02-04 19:48:43\n"
+"PO-Revision-Date: 2026-02-05 19:15:23\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +40,9 @@ msgstr "Strg"
 msgid "Dark mode"
 msgstr "Dunkler Modus"
 
+msgid "Documents found that might be edited"
+msgstr "Dokumente gefunden, die bearbeitet sein könnten"
+
 msgid "Done"
 msgstr "Fertiggestellt"
 
@@ -48,6 +51,12 @@ msgstr "Entwurf"
 
 msgid "Edit in distraction free mode"
 msgstr "Im ablenkungsfreien Modus bearbeiten"
+
+msgid "Editable manuscript"
+msgstr "Manuskript zum Bearbeiten"
+
+msgid "Editing not possible"
+msgstr "Bearbeiten nicht möglich"
 
 msgid "Ending"
 msgstr "Ende"
@@ -88,8 +97,8 @@ msgstr "Handlungsfortschritt"
 msgid "Previous"
 msgstr "Zurück"
 
-msgid "Section"
-msgstr "Abschnitt"
+msgid "Tagged manuscript for proofing"
+msgstr "Manuskript mit Markierungen zum Überarbeiten"
 
 msgid "World building"
 msgstr "Weltenbau"

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
-"POT-Creation-Date: 2026-02-04 22:11:55\n"
+"POT-Creation-Date: 2026-02-05 19:15:23\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -41,6 +41,9 @@ msgstr ""
 msgid "Dark mode"
 msgstr ""
 
+msgid "Documents found that might be edited"
+msgstr ""
+
 msgid "Done"
 msgstr ""
 
@@ -48,6 +51,12 @@ msgid "Draft"
 msgstr ""
 
 msgid "Edit in distraction free mode"
+msgstr ""
+
+msgid "Editable manuscript"
+msgstr ""
+
+msgid "Editing not possible"
 msgstr ""
 
 msgid "Ending"
@@ -87,6 +96,9 @@ msgid "Plot progress"
 msgstr ""
 
 msgid "Previous"
+msgstr ""
+
+msgid "Tagged manuscript for proofing"
 msgstr ""
 
 msgid "World building"

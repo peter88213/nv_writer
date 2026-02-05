@@ -4,9 +4,12 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+import os
 from pathlib import Path
 
 from nvlib.controller.sub_controller import SubController
+from nvlib.novx_globals import MANUSCRIPT_SUFFIX
+from nvlib.novx_globals import PROOF_SUFFIX
 from nvwriter.scrollbar_styles import make_scrollbar_styles
 from nvwriter.writer_locale import _
 from nvwriter.writer_view import WriterView
@@ -83,6 +86,21 @@ class WriterService(SubController):
         return colorModes[self.prefs['color_mode']]
 
     def start_editor(self):
+        if self._ctrl.isLocked:
+            return
+
+        if not self._mdl.prjFile:
+            return
+
+        activeDocuments = self._active_documents()
+        if activeDocuments:
+            self._ui.show_error(
+            message=f"{_('Documents found that might be edited')}:",
+            detail='\n'.join(activeDocuments),
+            title=_('Editing not possible'),
+            )
+            return
+
         self.writer = WriterView(
             self._mdl,
             self._ui,
@@ -90,4 +108,16 @@ class WriterService(SubController):
             self.prefs,
             self.get_colors(),
         )
+
+    def _active_documents(self):
+        docTypes = {
+            _('Editable manuscript'): f'{MANUSCRIPT_SUFFIX}.odt',
+            _('Tagged manuscript for proofing'): f'{PROOF_SUFFIX}.odt',
+        }
+        fileName, __ = os.path.splitext(self._mdl.prjFile.filePath)
+        activeDocs = []
+        for doc in docTypes:
+            if os.path.isfile(f'{fileName}{docTypes[doc]}'):
+                activeDocs.append(doc)
+        return activeDocs
 
