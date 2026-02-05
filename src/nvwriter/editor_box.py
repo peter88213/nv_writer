@@ -7,6 +7,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 import re
 from tkinter import ttk
 
+from nvlib.gui.contents_window.content_view_parser import ContentViewParser
 from nvlib.model.xml.xml_filter import strip_illegal_characters
 import tkinter as tk
 import xml.etree.ElementTree as ET
@@ -16,13 +17,16 @@ class EditorBox(tk.Text):
     """A text editor widget for novelibre raw markup."""
     _TAGS = ('em', 'strong')
     # Supported tags.
-    XML_TAG = 'xmlTag'
-    COLOR_XML_TAG = 'cornflower blue'
+    COMMENT_TAG = 'commentTag'
+    NOTE_TAG = 'noteTag'
+    EM_TAG = 'emTag'
+    STRONG_TAG = 'strongTag'
 
     def __init__(
         self,
         master=None,
         vstyle=None,
+        color_highlight='grey',
         **kw,
     ):
         """Copied from tkinter.scrolledtext and modified (use ttk widgets).
@@ -54,9 +58,30 @@ class EditorBox(tk.Text):
             if m[0] != '_' and m != 'config' and m != 'configure':
                 setattr(self, m, getattr(self.frame, m))
 
-        self.tag_configure(self.XML_TAG,
-                           foreground=self.COLOR_XML_TAG,
-                           )
+        # Configure the content parser.
+        self._contentParser = ContentViewParser()
+        self._contentParser.emTag = self.EM_TAG
+        self._contentParser.strongTag = self.STRONG_TAG
+        self._contentParser.commentTag = self.COMMENT_TAG
+        self._contentParser.noteTag = self.NOTE_TAG
+
+        # Configure the editor box.
+        self.tag_configure(
+            self.EM_TAG,
+            foreground=color_highlight,
+        )
+        self.tag_configure(
+            self.STRONG_TAG,
+            foreground=color_highlight,
+        )
+        self.tag_configure(
+            self.COMMENT_TAG,
+            background=color_highlight,
+        )
+        self.tag_configure(
+            self.NOTE_TAG,
+            background=color_highlight,
+        )
 
     def check_validity(self):
         text = strip_illegal_characters(self.get("1.0", "end"))
@@ -84,30 +109,30 @@ class EditorBox(tk.Text):
         text = text.replace('\n', '')
         return strip_illegal_characters(text)
 
-    def colorize(self, event=None):
-        """Colorize the XML tags."""
-        self.tag_remove(self.XML_TAG, '1.0', 'end')
-        for i in range(int(self.index('end').split('.')[0])):
-            line = self.get(f'{i}.0', f'{i}.0 lineend')
-            for xmlTag in re.finditer('<.*?>', line):
-                self.tag_add(
-                    self.XML_TAG,
-                    f'{i}.{xmlTag.start()}',
-                    f'{i}.{xmlTag.end()}',
-                )
-
     def set_text(self, text):
         """Put text into the editor box and clear the undo/redo stack."""
-        startIndex = len("<p>")
-        if not text:
-            text = '<p></p>'
-        for tag in ('p', 'h5', 'h6', 'h7', 'h8', 'h9'):
-            text = text.replace(f'</{tag}>', f'</{tag}>\n')
-        self.insert('end', text)
+        if text:
+            taggedText = self._convert_from_novx(
+                text,
+                '',
+            )
+        else:
+            taggedText = []
+
+        # Send the (text, tag) tuples to the text box.
+        for entry in taggedText:
+            if len(entry) == 2:
+                # entry is a regular (text, tag) tuple.
+                text, tag = entry
+                self.insert('end', text, tag)
+            else:
+                # entry is a mark to insert.
+                index = f"{self.count('1.0', 'end', 'lines')[0]}.0"
+                self._textMarks[entry] = index
+
         self.edit_reset()
         # this is to prevent the user from clearing the box with Ctrl-Z
-        self.mark_set('insert', f'1.{startIndex}')
-        self.colorize()
+        self.mark_set('insert', f'1.0')
 
     def emphasis(self, event=None):
         """Make the selection emphasized.
@@ -136,16 +161,11 @@ class EditorBox(tk.Text):
         self.colorize()
         return 'break'
 
-    def _convert_from_novx(self, text, textTag, update):
-        """Return a section's content as a list of (text, tag) tuples.
-        
-        Positional arguments:
-            text: str -- a section's xml text.
-            textTag: str -- default tag used for body text.
-            update: Boolean -- If True, just update sysntax highlighting.
-        """
+    def _convert_from_novx(self, text, textTag):
+        # Return a section's content as a list of (text, tag) tuples.
+        # text: str -- a section's xml text.
+        # textTag: str -- default tag used for body text.
         self._contentParser.textTag = textTag
-        self._contentParser.update = update
         self._contentParser.feed(text)
         return self._contentParser.taggedText[1:-1]
 

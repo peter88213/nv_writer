@@ -19,14 +19,10 @@ class WriterService(SubController):
     INI_FILENAME = 'writer.ini'
     INI_FILEPATH = '.novx/config'
     SETTINGS = dict(
-        color_mode=0,
         editor_width=800,
-        color_bg_bright='white',
-        color_fg_bright='black',
-        color_bg_light='navy',
-        color_fg_light='gray70',
-        color_bg_dark='gray20',
-        color_fg_dark='light green',
+        color_highlight='green2',
+        color_bg='gray20',
+        color_fg='green3',
         color_desktop='gray30',
         font_family='Courier',
         font_size=14,
@@ -64,27 +60,6 @@ class WriterService(SubController):
         # Create the CustomScrollbarStyle object in tk.
         make_scrollbar_styles()
 
-    def get_colors(self):
-        colorModes = [
-            (
-                self.prefs['color_fg_dark'],
-                self.prefs['color_bg_dark'],
-                _('Dark mode'),
-            ),
-            (
-                self.prefs['color_fg_light'],
-                self.prefs['color_bg_light'],
-                _('Light mode'),
-            ),
-            (
-                self.prefs['color_fg_bright'],
-                self.prefs['color_bg_bright'],
-                _('Bright mode'),
-            ),
-        ]
-        # (foreground, background, name) tuples for color modes.
-        return colorModes[self.prefs['color_mode']]
-
     def start_editor(self):
         if self._ctrl.isLocked:
             return
@@ -106,7 +81,6 @@ class WriterService(SubController):
             self._ui,
             self._ctrl,
             self.prefs,
-            self.get_colors(),
         )
 
     def _active_documents(self):

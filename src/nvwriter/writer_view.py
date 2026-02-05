@@ -24,7 +24,6 @@ class WriterView(ModalDialog):
             view,
             controller,
             prefs,
-            editorColors,
     ):
         self._mdl = model
         self._ui = view
@@ -57,12 +56,13 @@ class WriterView(ModalDialog):
         ttk.Style().configure(
             'CustomScrollbarStyle.Vertical.TScrollbar',
             troughcolor=prefs['color_desktop'],
-            background=editorColors[1],
+            background=prefs['color_bg'],
         )
 
         self._sectionEditor = EditorBox(
             editorWindow,
             vstyle='CustomScrollbarStyle.Vertical.TScrollbar',
+            color_highlight=prefs['color_highlight'],
             wrap='word',
             undo=True,
             autoseparators=True,
@@ -71,13 +71,13 @@ class WriterView(ModalDialog):
             maxundo=-1,
             padx=prefs['margin_x'],
             pady=prefs['margin_y'],
+            fg=prefs['color_fg'],
+            bg=prefs['color_bg'],
+            insertbackground=prefs['color_fg'],
             font=(
                 prefs['font_family'],
                 prefs['font_size'],
             ),
-            fg=editorColors[0],
-            bg=editorColors[1],
-            insertbackground=editorColors[0],
         )
         self._sectionEditor.pack(expand=True, fill='both')
 
