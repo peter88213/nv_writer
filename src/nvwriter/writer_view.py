@@ -11,8 +11,8 @@ from nvlib.gui.widgets.modal_dialog import ModalDialog
 from nvlib.novx_globals import CH_ROOT
 from nvlib.novx_globals import SECTION_PREFIX
 from nvwriter.editor_box import EditorBox
-from nvwriter.writer_locale import _
 from nvwriter.platform.platform_settings import KEYS
+from nvwriter.writer_locale import _
 import tkinter as tk
 
 
@@ -51,6 +51,15 @@ class WriterView(ModalDialog):
         )
 
         # Add a text editor with scrollbar to the editor window.
+
+        # Update the scrollbar color.
+        # (CustomScrollbarStyle is created once in WriterService)
+        ttk.Style().configure(
+            'CustomScrollbarStyle.Vertical.TScrollbar',
+            troughcolor=prefs['color_desktop'],
+            background=editorColors[1],
+        )
+
         self._sectionEditor = EditorBox(
             editorWindow,
             vstyle='CustomScrollbarStyle.Vertical.TScrollbar',

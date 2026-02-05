@@ -58,13 +58,8 @@ class WriterService(SubController):
         self.prefs.update(self.configuration.settings)
         self.prefs.update(self.configuration.options)
 
-        editorColors = self.get_colors()
-
-        # Customize the scrollbar.
-        make_scrollbar_styles(
-            troughcolor=self.prefs['color_desktop'],
-            background=editorColors[1],
-        )
+        # Create the CustomScrollbarStyle object in tk.
+        make_scrollbar_styles()
 
     def get_colors(self):
         colorModes = [
