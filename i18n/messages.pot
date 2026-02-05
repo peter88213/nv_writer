@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
-"POT-Creation-Date: 2026-02-05 19:15:23\n"
+"POT-Creation-Date: 2026-02-05 22:17:54\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -26,9 +26,6 @@ msgstr ""
 msgid "Bio"
 msgstr ""
 
-msgid "Bright mode"
-msgstr ""
-
 msgid "Characterization"
 msgstr ""
 
@@ -36,9 +33,6 @@ msgid "Close"
 msgstr ""
 
 msgid "Ctrl"
-msgstr ""
-
-msgid "Dark mode"
 msgstr ""
 
 msgid "Documents found that might be edited"
@@ -63,9 +57,6 @@ msgid "Ending"
 msgstr ""
 
 msgid "Goals"
-msgstr ""
-
-msgid "Light mode"
 msgstr ""
 
 msgid "Major Character"
@@ -105,4 +96,10 @@ msgid "World building"
 msgstr ""
 
 msgid "https://peter88213.github.io/nvhelp-en"
+msgstr ""
+
+msgid "new"
+msgstr ""
+
+msgid "words"
 msgstr ""

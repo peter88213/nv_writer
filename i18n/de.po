@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-02-05 19:15:23\n"
+"PO-Revision-Date: 2026-02-05 22:17:54\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -25,9 +25,6 @@ msgstr "Änderungen am Abschnitt übernehmen?"
 msgid "Bio"
 msgstr "Biographie"
 
-msgid "Bright mode"
-msgstr "Heller Modus"
-
 msgid "Characterization"
 msgstr "Charakterisierung"
 
@@ -36,9 +33,6 @@ msgstr "Schließen"
 
 msgid "Ctrl"
 msgstr "Strg"
-
-msgid "Dark mode"
-msgstr "Dunkler Modus"
 
 msgid "Documents found that might be edited"
 msgstr "Dokumente gefunden, die bearbeitet sein könnten"
@@ -63,9 +57,6 @@ msgstr "Ende"
 
 msgid "Goals"
 msgstr "Ziele"
-
-msgid "Light mode"
-msgstr "Lichter Modus"
 
 msgid "Major Character"
 msgstr "Hauptfigur"
@@ -105,3 +96,9 @@ msgstr "Weltenbau"
 
 msgid "https://peter88213.github.io/nvhelp-en"
 msgstr "https://peter88213.github.io/nvhelp-de"
+
+msgid "new"
+msgstr "neu"
+
+msgid "words"
+msgstr "Wörter"
