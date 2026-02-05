@@ -24,7 +24,7 @@ class WriterView(ModalDialog):
             view,
             controller,
             prefs,
-            colorModes,
+            editorColors,
     ):
         self._mdl = model
         self._ui = view
@@ -66,9 +66,9 @@ class WriterView(ModalDialog):
                 prefs['font_family'],
                 prefs['font_size'],
             ),
-            fg=colorModes[1],
-            bg=colorModes[2],
-            insertbackground=colorModes[1],
+            fg=editorColors[1],
+            bg=editorColors[2],
+            insertbackground=editorColors[1],
         )
         self._sectionEditor.pack(expand=True, fill='both')
 

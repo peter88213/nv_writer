@@ -58,16 +58,16 @@ class WriterService(SubController):
         self.prefs.update(self.configuration.settings)
         self.prefs.update(self.configuration.options)
 
-        colorModes = self.set_colors()
+        editorColors = self.get_colors()
 
         # Customize the scrollbar.
         make_scrollbar_styles(
             troughcolor=self.prefs['color_desktop'],
-            background=colorModes[2],
+            background=editorColors[2],
         )
 
-    def set_colors(self):
-        allColorModes = [
+    def get_colors(self):
+        colorModes = [
             (
                 _('Bright mode'),
                 self.prefs['color_fg_bright'],
@@ -85,7 +85,7 @@ class WriterService(SubController):
             ),
         ]
         # (name, foreground, background) tuples for color modes.
-        return allColorModes[self.prefs['color_mode']]
+        return colorModes[self.prefs['color_mode']]
 
     def start_editor(self):
         self.writer = WriterView(
@@ -93,6 +93,6 @@ class WriterService(SubController):
             self._ui,
             self._ctrl,
             self.prefs,
-            self.set_colors(),
+            self.get_colors(),
         )
 
