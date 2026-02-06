@@ -9,8 +9,12 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 from xml import sax
 
+from nvwriter.comment import Comment
 from nvwriter.nvwriter_globals import BULLET
+from nvwriter.nvwriter_globals import COMMENT_PREFIX
 from nvwriter.nvwriter_globals import T_COMMENT
+from nvwriter.nvwriter_globals import T_CREATOR
+from nvwriter.nvwriter_globals import T_DATE
 from nvwriter.nvwriter_globals import T_EM
 from nvwriter.nvwriter_globals import T_H5
 from nvwriter.nvwriter_globals import T_H6
@@ -34,20 +38,38 @@ class NovxParser(sax.ContentHandler):
         self._taggedText = []
         self._tags = []
         self._spans = []
+        self.comments = []
         self._heading = None
         self._list = None
+        self._comment = None
+        self._commentState = None
 
     def feed(self, xmlString):
         self._taggedText.clear()
         self._tags.clear()
         self._spans.clear()
+        self.comments.clear()
         self._heading = False
         self._list = False
+        self._comment = None
+        self._commentState = None
 
         if xmlString:
             sax.parseString(f'<content>{xmlString}</content>', self)
 
     def characters(self, content):
+        if self._commentState == T_CREATOR:
+            self._comment.creator = content
+            return
+
+        if self._commentState == T_DATE:
+            self._comment.date = content
+            return
+
+        if self._commentState == 'p':
+            self._comment.add_text(content)
+            return
+
         tag = [self.textTag]
         if self._tags:
             self._tags.reverse()
@@ -78,7 +100,11 @@ class NovxParser(sax.ContentHandler):
         elif name == T_UL:
             self._list = False
         elif name == T_COMMENT:
-            self._comment = False
+            tag = (T_COMMENT, f'{COMMENT_PREFIX}:{len(self.comments)}')
+            self._taggedText.append((self._comment.text, tag))
+            self.comments.append(self._comment)
+            self._comment = None
+            self._commentState = None
         elif name == T_NOTE:
             self._note = False
 
@@ -91,6 +117,8 @@ class NovxParser(sax.ContentHandler):
             attrKey, attrValue = attribute
             attributes.append(f'{attrKey}="{attrValue}"')
         suffix = ''
+        if self._commentState:
+            self._commentState = name
         if name in (
             'p',
         ):
@@ -122,18 +150,12 @@ class NovxParser(sax.ContentHandler):
         elif name == T_UL:
             self._list = True
         elif name == T_COMMENT:
-            self._comment = True
-            suffix = '\n'
+            self._comment = Comment()
+            self._commentState = name
         elif name == T_NOTE:
             self._note = True
             suffix = '\n'
         elif name == T_LI:
             suffix = f'\n{BULLET}'
-        elif name in (
-            'creator',
-            'date',
-            'note-citation',
-        ):
-            suffix = '\n'
         if suffix:
             self._taggedText.append((suffix, ''))

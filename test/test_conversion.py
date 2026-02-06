@@ -29,6 +29,8 @@ XML_TEXT = (
     '<li><p><em>Three</em></p></li>'
     '</ul>'
     '<p>Next line</p>'
+    '<p><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
+    '<p>Next line</p>'
     '<ul>'
     '<li><p>One</p></li>'
     '</ul>'
@@ -39,7 +41,7 @@ class Test(unittest.TestCase):
 
     def setUp(self):
         root = tk.Tk()
-        self.editor = EditorBox(root)
+        self.editor = EditorBox(root, fg='black', bg='white')
 
     def tearDown(self):
         pass

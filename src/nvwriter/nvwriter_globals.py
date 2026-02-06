@@ -6,7 +6,10 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 
 BULLET = '* '
+COMMENT_PREFIX = 'cmId'
 T_COMMENT = 'comment'
+T_CREATOR = 'creator'
+T_DATE = 'date'
 T_EM = 'em'
 T_H5 = 'h5'
 T_H6 = 'h6'
