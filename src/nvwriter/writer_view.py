@@ -48,7 +48,6 @@ class WriterView(ModalDialog):
         )
         editorWindow.pack(
             expand=True,
-            fill='y'
         )
 
         # Add a text editor with scrollbar to the editor window.
@@ -80,12 +79,13 @@ class WriterView(ModalDialog):
                 prefs['font_family'],
                 prefs['font_size'],
             ),
+            height=prefs['editor_height'],
         )
         self._sectionEditor.pack(expand=True, fill='both')
 
         # Add a status bar to the editor window.
         self._statusBar = tk.Frame(
-            self,
+            editorWindow,
             background=self._sectionEditor['bg'],
         )
         self._statusBar.pack(
