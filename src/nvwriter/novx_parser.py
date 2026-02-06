@@ -65,10 +65,11 @@ class NovxParser(sax.ContentHandler):
             return
 
         if self._commentState == 'p':
-            self.comments[-1].add_text(content)
+            self.comments[-1].add_text(content, '\n')
             return
 
         if self._commentState is not None:
+            print(self._commentState)
             return
 
         tag = [self.textTag]
@@ -118,13 +119,15 @@ class NovxParser(sax.ContentHandler):
             self._commentState = name
             return
 
+        if self._commentState is not None:
+            self._commentState = name
+            return
+
         attributes = []
         for attribute in attrs.items():
             attrKey, attrValue = attribute
             attributes.append(f'{attrKey}="{attrValue}"')
         suffix = ''
-        if self._commentState:
-            self._commentState = name
         if name in (
             'p',
         ):

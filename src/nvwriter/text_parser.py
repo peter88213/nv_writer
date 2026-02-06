@@ -42,7 +42,7 @@ class TextParser():
 
     def characters(self, content):
         if self._commentIndex is not None:
-            self.comments[self._commentIndex].add_text(content)
+            self.comments[self._commentIndex].add_text(content, '')
             return
 
         if not self._paragraph:

@@ -73,7 +73,7 @@ class EditorBox(tk.Text):
         )
         self.tag_configure(
             T_COMMENT,
-            background=kw['fg'],
+            background=color_highlight,
             foreground=kw['bg'],
         )
         self.tag_configure(

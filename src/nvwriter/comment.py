@@ -13,11 +13,11 @@ class Comment:
         self.date = None
         self.text = None
 
-    def add_text(self, text):
+    def add_text(self, text, separator):
         if not self.text:
             self.text = text
         else:
-            self.text = f'{self.text}{text}'
+            self.text = f'{self.text}{separator}{text}'
 
     def get_xml(self):
         text = self.text.replace('\n', '</p><p>')
