@@ -27,7 +27,6 @@ class Test(unittest.TestCase):
     def testConversion(self):
         self.editor.set_text(XML_TEXT)
         result = self.editor.get_text()
-        print(result)
         self.assertEqual(result, XML_TEXT)
 
 

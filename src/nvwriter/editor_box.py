@@ -7,7 +7,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 import re
 from tkinter import ttk
 
-from nvlib.gui.contents_window.content_view_parser import ContentViewParser
+from nvwriter.novx_parser import NovxParser
 from nvlib.model.xml.xml_filter import strip_illegal_characters
 import tkinter as tk
 import xml.etree.ElementTree as ET
@@ -57,7 +57,7 @@ class EditorBox(tk.Text):
                 setattr(self, m, getattr(self.frame, m))
 
         # Configure the content parser.
-        self._contentParser = ContentViewParser()
+        self._contentParser = NovxParser()
         self._contentParser.emTag = self.EM_TAG
         self._contentParser.strongTag = self.STRONG_TAG
         self._contentParser.commentTag = self.COMMENT_TAG
@@ -106,11 +106,18 @@ class EditorBox(tk.Text):
 
         def process_triple(key, value, __):
             if key == 'text':
-                lines.append(value.replace('\n', '</p><p>'))
+                if not self._paragraph:
+                    lines.append('<p>')
+                self._paragraph = True
+                if value.endswith('\n'):
+                    lines.append(f'{value.rstrip()}</p>')
+                    self._paragraph = False
+                else:
+                    lines.append(value)
 
-        lines = ['<p>']
+        self._paragraph = False
+        lines = []
         self.dump(start, end, command=process_triple)
-        lines.append('</p>')
         return ''.join(lines)
 
     def set_text(self, text):
@@ -165,7 +172,7 @@ class EditorBox(tk.Text):
         # textTag: str -- default tag used for body text.
         self._contentParser.textTag = textTag
         self._contentParser.feed(text)
-        return self._contentParser.taggedText[1:-1]
+        return self._contentParser.taggedText
 
     def _get_tags(self, start, end):
         """Get a set of tags between the start and end text mark.     
