@@ -7,19 +7,19 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 import re
 from tkinter import ttk
 
-from nvwriter.novx_parser import NovxParser
 from nvlib.model.xml.xml_filter import strip_illegal_characters
+from nvwriter.novx_parser import NovxParser
+from nvwriter.nvwriter_globals import T_COMMENT
+from nvwriter.nvwriter_globals import T_EM
+from nvwriter.nvwriter_globals import T_NOTE
+from nvwriter.nvwriter_globals import T_STRONG
+from nvwriter.text_parser import TextParser
 import tkinter as tk
 import xml.etree.ElementTree as ET
-from nvwriter.text_parser import TextParser
 
 
 class EditorBox(tk.Text):
     """A text editor widget for novelibre raw markup."""
-    COMMENT_TAG = 'commentTag'
-    NOTE_TAG = 'noteTag'
-    EM_TAG = 'emTag'
-    STRONG_TAG = 'strongTag'
 
     def __init__(
         self,
@@ -59,28 +59,24 @@ class EditorBox(tk.Text):
 
         # Configure the content parsers.
         self._novxParser = NovxParser()
-        self._novxParser.emTag = self.EM_TAG
-        self._novxParser.strongTag = self.STRONG_TAG
-        self._novxParser.commentTag = self.COMMENT_TAG
-        self._novxParser.noteTag = self.NOTE_TAG
 
         self._textParser = TextParser()
 
         # Configure the editor box.
         self.tag_configure(
-            self.EM_TAG,
+            T_EM,
             foreground=color_highlight,
         )
         self.tag_configure(
-            self.STRONG_TAG,
+            T_STRONG,
             foreground=color_highlight,
         )
         self.tag_configure(
-            self.COMMENT_TAG,
+            T_COMMENT,
             background=color_highlight,
         )
         self.tag_configure(
-            self.NOTE_TAG,
+            T_NOTE,
             background=color_highlight,
         )
 
@@ -105,7 +101,8 @@ class EditorBox(tk.Text):
 
     def get_text(self, start='1.0', end='end'):
         """Return the whole text from the editor box in .novx format."""
-        self._textParser.feed(self, start, end,)
+        self._textParser.reset()
+        self.dump(start, end, command=self._textParser.parse_triple)
         return ''.join(self._textParser.lines)
 
     def set_text(self, text):
@@ -138,7 +135,7 @@ class EditorBox(tk.Text):
         
         Or begin with emphasized input.
         """
-        self._set_format(tag=self.EM_TAG)
+        self._set_format(tag=T_EM)
         return 'break'
 
     def strong_emphasis(self, event=None):
@@ -146,7 +143,7 @@ class EditorBox(tk.Text):
         
         Or begin with strongly emphasized input.
         """
-        self._set_format(tag=self.STRONG_TAG)
+        self._set_format(tag=T_STRONG)
         return 'break'
 
     def plain(self, event=None):

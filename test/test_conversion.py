@@ -10,8 +10,8 @@ from nvwriter.editor_box import EditorBox
 import tkinter as tk
 
 XML_TEXT = (
-    '<p>This is the first line of the test section</p>'
-    '<p>This is the second line of the test section</p>'
+    '<p>This is the <em>first</em> line of the test section</p>'
+    '<p>This is the <strong>second</strong> line of the test section</p>'
 )
 
 

@@ -6,22 +6,31 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+
 from xml import sax
+
+from nvwriter.nvwriter_globals import BULLET
+from nvwriter.nvwriter_globals import T_COMMENT
+from nvwriter.nvwriter_globals import T_EM
+from nvwriter.nvwriter_globals import T_H5
+from nvwriter.nvwriter_globals import T_H6
+from nvwriter.nvwriter_globals import T_H7
+from nvwriter.nvwriter_globals import T_H8
+from nvwriter.nvwriter_globals import T_H9
+from nvwriter.nvwriter_globals import T_LI
+from nvwriter.nvwriter_globals import T_NOTE
+from nvwriter.nvwriter_globals import T_STRONG
+from nvwriter.nvwriter_globals import T_UL
 
 
 class NovxParser(sax.ContentHandler):
     """A novx section content parser."""
-    BULLET = '*'
 
     def __init__(self):
         super().__init__()
         self.textTag = ''
         self.xmlTag = ''
-        self.emTag = ''
-        self.strongTag = ''
-        self.commentTag = ''
         self.commentXmlTag = ''
-        self.noteTag = ''
         self.noteXmlTag = ''
 
         self.taggedText = None
@@ -58,15 +67,15 @@ class NovxParser(sax.ContentHandler):
         """
         tag = self.textTag
         if self._em:
-            tag = self.emTag
+            tag = T_EM
         elif self._strong:
-            tag = self.strongTag
+            tag = T_STRONG
         if self._heading:
             tag = self.headingTag
         if self._comment:
-            tag = self.commentTag
+            tag = T_COMMENT
         elif self._note:
-            tag = self.noteTag
+            tag = T_NOTE
         self.taggedText.append((content, tag))
 
     def endElement(self, name):
@@ -80,23 +89,23 @@ class NovxParser(sax.ContentHandler):
             tag = self.commentXmlTag
         elif self._note:
             tag = self.noteXmlTag
-        if name == 'em':
+        if name == T_EM:
             self._em = False
-        elif name == 'strong':
+        elif name == T_STRONG:
             self._strong = False
         elif name in (
-            'h5',
-            'h6',
-            'h7',
-            'h8',
-            'h9',
+            T_H5,
+            T_H6,
+            T_H7,
+            T_H8,
+            T_H9,
         ):
             self._heading = False
-        elif name == 'ul':
+        elif name == T_UL:
             self._list = False
-        elif name == 'comment':
+        elif name == T_COMMENT:
             self._comment = False
-        elif name == 'note':
+        elif name == T_NOTE:
             self._note = False
         if suffix:
             self.taggedText.append((suffix, tag))
@@ -114,29 +123,30 @@ class NovxParser(sax.ContentHandler):
         suffix = ''
         if name == 'p' and self.taggedText and not self._list:
             suffix = '\n'
-        elif name == 'em':
+        elif name == T_EM:
             self._em = True
-        elif name == 'strong':
+        elif name == T_STRONG:
             self._strong = True
         elif name in (
-            'h5',
-            'h6',
-            'h7',
-            'h8',
-            'h9',
+            T_H5,
+            T_H6,
+            T_H7,
+            T_H8,
+            T_H9,
         ):
             self._heading = True
+            self.headingTag = name
             suffix = '\n'
-        elif name == 'ul':
+        elif name == T_UL:
             self._list = True
-        elif name == 'comment':
+        elif name == T_COMMENT:
             self._comment = True
             suffix = '\n'
-        elif name == 'note':
+        elif name == T_NOTE:
             self._note = True
             suffix = '\n'
-        elif name == 'li':
-            suffix = f'\n{self.BULLET} '
+        elif name == T_LI:
+            suffix = f'\n{BULLET} '
         elif name in (
             'creator',
             'date',

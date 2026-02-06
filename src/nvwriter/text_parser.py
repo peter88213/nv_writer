@@ -6,28 +6,44 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+from nvwriter.nvwriter_globals import T_EM
+from nvwriter.nvwriter_globals import T_STRONG
 
 
 class TextParser():
-    """A novx section content parser."""
-    BULLET = '*'
+    """A ttk.Text content parser."""
 
     def __init__(self):
-        self._paragrapn = None
+        self._paragraph = None
         self.lines = []
 
-    def feed(self, textBox, start, end):
+    def reset(self):
         self._paragraph = False
         self.lines.clear()
-        textBox.dump(start, end, command=self._process_triple)
 
-    def _process_triple(self, key, value, __):
+    def parse_triple(self, key, value, __):
+        # print(key, value)
         if key == 'text':
-            if not self._paragraph:
-                self.lines.append('<p>')
-            self._paragraph = True
-            if value.endswith('\n'):
-                self.lines.append(f'{value.rstrip()}</p>')
-                self._paragraph = False
-            else:
-                self.lines.append(value)
+            self.characters(value)
+        elif key == 'tagon':
+            self.startElement(value, None)
+        elif key == 'tagoff':
+            self.endElement(value)
+
+    def characters(self, content):
+        if not self._paragraph:
+            self.lines.append('<p>')
+        self._paragraph = True
+        if content.endswith('\n'):
+            self.lines.append(f'{content.rstrip()}</p>')
+            self._paragraph = False
+        else:
+            self.lines.append(content)
+
+    def endElement(self, name):
+        if name in (T_EM, T_STRONG):
+            self.lines.append(f'</{name}>')
+
+    def startElement(self, name, attrs):
+        if name in (T_EM, T_STRONG):
+            self.lines.append(f'<{name}>')
