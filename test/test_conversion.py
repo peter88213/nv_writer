@@ -12,6 +12,7 @@ import tkinter as tk
 XML_TEXT = (
     '<p>This is the <em>first</em> line of the test section</p>'
     '<p>This is the <strong>second</strong> line of the test section</p>'
+    '<p>This is the <strong><em>third</em></strong> line of the test section</p>'
 )
 
 

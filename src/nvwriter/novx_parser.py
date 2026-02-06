@@ -33,66 +33,36 @@ class NovxParser(sax.ContentHandler):
         self.commentXmlTag = ''
         self.noteXmlTag = ''
 
-        self.taggedText = None
-        # tagged text, assembled by the parser
+        self.taggedText = []
+        self._tags = []
 
-        self._list = None
-        self._comment = None
-        self._note = None
-        self._em = None
-        self._strong = None
         self._heading = None
         self._paragraph = None
+        self._list = None
 
     def feed(self, xmlString):
-        """Feed a string file to the parser.
-        
-        Positional arguments:
-            filePath: str -- novx document path.        
-        """
-        self.taggedText = []
-        self._list = False
-        self._comment = False
-        self._note = False
-        self._em = False
-        self._strong = False
+        self.taggedText.clear()
         self._heading = False
+        self._list = False
+        self._paragraph = False
+        self._tags.clear()
+
         if xmlString:
             sax.parseString(f'<content>{xmlString}</content>', self)
 
     def characters(self, content):
-        """Receive notification of character data.
-        
-        Overrides the xml.sax.ContentHandler method             
-        """
-        tag = self.textTag
-        if self._em:
-            tag = T_EM
-        elif self._strong:
-            tag = T_STRONG
-        if self._heading:
-            tag = self.headingTag
-        if self._comment:
-            tag = T_COMMENT
-        elif self._note:
-            tag = T_NOTE
+        tag = [self.textTag]
+        if self._tags:
+            self._tags.reverse()
+            tag.extend(self._tags)
         self.taggedText.append((content, tag))
 
     def endElement(self, name):
-        """Signals the end of an element in non-namespace mode.
-        
-        Overrides the xml.sax.ContentHandler method     
-        """
-        tag = self.xmlTag
-        suffix = ''
-        if self._comment:
-            tag = self.commentXmlTag
-        elif self._note:
-            tag = self.noteXmlTag
-        if name == T_EM:
-            self._em = False
-        elif name == T_STRONG:
-            self._strong = False
+        if name in (
+            T_EM,
+            T_STRONG,
+        ):
+            self._tags.remove(name)
         elif name in (
             T_H5,
             T_H6,
@@ -107,26 +77,20 @@ class NovxParser(sax.ContentHandler):
             self._comment = False
         elif name == T_NOTE:
             self._note = False
-        if suffix:
-            self.taggedText.append((suffix, tag))
 
     def startElement(self, name, attrs):
-        """Signals the start of an element in non-namespace mode.
-        
-        Overrides the xml.sax.ContentHandler method             
-        """
         attributes = ''
         for attribute in attrs.items():
             attrKey, attrValue = attribute
             attributes = f'{attributes} {attrKey}="{attrValue}"'
-        tag = self.xmlTag
         suffix = ''
         if name == 'p' and self.taggedText and not self._list:
             suffix = '\n'
-        elif name == T_EM:
-            self._em = True
-        elif name == T_STRONG:
-            self._strong = True
+        elif name in (
+            T_EM,
+            T_STRONG,
+        ):
+            self._tags.append(name)
         elif name in (
             T_H5,
             T_H6,
@@ -153,9 +117,5 @@ class NovxParser(sax.ContentHandler):
             'note-citation',
         ):
             suffix = '\n'
-        if self._comment:
-            tag = self.commentXmlTag
-        elif self._note:
-            tag = self.noteXmlTag
         if suffix:
-            self.taggedText.append((suffix, tag))
+            self.taggedText.append((suffix, ''))
