@@ -13,6 +13,8 @@ XML_TEXT = (
     '<p>This is the <em>first</em> line of the test section</p>'
     '<p>This is the <strong>second</strong> line of the test section</p>'
     '<p>This is the <strong><em>third</em></strong> line of the test section</p>'
+    '<p>This is the <em><strong>fourth</strong></em> line of the test section</p>'
+    '<p><em>This</em> is the fifth line of the test section</p>'
 )
 
 
