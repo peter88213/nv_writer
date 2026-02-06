@@ -11,13 +11,27 @@ import tkinter as tk
 
 XML_TEXT = (
     '<p>This is the <em>first</em> line of the test section</p>'
+    '<p></p>'
     '<p>This is the <strong>second</strong> line of the test section</p>'
     '<p>This is the <strong><em>third</em></strong> line of the test section</p>'
     '<p>This is the <em><strong>fourth</strong></em> line of the test section</p>'
     '<p><em>This</em> is the fifth line of the test section</p>'
     '<p>This is the <span xml:lang="en-US">sixth</span> line of the test section</p>'
-    '<p><span xml:lang="en-US">This is the sixth</span> line of the test section</p>'
+    '<p><span xml:lang="en-US">This is the seventh</span> line of the test section</p>'
     '<p xml:lang="en-US">This is the sixth line of the test section</p>'
+    '<p style="quotations">This is the <em>eighth</em> line of the test section</p>'
+    '<p style="quotations" xml:lang="en-US">This is the <em>nineth</em> line of the test section</p>'
+    '<p xml:lang="en-US">This is the <span xml:lang="en-GB">tenth</span> line of the test section</p>'
+    '<p xml:lang="en-US">This is the <em><span xml:lang="en-GB">eleventh</span></em> line of the test section</p>'
+    '<ul>'
+    '<li><p>One</p></li>'
+    '<li><p><em>Two</em></p></li>'
+    '<li><p><em>Three</em></p></li>'
+    '</ul>'
+    '<p>Next line</p>'
+    '<ul>'
+    '<li><p>One</p></li>'
+    '</ul>'
 )
 
 

@@ -103,15 +103,13 @@ class EditorBox(tk.Text):
         """Return the whole text from the editor box in .novx format."""
         self._textParser.reset()
         self.dump(start, end, command=self._textParser.parse_triple)
-        return ''.join(self._textParser.lines)
+        return self._textParser.get_result()
 
     def set_text(self, text):
         """Put text into the editor box and clear the undo/redo stack."""
         if text:
-            taggedText = self._convert_from_novx(
-                text,
-                '',
-            )
+            self._novxParser.feed(text)
+            taggedText = self._novxParser.get_result()
         else:
             taggedText = []
 
@@ -150,14 +148,6 @@ class EditorBox(tk.Text):
         """Remove formatting from the selection."""
         self._set_format()
         return 'break'
-
-    def _convert_from_novx(self, text, textTag):
-        # Return a section's content as a list of (text, tag) tuples.
-        # text: str -- a section's xml text.
-        # textTag: str -- default tag used for body text.
-        self._novxParser.textTag = textTag
-        self._novxParser.feed(text)
-        return self._novxParser.taggedText
 
     def _get_tags(self, start, end):
         """Get a set of tags between the start and end text mark.     

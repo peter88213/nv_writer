@@ -6,9 +6,12 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+from nvwriter.nvwriter_globals import BULLET
 from nvwriter.nvwriter_globals import T_EM
+from nvwriter.nvwriter_globals import T_LI
 from nvwriter.nvwriter_globals import T_SPAN
 from nvwriter.nvwriter_globals import T_STRONG
+from nvwriter.nvwriter_globals import T_UL
 
 
 class TextParser():
@@ -16,45 +19,63 @@ class TextParser():
 
     def __init__(self):
         self._paragraph = None
-        self.lines = []
+        self._list = None
+        self._textlist = []
 
     def reset(self):
         self._paragraph = False
-        self.lines.clear()
+        self._list = False
+        self._textlist.clear()
 
     def parse_triple(self, key, value, __):
         # print(key, value)
-        if key == 'text':
+        if key == 'text' and value:
             self.characters(value)
-        elif key == 'tagon':
-            self.startElement(value, None)
-        elif key == 'tagoff':
+        elif key == 'tagon' and value:
+            self.startElement(value)
+        elif key == 'tagoff' and value:
             self.endElement(value)
 
     def characters(self, content):
         if not self._paragraph:
-            self.lines.append('<p>')
-        self._paragraph = True
+            if content.startswith(BULLET):
+                content = content.lstrip(BULLET)
+                if not self._list:
+                    self._textlist.append(f'<{T_UL}>')
+                    self._list = True
+                self._textlist.append(f'<{T_LI}>')
+            elif self._list:
+                self._textlist.append(f'</{T_UL}>')
+                self._list = False
+            self._textlist.append('<p>')
+            self._paragraph = True
         if content.endswith('\n'):
-            self.lines.append(f'{content.rstrip()}</p>')
+            self._textlist.append(f'{content.rstrip()}</p>')
             self._paragraph = False
+            if self._list:
+                self._textlist.append(f'</{T_LI}>')
         else:
-            self.lines.append(content)
+            self._textlist.append(content)
 
     def endElement(self, name):
         if name in (T_EM, T_STRONG):
-            self.lines.append(f'</{name}>')
+            self._textlist.append(f'</{name}>')
         if name.startswith(T_SPAN):
-            self.lines.append(f'</{T_SPAN}>')
+            self._textlist.append(f'</{T_SPAN}>')
 
-    def startElement(self, name, attrs):
+    def get_result(self):
+        if self._list:
+            self._textlist.append(f'</{T_UL}>')
+        return ''.join(self._textlist)
+
+    def startElement(self, name):
         if name.startswith('p'):
-            self.lines.append(f'<{name.replace("_", " ")}>')
+            self._textlist.append(f'<{name.replace("_", " ")}>')
         elif not self._paragraph:
-            self.lines.append('<p>')
+            self._textlist.append('<p>')
         self._paragraph = True
         if name in (T_EM, T_STRONG):
-            self.lines.append(f'<{name}>')
+            self._textlist.append(f'<{name}>')
         elif name.startswith(T_SPAN):
-            self.lines.append(f'<{name.replace("_", " ")}>')
+            self._textlist.append(f'<{name.replace("_", " ")}>')
 

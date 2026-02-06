@@ -31,14 +31,14 @@ class NovxParser(sax.ContentHandler):
         super().__init__()
 
         self.textTag = ''
-        self.taggedText = []
+        self._taggedText = []
         self._tags = []
         self._spans = []
         self._heading = None
         self._list = None
 
     def feed(self, xmlString):
-        self.taggedText.clear()
+        self._taggedText.clear()
         self._tags.clear()
         self._spans.clear()
         self._heading = False
@@ -52,7 +52,7 @@ class NovxParser(sax.ContentHandler):
         if self._tags:
             self._tags.reverse()
             tag.extend(self._tags)
-        self.taggedText.append((content, tag))
+        self._taggedText.append((content, tag))
 
     def endElement(self, name):
         if name in (
@@ -82,6 +82,9 @@ class NovxParser(sax.ContentHandler):
         elif name == T_NOTE:
             self._note = False
 
+    def get_result(self):
+        return self._taggedText
+
     def startElement(self, name, attrs):
         attributes = []
         for attribute in attrs.items():
@@ -91,7 +94,7 @@ class NovxParser(sax.ContentHandler):
         if name in (
             'p',
         ):
-            if self.taggedText and not self._list:
+            if self._taggedText and not self._list:
                 suffix = '\n'
             if attributes:
                 span = f"{name}_{'_'.join(attributes)}"
@@ -125,7 +128,7 @@ class NovxParser(sax.ContentHandler):
             self._note = True
             suffix = '\n'
         elif name == T_LI:
-            suffix = f'\n{BULLET} '
+            suffix = f'\n{BULLET}'
         elif name in (
             'creator',
             'date',
@@ -133,4 +136,4 @@ class NovxParser(sax.ContentHandler):
         ):
             suffix = '\n'
         if suffix:
-            self.taggedText.append((suffix, ''))
+            self._taggedText.append((suffix, ''))

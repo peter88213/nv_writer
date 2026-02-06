@@ -5,7 +5,7 @@ For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 
-BULLET = '*'
+BULLET = '* '
 T_COMMENT = 'comment'
 T_EM = 'em'
 T_H5 = 'h5'
