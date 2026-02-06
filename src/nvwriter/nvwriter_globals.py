@@ -15,6 +15,7 @@ T_H8 = 'h8'
 T_H9 = 'h9'
 T_LI = 'li'
 T_NOTE = 'note'
+T_SPAN = 'span'
 T_STRONG = 'strong'
 T_UL = 'ul'
 

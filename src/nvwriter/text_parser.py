@@ -7,6 +7,7 @@ For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from nvwriter.nvwriter_globals import T_EM
+from nvwriter.nvwriter_globals import T_SPAN
 from nvwriter.nvwriter_globals import T_STRONG
 
 
@@ -43,6 +44,8 @@ class TextParser():
     def endElement(self, name):
         if name in (T_EM, T_STRONG):
             self.lines.append(f'</{name}>')
+        if name.startswith(T_SPAN):
+            self.lines.append(f'</{T_SPAN}>')
 
     def startElement(self, name, attrs):
         if name in (T_EM, T_STRONG):
@@ -50,3 +53,6 @@ class TextParser():
                 self.lines.append('<p>')
             self._paragraph = True
             self.lines.append(f'<{name}>')
+        if name.startswith(T_SPAN):
+            self.lines.append(f'<{name.replace("_", " ")}>')
+
