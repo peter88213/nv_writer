@@ -11,7 +11,7 @@ from xml import sax
 
 class NovxParser(sax.ContentHandler):
     """A novx section content parser."""
-    BULLET = '•'
+    BULLET = '*'
 
     def __init__(self):
         super().__init__()

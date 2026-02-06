@@ -11,6 +11,7 @@ from nvwriter.novx_parser import NovxParser
 from nvlib.model.xml.xml_filter import strip_illegal_characters
 import tkinter as tk
 import xml.etree.ElementTree as ET
+from nvwriter.text_parser import TextParser
 
 
 class EditorBox(tk.Text):
@@ -56,13 +57,14 @@ class EditorBox(tk.Text):
             if m[0] != '_' and m != 'config' and m != 'configure':
                 setattr(self, m, getattr(self.frame, m))
 
-        # Configure the content parser.
-        self._contentParser = NovxParser()
-        self._contentParser.emTag = self.EM_TAG
-        self._contentParser.strongTag = self.STRONG_TAG
-        self._contentParser.commentTag = self.COMMENT_TAG
-        self._contentParser.noteTag = self.NOTE_TAG
-        self._contentParser.BULLET = '*'
+        # Configure the content parsers.
+        self._novxParser = NovxParser()
+        self._novxParser.emTag = self.EM_TAG
+        self._novxParser.strongTag = self.STRONG_TAG
+        self._novxParser.commentTag = self.COMMENT_TAG
+        self._novxParser.noteTag = self.NOTE_TAG
+
+        self._textParser = TextParser()
 
         # Configure the editor box.
         self.tag_configure(
@@ -103,22 +105,8 @@ class EditorBox(tk.Text):
 
     def get_text(self, start='1.0', end='end'):
         """Return the whole text from the editor box in .novx format."""
-
-        def process_triple(key, value, __):
-            if key == 'text':
-                if not self._paragraph:
-                    lines.append('<p>')
-                self._paragraph = True
-                if value.endswith('\n'):
-                    lines.append(f'{value.rstrip()}</p>')
-                    self._paragraph = False
-                else:
-                    lines.append(value)
-
-        self._paragraph = False
-        lines = []
-        self.dump(start, end, command=process_triple)
-        return ''.join(lines)
+        self._textParser.feed(self, start, end,)
+        return ''.join(self._textParser.lines)
 
     def set_text(self, text):
         """Put text into the editor box and clear the undo/redo stack."""
@@ -170,9 +158,9 @@ class EditorBox(tk.Text):
         # Return a section's content as a list of (text, tag) tuples.
         # text: str -- a section's xml text.
         # textTag: str -- default tag used for body text.
-        self._contentParser.textTag = textTag
-        self._contentParser.feed(text)
-        return self._contentParser.taggedText
+        self._novxParser.textTag = textTag
+        self._novxParser.feed(text)
+        return self._novxParser.taggedText
 
     def _get_tags(self, start, end):
         """Get a set of tags between the start and end text mark.     

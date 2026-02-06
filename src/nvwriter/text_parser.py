@@ -1,151 +1,33 @@
-"""Provide a class for parsing novx section content. 
+"""Provide a class for parsing ttk.Text content. 
 
-Generate tags for the text box.
+Generate .novx XML tags.
 
 Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
-from xml import sax
 
 
-class NovxParser(sax.ContentHandler):
+class TextParser():
     """A novx section content parser."""
-    BULLET = '•'
+    BULLET = '*'
 
     def __init__(self):
-        super().__init__()
-        self.textTag = ''
-        self.xmlTag = ''
-        self.emTag = ''
-        self.strongTag = ''
-        self.commentTag = ''
-        self.commentXmlTag = ''
-        self.noteTag = ''
-        self.noteXmlTag = ''
+        self._paragrapn = None
+        self.lines = []
 
-        self.taggedText = None
-        # tagged text, assembled by the parser
+    def feed(self, textBox, start, end):
+        self._paragraph = False
+        self.lines.clear()
+        textBox.dump(start, end, command=self._process_triple)
 
-        self._list = None
-        self._comment = None
-        self._note = None
-        self._em = None
-        self._strong = None
-        self._heading = None
-        self._paragraph = None
-
-    def feed(self, xmlString):
-        """Feed a string file to the parser.
-        
-        Positional arguments:
-            filePath: str -- novx document path.        
-        """
-        self.taggedText = []
-        self._list = False
-        self._comment = False
-        self._note = False
-        self._em = False
-        self._strong = False
-        self._heading = False
-        if xmlString:
-            sax.parseString(f'<content>{xmlString}</content>', self)
-
-    def characters(self, content):
-        """Receive notification of character data.
-        
-        Overrides the xml.sax.ContentHandler method             
-        """
-        tag = self.textTag
-        if self._em:
-            tag = self.emTag
-        elif self._strong:
-            tag = self.strongTag
-        if self._heading:
-            tag = self.headingTag
-        if self._comment:
-            tag = self.commentTag
-        elif self._note:
-            tag = self.noteTag
-        self.taggedText.append((content, tag))
-
-    def endElement(self, name):
-        """Signals the end of an element in non-namespace mode.
-        
-        Overrides the xml.sax.ContentHandler method     
-        """
-        tag = self.xmlTag
-        suffix = ''
-        if self._comment:
-            tag = self.commentXmlTag
-        elif self._note:
-            tag = self.noteXmlTag
-        if name == 'em':
-            self._em = False
-        elif name == 'strong':
-            self._strong = False
-        elif name in (
-            'h5',
-            'h6',
-            'h7',
-            'h8',
-            'h9',
-        ):
-            self._heading = False
-        elif name == 'ul':
-            self._list = False
-        elif name == 'comment':
-            self._comment = False
-        elif name == 'note':
-            self._note = False
-        if suffix:
-            self.taggedText.append((suffix, tag))
-
-    def startElement(self, name, attrs):
-        """Signals the start of an element in non-namespace mode.
-        
-        Overrides the xml.sax.ContentHandler method             
-        """
-        attributes = ''
-        for attribute in attrs.items():
-            attrKey, attrValue = attribute
-            attributes = f'{attributes} {attrKey}="{attrValue}"'
-        tag = self.xmlTag
-        suffix = ''
-        if name == 'p' and self.taggedText and not self._list:
-            suffix = '\n'
-        elif name == 'em':
-            self._em = True
-        elif name == 'strong':
-            self._strong = True
-        elif name in (
-            'h5',
-            'h6',
-            'h7',
-            'h8',
-            'h9',
-        ):
-            self._heading = True
-            suffix = '\n'
-        elif name == 'ul':
-            self._list = True
-        elif name == 'comment':
-            self._comment = True
-            suffix = '\n'
-        elif name == 'note':
-            self._note = True
-            suffix = '\n'
-        elif name == 'li':
-            suffix = f'\n{self.BULLET} '
-        elif name in (
-            'creator',
-            'date',
-            'note-citation',
-        ):
-            suffix = '\n'
-        if self._comment:
-            tag = self.commentXmlTag
-        elif self._note:
-            tag = self.noteXmlTag
-        if suffix:
-            self.taggedText.append((suffix, tag))
+    def _process_triple(self, key, value, __):
+        if key == 'text':
+            if not self._paragraph:
+                self.lines.append('<p>')
+            self._paragraph = True
+            if value.endswith('\n'):
+                self.lines.append(f'{value.rstrip()}</p>')
+                self._paragraph = False
+            else:
+                self.lines.append(value)
