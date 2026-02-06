@@ -28,24 +28,18 @@ class NovxParser(sax.ContentHandler):
 
     def __init__(self):
         super().__init__()
-        self.textTag = ''
-        self.xmlTag = ''
-        self.commentXmlTag = ''
-        self.noteXmlTag = ''
 
+        self.textTag = ''
         self.taggedText = []
         self._tags = []
-
         self._heading = None
-        self._paragraph = None
         self._list = None
 
     def feed(self, xmlString):
         self.taggedText.clear()
+        self._tags.clear()
         self._heading = False
         self._list = False
-        self._paragraph = False
-        self._tags.clear()
 
         if xmlString:
             sax.parseString(f'<content>{xmlString}</content>', self)
