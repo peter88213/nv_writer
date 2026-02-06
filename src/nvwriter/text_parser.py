@@ -48,7 +48,9 @@ class TextParser():
             self.lines.append(f'</{T_SPAN}>')
 
     def startElement(self, name, attrs):
-        if not self._paragraph:
+        if name.startswith('p'):
+            self.lines.append(f'<{name.replace("_", " ")}>')
+        elif not self._paragraph:
             self.lines.append('<p>')
         self._paragraph = True
         if name in (T_EM, T_STRONG):

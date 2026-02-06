@@ -17,6 +17,7 @@ XML_TEXT = (
     '<p><em>This</em> is the fifth line of the test section</p>'
     '<p>This is the <span xml:lang="en-US">sixth</span> line of the test section</p>'
     '<p><span xml:lang="en-US">This is the sixth</span> line of the test section</p>'
+    '<p xml:lang="en-US">This is the sixth line of the test section</p>'
 )
 
 

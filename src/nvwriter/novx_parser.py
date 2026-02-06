@@ -56,6 +56,11 @@ class NovxParser(sax.ContentHandler):
 
     def endElement(self, name):
         if name in (
+            'p',
+        ):
+            self._spans.clear()
+            self._tags.clear()
+        if name in (
             T_EM,
             T_STRONG,
         ):
@@ -83,8 +88,15 @@ class NovxParser(sax.ContentHandler):
             attrKey, attrValue = attribute
             attributes.append(f'{attrKey}="{attrValue}"')
         suffix = ''
-        if name == 'p' and self.taggedText and not self._list:
-            suffix = '\n'
+        if name in (
+            'p',
+        ):
+            if self.taggedText and not self._list:
+                suffix = '\n'
+            if attributes:
+                span = f"{name}_{'_'.join(attributes)}"
+                self._spans.append(span)
+                self._tags.append(span)
         elif name in (
             T_EM,
             T_STRONG,
