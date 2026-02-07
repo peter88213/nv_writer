@@ -38,7 +38,7 @@ Although mouse operations are possible, the editor can be operated entirely via 
 > Please check the results with *OpenOffice/LibreOffice Writer*, and report any issues if something seems strange. 
 > Feel free to share your thoughts in the [novelibre discussion forum](https://github.com/peter88213/novelibre/discussions). 
 >
-> The current release supports most of the *novelibre* formatting, even if it's not displayed on the screen. 
+> The current release retains most of the *novelibre* formatting, even if it is not displayed on the screen. 
 > - Footnotes and endnotes created with *Writer* are lost.  
 > - Inserted heading styles H5...H9 may be lost. 
 
