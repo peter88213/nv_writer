@@ -132,6 +132,20 @@ class WriterView(ModalDialog):
             side='left',
         )
 
+        # Modification indicator.
+        self._modificationIndicator = tk.Label(
+            self._statusBar,
+            background=self._prefs['color_bg'],
+            foreground=self._prefs['color_fg'],
+            text='',
+            anchor='w',
+            padx=5,
+            pady=2,
+        )
+        self._modificationIndicator.pack(
+            side='left',
+        )
+
         #--- Event bindings.
         self._sectionEditor.bind(
             KEYS.PREVIOUS[0],
@@ -187,10 +201,6 @@ class WriterView(ModalDialog):
         self._sectionEditor.bind(
             KEYS.TOGGLE_FOOTER_BAR[0],
             self._footerBar.toggle
-        )
-        self._sectionEditor.bind(
-            "<<Modified>>",
-            self._set_modified_flag
         )
         event_callbacks = {
             '<<load_next>>': self._load_next,
@@ -306,6 +316,7 @@ class WriterView(ModalDialog):
 
     def _load_section(self, scId=None):
         """Load the section content into the text editor."""
+        self._sectionEditor.unbind("<<Modified>>")
         finished = False
         if not self._is_editable(scId):
             for chId in self._mdl.novel.tree.get_children(CH_ROOT):
@@ -338,15 +349,25 @@ class WriterView(ModalDialog):
         )
         self._show_wordcount()
         self._reset_modified_flag()
+        self._sectionEditor.bind(
+            "<<Modified>>",
+            self._set_modified_flag
+        )
 
     def _open_help(self, event=None):
         NvwriterHelp.open_help_page()
 
     def _reset_modified_flag(self, event=None):
         self._isModified = False
+        self._modificationIndicator.config(text='')
+        self._sectionEditor.edit_modified(False)
 
     def _set_modified_flag(self, event=None):
-        self._isModified = True
+        if self._sectionEditor.edit_modified():
+            self._isModified = True
+            self._modificationIndicator.config(text=_('Modified'))
+        else:
+            self._reset_modified_flag()
 
     def _set_wc_mode(self, *args):
         if self._prefs['live_wordcount']:

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.3.0\n"
-"POT-Creation-Date: 2026-02-07 15:15:10\n"
+"POT-Creation-Date: 2026-02-07 18:17:56\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -72,6 +72,9 @@ msgid "Major Character"
 msgstr ""
 
 msgid "Minor Character"
+msgstr ""
+
+msgid "Modified"
 msgstr ""
 
 msgid "Move the text from the cursor position to the end into a new section?"
