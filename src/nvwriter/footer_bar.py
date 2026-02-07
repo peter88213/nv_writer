@@ -20,29 +20,8 @@ class FooterBar(tk.Frame):
         self._prefs = prefs
 
         #--- Add buttons to the bottom line.
-        nextButton = tk.Label(
-            self,
-            background=prefs['color_fg'],
-            foreground=prefs['color_bg'],
-            text=_('Next'),
-            padx=4,
-            pady=2,
-        )
-        nextButton.pack(
-            side='right',
-        )
-        nextButton.bind('<Button-1>', self._event('<<load_next>>'))
 
-        tk.Label(
-            self,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
-            text=KEYS.NEXT[1],
-        ).pack(
-            padx=(10, 2),
-            pady=2,
-            side='right',
-        )
+        #--- Close.
         closeButton = tk.Label(
             self,
             background=prefs['color_fg'],
@@ -67,6 +46,7 @@ class FooterBar(tk.Frame):
             side='right',
         )
 
+        #--- Previous.
         previousButton = tk.Label(
             self,
             background=prefs['color_fg'],
@@ -85,6 +65,31 @@ class FooterBar(tk.Frame):
             background=prefs['color_bg'],
             foreground=prefs['color_fg'],
             text=KEYS.PREVIOUS[1],
+        ).pack(
+            padx=(10, 2),
+            pady=2,
+            side='right',
+        )
+
+        #--- Next.
+        nextButton = tk.Label(
+            self,
+            background=prefs['color_fg'],
+            foreground=prefs['color_bg'],
+            text=_('Next'),
+            padx=4,
+            pady=2,
+        )
+        nextButton.pack(
+            side='right',
+        )
+        nextButton.bind('<Button-1>', self._event('<<load_next>>'))
+
+        tk.Label(
+            self,
+            background=prefs['color_bg'],
+            foreground=prefs['color_fg'],
+            text=KEYS.NEXT[1],
         ).pack(
             padx=(10, 2),
             pady=2,

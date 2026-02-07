@@ -16,8 +16,9 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 """
 from nvwriter.writer_locale import _
-from nvwriter.writer_service import WriterService
 from nvlib.controller.plugin.plugin_base import PluginBase
+from nvwriter.platform.platform_settings import KEYS
+from nvwriter.writer_service import WriterService
 
 
 class Plugin(PluginBase):
@@ -53,7 +54,7 @@ class Plugin(PluginBase):
             image=self._icon,
             compound='left',
             underline=0,
-            command=self.start_viewer,
+            command=self.start_editor,
         )
         self._ui.sectionMenu.disableOnLock.append(label)
 
@@ -64,13 +65,16 @@ class Plugin(PluginBase):
             image=self._icon,
             compound='left',
             underline=0,
-            command=self.start_viewer,
+            command=self.start_editor,
         )
         self._ui.sectionContextMenu.disableOnLock.append(label)
+
+        self._ui.root.bind(KEYS.START_EDITOR[0], self.start_editor)
 
     def on_quit(self, event=None):
         self.writerService.on_quit()
 
-    def start_viewer(self):
+    def start_editor(self, event=None):
         self.writerService.start_editor()
+        return 'break'
 
