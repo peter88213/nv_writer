@@ -238,7 +238,7 @@ class WriterView(ModalDialog):
         sectionText = self._sectionEditor.get_text()
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
-                self._transfer_text(sectionText)
+                self._section.sectionContent = sectionText
 
     def _apply_changes_after_asking(self, event=None):
         """Transfer the editor content to the project, if modified. Ask first."""
@@ -249,17 +249,7 @@ class WriterView(ModalDialog):
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
                 if self._confirm(message=_('Apply section changes?')):
-                    try:
-                        self._sectionEditor.check_validity()
-                    except ValueError as ex:
-                        self._ui.show_warning(
-                            message=str(ex),
-                            title=FEATURE,
-                            parent=self,
-                        )
-                        return False
-
-                    self._transfer_text(sectionText)
+                    self._section.sectionContent = sectionText
         return True
 
     def _confirm(self, message):
@@ -397,17 +387,6 @@ class WriterView(ModalDialog):
 
     def _split_section(self, event=None):
         # Split a section at the cursor position.
-        try:
-            self._sectionEditor.check_validity()
-        except ValueError as ex:
-            self._ui.show_error(
-                message=_('Invalid changes'),
-                detail=str(ex),
-                title=FEATURE,
-                parent=self,
-            )
-            return
-
         if not self._confirm(
             message=_('Move the text from the cursor position to the end into a new section?'),
         ):
@@ -449,20 +428,4 @@ class WriterView(ModalDialog):
             # Go to the new section.
             self._load_next()
             self._askForConfirmation = False
-
-    def _transfer_text(self, sectionText):
-        """Transfer the changed editor content to the section, if possible.
-        
-        """
-        try:
-            self._sectionEditor.check_validity()
-        except ValueError as ex:
-            self._ui.show_warning(
-                message=str(ex),
-                title=FEATURE,
-                parent=self,
-            )
-            return
-
-        self._section.sectionContent = sectionText
 

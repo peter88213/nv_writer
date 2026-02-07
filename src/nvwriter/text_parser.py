@@ -8,6 +8,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from xml.sax.saxutils import escape
 
+from nvlib.model.xml.xml_filter import strip_illegal_characters
 from nvwriter.nvwriter_globals import BULLET
 from nvwriter.nvwriter_globals import COMMENT_PREFIX
 from nvwriter.nvwriter_globals import T_EM
@@ -48,6 +49,7 @@ class TextParser():
             return
 
         content = escape(content)
+        content = strip_illegal_characters(content)
         if not self._paragraph:
             if content.startswith(BULLET):
                 content = content.lstrip(BULLET)

@@ -81,22 +81,6 @@ class EditorBox(tk.Text):
             background=color_highlight,
         )
 
-    def check_validity(self):
-        text = strip_illegal_characters(self.get("1.0", "end"))
-        xmlText = f'<a>{text}</a>'
-        try:
-            ET.fromstring(xmlText)
-        except Exception as ex:
-            issue, location = str(ex).split(':')
-            lineStr = re.search(r'line ([0-9]+)', location).group(1)
-            columnStr = re.search(r'column ([0-9]+)', location).group(1)
-            column = int(columnStr) - 3
-            self.mark_set('insert', f'{lineStr}.{column}')
-            raise ValueError(f'{issue}: line {lineStr} column {column}')
-            return False
-
-        return True
-
     def clear(self):
         self.delete('1.0', 'end')
 
