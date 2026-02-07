@@ -22,4 +22,5 @@ class GenericKeys:
     PREVIOUS = ('<Control-Prior>', f'{_("Ctrl")}-{_("PgUp")}')
     QUIT_PROGRAM = ('<Control-q>', f'{_("Ctrl")}-Q')
     SPLIT_SCENE = ('<Control-Alt-s>', f'{_("Ctrl")}-Alt-S')
+    TOGGLE_FOOTER_BAR = ('<Alt-F1>', 'Alt-F1')
     UPDATE_WORDCOUNT = ('<F5>', 'F5')
