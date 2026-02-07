@@ -34,6 +34,7 @@ class WriterService(SubController):
     )
     OPTIONS = dict(
         live_wordcount=True,
+        show_footer_bar=False,
     )
 
     def __init__(self, model, view, controller):
@@ -47,18 +48,28 @@ class WriterService(SubController):
             configDir = f'{homeDir}/{self.INI_FILEPATH}'
         except:
             configDir = '.'
-        self.iniFile = f'{configDir}/{self.INI_FILENAME}'
         self.configuration = self._mdl.nvService.new_configuration(
             settings=self.SETTINGS,
             options=self.OPTIONS,
+            filePath=f'{configDir}/{self.INI_FILENAME}',
         )
-        self.configuration.read(self.iniFile)
+        self.configuration.read()
         self.prefs = {}
         self.prefs.update(self.configuration.settings)
         self.prefs.update(self.configuration.options)
 
         # Create the CustomScrollbarStyle object in tk.
         make_scrollbar_styles()
+
+    def on_quit(self):
+
+        #--- Save configuration
+        for keyword in self.prefs:
+            if keyword in self.configuration.options:
+                self.configuration.options[keyword] = self.prefs[keyword]
+            elif keyword in self.configuration.settings:
+                self.configuration.settings[keyword] = self.prefs[keyword]
+        self.configuration.write()
 
     def start_editor(self):
         if self._ctrl.isLocked:

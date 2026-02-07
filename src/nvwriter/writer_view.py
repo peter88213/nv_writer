@@ -30,8 +30,8 @@ class WriterView(ModalDialog):
         self._mdl = model
         self._ui = view
         self._ctrl = controller
-        self.prefs = prefs
-        super().__init__(view, bg=prefs['color_desktop'])
+        self._prefs = prefs
+        super().__init__(view, bg=self._prefs['color_desktop'])
 
         self._section = None
         self._scId = None
@@ -40,7 +40,7 @@ class WriterView(ModalDialog):
         self.attributes('-fullscreen', True)
         self.update_idletasks()
         screenwidth = self.winfo_screenwidth()
-        editorWidth = prefs['editor_width']
+        editorWidth = int(self._prefs['editor_width'])
         if editorWidth > screenwidth:
             editorWidth = screenwidth
         editorWindow = ttk.Frame(
@@ -54,7 +54,7 @@ class WriterView(ModalDialog):
         # Add a status bar to the editor window.
         self._statusBar = tk.Frame(
             editorWindow,
-            background=prefs['color_bg'],
+            background=self._prefs['color_bg'],
         )
         self._statusBar.pack(
             fill='x',
@@ -66,44 +66,46 @@ class WriterView(ModalDialog):
         # (CustomScrollbarStyle is created once in WriterService)
         ttk.Style().configure(
             'CustomScrollbarStyle.Vertical.TScrollbar',
-            troughcolor=prefs['color_desktop'],
-            background=prefs['color_bg'],
+            troughcolor=self._prefs['color_desktop'],
+            background=self._prefs['color_bg'],
         )
 
         self._sectionEditor = EditorBox(
             editorWindow,
             vstyle='CustomScrollbarStyle.Vertical.TScrollbar',
-            color_highlight=prefs['color_highlight'],
+            color_highlight=self._prefs['color_highlight'],
             wrap='word',
             undo=True,
             autoseparators=True,
-            spacing1=prefs['paragraph_spacing'],
-            spacing2=prefs['line_spacing'],
+            spacing1=self._prefs['paragraph_spacing'],
+            spacing2=self._prefs['line_spacing'],
             maxundo=-1,
-            padx=prefs['margin_x'],
-            pady=prefs['margin_y'],
-            fg=prefs['color_fg'],
-            bg=prefs['color_bg'],
-            insertbackground=prefs['color_fg'],
+            padx=self._prefs['margin_x'],
+            pady=self._prefs['margin_y'],
+            fg=self._prefs['color_fg'],
+            bg=self._prefs['color_bg'],
+            insertbackground=self._prefs['color_fg'],
             font=(
-                prefs['font_family'],
-                prefs['font_size'],
+                self._prefs['font_family'],
+                self._prefs['font_size'],
             ),
-            height=prefs['editor_height'],
+            height=self._prefs['editor_height'],
         )
         self._sectionEditor.pack(expand=True, fill='both')
 
         # Add a footer bar to the editor window.
         self._footerBar = FooterBar(
             editorWindow,
-            prefs,
+            self._prefs,
         )
+        if self._prefs['show_footer_bar']:
+            self._footerBar.show()
 
         # Navigational breadcrumbs: Book | Chapter | Section.
         self._breadcrumbs = tk.Label(
             self._statusBar,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
+            background=self._prefs['color_bg'],
+            foreground=self._prefs['color_fg'],
             text='',
             anchor='w',
             padx=5,
@@ -116,8 +118,8 @@ class WriterView(ModalDialog):
         # Word count.
         self._wordCount = tk.Label(
             self._statusBar,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
+            background=self._prefs['color_bg'],
+            foreground=self._prefs['color_fg'],
             text='',
             anchor='w',
             padx=5,
@@ -126,90 +128,17 @@ class WriterView(ModalDialog):
         self._wordCount.pack(
             side='left',
         )
-
-        #--- Add buttons to the bottom line.
-        nextButton = tk.Label(
-            self._footerBar,
-            background=prefs['color_fg'],
-            foreground=prefs['color_bg'],
-            text=_('Next'),
-            padx=4,
-            pady=2,
-        )
-        nextButton.pack(
-            side='right',
-        )
-        nextButton.bind('<Button-1>', self._load_next)
-
-        tk.Label(
-            self._footerBar,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
-            text=KEYS.NEXT[1],
-        ).pack(
-            padx=(10, 2),
-            pady=2,
-            side='right',
+        self._sectionEditor.bind(
+            KEYS.PREVIOUS[0],
+            self._load_prev,
         )
         self._sectionEditor.bind(
             KEYS.NEXT[0],
             self._load_next,
         )
-
-        closeButton = tk.Label(
-            self._footerBar,
-            background=prefs['color_fg'],
-            foreground=prefs['color_bg'],
-            text=_('Close'),
-            padx=4,
-            pady=2,
-        )
-        closeButton.pack(
-            side='right',
-        )
-        closeButton.bind('<Button-1>', self.on_quit)
-
-        tk.Label(
-            self._footerBar,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
-            text=KEYS.QUIT_PROGRAM[1],
-        ).pack(
-            padx=(10, 2),
-            pady=2,
-            side='right',
-        )
         self._sectionEditor.bind(
             KEYS.QUIT_PROGRAM[0],
             self.on_quit,
-        )
-
-        previousButton = tk.Label(
-            self._footerBar,
-            background=prefs['color_fg'],
-            foreground=prefs['color_bg'],
-            text=_('Previous'),
-            padx=4,
-            pady=2,
-        )
-        previousButton.pack(
-            side='right',
-        )
-        previousButton.bind('<Button-1>', self._load_prev)
-
-        tk.Label(
-            self._footerBar,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
-            text=KEYS.PREVIOUS[1],
-        ).pack(
-            padx=(10, 2),
-            pady=2,
-            side='right',
-        )
-        self._sectionEditor.bind(
-            KEYS.PREVIOUS[0],
-            self._load_prev,
         )
 
         #--- Event bindings.
@@ -226,6 +155,14 @@ class WriterView(ModalDialog):
         self._sectionEditor.bind(KEYS.PLAIN[0], self._sectionEditor.plain)
         self._sectionEditor.bind(KEYS.TOGGLE_FOOTER_BAR[0], self._footerBar.toggle)
         self._set_wc_mode()
+
+        event_callbacks = {
+            '<<load_next>>': self._load_next,
+            '<<on_quit>>': self.on_quit,
+            '<<load_prev>>': self._load_prev,
+        }
+        for sequence, callback in event_callbacks.items():
+            self.bind(sequence, callback)
 
         # Load the section content into the text editor.
         self._load_section(self._ui.selectedNode)
@@ -334,7 +271,7 @@ class WriterView(ModalDialog):
         self._show_wordcount()
 
     def _set_wc_mode(self, *args):
-        if self.prefs['live_wordcount']:
+        if self._prefs['live_wordcount']:
             self.bind('<KeyRelease>', self._show_wordcount)
         else:
             self.unbind('<KeyRelease>')

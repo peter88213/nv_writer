@@ -68,6 +68,9 @@ class Plugin(PluginBase):
         )
         self._ui.sectionContextMenu.disableOnLock.append(label)
 
+    def on_quit(self, event=None):
+        self.writerService.on_quit()
+
     def start_viewer(self):
         self.writerService.start_editor()
 
