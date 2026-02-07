@@ -13,7 +13,6 @@ Experimental Alpha release.
 
 - Support H5...H9 formats.
 - Support footnotes and endnotes.
-- Escape XML characters.
 
 API: 5.52
 Based on novelibre 5.52.0

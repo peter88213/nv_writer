@@ -6,6 +6,8 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+from xml.sax.saxutils import escape
+
 from nvwriter.nvwriter_globals import BULLET
 from nvwriter.nvwriter_globals import COMMENT_PREFIX
 from nvwriter.nvwriter_globals import T_EM
@@ -45,6 +47,7 @@ class TextParser():
             self.comments[self._commentIndex].add_text(content, '')
             return
 
+        content = escape(content)
         if not self._paragraph:
             if content.startswith(BULLET):
                 content = content.lstrip(BULLET)

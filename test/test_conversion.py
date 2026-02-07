@@ -15,7 +15,7 @@ XML_TEXT = (
     '<p>This is the <strong>second</strong> line of the test section</p>'
     '<p>This is the <strong><em>third</em></strong> line of the test section</p>'
     '<p>This is the <em><strong>fourth</strong></em> line of the test section</p>'
-    '<p><em>This</em> is the fifth line of the test section</p>'
+    '<p><em>This</em> is the &lt;fifth&gt; line of the test section</p>'
     '<p>This is the <span xml:lang="en-US">sixth</span> line of the test section</p>'
     '<p><span xml:lang="en-US">This is the seventh</span> line of the test section</p>'
     '<p xml:lang="en-US">This is the sixth line of the test section</p>'
