@@ -17,7 +17,7 @@ Although mouse operations are possible, the editor can be operated entirely via 
 
 ## Features
 
-- Full screen mode with an editor window that resembles a 12" monochrome screen as used with the early PCs.
+- Full screen mode with an editor window that resembles a 12" monochrome monitor as used with the early PCs.
 - A simple, mainly keyboard-operated text editor box without spell checker and search capability.
 - A basic function menu can be folded in at the bottom via `Ctrl`-`F1`.
 - Online help can be called up via `F1`.
@@ -38,7 +38,7 @@ Although mouse operations are possible, the editor can be operated entirely via 
 > Please check the results with *OpenOffice/LibreOffice Writer*, and report any issues if something seems strange. 
 > Feel free to share your thoughts in the [novelibre discussion forum](https://github.com/peter88213/novelibre/discussions). 
 >
-> The current release supports most of the *novelibre* formatting, even if it not displayed on the screen. 
+> The current release supports most of the *novelibre* formatting, even if it's not displayed on the screen. 
 > - Footnotes and endnotes created with *Writer* are lost.  
 > - Inserted heading styles H5...H9 may be lost. 
 
