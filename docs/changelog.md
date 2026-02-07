@@ -13,7 +13,7 @@ Experimental Alpha release.
 
 - Support H5...H9 formats.
 - Support footnotes and endnotes.
-- Implement auto-applying changes when changing the sections.
+- Escape XML characters.
 
 API: 5.52
 Based on novelibre 5.52.0

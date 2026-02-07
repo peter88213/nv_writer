@@ -214,6 +214,7 @@ class WriterView(ModalDialog):
             self.bind(sequence, callback)
 
         self._set_wc_mode()
+        self._askForConfirmation = self._prefs['ask_for_confirmation']
 
         # Load the section content into the text editor.
         self._load_section(self._ui.selectedNode)
@@ -247,20 +248,29 @@ class WriterView(ModalDialog):
         sectionText = self._sectionEditor.get_text()
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
-                if self._ui.ask_yes_no(
-                    message=_('Apply section changes?'),
-                    title=FEATURE,
-                    parent=self
-                ):
+                if self._confirm(message=_('Apply section changes?')):
                     try:
                         self._sectionEditor.check_validity()
                     except ValueError as ex:
-                        self._ui.show_warning(str(ex))
-                        self.lift()
+                        self._ui.show_warning(
+                            message=str(ex),
+                            title=FEATURE,
+                            parent=self,
+                        )
                         return False
 
                     self._transfer_text(sectionText)
         return True
+
+    def _confirm(self, message):
+        if self._askForConfirmation:
+            return self._ui.ask_yes_no(
+                message=message,
+                title=FEATURE,
+                parent=self,
+            )
+        else:
+            return True
 
     def _create_section(self, event=None):
         # Create a new section after the currently edited section.
@@ -280,6 +290,7 @@ class WriterView(ModalDialog):
             )
         # Go to the new section.
         self._load_next()
+        self._askForConfirmation = False
         return newId
 
     def _is_editable(self, scId):
@@ -353,6 +364,7 @@ class WriterView(ModalDialog):
             "<<Modified>>",
             self._set_modified_flag
         )
+        self._askForConfirmation = self._prefs['ask_for_confirmation']
 
     def _open_help(self, event=None):
         NvwriterHelp.open_help_page()
@@ -396,10 +408,8 @@ class WriterView(ModalDialog):
             )
             return
 
-        if not self._ui.ask_yes_no(
+        if not self._confirm(
             message=_('Move the text from the cursor position to the end into a new section?'),
-            title=FEATURE,
-            parent=self,
         ):
             return
 
@@ -438,6 +448,7 @@ class WriterView(ModalDialog):
 
             # Go to the new section.
             self._load_next()
+            self._askForConfirmation = False
 
     def _transfer_text(self, sectionText):
         """Transfer the changed editor content to the section, if possible.
@@ -446,8 +457,11 @@ class WriterView(ModalDialog):
         try:
             self._sectionEditor.check_validity()
         except ValueError as ex:
-            self._ui.show_warning(str(ex))
-            self.lift()
+            self._ui.show_warning(
+                message=str(ex),
+                title=FEATURE,
+                parent=self,
+            )
             return
 
         self._section.sectionContent = sectionText

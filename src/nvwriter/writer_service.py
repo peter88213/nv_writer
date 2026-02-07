@@ -36,6 +36,7 @@ class WriterService(SubController):
     OPTIONS = dict(
         live_wordcount=True,
         show_footer_bar=False,
+        ask_for_confirmation=True,
     )
 
     def __init__(self, model, view, controller):
