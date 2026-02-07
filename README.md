@@ -8,9 +8,39 @@
 
 The [novelibre](https://github.com/peter88213/novelibre/) Python program helps authors organize novels.  
 
-*nv_writer* is a "distraction free editor" plugin for novelibre
+*nv_writer* is a "distraction free editor" plugin for novelibre. 
+Just press `Ctrl`-`W`, and the editor window opens instantly with the selected section loaded. 
+Change the sections via `Ctrl`-`PgUp` and `Ctrl`-`PgDn`, or insert new sections with `Ctrl`-`Alt`-`N`. 
+Although mouse operations are possible, the editor can be operated entirely via the keyboard. 
 
 ![Screenshot](docs/Screenshots/screen01.jpg)
+
+## Features
+
+- Full screen mode with an editor window that resembles a 12" monochrome screen as used with the early PCs.
+- A simple, mainly keyboard-operated text editor box without spell checker and search capability.
+- A basic function menu can be folded in at the bottom via `Ctrl`-`F1`.
+- Online help can be called up via `F1`.
+- Text is displayed like plain text; emphasized and strongly emphasized text is highlighted in an unobtrusive way.
+- The word count is displayed for the currently loaded section. Both the total word count and the change made during the current session are shown. 
+- The application is ready for internationalization with GNU gettext. A German localization is provided. 
+- Editor features:
+    - Text selection.
+    - Copy/Cut/Paste to/from the clipboard.
+    - Undo/Redo.
+    - Key shortcuts for emphasized and strongly emphasized formatting.
+    - Creating a new section after the current one.
+    - Splitting the section at the cursor position.
+    - Switching to the next or previous section.
+
+> [!CAUTION]
+> This is an experimental Alpha release. 
+> Please check the results with *OpenOffice/LibreOffice Writer*, and report any issues if something seems strange. 
+> Feel free to share your thoughts in the [novelibre discussion forum](https://github.com/peter88213/novelibre/discussions). 
+>
+> The current release supports most of the *novelibre* formatting, even if it not displayed on the screen. 
+> - Footnotes and endnotes created with *Writer* are lost.  
+> - Inserted heading styles H5...H9 may be lost. 
 
 
 ## Requirements
