@@ -17,6 +17,8 @@ GNU General Public License for more details.
 """
 from nvwriter.writer_locale import _
 from nvlib.controller.plugin.plugin_base import PluginBase
+from nvwriter.nvwriter_globals import FEATURE
+from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.writer_service import WriterService
 
@@ -27,9 +29,6 @@ class Plugin(PluginBase):
     API_VERSION = '5.52'
     DESCRIPTION = 'Distraction free editor'
     URL = 'https://github.com/peter88213/nv_writer'
-    HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_writer'
-
-    FEATURE = _('Edit in distraction free mode')
 
     DTD_MAJOR_VERSION = 1
     DTD_MINOR_VERSION = 9
@@ -65,29 +64,38 @@ class Plugin(PluginBase):
         self.writerService = WriterService(model, view, controller)
         self._icon = self._get_icon('writer.png')
 
-        # Add the "Edit" command to novelibre's "Section" menu.
+        # Add the "Write" command to novelibre's "Section" menu.
         self._ui.sectionMenu.add_separator()
 
-        label = self.FEATURE
+        label = FEATURE
         self._ui.sectionMenu.add_command(
             label=label,
             image=self._icon,
             compound='left',
-            underline=0,
+            accelerator=KEYS.START_EDITOR[1],
             command=self.start_editor,
         )
         self._ui.sectionMenu.disableOnLock.append(label)
 
-        # Add the "Edit" command to novelibre's section context menu.
+        # Add the "Write" command to novelibre's section context menu.
         self._ui.sectionContextMenu.add_separator()
         self._ui.sectionContextMenu.add_command(
             label=label,
             image=self._icon,
             compound='left',
-            underline=0,
+            accelerator=KEYS.START_EDITOR[1],
             command=self.start_editor,
         )
         self._ui.sectionContextMenu.disableOnLock.append(label)
+
+        # Add an entry to the Help menu.
+        label = _('Distraction-free writing plugin Online help')
+        self._ui.helpMenu.add_command(
+            label=label,
+            image=self._icon,
+            compound='left',
+            command=self._open_help,
+        )
 
         # Hotkey to start the distraction-free editing mode.
         self._ui.root.bind(KEYS.START_EDITOR[0], self.start_editor)
@@ -99,3 +107,5 @@ class Plugin(PluginBase):
         self.writerService.start_editor()
         return 'break'
 
+    def _open_help(self, event=None):
+        NvwriterHelp.open_help_page()

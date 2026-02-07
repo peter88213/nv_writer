@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3.0\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-02-07 13:45:25\n"
+"PO-Revision-Date: 2026-02-07 15:14:43\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr "1. Überarbeitung"
 msgid "2nd Edit"
 msgstr "2. Überarbeitung"
 
+msgid "Apply changes"
+msgstr "Änderungen übernehmen"
+
 msgid "Apply section changes?"
 msgstr "Änderungen am Abschnitt übernehmen?"
 
@@ -31,8 +34,14 @@ msgstr "Charakterisierung"
 msgid "Close"
 msgstr "Schließen"
 
+msgid "Create section"
+msgstr "Abschnitt erzeugen"
+
 msgid "Ctrl"
 msgstr "Strg"
+
+msgid "Distraction-free writing plugin Online help"
+msgstr "Ablenkungsfreies Schreiben-Plugin Online-Hilfe"
 
 msgid "Documents found that might be edited"
 msgstr "Dokumente gefunden, die bearbeitet sein könnten"
@@ -42,9 +51,6 @@ msgstr "Fertiggestellt"
 
 msgid "Draft"
 msgstr "Entwurf"
-
-msgid "Edit in distraction free mode"
-msgstr "Im ablenkungsfreien Modus bearbeiten"
 
 msgid "Editable manuscript"
 msgstr "Manuskript zum Bearbeiten"
@@ -58,11 +64,17 @@ msgstr "Ende"
 msgid "Goals"
 msgstr "Ziele"
 
+msgid "Invalid changes"
+msgstr "Ungültige Änderungen"
+
 msgid "Major Character"
 msgstr "Hauptfigur"
 
 msgid "Minor Character"
 msgstr "Nebenfigur"
+
+msgid "Move the text from the cursor position to the end into a new section?"
+msgstr "Den Text von der Cursorposition bis zum Ende in einen neuen Abschnitt verschieben?"
 
 msgid "Next"
 msgstr "Vor"
@@ -88,14 +100,17 @@ msgstr "Handlungsfortschritt"
 msgid "Previous"
 msgstr "Zurück"
 
+msgid "Split at cursor position"
+msgstr "An der Cursorposition teilen"
+
 msgid "Tagged manuscript for proofing"
 msgstr "Manuskript mit Markierungen zum Überarbeiten"
 
 msgid "World building"
 msgstr "Weltenbau"
 
-msgid "https://peter88213.github.io/nvhelp-en"
-msgstr "https://peter88213.github.io/nvhelp-de"
+msgid "Write in distraction free mode"
+msgstr "Im ablenkungsfreien Modus schreiben"
 
 msgid "new"
 msgstr "neu"

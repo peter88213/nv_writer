@@ -4,9 +4,11 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+from nvwriter.writer_locale import _
 
 BULLET = '* '
 COMMENT_PREFIX = 'cmId'
+FEATURE = _('Write in distraction free mode')
 T_COMMENT = 'comment'
 T_CREATOR = 'creator'
 T_DATE = 'date'

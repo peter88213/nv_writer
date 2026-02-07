@@ -10,6 +10,7 @@ from pathlib import Path
 from nvlib.controller.sub_controller import SubController
 from nvlib.novx_globals import MANUSCRIPT_SUFFIX
 from nvlib.novx_globals import PROOF_SUFFIX
+from nvwriter.nvwriter_globals import FEATURE
 from nvwriter.scrollbar_styles import make_scrollbar_styles
 from nvwriter.writer_locale import _
 from nvwriter.writer_view import WriterView
@@ -80,10 +81,14 @@ class WriterService(SubController):
 
         activeDocuments = self._active_documents()
         if activeDocuments:
+            activeDocuments.insert(
+                0,
+                f"{_('Documents found that might be edited')}:"
+            )
             self._ui.show_error(
-            message=f"{_('Documents found that might be edited')}:",
-            detail='\n'.join(activeDocuments),
-            title=_('Editing not possible'),
+                message=_('Editing not possible'),
+                detail='\n- '.join(activeDocuments),
+                title=FEATURE,
             )
             return
 

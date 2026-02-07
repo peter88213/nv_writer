@@ -4,7 +4,6 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
-from tkinter import messagebox
 from tkinter import ttk
 
 from nvlib.gui.widgets.modal_dialog import ModalDialog
@@ -12,6 +11,8 @@ from nvlib.novx_globals import CH_ROOT
 from nvlib.novx_globals import SECTION_PREFIX
 from nvwriter.editor_box import EditorBox
 from nvwriter.footer_bar import FooterBar
+from nvwriter.nvwriter_globals import FEATURE
+from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.platform.platform_settings import PLATFORM
 from nvwriter.writer_locale import _
@@ -27,6 +28,7 @@ class WriterView(ModalDialog):
             controller,
             prefs,
     ):
+        view.root.iconify()
         self._mdl = model
         self._ui = view
         self._ctrl = controller
@@ -35,6 +37,7 @@ class WriterView(ModalDialog):
 
         self._section = None
         self._scId = None
+        self._isModified = None
         self.wordCounter = self._mdl.nvService.get_word_counter()
 
         self.attributes('-fullscreen', True)
@@ -128,6 +131,8 @@ class WriterView(ModalDialog):
         self._wordCount.pack(
             side='left',
         )
+
+        #--- Event bindings.
         self._sectionEditor.bind(
             KEYS.PREVIOUS[0],
             self._load_prev,
@@ -141,28 +146,64 @@ class WriterView(ModalDialog):
             self.on_quit,
         )
 
-        #--- Event bindings.
-        # self.bind(KEYS.OPEN_HELP[0], self._open_help)
+        self.bind(KEYS.OPEN_HELP[0], self._open_help)
         if PLATFORM != 'win':
-            self._sectionEditor.bind(KEYS.QUIT_PROGRAM[0], self.on_quit)
-        self._sectionEditor.bind(KEYS.APPLY_CHANGES[0], self._apply_changes)
-        self._sectionEditor.bind(KEYS.UPDATE_WORDCOUNT[0], self._show_wordcount)
-        self._sectionEditor.bind('<space>', self._show_wordcount)
-        # self._sectionEditor.bind(KEYS.SPLIT_SCENE[0], self._split_section)
-        # self._sectionEditor.bind(KEYS.CREATE_SCENE[0], self._create_section)
-        self._sectionEditor.bind(KEYS.ITALIC[0], self._sectionEditor.emphasis)
-        self._sectionEditor.bind(KEYS.BOLD[0], self._sectionEditor.strong_emphasis)
-        self._sectionEditor.bind(KEYS.PLAIN[0], self._sectionEditor.plain)
-        self._sectionEditor.bind(KEYS.TOGGLE_FOOTER_BAR[0], self._footerBar.toggle)
-        self._set_wc_mode()
-
+            self._sectionEditor.bind(
+                KEYS.QUIT_PROGRAM[0],
+                self.on_quit
+            )
+        self._sectionEditor.bind(
+            KEYS.APPLY_CHANGES[0],
+            self._apply_changes
+        )
+        self._sectionEditor.bind(
+            KEYS.UPDATE_WORDCOUNT[0],
+            self._show_wordcount
+        )
+        self._sectionEditor.bind(
+            '<space>',
+            self._show_wordcount
+        )
+        self._sectionEditor.bind(
+         KEYS.SPLIT_SCENE[0],
+         self._split_section
+        )
+        self._sectionEditor.bind(
+            KEYS.CREATE_SCENE[0],
+            self._create_section
+        )
+        self._sectionEditor.bind(
+            KEYS.ITALIC[0],
+            self._sectionEditor.emphasis
+        )
+        self._sectionEditor.bind(
+            KEYS.BOLD[0],
+            self._sectionEditor.strong_emphasis
+        )
+        self._sectionEditor.bind(
+            KEYS.PLAIN[0],
+            self._sectionEditor.plain
+        )
+        self._sectionEditor.bind(
+            KEYS.TOGGLE_FOOTER_BAR[0],
+            self._footerBar.toggle
+        )
+        self._sectionEditor.bind(
+            "<<Modified>>",
+            self._set_modified_flag
+        )
         event_callbacks = {
             '<<load_next>>': self._load_next,
             '<<on_quit>>': self.on_quit,
             '<<load_prev>>': self._load_prev,
+            '<<apply_changes>>': self._apply_changes,
+            '<<split_section>>': self._split_section,
+            '<<new_section>>': self._create_section,
         }
         for sequence, callback in event_callbacks.items():
             self.bind(sequence, callback)
+
+        self._set_wc_mode()
 
         # Load the section content into the text editor.
         self._load_section(self._ui.selectedNode)
@@ -174,8 +215,9 @@ class WriterView(ModalDialog):
             return 'break'
             # keeping the editor window open due to an XML error to be fixed before saving
 
+        self._ui.root.deiconify()
+        self._ui.root.lift()
         self.destroy()
-        self.isOpen = False
 
     def _apply_changes(self, event=None):
         # Transfer the editor content to the project, if modified.
@@ -195,7 +237,11 @@ class WriterView(ModalDialog):
         sectionText = self._sectionEditor.get_text()
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
-                if messagebox.askyesno('Editor', _('Apply section changes?'), parent=self):
+                if self._ui.ask_yes_no(
+                    message=_('Apply section changes?'),
+                    title=FEATURE,
+                    parent=self
+                ):
                     try:
                         self._sectionEditor.check_validity()
                     except ValueError as ex:
@@ -205,6 +251,26 @@ class WriterView(ModalDialog):
 
                     self._transfer_text(sectionText)
         return True
+
+    def _create_section(self, event=None):
+        # Create a new section after the currently edited section.
+        # On success, return the ID of the new section,
+        # otherwise return None.
+        # Add a section after the currently edited section.
+        thisNode = self._scId
+        sceneKind = self._mdl.novel.sections[self._scId].scene
+        if sceneKind == 1:
+            sceneKind = 2
+        elif sceneKind == 2:
+            sceneKind = 1
+        newId = self._ctrl.add_new_section(
+            targetNode=thisNode,
+            scType=self._mdl.novel.sections[self._scId].scType,
+            scene=sceneKind,
+            )
+        # Go to the new section.
+        self._load_next()
+        return newId
 
     def _is_editable(self, scId):
         if not scId or not scId.startswith(SECTION_PREFIX):
@@ -221,6 +287,7 @@ class WriterView(ModalDialog):
         while nextNode and not self._is_editable(nextNode):
             nextNode = self._ui.tv.next_node(nextNode)
         if nextNode:
+            self._ui.tv.go_to_node(nextNode)
             self._scId = nextNode
             self._load_section(self._scId)
 
@@ -233,6 +300,7 @@ class WriterView(ModalDialog):
         while prevNode and not self._is_editable(prevNode):
             prevNode = self._ui.tv.prev_node(prevNode)
         if prevNode:
+            self._ui.tv.go_to_node(prevNode)
             self._scId = prevNode
             self._load_section(self._scId)
 
@@ -269,6 +337,16 @@ class WriterView(ModalDialog):
             self._sectionEditor.get('1.0', 'end')
         )
         self._show_wordcount()
+        self._reset_modified_flag()
+
+    def _open_help(self, event=None):
+        NvwriterHelp.open_help_page()
+
+    def _reset_modified_flag(self, event=None):
+        self._isModified = False
+
+    def _set_modified_flag(self, event=None):
+        self._isModified = True
 
     def _set_wc_mode(self, *args):
         if self._prefs['live_wordcount']:
@@ -283,6 +361,62 @@ class WriterView(ModalDialog):
         )
         diff = wc - self._initialWc
         self._wordCount.config(text=f'{wc} {_("words")} ({diff} {_("new")})')
+
+    def _split_section(self, event=None):
+        # Split a section at the cursor position.
+        try:
+            self._sectionEditor.check_validity()
+        except ValueError as ex:
+            self._ui.show_error(
+                message=_('Invalid changes'),
+                detail=str(ex),
+                title=FEATURE,
+                parent=self,
+            )
+            return
+
+        if not self._ui.ask_yes_no(
+            message=_('Move the text from the cursor position to the end into a new section?'),
+            title=FEATURE,
+            parent=self,
+        ):
+            return
+
+        # Add a new section.
+        thisNode = self._scId
+        sceneKind = self._mdl.novel.sections[self._scId].scene
+        if sceneKind == 1:
+            sceneKind = 2
+        elif sceneKind == 2:
+            sceneKind = 1
+        newId = self._ctrl.add_new_section(
+            targetNode=thisNode,
+            appendToPrev=True,
+            scType=self._mdl.novel.sections[self._scId].scType,
+            scene=sceneKind,
+            status=self._mdl.novel.sections[self._scId].status
+            )
+        if newId:
+
+            # Cut the actual section's content from the cursor position
+            # to the end.
+            newContent = self._sectionEditor.get_text(
+                'insert',
+                'end'
+            ).strip(' \n')
+            self._sectionEditor.delete('insert', 'end')
+            self._apply_changes()
+
+            # Copy the section content to the new section.
+            self._mdl.novel.sections[newId].sectionContent = newContent
+
+            # Copy the viewpoint character.
+            self._mdl.novel.sections[newId].viewpoint = (
+                self._mdl.novel.sections[self._scId].viewpoint
+            )
+
+            # Go to the new section.
+            self._load_next()
 
     def _transfer_text(self, sectionText):
         """Transfer the changed editor content to the section, if possible.

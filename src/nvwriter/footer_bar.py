@@ -46,6 +46,31 @@ class FooterBar(tk.Frame):
             side='right',
         )
 
+        #--- Apply changes.
+        applyButton = tk.Label(
+            self,
+            background=prefs['color_fg'],
+            foreground=prefs['color_bg'],
+            text=_('Apply changes'),
+            padx=4,
+            pady=2,
+        )
+        applyButton.pack(
+            side='right',
+        )
+        applyButton.bind('<Button-1>', self._event('<<apply_changes>>'))
+
+        tk.Label(
+            self,
+            background=prefs['color_bg'],
+            foreground=prefs['color_fg'],
+            text=KEYS.APPLY_CHANGES[1],
+        ).pack(
+            padx=(10, 2),
+            pady=2,
+            side='right',
+        )
+
         #--- Previous.
         previousButton = tk.Label(
             self,
@@ -96,19 +121,72 @@ class FooterBar(tk.Frame):
             side='right',
         )
 
+        #--- Split section at cursor position.
+        applyButton = tk.Label(
+            self,
+            background=prefs['color_fg'],
+            foreground=prefs['color_bg'],
+            text=_('Split at cursor position'),
+            padx=4,
+            pady=2,
+        )
+        applyButton.pack(
+            side='right',
+        )
+        applyButton.bind('<Button-1>', self._event('<<split_section>>'))
+
+        tk.Label(
+            self,
+            background=prefs['color_bg'],
+            foreground=prefs['color_fg'],
+            text=KEYS.SPLIT_SCENE[1],
+        ).pack(
+            padx=(10, 2),
+            pady=2,
+            side='right',
+        )
+
+        #--- Create new section.
+        applyButton = tk.Label(
+            self,
+            background=prefs['color_fg'],
+            foreground=prefs['color_bg'],
+            text=_('Create section'),
+            padx=4,
+            pady=2,
+        )
+        applyButton.pack(
+            side='right',
+        )
+        applyButton.bind('<Button-1>', self._event('<<new_section>>'))
+
+        tk.Label(
+            self,
+            background=prefs['color_bg'],
+            foreground=prefs['color_fg'],
+            text=KEYS.CREATE_SCENE[1],
+        ).pack(
+            padx=(10, 2),
+            pady=2,
+            side='right',
+        )
+
     def show(self, event=None):
         self.pack(fill='x')
         self._prefs['show_footer_bar'] = True
+        return 'break'
 
     def hide(self, event=None):
         self.pack_forget()
         self._prefs['show_footer_bar'] = False
+        return 'break'
 
     def toggle(self, event=None):
         if self.winfo_manager():
             self.hide()
         else:
             self.show()
+        return 'break'
 
     def _event(self, sequence):
 

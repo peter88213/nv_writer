@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.3.0\n"
-"POT-Creation-Date: 2026-02-07 13:45:25\n"
+"POT-Creation-Date: 2026-02-07 15:15:10\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -20,6 +20,9 @@ msgstr ""
 msgid "2nd Edit"
 msgstr ""
 
+msgid "Apply changes"
+msgstr ""
+
 msgid "Apply section changes?"
 msgstr ""
 
@@ -32,7 +35,13 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+msgid "Create section"
+msgstr ""
+
 msgid "Ctrl"
+msgstr ""
+
+msgid "Distraction-free writing plugin Online help"
 msgstr ""
 
 msgid "Documents found that might be edited"
@@ -42,9 +51,6 @@ msgid "Done"
 msgstr ""
 
 msgid "Draft"
-msgstr ""
-
-msgid "Edit in distraction free mode"
 msgstr ""
 
 msgid "Editable manuscript"
@@ -59,10 +65,16 @@ msgstr ""
 msgid "Goals"
 msgstr ""
 
+msgid "Invalid changes"
+msgstr ""
+
 msgid "Major Character"
 msgstr ""
 
 msgid "Minor Character"
+msgstr ""
+
+msgid "Move the text from the cursor position to the end into a new section?"
 msgstr ""
 
 msgid "Next"
@@ -89,13 +101,16 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
+msgid "Split at cursor position"
+msgstr ""
+
 msgid "Tagged manuscript for proofing"
 msgstr ""
 
 msgid "World building"
 msgstr ""
 
-msgid "https://peter88213.github.io/nvhelp-en"
+msgid "Write in distraction free mode"
 msgstr ""
 
 msgid "new"
