@@ -13,7 +13,7 @@ Just press `Ctrl`-`W`, and the editor window opens instantly with the selected s
 Change the sections via `Ctrl`-`PgUp` and `Ctrl`-`PgDn`, or insert new sections with `Ctrl`-`Alt`-`N`. 
 Although mouse operations are possible, the editor can be operated entirely via the keyboard. 
 
-![Screenshot](docs/Screenshots/screen01.jpg)
+![Screenshot](docs/Screenshots/screen01.png)
 
 ## Features
 
