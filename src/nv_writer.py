@@ -24,12 +24,16 @@ from nvwriter.writer_service import WriterService
 class Plugin(PluginBase):
     """novelibre distraction free editor mode class."""
     VERSION = '@release'
-    API_VERSION = '5.38'
+    API_VERSION = '5.52'
     DESCRIPTION = 'Distraction free editor'
     URL = 'https://github.com/peter88213/nv_writer'
     HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_writer'
 
     FEATURE = _('Edit in distraction free mode')
+
+    DTD_MAJOR_VERSION = 1
+    DTD_MINOR_VERSION = 9
+    # DTD version supported by the plugin.
 
     def install(self, model, view, controller):
         """Extend the 'View' menu.
@@ -41,7 +45,23 @@ class Plugin(PluginBase):
 
         Extends the superclass method.
         """
+        # Raise an exception if the plugin is not compatible
+        # with the DVD supported by novelibre.
+        (
+            novelibreDtdMajorVersion,
+            novelibreDtdMinorVersion
+        ) = model.nvService.get_novx_dtd_version()
+        if (
+            novelibreDtdMajorVersion != self.DTD_MAJOR_VERSION or
+            novelibreDtdMinorVersion > self.DTD_MINOR_VERSION
+        ):
+            raise RuntimeError(
+                'Outdated: Current novx file version not supported.'
+            )
+
         super().install(model, view, controller)
+
+        # Start the service.
         self.writerService = WriterService(model, view, controller)
         self._icon = self._get_icon('writer.png')
 
@@ -69,6 +89,7 @@ class Plugin(PluginBase):
         )
         self._ui.sectionContextMenu.disableOnLock.append(label)
 
+        # Hotkey to start the distraction-free editing mode.
         self._ui.root.bind(KEYS.START_EDITOR[0], self.start_editor)
 
     def on_quit(self, event=None):
