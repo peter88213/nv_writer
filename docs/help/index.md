@@ -66,9 +66,9 @@ the *novelibre* **Section** menu and the section context menu.
 -  When loading another section, you may be asked for applying changes.
 
 
-## Create a section
+## Create a new section
 
-With `Ctrl`-`Alt`-`N`, you can create a section.
+With `Ctrl`-`Alt`-`N`, you can create a new section.
 
 -  The new section is placed after the currently edited section.
 -  The new section is of the same type as the currently edited section.
@@ -107,6 +107,13 @@ With `Ctrl`-`Alt`-`S`, you can split the section at the cursor position.
 
 With `Ctrl`-`S`, you can apply changes to the section.
 Then "Modified" status is displayed in *novelibre*.
+
+> **Hint**
+>
+> Unlike *Writer*, the distraction-free editor does not automatically replace quotation marks, dashes, etc.
+> Typographical adjustments must therefore be made in a proofreading process on the regular manuscript using *Writer*.
+> I recommend one of the [curly](https://github.com/peter88213/curly) extensions for this purpose.
+
 
 
 
