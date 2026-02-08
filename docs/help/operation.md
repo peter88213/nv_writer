@@ -70,12 +70,7 @@ With `Ctrl`-`Alt`-`S`, you can split the section at the cursor position.
 -  The section word count is displayed at the status bar at the top of the window.
 -  By default, word count is updated manually by pressing the `F5` key.
 -  The word count can be updated "live", i.e. just while entering text.
-   This is enabled or disabled via ... .
-
-> **Note**
->
-> Live updating the word count is resource intensive and may slow down
-> the program when editing big sections. This is why it’s disabled by default.
+   This is enabled or disabled via the options dialog.
 
 ---
 
@@ -85,7 +80,6 @@ With `Ctrl`-`S`, you can apply changes to the section.
 Then "Modified" status is displayed in *novelibre*.
 
 > **Hint**
->
 > Unlike *Writer*, the distraction-free editor does not automatically replace quotation marks, dashes, etc.
 > Typographical adjustments must therefore be made in a proofreading process on the regular manuscript using *Writer*.
 > I recommend one of the [curly](https://peter88213.github.io/curly/) extensions for this purpose.
