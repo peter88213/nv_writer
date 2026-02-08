@@ -218,7 +218,6 @@ class WriterView(ModalDialog):
         """Exit the editor. Apply changes, if possible."""
         if not self._apply_changes_after_asking():
             return 'break'
-            # keeping the editor window open due to an XML error to be fixed before saving
 
         self._ui.root.deiconify()
         self._ui.root.lift()
@@ -242,13 +241,17 @@ class WriterView(ModalDialog):
         sectionText = self._sectionEditor.get_text()
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
-                if self._confirm(message=_('Apply section changes?')):
+                result = self._confirm(message=_('Apply section changes?'))
+                if result is None:
+                    return False
+
+                if result:
                     self._section.sectionContent = sectionText
         return True
 
     def _confirm(self, message):
         if self._askForConfirmation:
-            return self._ui.ask_yes_no(
+            return self._ui.ask_yes_no_cancel(
                 message=message,
                 title=FEATURE,
                 parent=self,
@@ -381,8 +384,10 @@ class WriterView(ModalDialog):
 
     def _split_section(self, event=None):
         # Split a section at the cursor position.
-        if not self._confirm(
+        if not self._ui.ask_yes_no(
             message=_('Move the text from the cursor position to the end into a new section?'),
+            title=FEATURE,
+            parent=self,
         ):
             return
 
