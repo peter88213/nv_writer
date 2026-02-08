@@ -67,8 +67,8 @@ class WriterView(ModalDialog):
         # (CustomScrollbarStyle is created once in WriterService)
         ttk.Style().configure(
             'CustomScrollbarStyle.Vertical.TScrollbar',
-            troughcolor=prefs['color_desktop'],
-            background=prefs['color_bg'],
+            troughcolor=prefs['color_bg'],
+            background=prefs['color_desktop'],
         )
 
         self._sectionEditor = EditorBox(

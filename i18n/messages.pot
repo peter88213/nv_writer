@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.5.0\n"
-"POT-Creation-Date: 2026-02-08 12:54:13\n"
+"Project-Id-Version: 0.6.0\n"
+"POT-Creation-Date: 2026-02-08 15:40:17\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -32,6 +32,9 @@ msgstr ""
 msgid "Alt-Up"
 msgstr ""
 
+msgid "Amber"
+msgstr ""
+
 msgid "Apply changes"
 msgstr ""
 
@@ -44,6 +47,12 @@ msgstr ""
 msgid "Bio"
 msgstr ""
 
+msgid "Black"
+msgstr ""
+
+msgid "Blue"
+msgstr ""
+
 msgid "Characterization"
 msgstr ""
 
@@ -53,10 +62,16 @@ msgstr ""
 msgid "Coloring mode"
 msgstr ""
 
+msgid "Comment"
+msgstr ""
+
 msgid "Create section"
 msgstr ""
 
 msgid "Ctrl"
+msgstr ""
+
+msgid "Current setting"
 msgstr ""
 
 msgid "Del"
@@ -87,6 +102,12 @@ msgid "Ending"
 msgstr ""
 
 msgid "Goals"
+msgstr ""
+
+msgid "Green"
+msgstr ""
+
+msgid "Highlighted text"
 msgstr ""
 
 msgid "Live update"
@@ -131,6 +152,9 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
+msgid "Regular text"
+msgstr ""
+
 msgid "Shift"
 msgstr ""
 
@@ -138,6 +162,9 @@ msgid "Split at cursor position"
 msgstr ""
 
 msgid "Tagged manuscript for proofing"
+msgstr ""
+
+msgid "White"
 msgstr ""
 
 msgid "Word count"

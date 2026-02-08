@@ -4,10 +4,8 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
-import re
 from tkinter import ttk
 
-from nvlib.model.xml.xml_filter import strip_illegal_characters
 from nvwriter.novx_parser import NovxParser
 from nvwriter.nvwriter_globals import T_COMMENT
 from nvwriter.nvwriter_globals import T_EM
@@ -15,7 +13,6 @@ from nvwriter.nvwriter_globals import T_NOTE
 from nvwriter.nvwriter_globals import T_STRONG
 from nvwriter.text_parser import TextParser
 import tkinter as tk
-import xml.etree.ElementTree as ET
 
 
 class EditorBox(tk.Text):

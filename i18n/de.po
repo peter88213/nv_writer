@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.5.0\n"
+"Project-Id-Version: 0.6.0\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-02-08 12:54:13\n"
+"PO-Revision-Date: 2026-02-08 15:40:17\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,9 @@ msgstr "Alt-Rechts"
 msgid "Alt-Up"
 msgstr "Alt-Auf"
 
+msgid "Amber"
+msgstr "Bernstein"
+
 msgid "Apply changes"
 msgstr "Änderungen übernehmen"
 
@@ -43,6 +46,12 @@ msgstr "Nach Bestätigung fragen"
 msgid "Bio"
 msgstr "Biographie"
 
+msgid "Black"
+msgstr "Schwarz"
+
+msgid "Blue"
+msgstr "Blau"
+
 msgid "Characterization"
 msgstr "Charakterisierung"
 
@@ -52,11 +61,17 @@ msgstr "Schließen"
 msgid "Coloring mode"
 msgstr "Farbgebungsmodus"
 
+msgid "Comment"
+msgstr "Kommentar"
+
 msgid "Create section"
 msgstr "Abschnitt erzeugen"
 
 msgid "Ctrl"
 msgstr "Strg"
+
+msgid "Current setting"
+msgstr "Aktuelle Einstellung"
 
 msgid "Del"
 msgstr "Entf"
@@ -87,6 +102,12 @@ msgstr "Ende"
 
 msgid "Goals"
 msgstr "Ziele"
+
+msgid "Green"
+msgstr "Grün"
+
+msgid "Highlighted text"
+msgstr "Hervorgehobener Text"
 
 msgid "Live update"
 msgstr "Laufende Aktualisierung"
@@ -130,6 +151,9 @@ msgstr "Handlungsfortschritt"
 msgid "Previous"
 msgstr "Zurück"
 
+msgid "Regular text"
+msgstr "Gewöhnlicher Text"
+
 msgid "Shift"
 msgstr "Umschalt"
 
@@ -138,6 +162,9 @@ msgstr "An der Cursorposition teilen"
 
 msgid "Tagged manuscript for proofing"
 msgstr "Manuskript mit Markierungen zum Überarbeiten"
+
+msgid "White"
+msgstr "Weiß"
 
 msgid "Word count"
 msgstr "Wortzählung"

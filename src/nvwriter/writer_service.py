@@ -23,9 +23,9 @@ class WriterService(SubController):
     SETTINGS = dict(
         editor_height=15,
         editor_width=800,
-        color_highlight='green2',
+        color_highlight='white',
         color_bg='gray20',
-        color_fg='green3',
+        color_fg='gray80',
         color_desktop='gray30',
         font_family='Courier',
         font_size=13,
