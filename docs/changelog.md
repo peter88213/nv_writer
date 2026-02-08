@@ -4,6 +4,20 @@
 
 ## Changelog
 
+### Version 0.9.0 (Experimental Alpha release)
+
+- Handling lines ending with spaces.
+- Aborting the distraction-free mode if a footnote or endnote is detected.
+- Refactored and commented the parsers.
+
+#### To do: 
+
+- Support footnotes and endnotes.
+
+API: 5.52
+Based on novelibre 5.52.0
+
+
 ### Version 0.8.0 (Experimental Alpha release)
 
 - Preserving H5...H9 formats.

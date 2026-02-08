@@ -331,9 +331,19 @@ class WriterView(ModalDialog):
 
         self._section = self._mdl.novel.sections[scId]
         self._sectionEditor.clear()
-        self._sectionEditor.set_text(
-            self._section.sectionContent
-        )
+        try:
+            self._sectionEditor.set_text(self._section.sectionContent)
+        except Exception as ex:
+            self._ui.root.deiconify()
+            self._ui.root.lift()
+            self.destroy()
+            self._ui.show_error(
+                str(ex) +
+                '\nYou can ignore the following “Unexpected Error” message '
+                'and continue without distraction-free mode.'
+            )
+            raise UserWarning('nv_writer aborted to prevent project damage.')
+
         self._scId = scId
         chId = self._mdl.novel.tree.parent(self._scId)
 
