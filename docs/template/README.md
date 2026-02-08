@@ -15,6 +15,10 @@ Although mouse operations are possible, the editor can be operated entirely via 
 
 ![Screenshot](docs/Screenshots/screen01.png)
 
+You can choose a color scheme according to your taste: 
+
+![Screenshot](docs/Screenshots/screen02.png)
+
 ## Features
 
 - Full screen mode with an editor window that resembles a 12" monochrome monitor as used with the early PCs.
@@ -32,10 +36,6 @@ Although mouse operations are possible, the editor can be operated entirely via 
     - Create a new section after the current one.
     - Split the section at the cursor position.
     - Switch to the next or previous section.
-
-You can choose a color scheme according to your taste: 
-
-![Screenshot](docs/Screenshots/screen02.png)
 
 > [!CAUTION]
 > This is an experimental Alpha release. 
