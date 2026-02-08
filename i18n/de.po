@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.9.0\n"
+"Project-Id-Version: 0.9.1\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-02-08 23:41:31\n"
+"PO-Revision-Date: 2026-02-09 00:03:11\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -18,18 +18,6 @@ msgstr "1. Überarbeitung"
 
 msgid "2nd Edit"
 msgstr "2. Überarbeitung"
-
-msgid "Alt-Down"
-msgstr "Alt-Ab"
-
-msgid "Alt-Left"
-msgstr "Alt-Links"
-
-msgid "Alt-Right"
-msgstr "Alt-Rechts"
-
-msgid "Alt-Up"
-msgstr "Alt-Auf"
 
 msgid "Amber"
 msgstr "Bernstein"
@@ -72,9 +60,6 @@ msgstr "Strg"
 
 msgid "Current setting"
 msgstr "Aktuelle Einstellung"
-
-msgid "Del"
-msgstr "Entf"
 
 msgid "Distraction-free writing plugin Online help"
 msgstr "Ablenkungsfreies Schreiben-Plugin Online-Hilfe"
@@ -153,9 +138,6 @@ msgstr "Zurück"
 
 msgid "Regular text"
 msgstr "Gewöhnlicher Text"
-
-msgid "Shift"
-msgstr "Umschalt"
 
 msgid "Split at cursor position"
 msgstr "An der Cursorposition teilen"

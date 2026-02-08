@@ -4,7 +4,7 @@
 
 ## Changelog
 
-### Version 0.9.0 (Experimental Alpha release)
+### Version 0.9.1 (Experimental Alpha release)
 
 - Handling lines ending with spaces.
 - Aborting the distraction-free mode if a footnote or endnote is detected.

@@ -6,10 +6,10 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from tkinter import ttk
 
-from nvlib.gui.platform.platform_settings import KEYS
 from nvlib.gui.widgets.modal_dialog import ModalDialog
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.nvwriter_help import NvwriterHelp
+from nvwriter.platform.platform_settings import KEYS
 from nvwriter.writer_locale import _
 import tkinter as tk
 
