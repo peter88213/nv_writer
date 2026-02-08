@@ -42,6 +42,7 @@ i.e. just while entering text.
 
 ## Coloring mode
 
+You can select a color set by clicking on the button below the preview.
 
 
 ---
