@@ -4,6 +4,19 @@
 
 ## Changelog
 
+
+### Version 0.9.2
+
+- Changed "Options" dialog text.
+- Updated colors for the "Blue" mode.
+
+#### To do:
+
+- Support footnotes and endnotes.
+
+API: 5.52
+Based on novelibre 5.52.0
+
 ### Version 0.9.1 (Experimental Alpha release)
 
 - Handling lines ending with spaces.

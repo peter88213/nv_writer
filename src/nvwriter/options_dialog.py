@@ -19,7 +19,7 @@ class OptionsDialog(ModalDialog):
 
     COLORS_AMBER = ('gray20', 'gold3', 'gold')
     COLORS_BLACK = ('floral white', 'gray30', 'black')
-    COLORS_BLUE = ('navy', 'gray80', 'white',)
+    COLORS_BLUE = ('navy', 'gray60', 'gray75',)
     COLORS_GREEN = ('gray20', 'green3', 'green2')
     COLORS_WHITE = ('gray20', 'gray80', 'white')
 
@@ -78,7 +78,7 @@ class OptionsDialog(ModalDialog):
         #--- Color mode settings.
         ttk.Label(
             frame2,
-            text=_('Coloring mode'),
+            text=_('Color sets'),
         ).pack(padx=5, pady=5, anchor='w')
 
         #--- Show current setting.
