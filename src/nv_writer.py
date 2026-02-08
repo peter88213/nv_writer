@@ -19,6 +19,7 @@ from nvwriter.writer_locale import _
 from nvlib.controller.plugin.plugin_base import PluginBase
 from nvwriter.nvwriter_globals import FEATURE
 from nvwriter.nvwriter_help import NvwriterHelp
+from nvwriter.options_dialog import OptionsDialog
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.writer_service import WriterService
 
@@ -88,6 +89,15 @@ class Plugin(PluginBase):
         )
         self._ui.sectionContextMenu.disableOnLock.append(label)
 
+        # Add an entry to the Tools menu.
+        label = _('Distraction-free writing plugin Options')
+        self._ui.toolsMenu.add_command(
+            label=label,
+            image=self._icon,
+            compound='left',
+            command=self._open_options_dialog,
+        )
+
         # Add an entry to the Help menu.
         label = _('Distraction-free writing plugin Online help')
         self._ui.helpMenu.add_command(
@@ -107,3 +117,5 @@ class Plugin(PluginBase):
         self.writerService.start_editor()
         return 'break'
 
+    def _open_options_dialog(self):
+        OptionsDialog(self._ui, self._icon)

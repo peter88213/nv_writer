@@ -4,10 +4,23 @@
 
 ## Changelog
 
+### Version 0.5.0 (Experimental Alpha release)
 
-### Version 0.4.0
+Providing an Options dialog.
 
-Experimental Alpha release.
+- Checkbox for confirmation.
+- Checkbox for live word count.
+
+#### To do: 
+
+- Support H5...H9 formats.
+- Support footnotes and endnotes.
+
+API: 5.52
+Based on novelibre 5.52.0
+
+
+### Version 0.4.0 (Experimental Alpha release)
 
 #### To do: 
 

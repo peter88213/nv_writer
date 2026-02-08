@@ -12,6 +12,7 @@ from nvlib.novx_globals import SECTION_PREFIX
 from nvwriter.editor_box import EditorBox
 from nvwriter.footer_bar import FooterBar
 from nvwriter.nvwriter_globals import FEATURE
+from nvwriter.nvwriter_globals import prefs
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.writer_locale import _
@@ -21,18 +22,16 @@ import tkinter as tk
 class WriterView(ModalDialog):
 
     def __init__(
-            self,
-            model,
-            view,
-            controller,
-            prefs,
+        self,
+        model,
+        view,
+        controller,
     ):
         view.root.iconify()
         self._mdl = model
         self._ui = view
         self._ctrl = controller
-        self._prefs = prefs
-        super().__init__(view, bg=self._prefs['color_desktop'])
+        super().__init__(view, bg=prefs['color_desktop'])
 
         self._section = None
         self._scId = None
@@ -42,7 +41,7 @@ class WriterView(ModalDialog):
         self.attributes('-fullscreen', True)
         self.update_idletasks()
         screenwidth = self.winfo_screenwidth()
-        editorWidth = int(self._prefs['editor_width'])
+        editorWidth = int(prefs['editor_width'])
         if editorWidth > screenwidth:
             editorWidth = screenwidth
         editorWindow = ttk.Frame(
@@ -56,7 +55,7 @@ class WriterView(ModalDialog):
         # Add a status bar to the editor window.
         self._statusBar = tk.Frame(
             editorWindow,
-            background=self._prefs['color_bg'],
+            background=prefs['color_bg'],
         )
         self._statusBar.pack(
             fill='x',
@@ -68,46 +67,46 @@ class WriterView(ModalDialog):
         # (CustomScrollbarStyle is created once in WriterService)
         ttk.Style().configure(
             'CustomScrollbarStyle.Vertical.TScrollbar',
-            troughcolor=self._prefs['color_desktop'],
-            background=self._prefs['color_bg'],
+            troughcolor=prefs['color_desktop'],
+            background=prefs['color_bg'],
         )
 
         self._sectionEditor = EditorBox(
             editorWindow,
             vstyle='CustomScrollbarStyle.Vertical.TScrollbar',
-            color_highlight=self._prefs['color_highlight'],
+            color_highlight=prefs['color_highlight'],
             wrap='word',
             undo=True,
             autoseparators=True,
-            spacing1=self._prefs['paragraph_spacing'],
-            spacing2=self._prefs['line_spacing'],
+            spacing1=prefs['paragraph_spacing'],
+            spacing2=prefs['line_spacing'],
             maxundo=-1,
-            padx=self._prefs['margin_x'],
-            pady=self._prefs['margin_y'],
-            fg=self._prefs['color_fg'],
-            bg=self._prefs['color_bg'],
-            insertbackground=self._prefs['color_fg'],
+            padx=prefs['margin_x'],
+            pady=prefs['margin_y'],
+            fg=prefs['color_fg'],
+            bg=prefs['color_bg'],
+            insertbackground=prefs['color_fg'],
             font=(
-                self._prefs['font_family'],
-                self._prefs['font_size'],
+                prefs['font_family'],
+                prefs['font_size'],
             ),
-            height=self._prefs['editor_height'],
+            height=prefs['editor_height'],
         )
         self._sectionEditor.pack(expand=True, fill='both')
 
         # Add a footer bar to the editor window.
         self._footerBar = FooterBar(
             editorWindow,
-            self._prefs,
+            prefs,
         )
-        if self._prefs['show_footer_bar']:
+        if prefs['show_footer_bar']:
             self._footerBar.show()
 
         # Navigational breadcrumbs: Book | Chapter | Section.
         self._breadcrumbs = tk.Label(
             self._statusBar,
-            background=self._prefs['color_bg'],
-            foreground=self._prefs['color_fg'],
+            background=prefs['color_bg'],
+            foreground=prefs['color_fg'],
             text='',
             anchor='w',
             padx=5,
@@ -120,8 +119,8 @@ class WriterView(ModalDialog):
         # Word count.
         self._wordCount = tk.Label(
             self._statusBar,
-            background=self._prefs['color_bg'],
-            foreground=self._prefs['color_fg'],
+            background=prefs['color_bg'],
+            foreground=prefs['color_fg'],
             text='',
             anchor='w',
             padx=5,
@@ -134,8 +133,8 @@ class WriterView(ModalDialog):
         # Modification indicator.
         self._modificationIndicator = tk.Label(
             self._statusBar,
-            background=self._prefs['color_bg'],
-            foreground=self._prefs['color_fg'],
+            background=prefs['color_bg'],
+            foreground=prefs['color_fg'],
             text='',
             anchor='w',
             padx=5,
@@ -154,27 +153,20 @@ class WriterView(ModalDialog):
             KEYS.NEXT[0],
             self._load_next,
         )
-
         self.bind(
             KEYS.OPEN_HELP[0],
             NvwriterHelp.open_help_page
         )
-
         self._sectionEditor.bind(
             KEYS.QUIT_PROGRAM[0],
             self.on_quit
-            )
-
+        )
         self._sectionEditor.bind(
             KEYS.APPLY_CHANGES[0],
             self._apply_changes
         )
         self._sectionEditor.bind(
             KEYS.UPDATE_WORDCOUNT[0],
-            self._show_wordcount
-        )
-        self._sectionEditor.bind(
-            '<space>',
             self._show_wordcount
         )
         self._sectionEditor.bind(
@@ -216,7 +208,7 @@ class WriterView(ModalDialog):
 
         # Configure the editor.
         self._set_wc_mode()
-        self._askForConfirmation = self._prefs['ask_for_confirmation']
+        self._askForConfirmation = prefs['ask_for_confirmation']
 
         # Load the section content into the text editor.
         self._load_section(self._ui.selectedNode)
@@ -356,7 +348,7 @@ class WriterView(ModalDialog):
             "<<Modified>>",
             self._set_modified_flag
         )
-        self._askForConfirmation = self._prefs['ask_for_confirmation']
+        self._askForConfirmation = prefs['ask_for_confirmation']
 
     def _reset_modified_flag(self, event=None):
         self._isModified = False
@@ -370,8 +362,8 @@ class WriterView(ModalDialog):
         else:
             self._reset_modified_flag()
 
-    def _set_wc_mode(self, *args):
-        if self._prefs['live_wordcount']:
+    def _set_wc_mode(self):
+        if prefs['live_wordcount']:
             self.bind('<KeyRelease>', self._show_wordcount)
         else:
             self.unbind('<KeyRelease>')

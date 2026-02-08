@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.4.0\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-02-07 19:03:51\n"
+"PO-Revision-Date: 2026-02-08 11:02:32\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,26 @@ msgstr "1. Überarbeitung"
 msgid "2nd Edit"
 msgstr "2. Überarbeitung"
 
+msgid "Alt-Down"
+msgstr "Alt-Ab"
+
+msgid "Alt-Left"
+msgstr "Alt-Links"
+
+msgid "Alt-Right"
+msgstr "Alt-Rechts"
+
+msgid "Alt-Up"
+msgstr "Alt-Auf"
+
 msgid "Apply changes"
 msgstr "Änderungen übernehmen"
 
 msgid "Apply section changes?"
 msgstr "Änderungen am Abschnitt übernehmen?"
+
+msgid "Ask for confirmation"
+msgstr "Nach Bestätigung fragen"
 
 msgid "Bio"
 msgstr "Biographie"
@@ -34,14 +49,23 @@ msgstr "Charakterisierung"
 msgid "Close"
 msgstr "Schließen"
 
+msgid "Coloring mode"
+msgstr "Farbgebungsmodus"
+
 msgid "Create section"
 msgstr "Abschnitt erzeugen"
 
 msgid "Ctrl"
 msgstr "Strg"
 
+msgid "Del"
+msgstr "Entf"
+
 msgid "Distraction-free writing plugin Online help"
 msgstr "Ablenkungsfreies Schreiben-Plugin Online-Hilfe"
+
+msgid "Distraction-free writing plugin Options"
+msgstr "Ablenkungsfreies Schreiben-Plugin Einstellungen"
 
 msgid "Documents found that might be edited"
 msgstr "Dokumente gefunden, die bearbeitet sein könnten"
@@ -64,6 +88,9 @@ msgstr "Ende"
 msgid "Goals"
 msgstr "Ziele"
 
+msgid "Live update"
+msgstr "Laufende Aktualisierung"
+
 msgid "Major Character"
 msgstr "Hauptfigur"
 
@@ -78,6 +105,9 @@ msgstr "Den Text von der Cursorposition bis zum Ende in einen neuen Abschnitt ve
 
 msgid "Next"
 msgstr "Vor"
+
+msgid "Online help"
+msgstr "Online-Hilfe"
 
 msgid "Opening"
 msgstr "Eröffnung"
@@ -100,11 +130,17 @@ msgstr "Handlungsfortschritt"
 msgid "Previous"
 msgstr "Zurück"
 
+msgid "Shift"
+msgstr "Umschalt"
+
 msgid "Split at cursor position"
 msgstr "An der Cursorposition teilen"
 
 msgid "Tagged manuscript for proofing"
 msgstr "Manuskript mit Markierungen zum Überarbeiten"
+
+msgid "Word count"
+msgstr "Wortzählung"
 
 msgid "World building"
 msgstr "Weltenbau"

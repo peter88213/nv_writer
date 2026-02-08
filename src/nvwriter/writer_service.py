@@ -11,6 +11,7 @@ from nvlib.controller.sub_controller import SubController
 from nvlib.novx_globals import MANUSCRIPT_SUFFIX
 from nvlib.novx_globals import PROOF_SUFFIX
 from nvwriter.nvwriter_globals import FEATURE
+from nvwriter.nvwriter_globals import prefs
 from nvwriter.scrollbar_styles import make_scrollbar_styles
 from nvwriter.writer_locale import _
 from nvwriter.writer_view import WriterView
@@ -34,7 +35,7 @@ class WriterService(SubController):
         margin_y=20,
     )
     OPTIONS = dict(
-        live_wordcount=True,
+        live_wordcount=False,
         show_footer_bar=False,
         ask_for_confirmation=True,
     )
@@ -56,9 +57,8 @@ class WriterService(SubController):
             filePath=f'{configDir}/{self.INI_FILENAME}',
         )
         self.configuration.read()
-        self.prefs = {}
-        self.prefs.update(self.configuration.settings)
-        self.prefs.update(self.configuration.options)
+        prefs.update(self.configuration.settings)
+        prefs.update(self.configuration.options)
 
         # Create the CustomScrollbarStyle object in tk.
         make_scrollbar_styles()
@@ -66,11 +66,11 @@ class WriterService(SubController):
     def on_quit(self):
 
         #--- Save configuration
-        for keyword in self.prefs:
+        for keyword in prefs:
             if keyword in self.configuration.options:
-                self.configuration.options[keyword] = self.prefs[keyword]
+                self.configuration.options[keyword] = prefs[keyword]
             elif keyword in self.configuration.settings:
-                self.configuration.settings[keyword] = self.prefs[keyword]
+                self.configuration.settings[keyword] = prefs[keyword]
         self.configuration.write()
 
     def start_editor(self):
@@ -93,12 +93,7 @@ class WriterService(SubController):
             )
             return
 
-        self.writer = WriterView(
-            self._mdl,
-            self._ui,
-            self._ctrl,
-            self.prefs,
-        )
+        self.writer = WriterView(self._mdl, self._ui, self._ctrl)
 
     def _active_documents(self):
         docTypes = {
