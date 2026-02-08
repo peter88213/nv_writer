@@ -39,7 +39,6 @@ class NovxParser(sax.ContentHandler):
         self._tags = []
         self._spans = []
         self.comments = []
-        self._heading = None
         self._list = None
         self._commentState = None
 
@@ -48,7 +47,6 @@ class NovxParser(sax.ContentHandler):
         self._tags.clear()
         self._spans.clear()
         self.comments.clear()
-        self._heading = False
         self._list = False
         self._commentState = None
 
@@ -104,7 +102,8 @@ class NovxParser(sax.ContentHandler):
             T_H8,
             T_H9,
         ):
-            self._heading = False
+            self._spans.clear()
+            self._tags.clear()
         elif name == T_UL:
             self._list = False
         elif name == T_NOTE:
@@ -153,9 +152,14 @@ class NovxParser(sax.ContentHandler):
             T_H8,
             T_H9,
         ):
-            self._heading = True
-            self.headingTag = name
-            suffix = '\n'
+            if attributes:
+                span = f"{name}_{'_'.join(attributes)}"
+                self._spans.append(span)
+                self._tags.append(span)
+            else:
+                self._tags.append(name)
+            if self._taggedText:
+                suffix = '\n'
         elif name == T_UL:
             self._list = True
         elif name == T_NOTE:

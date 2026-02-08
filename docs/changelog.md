@@ -4,6 +4,18 @@
 
 ## Changelog
 
+### Version 0.8.0 (Experimental Alpha release)
+
+- Preserving H5...H9 formats.
+
+#### To do: 
+
+- Support footnotes and endnotes.
+
+API: 5.52
+Based on novelibre 5.52.0
+
+
 ### Version 0.7.0 (Experimental Alpha release)
 
 - Added a "Cancel" option to the confirmation dialog.

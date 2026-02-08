@@ -43,8 +43,7 @@ You can choose a color scheme according to your taste:
 > Feel free to share your thoughts in the [novelibre discussion forum](https://github.com/peter88213/novelibre/discussions). 
 >
 > The current release retains most of the *novelibre* formatting, even if it is not displayed on the screen. 
-> - Footnotes and endnotes created with *Writer* are lost.  
-> - Inserted heading styles H5...H9 may be lost. 
+> However, footnotes and endnotes created with *Writer* are lost.  
 
 
 

@@ -12,6 +12,11 @@ from nvlib.model.xml.xml_filter import strip_illegal_characters
 from nvwriter.nvwriter_globals import BULLET
 from nvwriter.nvwriter_globals import COMMENT_PREFIX
 from nvwriter.nvwriter_globals import T_EM
+from nvwriter.nvwriter_globals import T_H5
+from nvwriter.nvwriter_globals import T_H6
+from nvwriter.nvwriter_globals import T_H7
+from nvwriter.nvwriter_globals import T_H8
+from nvwriter.nvwriter_globals import T_H9
 from nvwriter.nvwriter_globals import T_LI
 from nvwriter.nvwriter_globals import T_SPAN
 from nvwriter.nvwriter_globals import T_STRONG
@@ -24,6 +29,7 @@ class TextParser():
     def __init__(self):
         self._paragraph = None
         self._list = None
+        self._heading = None
         self._textlist = []
         self.comments = []
         self._commentIndex = None
@@ -31,6 +37,7 @@ class TextParser():
     def reset(self):
         self._paragraph = False
         self._list = False
+        self._heading = False
         self._textlist.clear()
         self._commentIndex = None
 
@@ -60,10 +67,14 @@ class TextParser():
             elif self._list:
                 self._textlist.append(f'</{T_UL}>')
                 self._list = False
-            self._textlist.append('<p>')
+            self.startElement('p')
             self._paragraph = True
         if content.endswith('\n'):
-            self._textlist.append(f'{content.rstrip()}</p>')
+            self._textlist.append(content.rstrip())
+            if self._heading:
+                self._heading = False
+            else:
+                self.endElement('p')
             self._paragraph = False
             if self._list:
                 self._textlist.append(f'</{T_LI}>')
@@ -71,13 +82,27 @@ class TextParser():
             self._textlist.append(content)
 
     def endElement(self, name):
-        if name in (T_EM, T_STRONG):
+        if name in (
+            'p',
+            T_EM,
+            T_STRONG,
+        ):
             self._textlist.append(f'</{name}>')
         elif name.startswith(T_SPAN):
             self._textlist.append(f'</{T_SPAN}>')
         elif name.startswith(COMMENT_PREFIX):
             self._textlist.append(self.comments[self._commentIndex].get_xml())
             self._commentIndex = None
+        elif name.startswith(T_H5):
+            self._textlist.append(f'</{T_H5}>')
+        elif name.startswith(T_H6):
+            self._textlist.append(f'</{T_H6}>')
+        elif name.startswith(T_H7):
+            self._textlist.append(f'</{T_H7}>')
+        elif name.startswith(T_H8):
+            self._textlist.append(f'</{T_H8}>')
+        elif name.startswith(T_H9):
+            self._textlist.append(f'</{T_H9}>')
 
     def get_result(self):
         if self._list:
@@ -92,6 +117,15 @@ class TextParser():
 
         if name.startswith('p'):
             self._textlist.append(f'<{name.replace("_", " ")}>')
+        elif (
+            name.startswith(T_H5) or
+            name.startswith(T_H6) or
+            name.startswith(T_H7) or
+            name.startswith(T_H8) or
+            name.startswith(T_H9)
+        ):
+            self._textlist.append(f'<{name.replace("_", " ")}>')
+            self._heading = True
         elif not self._paragraph:
             self._textlist.append('<p>')
         self._paragraph = True
