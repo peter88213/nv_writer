@@ -30,7 +30,7 @@ Although mouse operations are possible, the editor can be operated entirely via 
     - Undo/Redo.
     - Key shortcuts for emphasized and strongly emphasized formatting.
     - Create a new section after the current one.
-    - Splitt the section at the cursor position.
+    - Split the section at the cursor position.
     - Switch to the next or previous section.
 
 > [!CAUTION]
