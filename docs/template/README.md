@@ -33,6 +33,10 @@ Although mouse operations are possible, the editor can be operated entirely via 
     - Split the section at the cursor position.
     - Switch to the next or previous section.
 
+You can choose a color scheme according to your taste: 
+
+![Screenshot](docs/Screenshots/screen02.png)
+
 > [!CAUTION]
 > This is an experimental Alpha release. 
 > Please check the results with *OpenOffice/LibreOffice Writer*, and report any issues if something seems strange. 
