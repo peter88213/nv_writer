@@ -9,11 +9,11 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 class Comment:
 
     def __init__(self):
-        self.creator = None
-        self.date = None
-        self.text = None
+        self.creator = ''
+        self.date = ''
+        self.text = ''
 
-    def add_text(self, text, separator):
+    def add_text(self, text, separator=''):
         if not self.text:
             self.text = text
         else:

@@ -27,18 +27,28 @@ class TextParser():
     """A ttk.Text content parser."""
 
     def __init__(self):
+        self.comments = []
+        # list of Comment instances
+
+        self._commentIndex = None
+        # int: index of the currently processed Comment instance
+        #      None, if no comment is currently processed
+        #      the index is a part of the comment's tag
+
+        # Flags.
         self._paragraph = None
         self._list = None
         self._heading = None
-        self._textlist = []
-        self.comments = []
-        self._commentIndex = None
+
+        # Collections for the results.
+        self._xmlList = []
+        # list of str: novx raw text
 
     def reset(self):
         self._paragraph = False
         self._list = False
         self._heading = False
-        self._textlist.clear()
+        self._xmlList.clear()
         self._commentIndex = None
 
     def parse_triple(self, key, value, __):
@@ -51,63 +61,88 @@ class TextParser():
             self.endElement(value)
 
     def characters(self, content):
-        if self._commentIndex is not None:
-            self.comments[self._commentIndex].add_text(content, '')
-            return
 
+        # Sanitize content for XML use.
         content = escape(content)
         content = strip_illegal_characters(content)
+
+        if self._commentIndex is not None:
+
+            # Content belongs to a comment.
+            self.comments[self._commentIndex].add_text(content)
+            return
+
+        # Enclose paragraphs with XML tags.
+        # Note that regular paragraphs and list elements
+        # are not tagged in the editor box, so the user can add ones.
+        # - Paragraphs are separated by newline characters.
+        # - List items start with bullets.
         if not self._paragraph:
+
+            # Content starts a new paragraph.
             if content.startswith(BULLET):
+                # Paragraph belongs to a list element.
                 content = content.lstrip(BULLET)
                 if not self._list:
-                    self._textlist.append(f'<{T_UL}>')
+                    # The first list element.
+                    # Open the list.
+                    self._xmlList.append(f'<{T_UL}>')
                     self._list = True
-                self._textlist.append(f'<{T_LI}>')
+                self._xmlList.append(f'<{T_LI}>')
             elif self._list:
-                self._textlist.append(f'</{T_UL}>')
+                # The first regular paragraph after a list.
+                # Close the list.
+                self._xmlList.append(f'</{T_UL}>')
                 self._list = False
-            self.startElement('p')
+
+            # Paragraph starts.
+            self._xmlList.append('<p>')
             self._paragraph = True
+
         if content.endswith('\n'):
-            self._textlist.append(content.rstrip())
-            if self._heading:
-                self._heading = False
+
+            # Content ends the current paragraph.
+            self._xmlList.append(content.rstrip('\n'))
+            # removing the linebreak
+            if not self._heading:
+                self._xmlList.append('</p>')
             else:
-                self.endElement('p')
+                # note that headings are tagged and trigger endElement()
+                self._heading = False
             self._paragraph = False
+
             if self._list:
-                self._textlist.append(f'</{T_LI}>')
-        else:
-            self._textlist.append(content)
+                self._xmlList.append(f'</{T_LI}>')
+            return
+
+        self._xmlList.append(content)
 
     def endElement(self, name):
         if name in (
-            'p',
             T_EM,
             T_STRONG,
         ):
-            self._textlist.append(f'</{name}>')
-        elif name.startswith(T_SPAN):
-            self._textlist.append(f'</{T_SPAN}>')
-        elif name.startswith(COMMENT_PREFIX):
-            self._textlist.append(self.comments[self._commentIndex].get_xml())
+            self._xmlList.append(f'</{name}>')
+            return
+
+        if name.startswith(T_SPAN):
+            self._xmlList.append(f'</{T_SPAN}>')
+            return
+
+        if name.startswith(COMMENT_PREFIX):
+            self._xmlList.append(self.comments[self._commentIndex].get_xml())
             self._commentIndex = None
-        elif name.startswith(T_H5):
-            self._textlist.append(f'</{T_H5}>')
-        elif name.startswith(T_H6):
-            self._textlist.append(f'</{T_H6}>')
-        elif name.startswith(T_H7):
-            self._textlist.append(f'</{T_H7}>')
-        elif name.startswith(T_H8):
-            self._textlist.append(f'</{T_H8}>')
-        elif name.startswith(T_H9):
-            self._textlist.append(f'</{T_H9}>')
+            return
+
+        tag = self._get_heading_tag(name)
+        if tag is not None:
+            self._xmlList.append(f'</{tag}>')
 
     def get_result(self):
         if self._list:
-            self._textlist.append(f'</{T_UL}>')
-        return ''.join(self._textlist)
+            # The final paragraph was a list element, so close the list.
+            self._xmlList.append(f'</{T_UL}>')
+        return ''.join(self._xmlList)
 
     def startElement(self, name):
         if name.startswith(COMMENT_PREFIX):
@@ -115,22 +150,45 @@ class TextParser():
             self.comments[self._commentIndex].text = ''
             return
 
-        if name.startswith('p'):
-            self._textlist.append(f'<{name.replace("_", " ")}>')
-        elif (
-            name.startswith(T_H5) or
-            name.startswith(T_H6) or
-            name.startswith(T_H7) or
-            name.startswith(T_H8) or
-            name.startswith(T_H9)
-        ):
-            self._textlist.append(f'<{name.replace("_", " ")}>')
-            self._heading = True
-        elif not self._paragraph:
-            self._textlist.append('<p>')
-        self._paragraph = True
-        if name in (T_EM, T_STRONG):
-            self._textlist.append(f'<{name}>')
-        elif name.startswith(T_SPAN):
-            self._textlist.append(f'<{name.replace("_", " ")}>')
+        if self._is_paragraph_tag(name):
+            self._xmlList.append(f'<{name.replace("_", " ")}>')
+            self._paragraph = True
+            return
 
+        if self._get_heading_tag(name) is not None:
+            self._xmlList.append(f'<{name.replace("_", " ")}>')
+            self._paragraph = True
+            self._heading = True
+            return
+
+        if not self._paragraph:
+            self._xmlList.append('<p>')
+            self._paragraph = True
+
+        if name in (T_EM, T_STRONG):
+            self._xmlList.append(f'<{name}>')
+            return
+
+        if name.startswith(T_SPAN):
+            self._xmlList.append(f'<{name.replace("_", " ")}>')
+            return
+
+    def _get_heading_tag(self, name):
+
+        # Separate the XML tag from the attributes, if any.
+        tag = name.split('_')[0]
+        if tag in (T_H5, T_H6, T_H7, T_H8, T_H9):
+            return tag
+        else:
+            return None
+
+    def _is_paragraph_tag(self, name):
+        if not name.startswith('p'):
+            return False
+
+        # Make sure that it's not another XML tag starting with "p".
+        tag = name.split('_')[0]
+        if tag == 'p':
+            return True
+        else:
+            return False

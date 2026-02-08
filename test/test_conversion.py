@@ -34,7 +34,7 @@ XML_TEXT = (
     '<p>Next line</p>'
     '<h5>heading 5</h5>'
     '<h6>heading 6</h6>'
-    '<p>Next line</p>'
+    '<p>Next line </p>'
     '<h7>heading 7</h7>'
     '<p>Next line</p>'
     '<p><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
@@ -44,6 +44,18 @@ XML_TEXT = (
     '<ul>'
     '<li><p>One</p></li>'
     '</ul>'
+)
+XML_FOOTNOTE = (
+    '<p>This is a regular line'
+    '<note id="ftn0" class="footnote"><note-citation>1</note-citation>'
+    '<p>This is a footnote</p></note>'
+    ' of the test section</p>'
+)
+XML_ENDNOTE = (
+    '<p>This is a regular line'
+    '<note id="ftn1" class="endnote"><note-citation>i</note-citation>'
+    '<p>This is an endnote.</p></note>'
+    ' of the test section</p>'
 )
 
 
@@ -56,10 +68,22 @@ class Test(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testConversion(self):
+    def testRegularConversion(self):
         self.editor.set_text(XML_TEXT)
         result = self.editor.get_text()
         self.assertEqual(result, XML_TEXT)
+
+    @unittest.skip('')
+    def testFootnote(self):
+        self.editor.set_text(XML_FOOTNOTE)
+        with self.assertRaises(NotImplementedError):
+            self.editor.get_text()
+
+    @unittest.skip('')
+    def testEndnote(self):
+        self.editor.set_text(XML_ENDNOTE)
+        with self.assertRaises(NotImplementedError):
+            self.editor.get_text()
 
 
 if __name__ == "__main__":
