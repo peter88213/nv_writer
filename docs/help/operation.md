@@ -4,6 +4,7 @@
 
 # Operation
 
+---
 
 ## Select text
 
@@ -88,8 +89,6 @@ Then "Modified" status is displayed in *novelibre*.
 > Unlike *Writer*, the distraction-free editor does not automatically replace quotation marks, dashes, etc.
 > Typographical adjustments must therefore be made in a proofreading process on the regular manuscript using *Writer*.
 > I recommend one of the [curly](https://peter88213.github.io/curly/) extensions for this purpose.
-
-
 
 
 ## Close the editor window

@@ -12,7 +12,7 @@ class NvwriterHelp:
     HELP_URL = 'https://peter88213.github.io/nv_writer/help/'
 
     @classmethod
-    def open_help_page(cls, event=None):
+    def open_help_page(cls, page='', event=None):
         """Show the online help page."""
-        webbrowser.open(cls.HELP_URL)
+        webbrowser.open(f'{cls.HELP_URL}{page}')
 

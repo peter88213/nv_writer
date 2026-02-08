@@ -88,7 +88,7 @@ class OptionsDialog(ModalDialog):
         ttk.Button(
             self,
             text=_('Online help'),
-            command=NvwriterHelp.open_help_page,
+            command=self._open_help,
         ).pack(padx=5, pady=5, side='right')
 
         # Set Key bindings.
@@ -102,3 +102,7 @@ class OptionsDialog(ModalDialog):
 
     def _change_colors(self, *args, **kwargs):
         pass
+
+    def _open_help(self, event=None):
+        NvwriterHelp.open_help_page('options.html')
+

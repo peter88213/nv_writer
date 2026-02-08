@@ -155,7 +155,7 @@ class WriterView(ModalDialog):
         )
         self.bind(
             KEYS.OPEN_HELP[0],
-            NvwriterHelp.open_help_page
+            self._open_help
         )
         self._sectionEditor.bind(
             KEYS.QUIT_PROGRAM[0],
@@ -349,6 +349,9 @@ class WriterView(ModalDialog):
             self._set_modified_flag
         )
         self._askForConfirmation = prefs['ask_for_confirmation']
+
+    def _open_help(self, event=None):
+        NvwriterHelp.open_help_page('operation.html')
 
     def _reset_modified_flag(self, event=None):
         self._isModified = False

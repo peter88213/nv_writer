@@ -6,10 +6,10 @@
 
 ### Version 0.5.0 (Experimental Alpha release)
 
-Providing an Options dialog.
-
-- Checkbox for confirmation.
-- Checkbox for live word count.
+- Providing context-sensitive help.
+- Providing an Options dialog.
+   - Checkbox for confirmation.
+   - Checkbox for live word count.
 
 #### To do: 
 

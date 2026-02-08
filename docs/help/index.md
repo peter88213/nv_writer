@@ -30,10 +30,13 @@ the *novelibre* **Section** menu and the section context menu.
 > So if yo have a regular manuscript or a manuscript for third-pary word processing, 
 > you may want to discard it after updating your *novelibre* project.
 
+---
 
-## [Operation](operation.md)
+## Help pages
 
-## [Options](options.md)
+- [Operation](operation.md)
+
+- [Options](options.md)
 
 ---
 
