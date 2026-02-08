@@ -47,13 +47,15 @@ XML_TEXT = (
 )
 XML_FOOTNOTE = (
     '<p>This is a regular line'
-    '<note id="ftn0" class="footnote"><note-citation>1</note-citation>'
+    '<note id="ftn0" class="footnote">'
+    '<note-citation>1</note-citation>'
     '<p>This is a footnote</p></note>'
     ' of the test section</p>'
 )
 XML_ENDNOTE = (
     '<p>This is a regular line'
-    '<note id="ftn1" class="endnote"><note-citation>i</note-citation>'
+    '<note id="ftn1" class="endnote">'
+    '<note-citation>i</note-citation>'
     '<p>This is an endnote.</p></note>'
     ' of the test section</p>'
 )
