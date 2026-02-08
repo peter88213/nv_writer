@@ -22,6 +22,7 @@ the *novelibre* **Section** menu and the section context menu.
 - Hit `Alt`-`F4` (Windows) or `Ctrl`-`Q` (Linux) to finish the editing session.
 
 > **Important**
+>
 > In order to avoid confusion, the distraction-free editor will not start, if either 
 > - an editable manuscript exists, or
 > - the project is locked. 
