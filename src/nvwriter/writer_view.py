@@ -14,7 +14,6 @@ from nvwriter.footer_bar import FooterBar
 from nvwriter.nvwriter_globals import FEATURE
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
-from nvwriter.platform.platform_settings import PLATFORM
 from nvwriter.writer_locale import _
 import tkinter as tk
 
@@ -146,7 +145,7 @@ class WriterView(ModalDialog):
             side='left',
         )
 
-        #--- Event bindings.
+        #--- Key bindings.
         self._sectionEditor.bind(
             KEYS.PREVIOUS[0],
             self._load_prev,
@@ -155,17 +154,17 @@ class WriterView(ModalDialog):
             KEYS.NEXT[0],
             self._load_next,
         )
-        self._sectionEditor.bind(
-            KEYS.QUIT_PROGRAM[0],
-            self.on_quit,
+
+        self.bind(
+            KEYS.OPEN_HELP[0],
+            NvwriterHelp.open_help_page
         )
 
-        self.bind(KEYS.OPEN_HELP[0], self._open_help)
-        if PLATFORM != 'win':
-            self._sectionEditor.bind(
-                KEYS.QUIT_PROGRAM[0],
-                self.on_quit
+        self._sectionEditor.bind(
+            KEYS.QUIT_PROGRAM[0],
+            self.on_quit
             )
+
         self._sectionEditor.bind(
             KEYS.APPLY_CHANGES[0],
             self._apply_changes
@@ -202,6 +201,8 @@ class WriterView(ModalDialog):
             KEYS.TOGGLE_FOOTER_BAR[0],
             self._footerBar.toggle
         )
+
+        #--- Event bindings.
         event_callbacks = {
             '<<load_next>>': self._load_next,
             '<<on_quit>>': self.on_quit,
@@ -213,6 +214,7 @@ class WriterView(ModalDialog):
         for sequence, callback in event_callbacks.items():
             self.bind(sequence, callback)
 
+        # Configure the editor.
         self._set_wc_mode()
         self._askForConfirmation = self._prefs['ask_for_confirmation']
 
@@ -355,9 +357,6 @@ class WriterView(ModalDialog):
             self._set_modified_flag
         )
         self._askForConfirmation = self._prefs['ask_for_confirmation']
-
-    def _open_help(self, event=None):
-        NvwriterHelp.open_help_page()
 
     def _reset_modified_flag(self, event=None):
         self._isModified = False

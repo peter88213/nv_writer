@@ -94,7 +94,7 @@ class Plugin(PluginBase):
             label=label,
             image=self._icon,
             compound='left',
-            command=self._open_help,
+            command=NvwriterHelp.open_help_page,
         )
 
         # Hotkey to start the distraction-free editing mode.
@@ -107,5 +107,3 @@ class Plugin(PluginBase):
         self.writerService.start_editor()
         return 'break'
 
-    def _open_help(self, event=None):
-        NvwriterHelp.open_help_page()
