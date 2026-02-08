@@ -34,7 +34,7 @@ the *novelibre* **Section** menu and the section context menu.
 
 ## Help pages
 
-### [Operation](operation.md)**
+### [Operation](operation.md)
 
 ### [Options](options.md)
 

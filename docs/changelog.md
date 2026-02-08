@@ -5,7 +5,7 @@
 ## Changelog
 
 
-### Version 0.9.2
+### Version 0.9.2 (Experimental Alpha release)
 
 - Changed "Options" dialog text.
 - Updated colors for the "Blue" mode.
