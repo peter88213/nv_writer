@@ -20,7 +20,7 @@ class OptionsDialog(ModalDialog):
     COLORS_AMBER = ('gray20', 'gold3', 'gold')
     COLORS_BLACK = ('floral white', 'gray30', 'black')
     COLORS_BLUE = ('navy', 'gray80', 'white',)
-    COLORS_GREEN = ('gray20', 'green3', 'chartreuse')
+    COLORS_GREEN = ('gray20', 'green3', 'green2')
     COLORS_WHITE = ('gray20', 'gray80', 'white')
 
     def __init__(self, view, icon, **kw):
@@ -367,9 +367,11 @@ class OptionsDialog(ModalDialog):
         self._update_colors()
 
     def _set_option_green(self, event=None):
-        prefs['color_bg'] = 'gray20'
-        prefs['color_fg'] = 'green3'
-        prefs['color_highlight'] = 'green2'
+        (
+            prefs['color_bg'],
+            prefs['color_fg'],
+            prefs['color_highlight']
+        ) = self.COLORS_GREEN
         self._update_colors()
 
     def _set_option_white(self, event=None):
