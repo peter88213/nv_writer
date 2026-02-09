@@ -18,132 +18,45 @@ class FooterBar(tk.Frame):
             **kw,
         )
         self._prefs = prefs
+        self._fgColor = prefs['color_highlight'],
+        self._bgColor = prefs['color_bg'],
+        self._hlColor = prefs['color_highlight']
 
         #--- Add buttons to the bottom line.
 
-        #--- Close.
-        closeButton = tk.Label(
-            self,
-            background=prefs['color_fg'],
-            foreground=prefs['color_bg'],
-            text=_('Close'),
-            padx=4,
-            pady=2,
-        )
-        closeButton.pack(
-            side='right',
-        )
-        closeButton.bind('<Button-1>', self._event('<<on_quit>>'))
-
-        tk.Label(
-            self,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
-            text=KEYS.QUIT_PROGRAM[1],
-        ).pack(
-            padx=(10, 2),
-            pady=2,
-            side='right',
-        )
-
-        #--- Previous.
-        previousButton = tk.Label(
-            self,
-            background=prefs['color_fg'],
-            foreground=prefs['color_bg'],
-            text=_('Previous'),
-            padx=4,
-            pady=2,
-        )
-        previousButton.pack(
-            side='right',
-        )
-        previousButton.bind('<Button-1>', self._event('<<load_prev>>'))
-
-        tk.Label(
-            self,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
-            text=KEYS.PREVIOUS[1],
-        ).pack(
-            padx=(10, 2),
-            pady=2,
-            side='right',
-        )
-
-        #--- Next.
-        nextButton = tk.Label(
-            self,
-            background=prefs['color_fg'],
-            foreground=prefs['color_bg'],
-            text=_('Next'),
-            padx=4,
-            pady=2,
-        )
-        nextButton.pack(
-            side='right',
-        )
-        nextButton.bind('<Button-1>', self._event('<<load_next>>'))
-
-        tk.Label(
-            self,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
-            text=KEYS.NEXT[1],
-        ).pack(
-            padx=(10, 2),
-            pady=2,
-            side='right',
+        #--- Create new section.
+        self._create_menu_entry(
+            _('Create section'),
+            KEYS.CREATE_SCENE[1],
+            '<<new_section>>'
         )
 
         #--- Split section at cursor position.
-        applyButton = tk.Label(
-            self,
-            background=prefs['color_fg'],
-            foreground=prefs['color_bg'],
-            text=_('Split at cursor position'),
-            padx=4,
-            pady=2,
-        )
-        applyButton.pack(
-            side='right',
-        )
-        applyButton.bind('<Button-1>', self._event('<<split_section>>'))
-
-        tk.Label(
-            self,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
-            text=KEYS.SPLIT_SCENE[1],
-        ).pack(
-            padx=(10, 2),
-            pady=2,
-            side='right',
+        self._create_menu_entry(
+            _('Split at cursor position'),
+            KEYS.SPLIT_SCENE[1],
+            '<<split_section>>'
         )
 
-        #--- Create new section.
-        applyButton = tk.Label(
-            self,
-            background=prefs['color_fg'],
-            foreground=prefs['color_bg'],
-            text=_('Create section'),
-            padx=4,
-            pady=2,
+        #--- Previous.
+        self._previousButton = self._create_menu_entry(
+            _('Previous'),
+            KEYS.PREVIOUS[1],
+            '<<load_prev>>'
         )
-        applyButton.pack(
-            side='right',
-        )
-        applyButton.bind('<Button-1>', self._event('<<new_section>>'))
 
-        tk.Label(
-            self,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
-            text=KEYS.CREATE_SCENE[1],
-        ).pack(
-            padx=(10, 2),
-            pady=2,
-            side='right',
+        #--- Next.
+        self._create_menu_entry(
+            _('Next'),
+            KEYS.NEXT[1],
+            '<<load_next>>'
+        )
+
+        #--- Close.
+        self._closeButton = self._create_menu_entry(
+            _('Close'),
+            KEYS.QUIT_PROGRAM[1],
+            '<<on_quit>>'
         )
 
     def show(self, event=None):
@@ -163,10 +76,46 @@ class FooterBar(tk.Frame):
             self.show()
         return 'break'
 
-    def _event(self, sequence):
+    def _create_menu_entry(self, text, accelerator, sequence):
 
         def callback(*_):
             root = self.master.winfo_toplevel()
             root.event_generate(sequence)
 
-        return callback
+        event = callback
+        entry = tk.Frame(
+            self,
+            background=self._prefs['color_bg'],
+            padx=1,
+            pady=1,
+        )
+        text = tk.Label(
+            entry,
+            background=self._prefs['color_fg'],
+            foreground=self._prefs['color_bg'],
+            text=text,
+        )
+        text.pack(
+            fill='x',
+            expand=True,
+        )
+        text.bind('<Button-1>', event)
+        accelerator = tk.Label(
+            entry,
+            background=self._prefs['color_bg'],
+            foreground=self._prefs['color_highlight'],
+            text=accelerator,
+        )
+        accelerator.pack(
+            fill='x',
+            expand=True,
+        )
+        accelerator.bind('<Button-1>', event)
+        entry.pack(
+            side='left',
+            padx=4,
+            pady=2,
+            fill='x',
+            expand=True,
+        )
+
