@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.10.0\n"
-"POT-Creation-Date: 2026-02-09 14:47:30\n"
+"POT-Creation-Date: 2026-02-09 14:55:18\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -33,6 +33,9 @@ msgid "Ask for confirmation"
 msgstr ""
 
 msgid "Bio"
+msgstr ""
+
+msgid "Blue"
 msgstr ""
 
 msgid "Characterization"
