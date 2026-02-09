@@ -9,7 +9,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 from xml.sax.saxutils import escape
 
 from nvlib.model.xml.xml_filter import strip_illegal_characters
-from nvwriter.nvwriter_globals import BULLET
+from nvwriter.nvwriter_globals import BULLET, NOTE_PREFIX
 from nvwriter.nvwriter_globals import COMMENT_PREFIX
 from nvwriter.nvwriter_globals import T_EM
 from nvwriter.nvwriter_globals import T_H5
@@ -35,6 +35,14 @@ class TextParser():
         #      None, if no comment is currently processed
         #      the index is a part of the comment's tag
 
+        self.notes = []
+        # list of Note instances
+
+        self._noteIndex = None
+        # int: index of the currently processed Note instance
+        #      None, if no note is currently processed
+        #      the index is a part of the note's tag
+
         # Flags.
         self._paragraph = None
         self._list = None
@@ -50,6 +58,7 @@ class TextParser():
         self._heading = False
         self._xmlList.clear()
         self._commentIndex = None
+        self._noteIndex = None
 
     def parse_triple(self, key, value, __):
         # print(key, value)
@@ -70,6 +79,11 @@ class TextParser():
 
             # Content belongs to a comment.
             self.comments[self._commentIndex].add_text(content)
+            return
+
+        if self._noteIndex is not None:
+
+            # Discard note marker.
             return
 
         # Enclose paragraphs with XML tags.
@@ -134,6 +148,11 @@ class TextParser():
             self._commentIndex = None
             return
 
+        if name.startswith(NOTE_PREFIX):
+            self._xmlList.append(self.notes[self._noteIndex].get_xml())
+            self._noteIndex = None
+            return
+
         tag = self._get_heading_tag(name)
         if tag is not None:
             self._xmlList.append(f'</{tag}>')
@@ -148,6 +167,10 @@ class TextParser():
         if name.startswith(COMMENT_PREFIX):
             self._commentIndex = int(name.split(':')[1])
             self.comments[self._commentIndex].text = ''
+            return
+
+        if name.startswith(NOTE_PREFIX):
+            self._noteIndex = int(name.split(':')[1])
             return
 
         if self._is_paragraph_tag(name):

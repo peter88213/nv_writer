@@ -12,6 +12,9 @@ from xml import sax
 from nvwriter.comment import Comment
 from nvwriter.nvwriter_globals import BULLET
 from nvwriter.nvwriter_globals import COMMENT_PREFIX
+from nvwriter.nvwriter_globals import NOTE_MARK
+from nvwriter.nvwriter_globals import NOTE_PREFIX
+from nvwriter.nvwriter_globals import T_CITATION
 from nvwriter.nvwriter_globals import T_COMMENT
 from nvwriter.nvwriter_globals import T_CREATOR
 from nvwriter.nvwriter_globals import T_DATE
@@ -26,6 +29,7 @@ from nvwriter.nvwriter_globals import T_NOTE
 from nvwriter.nvwriter_globals import T_SPAN
 from nvwriter.nvwriter_globals import T_STRONG
 from nvwriter.nvwriter_globals import T_UL
+from nvwriter.note import Note
 
 
 class NovxParser(sax.ContentHandler):
@@ -46,9 +50,14 @@ class NovxParser(sax.ContentHandler):
         self.comments = []
         # list of Comment instances
 
+        self.notes = []
+        # list of Note instances
+
         # Flags
         self._list = None
-        self._note = None
+
+        # XML tag belonging to the currently processed note
+        self._noteXmlTag = None
 
         # XML tag belonging to the currently processed comment
         self._commentXmlTag = None
@@ -58,20 +67,23 @@ class NovxParser(sax.ContentHandler):
         self._tags.clear()
         self._spans.clear()
         self.comments.clear()
+        self.notes.clear()
         self._list = False
-        self._note = False
+        self._noteXmlTag = None
         self._commentXmlTag = None
 
         if xmlString:
             sax.parseString(f'<content>{xmlString}</content>', self)
 
     def characters(self, content):
-        if self._note:
-            raise NotImplementedError(
-                'This project contains elements '
-                'that are not supported by nv_writer.'
-            )
-            # TODO: Process footnotes and endnotes created with Writer.
+        #--- Collect the Note instance variables
+        if self._noteXmlTag == T_CITATION:
+            self.notes[-1].noteCitation = content
+            return
+
+        if self._noteXmlTag == 'p':
+            self.notes[-1].add_text(content, '\n')
+            return
 
         #--- Collect the Comment instance variables
         if self._commentXmlTag == T_CREATOR:
@@ -84,10 +96,6 @@ class NovxParser(sax.ContentHandler):
 
         if self._commentXmlTag == 'p':
             self.comments[-1].add_text(content, '\n')
-            return
-
-        if self._commentXmlTag is not None:
-            print(self._commentXmlTag)
             return
 
         #--- Process regular text.
@@ -104,6 +112,14 @@ class NovxParser(sax.ContentHandler):
             # Use the comment's text, tagged with the comment's list index.
             self._taggedText.append((self.comments[-1].text, tag))
             self._commentXmlTag = None
+            return
+
+        if name == T_NOTE:
+            # Generate a tag using the list index of the Note instance.
+            tag = (T_NOTE, f'{NOTE_PREFIX}:{len(self.notes)-1}')
+            # Use the note's text, tagged with the comment's list index.
+            self._taggedText.append((NOTE_MARK, tag))
+            self._noteXmlTag = None
             return
 
         if name in (
@@ -126,10 +142,6 @@ class NovxParser(sax.ContentHandler):
             self._list = False
             return
 
-        if name == T_NOTE:
-            self._note = False
-            return
-
     def get_result(self):
         return self._taggedText
 
@@ -146,6 +158,21 @@ class NovxParser(sax.ContentHandler):
         if self._commentXmlTag is not None:
             # Tag of a Comment instance variable.
             self._commentXmlTag = name
+            return
+
+        #--- Detect notes and their components.
+        if name == T_NOTE:
+            # Instantiate a Note object and add it to the list.
+            self.notes.append(Note())
+            self._noteXmlTag = name
+            # used as a flag
+            self.notes[-1].noteId = attrs['id']
+            self.notes[-1].noteClass = attrs['class']
+            return
+
+        if self._noteXmlTag is not None:
+            # Tag of a Note instance variable.
+            self._noteXmlTag = name
             return
 
         #--- Text elements.
@@ -199,9 +226,6 @@ class NovxParser(sax.ContentHandler):
 
         elif name == T_UL:
             self._list = True
-
-        elif name == T_NOTE:
-            self._note = True
 
         if suffix:
             self._taggedText.append((suffix, ''))

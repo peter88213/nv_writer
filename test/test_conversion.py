@@ -76,10 +76,10 @@ class Test(unittest.TestCase):
         self.assertEqual(result, XML_TEXT)
 
     def testEndnote(self):
-        with self.assertRaises(NotImplementedError):
-            self.editor.set_text(XML_ENDNOTE)
+        self.editor.set_text(XML_ENDNOTE)
+        result = self.editor.get_text()
+        self.assertEqual(result, XML_ENDNOTE)
 
-    @unittest.skip('This test is for the next TDD cycle')
     def testFootnote(self):
         self.editor.set_text(XML_FOOTNOTE)
         result = self.editor.get_text()

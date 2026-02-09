@@ -5,6 +5,13 @@
 ## Changelog
 
 
+### Version 0.10.0 (Experimental Beta release)
+
+- Preserving footnotes and endnotes.
+
+API: 5.52
+Based on novelibre 5.52.0
+
 ### Version 0.9.2 (Experimental Alpha release)
 
 - Changed "Options" dialog text.

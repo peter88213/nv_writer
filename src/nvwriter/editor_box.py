@@ -75,7 +75,7 @@ class EditorBox(tk.Text):
         )
         self.tag_configure(
             T_NOTE,
-            background=color_highlight,
+            foreground=color_highlight,
         )
 
     def clear(self):
@@ -85,6 +85,7 @@ class EditorBox(tk.Text):
         """Return the whole text from the editor box in .novx format."""
         self._textParser.reset()
         self._textParser.comments = self._novxParser.comments
+        self._textParser.notes = self._novxParser.notes
         self.dump(start, end, command=self._textParser.parse_triple)
         return self._textParser.get_result()
 
