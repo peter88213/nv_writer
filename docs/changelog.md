@@ -5,6 +5,16 @@
 ## Changelog
 
 
+### Version 0.11.0 (Experimental Beta release)
+
+- No longer allow manually applying changes.
+- Changed the key bindings:
+   - `Ctrl`-`N` creates a new section.
+   - `Ctrl`-`S` splits the section.
+
+API: 5.52
+Based on novelibre 5.52.0
+
 ### Version 0.10.0 (Experimental Beta release)
 
 - Preserving footnotes and endnotes.

@@ -6,6 +6,43 @@
 
 ---
 
+## Toggle the menu
+
+- `Ctrl`-`F1` folds the clickable menu bar below the editor window in or out.
+
+
+---
+
+## Switch between sections
+
+- `Ctrl`-`PgUp` loads the previous section, if any.
+- `Ctrl`-`PgDn`, loads the next section, if any.
+-  When loading another section, you may be asked for applying changes.
+
+
+## Create a new section
+
+With `Ctrl`-`N`, you can create a new section.
+
+-  The new section is placed after the currently edited section.
+-  The new section is of the same type as the currently edited section.
+-  The editor loads the newly created section.
+
+
+## Split a section
+
+With `Ctrl`-`S`, you can split the section at the cursor position.
+
+-  All the text from the cursor position is cut and pasted into a newly created section.
+-  The new section is placed after the currently edited section.
+-  The new section is appended to the currently edited section.
+-  The new section has the same status as the currently edited section.
+-  The new section is of the same type as the currently edited section.
+-  The new section has the same viewpoint character as the currently edited section.
+-  The editor loads the newly created section.
+
+---
+
 ## Select text
 
 -  `Ctrl`-`A` selects the whole text.
@@ -35,36 +72,6 @@
 
 ---
 
-## Switch between sections
-
-- `Ctrl`-`PgUp` loads the previous section, if any.
-- `Ctrl`-`PgDn`, loads the next section, if any.
--  When loading another section, you may be asked for applying changes.
-
-
-## Create a new section
-
-With `Ctrl`-`Alt`-`N`, you can create a new section.
-
--  The new section is placed after the currently edited section.
--  The new section is of the same type as the currently edited section.
--  The editor loads the newly created section.
-
-
-## Split a section
-
-With `Ctrl`-`Alt`-`S`, you can split the section at the cursor position.
-
--  All the text from the cursor position is cut and pasted into a newly created section.
--  The new section is placed after the currently edited section.
--  The new section is appended to the currently edited section.
--  The new section has the same status as the currently edited section.
--  The new section is of the same type as the currently edited section.
--  The new section has the same viewpoint character as the currently edited section.
--  The editor loads the newly created section.
-
----
-
 ## Word count
 
 -  The section word count is displayed at the status bar at the top of the window.
@@ -74,23 +81,15 @@ With `Ctrl`-`Alt`-`S`, you can split the section at the cursor position.
 
 ---
 
-## Apply changes
-
-With `Ctrl`-`S`, you can apply changes to the section.
-Then "Modified" status is displayed in *novelibre*.
-
-> **Hint**
->
-> Unlike *Writer*, the distraction-free editor does not automatically replace quotation marks, dashes, etc.
-> Typographical adjustments must therefore be made in a proofreading process on the regular manuscript using *Writer*.
-> I recommend one of the [curly](https://peter88213.github.io/curly/) extensions for this purpose.
-
-
-## Close the editor window
+## End the distraction-free writing mode
 
 -  Under Windows you can exit with `Alt`-`F4`.
 -  Otherwise you can exit with `Ctrl`-`Q`.
 -  When closing the editor window, you may be asked for applying changes.
+
+
+## Interrupt the distraction-free writing mode (not recommended)
+
 -  You can temporarily leave the distraction-free mode using your desktop's task switcher (e.g. via `Win`-`Tab` under Windows).  
 
 

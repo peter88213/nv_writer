@@ -10,15 +10,14 @@ from nvwriter.writer_locale import _
 
 class MacKeys(GenericKeys):
 
-    APPLY_CHANGES = ('<Command-s>', 'Cmd-S')
     BOLD = ('<Command-b>', 'Cmd-B')
-    CREATE_SCENE = ('<Command-Alt-n>', 'Cmd-Alt-N')
+    CREATE_SCENE = ('<Command-n>', 'Cmd-N')
     ITALIC = ('<Command-i>', 'Cmd-I')
     NEXT = ('<Command-Next>', f'Cmd-{_("PgDn")}')
     PLAIN = ('<Command-m>', 'Cmd-M')
     PREVIOUS = ('<Command-Prior>', f'Cmd-{_("PgUp")}')
     QUIT_PROGRAM = ('<Command-q>', 'Cmd-Q')
-    SPLIT_SCENE = ('<Command-Alt-s>', 'Cmd-Alt-S')
+    SPLIT_SCENE = ('<Command-s>', 'Cmd-S')
     START_EDITOR = ('<Command-w>', 'Cmd-W')
     TOGGLE_FOOTER_BAR = ('<Command-F1>', 'Cmd-F1')
 

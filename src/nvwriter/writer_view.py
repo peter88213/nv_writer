@@ -162,10 +162,6 @@ class WriterView(ModalDialog):
             self.on_quit
         )
         self._sectionEditor.bind(
-            KEYS.APPLY_CHANGES[0],
-            self._apply_changes
-        )
-        self._sectionEditor.bind(
             KEYS.UPDATE_WORDCOUNT[0],
             self._show_wordcount
         )

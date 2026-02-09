@@ -46,31 +46,6 @@ class FooterBar(tk.Frame):
             side='right',
         )
 
-        #--- Apply changes.
-        applyButton = tk.Label(
-            self,
-            background=prefs['color_fg'],
-            foreground=prefs['color_bg'],
-            text=_('Apply changes'),
-            padx=4,
-            pady=2,
-        )
-        applyButton.pack(
-            side='right',
-        )
-        applyButton.bind('<Button-1>', self._event('<<apply_changes>>'))
-
-        tk.Label(
-            self,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
-            text=KEYS.APPLY_CHANGES[1],
-        ).pack(
-            padx=(10, 2),
-            pady=2,
-            side='right',
-        )
-
         #--- Previous.
         previousButton = tk.Label(
             self,
