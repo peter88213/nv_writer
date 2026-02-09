@@ -24,14 +24,14 @@ class FooterBar(tk.Frame):
         #--- Create new section.
         self._create_menu_entry(
             _('Create section'),
-            KEYS.CREATE_SCENE[1],
+            KEYS.CREATE_SECTION[1],
             '<<new_section>>'
         )
 
         #--- Split section at cursor position.
         self._create_menu_entry(
             _('Split at cursor position'),
-            KEYS.SPLIT_SCENE[1],
+            KEYS.SPLIT_SECTION[1],
             '<<split_section>>'
         )
 

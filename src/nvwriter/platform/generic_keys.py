@@ -11,7 +11,7 @@ class GenericKeys:
 
     BOLD = ('<Control-b>', f'{_("Ctrl")}-B')
     COPY = ('<Control-c>', f'{_("Ctrl")}-C')
-    CREATE_SCENE = ('<Control-n>', f'{_("Ctrl")}-N')
+    CREATE_SECTION = ('<Control-n>', f'{_("Ctrl")}-N')
     CUT = ('<Control-x>', f'{_("Ctrl")}-X')
     ITALIC = ('<Control-i>', f'{_("Ctrl")}-I')
     NEXT = ('<Control-Next>', f'{_("Ctrl")}-{_("PgDn")}')
@@ -20,7 +20,7 @@ class GenericKeys:
     PLAIN = ('<Control-m>', f'{_("Ctrl")}-M')
     PREVIOUS = ('<Control-Prior>', f'{_("Ctrl")}-{_("PgUp")}')
     QUIT_PROGRAM = ('<Control-q>', f'{_("Ctrl")}-Q')
-    SPLIT_SCENE = ('<Control-s>', f'{_("Ctrl")}-S')
+    SPLIT_SECTION = ('<Control-s>', f'{_("Ctrl")}-S')
     START_EDITOR = ('<Control-w>', f'{_("Ctrl")}-W')
     TOGGLE_FOOTER_BAR = ('<Control-F1>', f'{_("Ctrl")}-F1')
     UPDATE_WORDCOUNT = ('<F5>', 'F5')
