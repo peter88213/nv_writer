@@ -25,6 +25,16 @@ XML_TEXT = (
     '<p xml:lang="en-US">This is the <span xml:lang="en-GB">tenth</span> line of the test section</p>'
     '<p xml:lang="en-US">This is the <em><span xml:lang="en-GB">eleventh</span></em> line of the test section</p>'
     '<h9>heading 9</h9>'
+    '<p>This is a regular line'
+    '<note id="ftn0" class="footnote">'
+    '<note-citation>1</note-citation>'
+    '<p>This is a footnote</p></note>'
+    ' of the test section</p>'
+    '<p>This is a regular line'
+    '<note id="ftn1" class="endnote">'
+    '<note-citation>i</note-citation>'
+    '<p>This is an endnote.</p></note>'
+    ' of the test section</p>'
     '<h8>heading 8</h8>'
     '<ul>'
     '<li><p>One</p></li>'
@@ -45,20 +55,6 @@ XML_TEXT = (
     '<li><p>One</p></li>'
     '</ul>'
 )
-XML_FOOTNOTE = (
-    '<p>This is a regular line'
-    '<note id="ftn0" class="footnote">'
-    '<note-citation>1</note-citation>'
-    '<p>This is a footnote</p></note>'
-    ' of the test section</p>'
-)
-XML_ENDNOTE = (
-    '<p>This is a regular line'
-    '<note id="ftn1" class="endnote">'
-    '<note-citation>i</note-citation>'
-    '<p>This is an endnote.</p></note>'
-    ' of the test section</p>'
-)
 
 
 class Test(unittest.TestCase):
@@ -74,16 +70,6 @@ class Test(unittest.TestCase):
         self.editor.set_text(XML_TEXT)
         result = self.editor.get_text()
         self.assertEqual(result, XML_TEXT)
-
-    def testEndnote(self):
-        self.editor.set_text(XML_ENDNOTE)
-        result = self.editor.get_text()
-        self.assertEqual(result, XML_ENDNOTE)
-
-    def testFootnote(self):
-        self.editor.set_text(XML_FOOTNOTE)
-        result = self.editor.get_text()
-        self.assertEqual(result, XML_FOOTNOTE)
 
 
 if __name__ == "__main__":
