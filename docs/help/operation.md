@@ -57,14 +57,6 @@ With `Ctrl`-`S`, you can split the section at the cursor position.
 -  `Ctrl`-`X` cuts the selected text and moves it to the clipboard.
 -  `Ctrl`-`V` pastes the clipboard text content to the cursor position.
 
-## Format text
-
--  `Ctrl`-`I` emphasizes the selected text.
-   If the selection is already emphasized, the command removes the markup.
--  `Ctrl`-`B` strongly emphasizes the selected text.
-   If the selection is already strong, the command removes the markup.
--  `Ctrl`-`M` removes "emphasized" and "strong" formatting from the selection.
-
 ## Undo/Redo
 
 -  `Ctrl`-`Z` undoes the last editing. Multiple undo is possible.

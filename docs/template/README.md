@@ -32,7 +32,6 @@ You can choose a color scheme according to your taste:
     - Text selection.
     - Copy/Cut/Paste to/from the clipboard.
     - Undo/Redo.
-    - Key shortcuts for emphasized and strongly emphasized formatting.
     - Create a new section after the current one.
     - Split the section at the cursor position.
     - Switch to the next or previous section.
