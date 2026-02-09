@@ -13,11 +13,18 @@ Just press `Ctrl`-`W`, and the editor window opens instantly with the selected s
 Change the sections via `Ctrl`-`PgUp` and `Ctrl`-`PgDn`, or create new sections with `Ctrl`-`Alt`-`N`. 
 Although mouse operations are possible, the editor can be operated entirely via the keyboard. 
 
+With the menu displayed, it resembles a DOS word processor.:
+
 ![Screenshot](docs/Screenshots/screen01.png)
 
 You can choose a color scheme according to your taste: 
 
 ![Screenshot](docs/Screenshots/screen02.png)
+
+Hiding the menu might give you a typewriter feel.:
+
+![Screenshot](docs/Screenshots/screen03.png)
+
 
 ## Features
 
