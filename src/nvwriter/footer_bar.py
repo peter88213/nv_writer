@@ -4,6 +4,7 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_vriter
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+from nvwriter.nvwriter_globals import prefs
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.writer_locale import _
 import tkinter as tk
@@ -11,16 +12,12 @@ import tkinter as tk
 
 class FooterBar(tk.Frame):
 
-    def __init__(self, parent, prefs, **kw):
+    def __init__(self, parent, **kw):
         super().__init__(
             parent,
             background=prefs['color_bg'],
             **kw,
         )
-        self._prefs = prefs
-        self._fgColor = prefs['color_highlight'],
-        self._bgColor = prefs['color_bg'],
-        self._hlColor = prefs['color_highlight']
 
         #--- Add buttons to the bottom line.
 
@@ -61,19 +58,12 @@ class FooterBar(tk.Frame):
 
     def show(self, event=None):
         self.pack(fill='x')
-        self._prefs['show_footer_bar'] = True
+        prefs['show_footer_bar'] = True
         return 'break'
 
     def hide(self, event=None):
         self.pack_forget()
-        self._prefs['show_footer_bar'] = False
-        return 'break'
-
-    def toggle(self, event=None):
-        if self.winfo_manager():
-            self.hide()
-        else:
-            self.show()
+        prefs['show_footer_bar'] = False
         return 'break'
 
     def _create_menu_entry(self, text, accelerator, sequence):
@@ -85,14 +75,14 @@ class FooterBar(tk.Frame):
         event = callback
         entry = tk.Frame(
             self,
-            background=self._prefs['color_bg'],
+            background=prefs['color_bg'],
             padx=1,
             pady=1,
         )
         text = tk.Label(
             entry,
-            background=self._prefs['color_fg'],
-            foreground=self._prefs['color_bg'],
+            background=prefs['color_fg'],
+            foreground=prefs['color_bg'],
             text=text,
         )
         text.pack(
@@ -102,8 +92,8 @@ class FooterBar(tk.Frame):
         text.bind('<Button-1>', event)
         accelerator = tk.Label(
             entry,
-            background=self._prefs['color_bg'],
-            foreground=self._prefs['color_highlight'],
+            background=prefs['color_bg'],
+            foreground=prefs['color_highlight'],
             text=accelerator,
         )
         accelerator.pack(
