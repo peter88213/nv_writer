@@ -10,7 +10,7 @@ The [novelibre](https://github.com/peter88213/novelibre/) Python program helps a
 
 *nv_writer* is a "distraction free editor" plugin for novelibre. 
 Just press `Ctrl`-`W`, and the editor window opens instantly with the selected section loaded. 
-Change the sections via `Ctrl`-`PgUp` and `Ctrl`-`PgDn`, or create new sections with `Ctrl`-`Alt`-`N`. 
+Change the sections via `Ctrl`-`PgUp` and `Ctrl`-`PgDn`, or create new sections with `Ctrl`-`N`. 
 Although mouse operations are possible, the editor can be operated entirely via the keyboard. 
 
 With the menu displayed, it resembles a DOS word processor.:
