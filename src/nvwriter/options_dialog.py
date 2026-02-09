@@ -18,7 +18,7 @@ class OptionsDialog(ModalDialog):
     """A pop-up window with view preference settings."""
 
     COLORS_AMBER = ('gray20', 'gold3', 'gold')
-    COLORS_BLACK = ('floral white', 'gray30', 'black')
+    COLORS_PAPER = ('floral white', 'gray30', 'black')
     COLORS_BLUE = ('navy', 'gray60', 'gray75',)
     COLORS_GREEN = ('gray20', 'green3', 'green2')
     COLORS_WHITE = ('gray20', 'gray80', 'white')
@@ -224,9 +224,9 @@ class OptionsDialog(ModalDialog):
             self.COLORS_BLUE,
         )
 
-        #--- "Black" option.
-        optionFrameBlack = ttk.Frame(frame2)
-        optionFrameBlack.pack(
+        #--- "Paper" option.
+        optionFramePaper = ttk.Frame(frame2)
+        optionFramePaper.pack(
             anchor='n',
             padx=5,
             pady=5,
@@ -234,24 +234,24 @@ class OptionsDialog(ModalDialog):
             side='left',
         )
         (
-            textDisplayBlack,
-            regularTextBlack,
-            highlightedTextBlack,
-            invertedTextBlack,
+            textDisplayPaper,
+            regularTextPaper,
+            highlightedTextPaper,
+            invertedTextPaper,
 
-        ) = self._get_color_display(optionFrameBlack)
-        textDisplayBlack.pack(fill='x')
+        ) = self._get_color_display(optionFramePaper)
+        textDisplayPaper.pack(fill='x')
         ttk.Button(
-            optionFrameBlack,
-            text=_('Black'),
-            command=self._set_option_black
+            optionFramePaper,
+            text=_('Paper'),
+            command=self._set_option_paper
         ).pack(pady=5)
         self._configure_text_display(
-            textDisplayBlack,
-            regularTextBlack,
-            highlightedTextBlack,
-            invertedTextBlack,
-            self.COLORS_BLACK,
+            textDisplayPaper,
+            regularTextPaper,
+            highlightedTextPaper,
+            invertedTextPaper,
+            self.COLORS_PAPER,
         )
 
         ttk.Separator(self, orient='horizontal').pack(fill='x')
@@ -358,12 +358,12 @@ class OptionsDialog(ModalDialog):
         ) = self.COLORS_BLUE
         self._update_colors()
 
-    def _set_option_black(self, event=None):
+    def _set_option_paper(self, event=None):
         (
             prefs['color_bg'],
             prefs['color_fg'],
             prefs['color_highlight']
-        ) = self.COLORS_BLACK
+        ) = self.COLORS_PAPER
         self._update_colors()
 
     def _set_option_green(self, event=None):
