@@ -98,61 +98,31 @@ class WriterView(ModalDialog):
             self._statusBar.normal()
 
         #--- Key bindings.
-        self._sectionEditor.bind(
-            KEYS.PREVIOUS[0],
-            self._load_prev,
+        keyBindings = (
+            (KEYS.PREVIOUS, self._load_prev),
+            (KEYS.NEXT, self._load_next),
+            (KEYS.OPEN_HELP, self._open_help),
+            (KEYS.QUIT_PROGRAM, self.on_quit),
+            (KEYS.UPDATE_WORDCOUNT, self._show_wordcount),
+            (KEYS.SPLIT_SCENE, self._split_section),
+            (KEYS.CREATE_SCENE, self._create_section),
+            (KEYS.ITALIC, self._sectionEditor.emphasis),
+            (KEYS.BOLD, self._sectionEditor.strong_emphasis),
+            (KEYS.PLAIN, self._sectionEditor.plain),
+            (KEYS.TOGGLE_FOOTER_BAR, self._toggle_display)
         )
-        self._sectionEditor.bind(
-            KEYS.NEXT[0],
-            self._load_next,
-        )
-        self.bind(
-            KEYS.OPEN_HELP[0],
-            self._open_help
-        )
-        self._sectionEditor.bind(
-            KEYS.QUIT_PROGRAM[0],
-            self.on_quit
-        )
-        self._sectionEditor.bind(
-            KEYS.UPDATE_WORDCOUNT[0],
-            self._show_wordcount
-        )
-        self._sectionEditor.bind(
-         KEYS.SPLIT_SCENE[0],
-         self._split_section
-        )
-        self._sectionEditor.bind(
-            KEYS.CREATE_SCENE[0],
-            self._create_section
-        )
-        self._sectionEditor.bind(
-            KEYS.ITALIC[0],
-            self._sectionEditor.emphasis
-        )
-        self._sectionEditor.bind(
-            KEYS.BOLD[0],
-            self._sectionEditor.strong_emphasis
-        )
-        self._sectionEditor.bind(
-            KEYS.PLAIN[0],
-            self._sectionEditor.plain
-        )
-        self._sectionEditor.bind(
-            KEYS.TOGGLE_FOOTER_BAR[0],
-            self._toggle_display
-        )
+        for key, callback in keyBindings:
+            self._sectionEditor.bind(key[0], callback)
 
         #--- Event bindings.
-        event_callbacks = {
-            '<<load_next>>': self._load_next,
-            '<<on_quit>>': self.on_quit,
-            '<<load_prev>>': self._load_prev,
-            '<<apply_changes>>': self._apply_changes,
-            '<<split_section>>': self._split_section,
-            '<<new_section>>': self._create_section,
-        }
-        for sequence, callback in event_callbacks.items():
+        eventBindings = (
+            ('<<load_next>>', self._load_next),
+            ('<<on_quit>>', self.on_quit),
+            ('<<load_prev>>', self._load_prev),
+            ('<<split_section>>', self._split_section),
+            ('<<new_section>>', self._create_section),
+        )
+        for sequence, callback in eventBindings:
             self.bind(sequence, callback)
 
         # Configure the editor.
@@ -308,7 +278,7 @@ class WriterView(ModalDialog):
         self._reset_modified_flag()
         self._sectionEditor.bind(
             "<<Modified>>",
-            self._set_modified_flag
+            self._update_modified_flag
         )
         self._askForConfirmation = prefs['ask_for_confirmation']
 
@@ -318,12 +288,6 @@ class WriterView(ModalDialog):
     def _reset_modified_flag(self, event=None):
         self._statusBar.set_modified(False)
         self._sectionEditor.edit_modified(False)
-
-    def _set_modified_flag(self, event=None):
-        if self._sectionEditor.edit_modified():
-            self._statusBar.set_modified(True)
-        else:
-            self._reset_modified_flag()
 
     def _set_wc_mode(self):
         if prefs['live_wordcount']:
@@ -393,4 +357,10 @@ class WriterView(ModalDialog):
             self._footerBar.show()
             self._statusBar.highlight()
         return 'break'
+
+    def _update_modified_flag(self, event=None):
+        if self._sectionEditor.edit_modified():
+            self._statusBar.set_modified(True)
+        else:
+            self._reset_modified_flag()
 
