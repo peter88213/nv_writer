@@ -17,7 +17,6 @@ from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.status_bar import StatusBar
 from nvwriter.writer_locale import _
-import tkinter as tk
 
 
 class WriterView(ModalDialog):
@@ -36,8 +35,8 @@ class WriterView(ModalDialog):
 
         self._section = None
         self._scId = None
-        self._isModified = None
         self.wordCounter = self._mdl.nvService.get_word_counter()
+        self._initialWc = None
 
         self.attributes('-fullscreen', True)
         self.update_idletasks()
@@ -54,10 +53,8 @@ class WriterView(ModalDialog):
         )
 
         # Add a status bar to the editor window.
-        self._statusBar = StatusBar(editorWindow)
-        self._statusBar.pack(
-            fill='x',
-        )
+        self._statusBar = StatusBar(editorWindow, self._mdl)
+        self._statusBar.pack(fill='x')
 
         # Add a text editor with scrollbar to the editor window.
 
@@ -299,10 +296,10 @@ class WriterView(ModalDialog):
         self._scId = scId
         chId = self._mdl.novel.tree.parent(self._scId)
 
-        self._statusBar.breadcrumbs['text'] = (
-            f'{self._mdl.novel.title} | '
-            f'{self._mdl.novel.chapters[chId].title} | '
-            f'{self._section.title}'
+        self._statusBar.set_breadcrumbs(
+            self._mdl.novel.title,
+            self._mdl.novel.chapters[chId].title,
+            self._section.title
         )
         self._initialWc = self.wordCounter.get_word_count(
             self._sectionEditor.get('1.0', 'end')
@@ -319,14 +316,12 @@ class WriterView(ModalDialog):
         NvwriterHelp.open_help_page('operation.html')
 
     def _reset_modified_flag(self, event=None):
-        self._isModified = False
-        self._statusBar.modificationIndicator.config(text='')
+        self._statusBar.set_modified(False)
         self._sectionEditor.edit_modified(False)
 
     def _set_modified_flag(self, event=None):
         if self._sectionEditor.edit_modified():
-            self._isModified = True
-            self._statusBar.modificationIndicator.config(text=_('Modified'))
+            self._statusBar.set_modified(True)
         else:
             self._reset_modified_flag()
 
@@ -342,9 +337,7 @@ class WriterView(ModalDialog):
             self._sectionEditor.get('1.0', 'end')
         )
         diff = wc - self._initialWc
-        self._statusBar.wordCount.config(
-            text=f'{wc} {_("words")} ({diff} {_("new")})'
-        )
+        self._statusBar.set_wordcount(wc, diff)
 
     def _split_section(self, event=None):
         # Split a section at the cursor position.
