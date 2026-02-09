@@ -21,7 +21,7 @@ You can choose a color scheme according to your taste:
 
 ![Screenshot](docs/Screenshots/screen02.png)
 
-Hiding the menu might give you a typewriter feel.:
+Hiding the menu might give you a typewriter feel:
 
 ![Screenshot](docs/Screenshots/screen03.png)
 
