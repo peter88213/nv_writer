@@ -38,7 +38,7 @@ You can choose a color scheme according to your taste:
     - Switch to the next or previous section.
 
 > [!CAUTION]
-> This is an experimental Alpha release. 
+> This is an experimental Beta release. 
 > Please check the results with *OpenOffice/LibreOffice Writer*, and report any issues if something seems strange. 
 > Feel free to share your thoughts in the [novelibre discussion forum](https://github.com/peter88213/novelibre/discussions). 
 
