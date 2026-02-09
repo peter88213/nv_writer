@@ -11,6 +11,10 @@
 - Changed the key bindings:
    - `Ctrl`-`N` creates a new section.
    - `Ctrl`-`S` splits the section.
+- Revised the footer bar menu.
+- Highlighting the status bar while the menu is visible.
+- Renamed color set: "Black" --> "Paper".
+- Disabled the formatting shortcuts (emphasis, strong emphasis, plain).
 
 API: 5.52
 Based on novelibre 5.52.0
