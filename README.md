@@ -48,7 +48,7 @@ Hiding the menu might give you a typewriter feel:
 > Please check the results with *OpenOffice/LibreOffice Writer*, and report any issues if something seems strange. 
 > Feel free to share your thoughts in the [novelibre discussion forum](https://github.com/peter88213/novelibre/discussions). 
 >
-> See #5 to find out what is not working yet. 
+> See The [list of parser issues](https://github.com/peter88213/nv_writer/issues/5) to find out what is not working yet. 
 
 
 
