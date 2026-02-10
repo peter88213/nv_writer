@@ -10,7 +10,7 @@ from nvwriter.editor_box import EditorBox
 import tkinter as tk
 
 CURRENT_DEVELOPMENT = (
-    '<p></p>'
+    '<p>This is <em><span xml:lang="en-US">emhasized AE</span></em> Text. <span xml:lang="en-GB">plain BE text.</span></p>'
 )
 UNTAGGED_PARAGRAPH_START_EM = (
     '<p><em>Emphasized Paragraph start.</em> Regular end.</p>'
@@ -87,6 +87,54 @@ COMMENT_IN_UNTAGGED_PARAGRAPH = (
 COMMENT_IN_TAGGED_PARAGRAPH = (
     '<p xml:lang="en-US"><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
 )
+LIST_BETWEEN_TAGGED_PARAGRAPHS = (
+    '<p style="quotations">Tagged paragraph</p>'
+    '<ul>'
+    '<li><p>One</p></li>'
+    '<li><p><em>Two</em></p></li>'
+    '</ul>'
+    '<p style="quotations">Tagged paragraph</p>'
+)
+UNTAGGED_PARAGRAPH_LIST_TAGGED_PARAGRAPH = (
+    '<p>Untagged paragraph</p>'
+    '<ul>'
+    '<li><p>One</p></li>'
+    '<li><p><em>Two</em></p></li>'
+    '</ul>'
+    '<p style="quotations">Tagged paragraph</p>'
+)
+TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH = (
+    '<p style="quotations">Tagged paragraph</p>'
+    '<ul>'
+    '<li><p>One</p></li>'
+    '<li><p><em>Two</em></p></li>'
+    '</ul>'
+    '<p>Untagged paragraph</p>'
+)
+LIST_BETWEEN_UNTAGGED_PARAGRAPHS = (
+    '<p>Untagged paragraph</p>'
+    '<ul>'
+    '<li><p>One</p></li>'
+    '<li><p><em>Two</em></p></li>'
+    '</ul>'
+    '<p>Untagged paragraph</p>'
+)
+UNTAGGED_PARAGRAPH_STARTING_WITH_SPAN = (
+    '<p><span xml:lang="en-US">This AE text,</span> and this is default.</p>'
+)
+TAGGED_PARAGRAPH_STARTING_WITH_SPAN = (
+    '<p xml:lang="en-GB"><span xml:lang="en-US">This AE text,</span> and this is BE.</p>'
+)
+NESTED_FORMATS = (
+    '<p>This is <strong><em>double-formatted</em></strong> Text</p>'
+)
+FORMATTED_SPAN = (
+    '<p>This is <em><span xml:lang="en-US">emhasized AE</span></em> Text</p>'
+)
+MULTIPLE_SPANS = (
+    '<p>This is <em><span xml:lang="en-US">emphasized AE</span></em> Text. <span xml:lang="en-GB">plain BE text.</span></p>'
+)
+
 OK_WITH_0_10_0 = (
     '<p>This is the <em>first</em> line of the test section</p>'
     '<p></p>'
@@ -216,6 +264,42 @@ class Test(unittest.TestCase):
     def testRegression16(self):
         self.editor.set_text(COMMENT_IN_TAGGED_PARAGRAPH)
         self.assertEqual(self.editor.get_text(), COMMENT_IN_TAGGED_PARAGRAPH)
+
+    def testRegression17(self):
+        self.editor.set_text(LIST_BETWEEN_TAGGED_PARAGRAPHS)
+        self.assertEqual(self.editor.get_text(), LIST_BETWEEN_TAGGED_PARAGRAPHS)
+
+    def testRegression18(self):
+        self.editor.set_text(UNTAGGED_PARAGRAPH_LIST_TAGGED_PARAGRAPH)
+        self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_LIST_TAGGED_PARAGRAPH)
+
+    def testRegression19(self):
+        self.editor.set_text(TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH)
+        self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH)
+
+    def testRegression20(self):
+        self.editor.set_text(LIST_BETWEEN_UNTAGGED_PARAGRAPHS)
+        self.assertEqual(self.editor.get_text(), LIST_BETWEEN_UNTAGGED_PARAGRAPHS)
+
+    def testRegression21(self):
+        self.editor.set_text(UNTAGGED_PARAGRAPH_STARTING_WITH_SPAN)
+        self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_STARTING_WITH_SPAN)
+
+    def testRegression22(self):
+        self.editor.set_text(TAGGED_PARAGRAPH_STARTING_WITH_SPAN)
+        self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_STARTING_WITH_SPAN)
+
+    def testRegression23(self):
+        self.editor.set_text(NESTED_FORMATS)
+        self.assertEqual(self.editor.get_text(), NESTED_FORMATS)
+
+    def testRegression24(self):
+        self.editor.set_text(FORMATTED_SPAN)
+        self.assertEqual(self.editor.get_text(), FORMATTED_SPAN)
+
+    def testRegression25(self):
+        self.editor.set_text(MULTIPLE_SPANS)
+        self.assertEqual(self.editor.get_text(), MULTIPLE_SPANS)
 
 
 if __name__ == "__main__":
