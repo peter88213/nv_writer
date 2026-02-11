@@ -5,6 +5,18 @@
 ## Changelog
 
 
+### Version 0.11.1 (Experimental Beta release)
+
+Almost finished with fixing #5. 
+
+#### To do:
+
+- Fix handling of headings or paragraphs with attributes starting with a comment.
+
+API: 5.52
+Based on novelibre 5.52.0
+
+
 ### Version 0.11.0 (Experimental Beta release)
 
 - No longer allow manually applying changes.
