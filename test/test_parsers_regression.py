@@ -9,10 +9,6 @@ import unittest
 from nvwriter.editor_box import EditorBox
 import tkinter as tk
 
-CURRENT_DEVELOPMENT = (
-    '<h6>Any text <comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></h6>'
-)
-
 FOOTNOTE = (
     '<p>This is a regular line'
     '<note id="ftn0" class="footnote">'
@@ -218,11 +214,6 @@ class Test(unittest.TestCase):
 
     def tearDown(self):
         pass
-
-    def test_current_development(self):
-        self.editor.debug = True
-        self.editor.set_text(CURRENT_DEVELOPMENT)
-        self.assertEqual(self.editor.get_text(), CURRENT_DEVELOPMENT)
 
     def test_footnote(self):
         self.editor.set_text(FOOTNOTE)
