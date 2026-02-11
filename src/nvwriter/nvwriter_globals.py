@@ -29,3 +29,5 @@ T_SPAN = 'span'
 T_STRONG = 'strong'
 T_UL = 'ul'
 
+HEADING_TAGS = (T_H5, T_H6, T_H7, T_H8, T_H9)
+PARAGRAPH_TAGS = ('p', T_H5, T_H6, T_H7, T_H8, T_H9)

@@ -9,14 +9,11 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 from xml.sax.saxutils import escape
 
 from nvlib.model.xml.xml_filter import strip_illegal_characters
-from nvwriter.nvwriter_globals import BULLET, NOTE_PREFIX
+from nvwriter.nvwriter_globals import BULLET
 from nvwriter.nvwriter_globals import COMMENT_PREFIX
+from nvwriter.nvwriter_globals import HEADING_TAGS
+from nvwriter.nvwriter_globals import NOTE_PREFIX
 from nvwriter.nvwriter_globals import T_EM
-from nvwriter.nvwriter_globals import T_H5
-from nvwriter.nvwriter_globals import T_H6
-from nvwriter.nvwriter_globals import T_H7
-from nvwriter.nvwriter_globals import T_H8
-from nvwriter.nvwriter_globals import T_H9
 from nvwriter.nvwriter_globals import T_LI
 from nvwriter.nvwriter_globals import T_SPAN
 from nvwriter.nvwriter_globals import T_STRONG
@@ -45,23 +42,30 @@ class TextParser():
 
         # Flags.
         self._paragraph = None
-        self._list = None
         self._heading = None
 
         # Collections for the results.
         self._xmlList = []
         # list of str: novx raw text
 
-    def reset(self):
+        self._xmlStack = []
+
+    @property
+    def _list(self):
+        return T_UL in self._xmlStack
+
+    def reset(self, debug=False):
         self._paragraph = False
-        self._list = False
         self._heading = False
         self._xmlList.clear()
         self._commentIndex = None
         self._noteIndex = None
+        self._xmlStack.clear()
+        self.debug = debug
 
     def parse_triple(self, key, value, __):
-        # print(key, value)
+        if self.debug:
+            print(key, value)
         if key == 'text' and value:
             self.characters(value)
         elif key == 'tagon' and value:
@@ -100,17 +104,16 @@ class TextParser():
                 if not self._list:
                     # The first list element.
                     # Open the list.
-                    self._xmlList.append(f'<{T_UL}>')
-                    self._list = True
-                self._xmlList.append(f'<{T_LI}>')
+                    self._startXml(T_UL)
+                self._startXml(T_LI)
+
             elif self._list:
                 # The first regular paragraph after a list.
                 # Close the list.
-                self._xmlList.append(f'</{T_UL}>')
-                self._list = False
+                self._endXml()
 
             # Paragraph starts.
-            self._xmlList.append('<p>')
+            self._startXml('p')
             self._paragraph = True
 
         if content.endswith('\n'):
@@ -119,14 +122,14 @@ class TextParser():
             self._xmlList.append(content.rstrip('\n'))
             # removing the linebreak
             if not self._heading:
-                self._xmlList.append('</p>')
+                self._endXml()
             else:
                 # note that headings are tagged and trigger endElement()
                 self._heading = False
             self._paragraph = False
 
             if self._list:
-                self._xmlList.append(f'</{T_LI}>')
+                self._endXml(self.debug)
             return
 
         self._xmlList.append(content)
@@ -136,11 +139,11 @@ class TextParser():
             T_EM,
             T_STRONG,
         ):
-            self._xmlList.append(f'</{name}>')
+            self._endXml()
             return
 
         if name.startswith(T_SPAN):
-            self._xmlList.append(f'</{T_SPAN}>')
+            self._endXml()
             return
 
         if name.startswith(COMMENT_PREFIX):
@@ -155,12 +158,12 @@ class TextParser():
 
         tag = self._get_heading_tag(name)
         if tag is not None:
-            self._xmlList.append(f'</{tag}>')
+            self._endXml()
 
     def get_result(self):
-        if self._list:
+        while self._xmlStack:
             # The final paragraph was a list element, so close the list.
-            self._xmlList.append(f'</{T_UL}>')
+            self._endXml()
         return ''.join(self._xmlList)
 
     def startElement(self, name):
@@ -174,33 +177,42 @@ class TextParser():
             return
 
         if self._is_paragraph_tag(name):
-            self._xmlList.append(f'<{name.replace("_", " ")}>')
+            if self._list:
+                self._endXml(self.debug)
+            self._startXml(name)
             self._paragraph = True
             return
 
         if self._get_heading_tag(name) is not None:
-            self._xmlList.append(f'<{name.replace("_", " ")}>')
+            if self._list:
+                self._endXml(self.debug)
+            self._startXml(name)
             self._paragraph = True
             self._heading = True
             return
 
         if not self._paragraph:
-            self._xmlList.append('<p>')
+            self._startXml('p')
             self._paragraph = True
 
         if name in (T_EM, T_STRONG):
-            self._xmlList.append(f'<{name}>')
+            self._startXml(name)
             return
 
         if name.startswith(T_SPAN):
-            self._xmlList.append(f'<{name.replace("_", " ")}>')
+            self._startXml(name)
             return
 
-    def _get_heading_tag(self, name):
+    def _endXml(self, debug=False):
+        tag = self._xmlStack.pop()
+        if debug:
+            print(f'* Closing {tag}')
+        self._xmlList.append(f'</{tag}>')
 
+    def _get_heading_tag(self, name):
         # Separate the XML tag from the attributes, if any.
         tag = name.split('_')[0]
-        if tag in (T_H5, T_H6, T_H7, T_H8, T_H9):
+        if tag in HEADING_TAGS:
             return tag
         else:
             return None
@@ -209,9 +221,12 @@ class TextParser():
         if not name.startswith('p'):
             return False
 
-        # Make sure that it's not another XML tag starting with "p".
+        return name.split('_')[0] == 'p'
+
+    def _startXml(self, name, debug=False):
         tag = name.split('_')[0]
-        if tag == 'p':
-            return True
-        else:
-            return False
+        if debug:
+            print(f'* Opening {tag}')
+        self._xmlStack.append(tag)
+        self._xmlList.append(f'<{name.replace("_", " ")}>')
+

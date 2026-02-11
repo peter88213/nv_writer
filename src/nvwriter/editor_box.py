@@ -77,13 +77,14 @@ class EditorBox(tk.Text):
             T_NOTE,
             foreground=color_highlight,
         )
+        self.debug = False
 
     def clear(self):
         self.delete('1.0', 'end')
 
     def get_text(self, start='1.0', end='end'):
         """Return the whole text from the editor box in .novx format."""
-        self._textParser.reset()
+        self._textParser.reset(debug=self.debug)
         self._textParser.comments = self._novxParser.comments
         self._textParser.notes = self._novxParser.notes
         self.dump(start, end, command=self._textParser.parse_triple)
@@ -93,7 +94,7 @@ class EditorBox(tk.Text):
         """Put text into the editor box and clear the undo/redo stack."""
         if text:
             self._novxParser.feed(text)
-            taggedText = self._novxParser.get_result()
+            taggedText = self._novxParser.get_result(debug=self.debug)
         else:
             taggedText = []
 

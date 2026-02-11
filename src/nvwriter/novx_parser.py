@@ -71,6 +71,7 @@ class NovxParser(sax.ContentHandler):
         self._list = False
         self._noteXmlTag = None
         self._commentXmlTag = None
+        self._sectionStart = True
 
         if xmlString:
             sax.parseString(f'<content>{xmlString}</content>', self)
@@ -142,7 +143,9 @@ class NovxParser(sax.ContentHandler):
             self._list = False
             return
 
-    def get_result(self):
+    def get_result(self, debug=False):
+        if debug:
+            print(self._taggedText)
         return self._taggedText
 
     def startElement(self, name, attrs):
@@ -222,9 +225,15 @@ class NovxParser(sax.ContentHandler):
                 suffix = '\n'
 
         elif name == T_LI:
-            suffix = f'\n{BULLET}'
+            if self._sectionStart:
+                self._sectionStart = False
+                suffix = BULLET
+            else:
+                suffix = f'\n{BULLET}'
 
         elif name == T_UL:
+            if self._taggedText:
+                self._sectionStart = False
             self._list = True
 
         if suffix:
