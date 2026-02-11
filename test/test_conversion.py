@@ -13,9 +13,6 @@ CURRENT_DEVELOPMENT = (
     '<h6>Any text <comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></h6>'
 )
 
-COMMENT_IN_UNTAGGED_PARAGRAPH = (
-    '<p><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
-)
 FOOTNOTE = (
     '<p>This is a regular line'
     '<note id="ftn0" class="footnote">'
@@ -118,11 +115,11 @@ TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH = (
     '</ul>'
     '<p>Untagged paragraph</p>'
 )
-TAGGED_PARAGRAPH_START_EM = (
-    '<p xml:lang="en-US"><em>Emphasized Paragraph start.</em> Regular end.</p>'
-)
 TAGGED_PARAGRAPH_STARTING_WITH_COMMENT = (
     '<p xml:lang="en-US"><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
+)
+TAGGED_PARAGRAPH_STARTING_WITH_EM = (
+    '<p xml:lang="en-US"><em>Emphasized Paragraph start.</em> Regular end.</p>'
 )
 TAGGED_PARAGRAPH_STARTING_WITH_SPAN = (
     '<p xml:lang="en-GB"><span xml:lang="en-US">This AE text,</span> and this is BE.</p>'
@@ -141,7 +138,10 @@ UNTAGGED_PARAGRAPH_AND_LIST = (
     '<li><p><em>Two</em></p></li>'
     '</ul>'
 )
-UNTAGGED_PARAGRAPH_END_EM = (
+UNTAGGED_PARAGRAPH_ENDING_WITH_COMMENT = (
+    '<p>Regular text<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
+)
+UNTAGGED_PARAGRAPH_ENDING_WITH_EM = (
     '<p>Regular Paragraph start. <em>Emphasized end.</em></p>'
 )
 UNTAGGED_PARAGRAPH_LIST_TAGGED_PARAGRAPH = (
@@ -152,7 +152,10 @@ UNTAGGED_PARAGRAPH_LIST_TAGGED_PARAGRAPH = (
     '</ul>'
     '<p style="quotations">Tagged paragraph</p>'
 )
-UNTAGGED_PARAGRAPH_START_EM = (
+UNTAGGED_PARAGRAPH_STARTING_WITH_COMMENT = (
+    '<p><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment>Regular text</p>'
+)
+UNTAGGED_PARAGRAPH_STARTING_WITH_EM = (
     '<p><em>Emphasized Paragraph start.</em> Regular end.</p>'
 )
 UNTAGGED_PARAGRAPH_STARTING_WITH_SPAN = (
@@ -220,10 +223,6 @@ class Test(unittest.TestCase):
         self.editor.debug = True
         self.editor.set_text(CURRENT_DEVELOPMENT)
         self.assertEqual(self.editor.get_text(), CURRENT_DEVELOPMENT)
-
-    def test_comment_in_untagged_paragraph(self):
-        self.editor.set_text(COMMENT_IN_UNTAGGED_PARAGRAPH)
-        self.assertEqual(self.editor.get_text(), COMMENT_IN_UNTAGGED_PARAGRAPH)
 
     def test_footnote(self):
         self.editor.set_text(FOOTNOTE)
@@ -299,22 +298,22 @@ class Test(unittest.TestCase):
         self.editor.set_text(TAGGED_PARAGRAPH_AND_LIST)
         self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_AND_LIST)
 
-    def test_tagged_paragraph_list_untagged_paragraph(self):
-        self.editor.set_text(TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH)
-        self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH)
-
     def test_tagged_paragraph_ending_with_comment(self):
         self.editor.set_text(TAGGED_PARAGRAPH_ENDING_WITH_COMMENT)
         self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_ENDING_WITH_COMMENT)
 
-    def test_tagged_paragraph_start_em(self):
-        self.editor.set_text(TAGGED_PARAGRAPH_START_EM)
-        self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_START_EM)
+    def test_tagged_paragraph_list_untagged_paragraph(self):
+        self.editor.set_text(TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH)
+        self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH)
 
     @unittest.skip(True)
     def test_tagged_paragraph_starting_with_comment(self):
         self.editor.set_text(TAGGED_PARAGRAPH_STARTING_WITH_COMMENT)
         self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_STARTING_WITH_COMMENT)
+
+    def test_tagged_paragraph_starting_with_em(self):
+        self.editor.set_text(TAGGED_PARAGRAPH_STARTING_WITH_EM)
+        self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_STARTING_WITH_EM)
 
     def test_tagged_paragraph_starting_with_span(self):
         self.editor.set_text(TAGGED_PARAGRAPH_STARTING_WITH_SPAN)
@@ -332,17 +331,25 @@ class Test(unittest.TestCase):
         self.editor.set_text(UNTAGGED_PARAGRAPH_AND_LIST)
         self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_AND_LIST)
 
-    def test_untagged_paragraph_end_em(self):
-        self.editor.set_text(UNTAGGED_PARAGRAPH_END_EM)
-        self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_END_EM)
+    def test_untagged_paragraph_ending_with_comment(self):
+        self.editor.set_text(UNTAGGED_PARAGRAPH_ENDING_WITH_COMMENT)
+        self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_ENDING_WITH_COMMENT)
+
+    def test_untagged_paragraph_ending_with_em(self):
+        self.editor.set_text(UNTAGGED_PARAGRAPH_ENDING_WITH_EM)
+        self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_ENDING_WITH_EM)
 
     def test_untagged_paragraph_list_tagged_paragraph(self):
         self.editor.set_text(UNTAGGED_PARAGRAPH_LIST_TAGGED_PARAGRAPH)
         self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_LIST_TAGGED_PARAGRAPH)
 
-    def test_untagged_paragraph_start_em(self):
-        self.editor.set_text(UNTAGGED_PARAGRAPH_START_EM)
-        self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_START_EM)
+    def test_untagged_paragraph_starting_with_comment(self):
+        self.editor.set_text(UNTAGGED_PARAGRAPH_STARTING_WITH_COMMENT)
+        self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_STARTING_WITH_COMMENT)
+
+    def test_untagged_paragraph_starting_with_em(self):
+        self.editor.set_text(UNTAGGED_PARAGRAPH_STARTING_WITH_EM)
+        self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_STARTING_WITH_EM)
 
     def test_untagged_paragraph_starting_with_span(self):
         self.editor.set_text(UNTAGGED_PARAGRAPH_STARTING_WITH_SPAN)
