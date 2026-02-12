@@ -255,7 +255,7 @@ class WriterView(ModalDialog):
         try:
             self._sectionEditor.set_text(self._section.sectionContent)
             self._validator.feed(self._sectionEditor.get_text())
-        except Exception as ex:
+        except:
             self._ui.root.deiconify()
             self._ui.root.lift()
             self.destroy()
@@ -269,7 +269,7 @@ class WriterView(ModalDialog):
                 ),
                 title='nv_writer debug message',
             )
-            raise UserWarning('nv_writer aborted to prevent project damage.')
+            raise UserWarning('nv_writer aborted to prevent damage.')
 
         self._scId = scId
         chId = self._mdl.novel.tree.parent(self._scId)

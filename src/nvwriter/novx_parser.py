@@ -78,6 +78,7 @@ class NovxParser(sax.ContentHandler):
 
     def characters(self, content):
         #--- Collect the Note instance variables
+
         if self._noteXmlTag == T_CITATION:
             self.notes[-1].noteCitation = content
             return
@@ -109,9 +110,14 @@ class NovxParser(sax.ContentHandler):
     def endElement(self, name):
         if name == T_COMMENT:
             # Generate a tag using the list index of the Comment instance.
-            tag = (T_COMMENT, f'{COMMENT_PREFIX}:{len(self.comments)-1}')
+            tags = [
+                T_COMMENT,
+                f'{COMMENT_PREFIX}:{len(self.comments)-1}',
+            ]
+            if self._tags:
+                tags.extend(self._tags)
             # Use the comment's text, tagged with the comment's list index.
-            self._taggedText.append((self.comments[-1].text, tag))
+            self._taggedText.append((self.comments[-1].text, tags))
             self._commentXmlTag = None
             return
 
@@ -135,8 +141,9 @@ class NovxParser(sax.ContentHandler):
             return
 
         if name in ('p', T_H5, T_H6, T_H7, T_H8, T_H9):
-            self._spans.clear()
-            self._tags.clear()
+            if self._commentXmlTag is None:
+                self._spans.clear()
+                self._tags.clear()
             return
 
         if name == T_UL:
