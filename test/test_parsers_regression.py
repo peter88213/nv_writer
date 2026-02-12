@@ -86,6 +86,12 @@ LIST_TWO_ELEMENTS = (
     '<li><p><em>Two</em></p></li>'
     '</ul>'
 )
+LIST_WITH_COMMENT = (
+    '<ul>'
+    '<li><p>One</p></li>'
+    '<li><p>Any text.<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment> Any text.</p></li>'
+    '</ul>'
+)
 MULTIPLE_SPANS = (
     '<p>This is <em><span xml:lang="en-US">emphasized AE</span></em> Text. <span xml:lang="en-GB">plain BE text.</span></p>'
 )
@@ -300,6 +306,10 @@ class Test(unittest.TestCase):
     def test_list_two_elements(self):
         self.editor.set_text(LIST_TWO_ELEMENTS)
         self.assertEqual(self.editor.get_text(), LIST_TWO_ELEMENTS)
+
+    def test_list_with_comment(self):
+        self.editor.set_text(LIST_WITH_COMMENT)
+        self.assertEqual(self.editor.get_text(), LIST_WITH_COMMENT)
 
     def test_tagged_and_untegged_paragraphs(self):
         self.editor.set_text(TAGGED_AND_UNTAGGED_PARAGRAPHS)
