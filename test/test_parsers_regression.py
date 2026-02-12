@@ -26,11 +26,17 @@ HEADING_AND_LIST = (
     '<li><p><em>Two</em></p></li>'
     '</ul>'
 )
+HEADING_COMMENT_ONLY = (
+    '<h6><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></h6>'
+)
 HEADING_ENDING_WITH_COMMENT = (
-    '<h6>Any text <comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></h6>'
+    '<h6>Any text.<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></h6>'
 )
 HEADING_STARTING_WITH_COMMENT = (
-    '<h5><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></h5>'
+    '<h5><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment>Any text.</h5>'
+)
+HEADING_WITH_COMMENT = (
+    '<h5>Any text.<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment> Any text.</h5>'
 )
 LIST_AND_HEADING = (
     '<ul>'
@@ -100,8 +106,11 @@ TAGGED_PARAGRAPH_AND_LIST = (
     '<li><p><em>Two</em></p></li>'
     '</ul>'
 )
+TAGGED_PARAGRAPH_COMMENT_ONLY = (
+    '<p xml:lang="en-US"><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
+)
 TAGGED_PARAGRAPH_ENDING_WITH_COMMENT = (
-    '<p xml:lang="en-US">Any text <comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
+    '<p xml:lang="en-US">Any text.<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
 )
 TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH = (
     '<p style="quotations">Tagged paragraph</p>'
@@ -112,13 +121,16 @@ TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH = (
     '<p>Untagged paragraph</p>'
 )
 TAGGED_PARAGRAPH_STARTING_WITH_COMMENT = (
-    '<p xml:lang="en-US"><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
+    '<p xml:lang="en-US"><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment>Any text.</p>'
 )
 TAGGED_PARAGRAPH_STARTING_WITH_EM = (
     '<p xml:lang="en-US"><em>Emphasized Paragraph start.</em> Regular end.</p>'
 )
 TAGGED_PARAGRAPH_STARTING_WITH_SPAN = (
     '<p xml:lang="en-GB"><span xml:lang="en-US">This AE text,</span> and this is BE.</p>'
+)
+TAGGED_PARAGRAPH_WITH_COMMENT = (
+    '<p xml:lang="en-US">Any text.<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment> Any text.</p>'
 )
 UNTAGGED_AND_TAGGED_PARAGRAPHS = (
     '<p>Paragraph <em>emphasized</em></p>'
@@ -134,8 +146,11 @@ UNTAGGED_PARAGRAPH_AND_LIST = (
     '<li><p><em>Two</em></p></li>'
     '</ul>'
 )
+UNTAGGED_PARAGRAPH_COMMENT_ONLY = (
+    '<p><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
+)
 UNTAGGED_PARAGRAPH_ENDING_WITH_COMMENT = (
-    '<p>Regular text<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
+    '<p>Any text.<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></p>'
 )
 UNTAGGED_PARAGRAPH_ENDING_WITH_EM = (
     '<p>Regular Paragraph start. <em>Emphasized end.</em></p>'
@@ -149,13 +164,16 @@ UNTAGGED_PARAGRAPH_LIST_TAGGED_PARAGRAPH = (
     '<p style="quotations">Tagged paragraph</p>'
 )
 UNTAGGED_PARAGRAPH_STARTING_WITH_COMMENT = (
-    '<p><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment>Regular text</p>'
+    '<p><comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment>Any text.</p>'
 )
 UNTAGGED_PARAGRAPH_STARTING_WITH_EM = (
     '<p><em>Emphasized Paragraph start.</em> Regular end.</p>'
 )
 UNTAGGED_PARAGRAPH_STARTING_WITH_SPAN = (
     '<p><span xml:lang="en-US">This AE text,</span> and this is default.</p>'
+)
+UNTAGGED_PARAGRAPH_WITH_COMMENT = (
+    '<p>Any text.<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment> Any text.</p>'
 )
 
 OK_WITH_0_10_0 = (
@@ -227,15 +245,21 @@ class Test(unittest.TestCase):
         self.editor.set_text(HEADING_AND_LIST)
         self.assertEqual(self.editor.get_text(), HEADING_AND_LIST)
 
-    @unittest.skip(False)
+    def test_heading_comment_only(self):
+        self.editor.set_text(HEADING_COMMENT_ONLY)
+        self.assertEqual(self.editor.get_text(), HEADING_COMMENT_ONLY)
+
     def test_heading_ending_with_comment(self):
         self.editor.set_text(HEADING_ENDING_WITH_COMMENT)
         self.assertEqual(self.editor.get_text(), HEADING_ENDING_WITH_COMMENT)
 
-    @unittest.skip(True)
     def test_heading_starting_with_comment(self):
         self.editor.set_text(HEADING_STARTING_WITH_COMMENT)
         self.assertEqual(self.editor.get_text(), HEADING_STARTING_WITH_COMMENT)
+
+    def test_heading_with_comment(self):
+        self.editor.set_text(HEADING_WITH_COMMENT)
+        self.assertEqual(self.editor.get_text(), HEADING_WITH_COMMENT)
 
     def test_multiple_spans(self):
         self.editor.set_text(MULTIPLE_SPANS)
@@ -289,6 +313,10 @@ class Test(unittest.TestCase):
         self.editor.set_text(TAGGED_PARAGRAPH_AND_LIST)
         self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_AND_LIST)
 
+    def test_tagged_paragraph_comment_only(self):
+        self.editor.set_text(TAGGED_PARAGRAPH_COMMENT_ONLY)
+        self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_COMMENT_ONLY)
+
     def test_tagged_paragraph_ending_with_comment(self):
         self.editor.set_text(TAGGED_PARAGRAPH_ENDING_WITH_COMMENT)
         self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_ENDING_WITH_COMMENT)
@@ -297,7 +325,6 @@ class Test(unittest.TestCase):
         self.editor.set_text(TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH)
         self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_LIST_UNTAGGED_PARAGRAPH)
 
-    @unittest.skip(True)
     def test_tagged_paragraph_starting_with_comment(self):
         self.editor.set_text(TAGGED_PARAGRAPH_STARTING_WITH_COMMENT)
         self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_STARTING_WITH_COMMENT)
@@ -310,7 +337,11 @@ class Test(unittest.TestCase):
         self.editor.set_text(TAGGED_PARAGRAPH_STARTING_WITH_SPAN)
         self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_STARTING_WITH_SPAN)
 
-    def test_untagged_and_tagged_paragrphs(self):
+    def test_tagged_paragraph_with_comment(self):
+        self.editor.set_text(TAGGED_PARAGRAPH_WITH_COMMENT)
+        self.assertEqual(self.editor.get_text(), TAGGED_PARAGRAPH_WITH_COMMENT)
+
+    def test_untagged_and_tagged_paragraphs(self):
         self.editor.set_text(UNTAGGED_AND_TAGGED_PARAGRAPHS)
         self.assertEqual(self.editor.get_text(), UNTAGGED_AND_TAGGED_PARAGRAPHS)
 
@@ -321,6 +352,10 @@ class Test(unittest.TestCase):
     def test_untagged_paragraph_and_list(self):
         self.editor.set_text(UNTAGGED_PARAGRAPH_AND_LIST)
         self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_AND_LIST)
+
+    def test_untagged_paragraph_comment_only(self):
+        self.editor.set_text(UNTAGGED_PARAGRAPH_COMMENT_ONLY)
+        self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_COMMENT_ONLY)
 
     def test_untagged_paragraph_ending_with_comment(self):
         self.editor.set_text(UNTAGGED_PARAGRAPH_ENDING_WITH_COMMENT)
@@ -345,6 +380,10 @@ class Test(unittest.TestCase):
     def test_untagged_paragraph_starting_with_span(self):
         self.editor.set_text(UNTAGGED_PARAGRAPH_STARTING_WITH_SPAN)
         self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_STARTING_WITH_SPAN)
+
+    def test_untagged_paragraph_with_comment(self):
+        self.editor.set_text(UNTAGGED_PARAGRAPH_WITH_COMMENT)
+        self.assertEqual(self.editor.get_text(), UNTAGGED_PARAGRAPH_WITH_COMMENT)
 
 
 if __name__ == "__main__":

@@ -1,18 +1,29 @@
 import unittest
 
 from nvwriter.editor_box import EditorBox
+from nvwriter.section_content_validator import SectionContentValidator
 import tkinter as tk
 
 SECTION_CONTENT = (
-    '<h6>Any text <comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></h6>'
+    '<h5>Any text.<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></h5>'
 )
 
 
 class Test(unittest.TestCase):
 
-    def test_current_development(self):
+    def setUp(self):
         root = tk.Tk()
         self.editor = EditorBox(root, fg='black', bg='white')
+
+    def test_novx_validity(self):
+        validator = SectionContentValidator()
+        self.editor.set_text(SECTION_CONTENT)
+        try:
+            validator.feed(self.editor.get_text())
+        except RuntimeError:
+            self.fail('Validation failed')
+
+    def test_section_content(self):
         self.editor.debug = True
         self.editor.set_text(SECTION_CONTENT)
         self.assertEqual(self.editor.get_text(), SECTION_CONTENT)

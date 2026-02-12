@@ -15,6 +15,7 @@ from nvwriter.nvwriter_globals import FEATURE
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
+from nvwriter.section_content_validator import SectionContentValidator
 from nvwriter.status_bar import StatusBar
 from nvwriter.writer_locale import _
 
@@ -88,6 +89,7 @@ class WriterView(ModalDialog):
             height=prefs['editor_height'],
         )
         self._sectionEditor.pack(expand=True, fill='both')
+        self._validator = SectionContentValidator()
 
         # Add a footer bar to the editor window.
         self._footerBar = FooterBar(editorWindow)
@@ -252,14 +254,19 @@ class WriterView(ModalDialog):
         self._sectionEditor.clear()
         try:
             self._sectionEditor.set_text(self._section.sectionContent)
+            self._validator.feed(self._sectionEditor.get_text())
         except Exception as ex:
             self._ui.root.deiconify()
             self._ui.root.lift()
             self.destroy()
             self._ui.show_error(
-                str(ex) +
-                '\nYou can ignore the following “Unexpected Error” message '
-                'and continue without distraction-free mode.'
+                message='This section cannot be processed with nv_writer.',
+                detail=(
+                    'nv_writer aborted in order not to cause damage to your project. '
+                    'You can ignore the following “Unexpected Error” message '
+                    'and continue without distraction-free mode.'
+                ),
+                title='nv_writer debug message',
             )
             raise UserWarning('nv_writer aborted to prevent project damage.')
 
