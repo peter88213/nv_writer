@@ -262,8 +262,9 @@ class WriterView(ModalDialog):
             self._ui.show_error(
                 message='This section cannot be processed with nv_writer.',
                 detail=(
-                    'nv_writer aborted in order not to cause damage to your project. '
-                    'You can ignore the following “Unexpected Error” message '
+                    'Distraction-free mode aborted '
+                    'in order not to cause damage to your project. '
+                    'You can ignore the following "Unexpected Error" message '
                     'and continue without distraction-free mode.'
                 ),
                 title='nv_writer debug message',
