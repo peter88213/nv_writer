@@ -12,7 +12,7 @@ from nvlib.novx_globals import MANUSCRIPT_SUFFIX
 from nvlib.novx_globals import PROOF_SUFFIX
 from nvwriter.nvwriter_globals import FEATURE
 from nvwriter.nvwriter_globals import prefs
-from nvwriter.scrollbar_styles import make_scrollbar_styles
+from nvwriter.scrollbar_styles import make_scrollbar_style
 from nvwriter.writer_locale import _
 from nvwriter.writer_view import WriterView
 
@@ -61,7 +61,7 @@ class WriterService(SubController):
         prefs.update(self.configuration.options)
 
         # Create the CustomScrollbarStyle object in tk.
-        make_scrollbar_styles()
+        make_scrollbar_style()
 
     def on_quit(self):
 
