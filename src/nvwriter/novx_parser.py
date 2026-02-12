@@ -10,26 +10,22 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 from xml import sax
 
 from nvwriter.comment import Comment
+from nvwriter.note import Note
 from nvwriter.nvwriter_globals import BULLET
 from nvwriter.nvwriter_globals import COMMENT_PREFIX
+from nvwriter.nvwriter_globals import EMPHASIZING_TAGS
+from nvwriter.nvwriter_globals import HEADING_TAGS
 from nvwriter.nvwriter_globals import NOTE_MARK
 from nvwriter.nvwriter_globals import NOTE_PREFIX
+from nvwriter.nvwriter_globals import PARAGRAPH_TAGS
 from nvwriter.nvwriter_globals import T_CITATION
 from nvwriter.nvwriter_globals import T_COMMENT
 from nvwriter.nvwriter_globals import T_CREATOR
 from nvwriter.nvwriter_globals import T_DATE
-from nvwriter.nvwriter_globals import T_EM
-from nvwriter.nvwriter_globals import T_H5
-from nvwriter.nvwriter_globals import T_H6
-from nvwriter.nvwriter_globals import T_H7
-from nvwriter.nvwriter_globals import T_H8
-from nvwriter.nvwriter_globals import T_H9
 from nvwriter.nvwriter_globals import T_LI
 from nvwriter.nvwriter_globals import T_NOTE
 from nvwriter.nvwriter_globals import T_SPAN
-from nvwriter.nvwriter_globals import T_STRONG
 from nvwriter.nvwriter_globals import T_UL
-from nvwriter.note import Note
 
 
 class NovxParser(sax.ContentHandler):
@@ -129,10 +125,7 @@ class NovxParser(sax.ContentHandler):
             self._noteXmlTag = None
             return
 
-        if name in (
-            T_EM,
-            T_STRONG,
-        ):
+        if name in EMPHASIZING_TAGS:
             self._tags.remove(name)
             return
 
@@ -140,7 +133,7 @@ class NovxParser(sax.ContentHandler):
             self._tags.remove(self._spans.pop())
             return
 
-        if name in ('p', T_H5, T_H6, T_H7, T_H8, T_H9):
+        if name in PARAGRAPH_TAGS:
             if self._commentXmlTag is None:
                 self._spans.clear()
                 self._tags.clear()
@@ -209,10 +202,7 @@ class NovxParser(sax.ContentHandler):
                 self._spans.append(span)
                 self._tags.append(span)
 
-        elif name in (
-            T_EM,
-            T_STRONG,
-        ):
+        elif name in EMPHASIZING_TAGS:
             self._tags.append(name)
 
         elif name == T_SPAN:
@@ -221,7 +211,7 @@ class NovxParser(sax.ContentHandler):
             self._spans.append(span)
             self._tags.append(span)
 
-        elif name in (T_H5, T_H6, T_H7, T_H8, T_H9):
+        elif name in HEADING_TAGS:
             if attributes:
                 span = f"{name}_{'_'.join(attributes)}"
                 self._spans.append(span)

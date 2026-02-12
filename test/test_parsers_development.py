@@ -5,7 +5,11 @@ from nvwriter.section_content_validator import SectionContentValidator
 import tkinter as tk
 
 SECTION_CONTENT = (
-    '<h5>Any text.<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment></h5>'
+    '<p>This is a regular line'
+    '<note id="ftn0" class="footnote">'
+    '<note-citation>1</note-citation>'
+    '<p>This is a footnote</p></note>'
+    ' of the test section</p>'
 )
 
 

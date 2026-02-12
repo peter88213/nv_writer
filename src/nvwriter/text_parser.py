@@ -11,12 +11,11 @@ from xml.sax.saxutils import escape
 from nvlib.model.xml.xml_filter import strip_illegal_characters
 from nvwriter.nvwriter_globals import BULLET
 from nvwriter.nvwriter_globals import COMMENT_PREFIX
+from nvwriter.nvwriter_globals import EMPHASIZING_TAGS
 from nvwriter.nvwriter_globals import HEADING_TAGS
 from nvwriter.nvwriter_globals import NOTE_PREFIX
-from nvwriter.nvwriter_globals import T_EM
 from nvwriter.nvwriter_globals import T_LI
 from nvwriter.nvwriter_globals import T_SPAN
-from nvwriter.nvwriter_globals import T_STRONG
 from nvwriter.nvwriter_globals import T_UL
 
 
@@ -135,10 +134,7 @@ class TextParser():
         self._xmlList.append(content)
 
     def endElement(self, name):
-        if name in (
-            T_EM,
-            T_STRONG,
-        ):
+        if name in EMPHASIZING_TAGS:
             self._endXml()
             return
 
@@ -195,7 +191,7 @@ class TextParser():
             self._startXml('p')
             self._paragraph = True
 
-        if name in (T_EM, T_STRONG):
+        if name in EMPHASIZING_TAGS:
             self._startXml(name)
             return
 

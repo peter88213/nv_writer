@@ -5,6 +5,15 @@
 ## Changelog
 
 
+### Version 0.12.2 (Experimental Beta release)
+
+- Fixed the `SectionContentValidator` class to consider footnotes/endnotes.
+- Refactored the parsers.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.12.1 (Experimental Beta release)
 
 - Handling headings including a comment.
