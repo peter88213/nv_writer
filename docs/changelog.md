@@ -5,6 +5,15 @@
 ## Changelog
 
 
+### Version 0.12.1 (Experimental Beta release)
+
+- Handling headings including a comment.
+- Handling paragraphs with attributes starting with a comment.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.12.0 (Experimental Beta release)
 
 Aborting the distraction-free mode if a section cannot be processed properly. 
