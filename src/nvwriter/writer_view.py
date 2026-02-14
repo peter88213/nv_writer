@@ -61,15 +61,11 @@ class WriterView(ModalDialog):
 
         editorWindow = ttk.Frame(
             self,
-        )
-        editorWindow.place(
-            in_=self,
-            anchor="c",
-            relx=.5,
-            rely=.5,
             width=editorWidth,
             height=editorHeight,
         )
+        editorWindow.pack(expand=True,)
+        editorWindow.pack_propagate(0)
 
         # Add a status bar to the editor window.
         self._statusBar = StatusBar(editorWindow, self._mdl)
