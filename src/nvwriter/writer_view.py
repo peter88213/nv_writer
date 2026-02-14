@@ -22,6 +22,9 @@ from nvwriter.writer_locale import _
 
 class WriterView(ModalDialog):
 
+    MIN_WIDTH = 800
+    MIN_HEIGHT = 600
+
     def __init__(
         self,
         model,
@@ -41,16 +44,31 @@ class WriterView(ModalDialog):
 
         self.attributes('-fullscreen', True)
         self.update_idletasks()
+
         screenwidth = self.winfo_screenwidth()
         editorWidth = int(prefs['editor_width'])
         if editorWidth > screenwidth:
             editorWidth = screenwidth
+        elif editorWidth < self.MIN_WIDTH:
+            prefs['editor_width'] = editorWidth = self.MIN_WIDTH
+
+        screenheight = self.winfo_screenheight()
+        editorHeight = int(prefs['editor_height'])
+        if editorHeight > screenheight:
+            editorHeight = screenheight
+        elif editorHeight < self.MIN_HEIGHT:
+            prefs['editor_height'] = editorHeight = self.MIN_HEIGHT
+
         editorWindow = ttk.Frame(
             self,
-            width=editorWidth,
         )
-        editorWindow.pack(
-            expand=True,
+        editorWindow.place(
+            in_=self,
+            anchor="c",
+            relx=.5,
+            rely=.5,
+            width=editorWidth,
+            height=editorHeight,
         )
 
         # Add a status bar to the editor window.
@@ -86,15 +104,13 @@ class WriterView(ModalDialog):
                 prefs['font_family'],
                 prefs['font_size'],
             ),
-            height=prefs['editor_height'],
         )
-        self._sectionEditor.pack(expand=True, fill='both')
-        self._validator = SectionContentValidator()
+        self._sectionEditor.pack()
 
         # Add a footer bar to the editor window.
         self._footerBar = FooterBar(editorWindow)
-        if prefs['show_footer_bar']:
-            self._footerBar.show()
+        if prefs['_show_footer_bar']:
+            self._show_footer_bar()
             self._statusBar.highlight()
         else:
             self._statusBar.normal()
@@ -130,6 +146,9 @@ class WriterView(ModalDialog):
         # Configure the editor.
         self._set_wc_mode()
         self._askForConfirmation = prefs['ask_for_confirmation']
+
+        # Provide validator, just for debugging.
+        self._validator = SectionContentValidator()
 
         # Load the section content into the text editor.
         self._load_section(self._ui.selectedNode)
@@ -201,6 +220,11 @@ class WriterView(ModalDialog):
         self._askForConfirmation = False
         return newId
 
+    def _hide_footer_bar(self, event=None):
+        self._footerBar.pack_forget()
+        prefs['_show_footer_bar'] = False
+        return 'break'
+
     def _is_editable(self, scId):
         if not scId or not scId.startswith(SECTION_PREFIX):
             return False
@@ -254,7 +278,7 @@ class WriterView(ModalDialog):
         self._sectionEditor.clear()
         try:
             self._sectionEditor.set_text(self._section.sectionContent)
-            self._validator.feed(self._sectionEditor.get_text())
+            self._validator.validate_section(self._sectionEditor.get_text())
         except:
             self._ui.root.deiconify()
             self._ui.root.lift()
@@ -302,6 +326,14 @@ class WriterView(ModalDialog):
             self.bind('<KeyRelease>', self._show_wordcount)
         else:
             self.unbind('<KeyRelease>')
+
+    def _show_footer_bar(self, event=None):
+        if self._sectionEditor.winfo_manager():
+            self._sectionEditor.pack_forget()
+        self._footerBar.pack(fill='x', side='bottom')
+        self._sectionEditor.pack()
+        prefs['_show_footer_bar'] = True
+        return 'break'
 
     def _show_wordcount(self, event=None):
         # Display the word count on the status bar.
@@ -359,10 +391,10 @@ class WriterView(ModalDialog):
 
     def _toggle_display(self, event=None):
         if self._footerBar.winfo_manager():
-            self._footerBar.hide()
+            self._hide_footer_bar()
             self._statusBar.normal()
         else:
-            self._footerBar.show()
+            self._show_footer_bar()
             self._statusBar.highlight()
         return 'break'
 

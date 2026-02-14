@@ -12,7 +12,7 @@ from nvwriter.nvwriter_globals import PARAGRAPH_TAGS
 
 class SectionContentValidator(sax.ContentHandler):
 
-    def feed(self, xmlString):
+    def validate_section(self, xmlString):
         # Raise RuntimeError if xmlString contains text that is not
         # enclosed with paragraph-defining XML tags.
         self.text = False

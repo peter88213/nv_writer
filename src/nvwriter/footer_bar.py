@@ -56,16 +56,6 @@ class FooterBar(tk.Frame):
             '<<on_quit>>'
         )
 
-    def show(self, event=None):
-        self.pack(fill='x')
-        prefs['show_footer_bar'] = True
-        return 'break'
-
-    def hide(self, event=None):
-        self.pack_forget()
-        prefs['show_footer_bar'] = False
-        return 'break'
-
     def _create_menu_entry(self, text, accelerator, sequence):
 
         def callback(*_):
