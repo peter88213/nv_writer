@@ -11,6 +11,12 @@
 - `Ctrl`-`F1` folds the clickable menu bar below the editor window in or out.
 
 
+## Change the editor window and font size
+
+- `Ctrl`-`+` increases the size.
+- `Ctrl`-`-` decreases the size.
+
+
 ---
 
 ## Switch between sections

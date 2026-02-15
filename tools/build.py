@@ -2,7 +2,7 @@
         
 Note: VERSION must be updated manually before starting this script.
 
-Copyright (c) 2025 Peter Triesberger
+Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
@@ -12,7 +12,7 @@ import sys
 sys.path.insert(0, f'{os.getcwd()}/../../novelibre/tools')
 from package_builder import PackageBuilder
 
-VERSION = '0.13.2'
+VERSION = '0.14.0'
 
 
 class PluginBuilder(PackageBuilder):

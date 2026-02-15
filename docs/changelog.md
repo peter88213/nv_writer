@@ -5,6 +5,15 @@
 ## Changelog
 
 
+### Version 0.14.0 (Experimental Beta release)
+
+- Made the editor window resizable via hotkeys.
+- Updated colors for the "Blue" and "White" modes.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.13.2 (Experimental Beta release)
 
 - Emphasized text is displayed slanted, strongly emphasized text is displayed in bold. 
