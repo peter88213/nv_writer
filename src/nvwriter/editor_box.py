@@ -8,6 +8,7 @@ from tkinter import font as tkFont
 from tkinter import ttk
 
 from nvwriter.novx_parser import NovxParser
+from nvwriter.nvwriter_globals import EMPHASIZING_TAGS
 from nvwriter.nvwriter_globals import T_COMMENT
 from nvwriter.nvwriter_globals import T_EM
 from nvwriter.nvwriter_globals import T_NOTE
@@ -75,17 +76,15 @@ class EditorBox(tk.Text):
         # Configure the editor box.
         self.tag_configure(
             T_EM,
-            # foreground=color_highlight,
             font=italicFont,
         )
         self.tag_configure(
             T_STRONG,
-            # foreground=color_highlight,
             font=boldFont,
         )
         self.tag_configure(
             T_COMMENT,
-            background=color_highlight,
+            background=kw['fg'],
             foreground=kw['bg'],
         )
         self.tag_configure(
@@ -146,7 +145,9 @@ class EditorBox(tk.Text):
 
     def plain(self, event=None):
         """Remove formatting from the selection."""
-        self._set_format()
+        if self.tag_ranges(tk.SEL):
+            for tag in EMPHASIZING_TAGS:
+                self.tag_remove(tag, tk.SEL_FIRST, tk.SEL_LAST)
         return 'break'
 
     def _get_tags(self, start, end):
@@ -162,21 +163,8 @@ class EditorBox(tk.Text):
             index = self.index(f'{index}+1c')
         return set(tags)
 
-    def _replace_selected(self, text, tag):
-        """Replace the selected passage by text; keep the selection."""
-        self.mark_set(tk.INSERT, tk.SEL_FIRST)
-        self.delete(tk.SEL_FIRST, tk.SEL_LAST)
-        selFirst = self.index(tk.INSERT)
-        self.insert(tk.INSERT, text, tag)
-        selLast = self.index(tk.INSERT)
-        self.tag_add(tk.SEL, selFirst, selLast)
-
     def _set_format(self, event=None, tag=''):
         if self.tag_ranges(tk.SEL):
-            text = self.get(tk.SEL_FIRST, tk.SEL_LAST)
-            currentTags = self._get_tags(tk.SEL_FIRST, tk.SEL_LAST)
-            if tag in currentTags:
-                tag = ''
-                # Reset formatting.
-            self._replace_selected(text, tag)
+            self.plain()
+            self.tag_add(tag, tk.SEL_FIRST, tk.SEL_LAST)
 
