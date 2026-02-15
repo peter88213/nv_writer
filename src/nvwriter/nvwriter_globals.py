@@ -54,19 +54,29 @@ def limit_editor_settings(window):
 
     window.update_idletasks()
 
+    screenheight = window.winfo_screenheight()
+    height = int(prefs['editor_height'])
+    if height == 15:
+        set_default_geometry()
+        set_default_font()
+
+    if height < MIN_HEIGHT or height > screenheight:
+        set_default_geometry()
+        return
+
     screenwidth = window.winfo_screenwidth()
     width = int(prefs['editor_width'])
     if width < MIN_WIDTH or width > screenwidth:
         set_default_geometry()
         return
 
-    screenheight = window.winfo_screenheight()
-    height = int(prefs['editor_height'])
-    if height < MIN_HEIGHT or height > screenheight:
-        set_default_geometry()
-        return
+
+def set_default_font():
+        prefs['font_family'] = DEFAULT_FONT
+        prefs['font_size'] = DEFAULT_FONT_SIZE
 
 
 def set_default_geometry():
     prefs['editor_width'] = DEFAULT_WIDTH
     prefs['editor_height'] = DEFAULT_HEIGHT
+
