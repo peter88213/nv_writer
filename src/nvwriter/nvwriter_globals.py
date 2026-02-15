@@ -14,16 +14,21 @@ COMMENT_PREFIX = 'cmId'
 FEATURE = _('Write in distraction free mode')
 
 SCREENS = [
-    (600, 800, 12),
-    (768, 1024, 15),
-    (900, 1200, 18),
-    (1080, 1440, 20),
-    (1152, 1536, 22),
-    (1440, 1920, 28),
+    (600, 800, 12, 30,),
+    (720, 960, 14, 38,),
+    (768, 1024, 15, 40,),
+    (864, 1152, 17, 44,),
+    (900, 1200, 18, 47,),
+    (1080, 1440, 20, 56,),
+    (1152, 1536, 22, 60,),
+    (1200, 1600, 23, 63,),
+    (1440, 1920, 28, 75,),
+    (1600, 2133, 31, 83,),
 ]
-# settings for different screen resolutions: height, width, font size
-MIN_HEIGHT, MIN_WIDTH, MIN_FONT_SIZE = SCREENS[0]
-DEFAULT_HEIGHT, DEFAULT_WIDTH, DEFAULT_FONT_SIZE = SCREENS[1]
+# settings for different screen resolutions
+# (height, width, font size, margin)
+MIN_HEIGHT, MIN_WIDTH, MIN_FONT_SIZE, __ = SCREENS[0]
+DEFAULT_HEIGHT, DEFAULT_WIDTH, DEFAULT_FONT_SIZE, __ = SCREENS[2]
 
 NOTE_MARK = '†'
 NOTE_PREFIX = 'ntId'
@@ -74,19 +79,19 @@ def check_editor_settings(window):
         prefs['screen_index'] = screenIndex = 0
         passed = False
 
-    height, width, __ = SCREENS[screenIndex]
+    height, width, __, __ = SCREENS[screenIndex]
 
     screenheight = window.winfo_screenheight()
     while height > screenheight:
         screenIndex -= 1
-        height, width, __ = SCREENS[screenIndex]
+        height, width, __, __ = SCREENS[screenIndex]
         prefs['screen_index'] = screenIndex
         passed = False
 
     screenwidth = window.winfo_screenwidth()
     while width > screenwidth:
         screenIndex -= 1
-        height, width, __ = SCREENS[screenIndex]
+        height, width, __, __ = SCREENS[screenIndex]
         prefs['screen_index'] = screenIndex
         passed = False
 

@@ -44,7 +44,7 @@ class WriterView(ModalDialog):
         check_editor_settings(self)
 
         screenIndex = int(prefs['screen_index'])
-        height, width, fontSize = SCREENS[screenIndex]
+        height, width, fontSize, marginX = SCREENS[screenIndex]
         self._editorWindow = ttk.Frame(
             self,
             height=height,
@@ -77,7 +77,7 @@ class WriterView(ModalDialog):
             spacing1=prefs['paragraph_spacing'],
             spacing2=prefs['line_spacing'],
             maxundo=-1,
-            padx=prefs['margin_x'],
+            padx=marginX,
             pady=prefs['margin_y'],
             fg=prefs['color_fg'],
             bg=prefs['color_bg'],
@@ -318,12 +318,13 @@ class WriterView(ModalDialog):
 
     def _reconfigure_screen(self):
         screenIndex = int(prefs['screen_index'])
-        height, width, fontSize = SCREENS[screenIndex]
+        height, width, fontSize, marginX = SCREENS[screenIndex]
         self._editorWindow.configure(
             height=height,
             width=width,
         )
         self._sectionEditor.configure(
+            padx=marginX,
             font=(
                 prefs['font_family'],
                 fontSize,
