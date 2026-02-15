@@ -5,10 +5,8 @@ from nvwriter.section_content_validator import SectionContentValidator
 import tkinter as tk
 
 SECTION_CONTENT = (
-    '<ul>'
-    '<li><p>One</p></li>'
-    '<li><p>Any text.<comment><creator>W.C. Hack</creator><date>2024-04-29T07:47:52.35</date><p>Note this.</p></comment> Any text.</p></li>'
-    '</ul>'
+    '<p><em>Paragraph emphasized</em></p>'
+    '<p><em>Paragraph emphasized</em></p>'
 )
 
 
@@ -16,13 +14,13 @@ class Test(unittest.TestCase):
 
     def setUp(self):
         root = tk.Tk()
-        self.editor = EditorBox(root, fg='black', bg='white')
+        self.editor = EditorBox(root, font=('Courier', 12), fg='black', bg='white')
 
     def test_novx_validity(self):
         validator = SectionContentValidator()
         self.editor.set_text(SECTION_CONTENT)
         try:
-            validator.feed(self.editor.get_text())
+            validator.validate_section(self.editor.get_text())
         except RuntimeError:
             self.fail('Validation failed')
 

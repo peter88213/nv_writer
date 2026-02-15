@@ -16,6 +16,10 @@ FOOTNOTE = (
     '<p>This is a footnote</p></note>'
     ' of the test section</p>'
 )
+FORMATTED_PARAGRAPHS = (
+    '<p><em>Paragraph emphasized</em></p>'
+    '<p><em>Paragraph emphasized</em></p>'
+)
 FORMATTED_SPAN = (
     '<p>This is <em><span xml:lang="en-US">emhasized AE</span></em> Text</p>'
 )
@@ -234,7 +238,7 @@ class Test(unittest.TestCase):
 
     def setUp(self):
         root = tk.Tk()
-        self.editor = EditorBox(root, fg='black', bg='white')
+        self.editor = EditorBox(root, font=('Courier', 12), fg='black', bg='white')
 
     def tearDown(self):
         pass
@@ -242,6 +246,10 @@ class Test(unittest.TestCase):
     def test_footnote(self):
         self.editor.set_text(FOOTNOTE)
         self.assertEqual(self.editor.get_text(), FOOTNOTE)
+
+    def test_formatted_paragraphs(self):
+        self.editor.set_text(FORMATTED_PARAGRAPHS)
+        self.assertEqual(self.editor.get_text(), FORMATTED_PARAGRAPHS)
 
     def test_formatted_span(self):
         self.editor.set_text(FORMATTED_SPAN)
