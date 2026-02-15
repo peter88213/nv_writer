@@ -11,7 +11,7 @@ from nvlib.novx_globals import CH_ROOT
 from nvlib.novx_globals import SECTION_PREFIX
 from nvwriter.editor_box import EditorBox
 from nvwriter.footer_bar import FooterBar
-from nvwriter.nvwriter_globals import FEATURE
+from nvwriter.nvwriter_globals import FEATURE, limit_editor_settings
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
@@ -21,9 +21,6 @@ from nvwriter.writer_locale import _
 
 
 class WriterView(ModalDialog):
-
-    MIN_WIDTH = 800
-    MIN_HEIGHT = 600
 
     def __init__(
         self,
@@ -43,26 +40,12 @@ class WriterView(ModalDialog):
         self._initialWc = None
 
         self.attributes('-fullscreen', True)
-        self.update_idletasks()
-
-        screenwidth = self.winfo_screenwidth()
-        editorWidth = int(prefs['editor_width'])
-        if editorWidth > screenwidth:
-            editorWidth = screenwidth
-        elif editorWidth < self.MIN_WIDTH:
-            prefs['editor_width'] = editorWidth = self.MIN_WIDTH
-
-        screenheight = self.winfo_screenheight()
-        editorHeight = int(prefs['editor_height'])
-        if editorHeight > screenheight:
-            editorHeight = screenheight
-        elif editorHeight < self.MIN_HEIGHT:
-            prefs['editor_height'] = editorHeight = self.MIN_HEIGHT
+        limit_editor_settings(self)
 
         editorWindow = ttk.Frame(
             self,
-            width=editorWidth,
-            height=editorHeight,
+            width=prefs['editor_width'],
+            height=prefs['editor_height'],
         )
         editorWindow.pack(expand=True,)
         editorWindow.pack_propagate(0)
@@ -101,7 +84,7 @@ class WriterView(ModalDialog):
                 prefs['font_size'],
             ),
         )
-        self._sectionEditor.pack()
+        self._sectionEditor.pack(fill='both', expand=True)
 
         # Add a footer bar to the editor window.
         self._footerBar = FooterBar(editorWindow)
@@ -327,7 +310,7 @@ class WriterView(ModalDialog):
         if self._sectionEditor.winfo_manager():
             self._sectionEditor.pack_forget()
         self._footerBar.pack(fill='x', side='bottom')
-        self._sectionEditor.pack()
+        self._sectionEditor.pack(fill='both', expand=True)
         prefs['_show_footer_bar'] = True
         return 'break'
 
