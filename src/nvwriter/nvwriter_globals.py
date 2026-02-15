@@ -64,12 +64,15 @@ DEFAULT_FONT = editorFont
 
 def check_editor_settings(window):
 
+    passed = True
     window.update_idletasks()
     screenIndex = int(prefs['screen_index'])
     if screenIndex >= len(SCREENS):
         prefs['screen_index'] = screenIndex = len(SCREENS) - 1
+        passed = False
     elif screenIndex < 0:
         prefs['screen_index'] = screenIndex = 0
+        passed = False
 
     height, width, __ = SCREENS[screenIndex]
 
@@ -78,13 +81,16 @@ def check_editor_settings(window):
         screenIndex -= 1
         height, width, __ = SCREENS[screenIndex]
         prefs['screen_index'] = screenIndex
+        passed = False
 
     screenwidth = window.winfo_screenwidth()
     while width > screenwidth:
         screenIndex -= 1
         height, width, __ = SCREENS[screenIndex]
         prefs['screen_index'] = screenIndex
+        passed = False
 
     if not prefs['font_family'] in INSTALLED_FONTS:
         prefs['font_family'] = DEFAULT_FONT
 
+    return passed

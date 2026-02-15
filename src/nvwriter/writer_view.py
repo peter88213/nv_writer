@@ -221,7 +221,8 @@ class WriterView(ModalDialog):
         if screenIndex < len(SCREENS) - 1:
             screenIndex += 1
             prefs['screen_index'] = screenIndex
-            self._reconfigure_screen()
+            if check_editor_settings(self):
+                self._reconfigure_screen()
 
     def _is_editable(self, scId):
         if not scId or not scId.startswith(SECTION_PREFIX):
