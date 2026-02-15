@@ -5,12 +5,14 @@
 ## Changelog
 
 
-### Version 0.13.1 (Experimental Beta release)
+### Version 0.13.2 (Experimental Beta release)
 
 - Emphasized text is displayed slanted, strongly emphasized text is displayed in bold. 
 - Changed the comment look to inverted (less obtrusive).
 - The editor window geometry is defined in pixels.
 - Setting the geometry to defaults, if a value in the configuration is beyond the limits.
+- Making sure the default font is available.
+- Setting the editor font to default, if it is misconfigured.
 
 API: 5.52
 Based on novelibre 5.52.1

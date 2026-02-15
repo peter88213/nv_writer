@@ -11,7 +11,7 @@ from nvlib.novx_globals import CH_ROOT
 from nvlib.novx_globals import SECTION_PREFIX
 from nvwriter.editor_box import EditorBox
 from nvwriter.footer_bar import FooterBar
-from nvwriter.nvwriter_globals import FEATURE, limit_editor_settings
+from nvwriter.nvwriter_globals import FEATURE, check_editor_settings
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
@@ -40,7 +40,7 @@ class WriterView(ModalDialog):
         self._initialWc = None
 
         self.attributes('-fullscreen', True)
-        limit_editor_settings(self)
+        check_editor_settings(self)
 
         editorWindow = ttk.Frame(
             self,

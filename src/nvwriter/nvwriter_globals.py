@@ -5,6 +5,7 @@ For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from nvwriter.writer_locale import _
+from tkinter import font as tkFont
 
 prefs = {}
 
@@ -42,15 +43,20 @@ PARAGRAPH_NESTING_TAGS = (T_COMMENT, T_NOTE)
 EMPHASIZING_TAGS = (T_EM, T_STRONG)
 
 FONTS = [
-    'DejaVu Sans Mono',
-    'Consolas',
+    'DejaVu Sans Mono',  # preferred font, usually bundled with LibreOffice
     'Liberation Mono',
-    'Courier',
+    'Consolas',  # available on Windows
+    'Courier',  # fallback, if none of the above is installed
 ]
-DEFAULT_FONT = FONTS[0]
+INSTALLED_FONTS = tkFont.families()
+for editorFont in FONTS:
+    if editorFont in INSTALLED_FONTS:
+        break
+
+DEFAULT_FONT = editorFont
 
 
-def limit_editor_settings(window):
+def check_editor_settings(window):
 
     window.update_idletasks()
 
@@ -70,10 +76,13 @@ def limit_editor_settings(window):
         set_default_geometry()
         return
 
+    if not prefs['font_family'] in INSTALLED_FONTS:
+        set_default_font()
+
 
 def set_default_font():
-        prefs['font_family'] = DEFAULT_FONT
-        prefs['font_size'] = DEFAULT_FONT_SIZE
+    prefs['font_family'] = DEFAULT_FONT
+    prefs['font_size'] = DEFAULT_FONT_SIZE
 
 
 def set_default_geometry():
