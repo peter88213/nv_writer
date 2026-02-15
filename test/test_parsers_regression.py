@@ -20,6 +20,14 @@ FORMATTED_PARAGRAPHS = (
     '<p><em>Paragraph emphasized</em></p>'
     '<p><em>Paragraph emphasized</em></p>'
 )
+FORMATTED_PARAGRAPHS_SPAN_1 = (
+    '<p><em><span xml:lang="en-US">Paragraph emphasized</span></em></p>'
+    '<p><em><span xml:lang="en-US">Paragraph emphasized</span></em></p>'
+)
+FORMATTED_PARAGRAPHS_SPAN_2 = (
+    '<p><span xml:lang="en-US"><em>Paragraph emphasized</em></span></p>'
+    '<p><span xml:lang="en-US"><em>Paragraph emphasized</em></span></p>'
+)
 FORMATTED_SPAN = (
     '<p>This is <em><span xml:lang="en-US">emhasized AE</span></em> Text</p>'
 )
@@ -250,6 +258,14 @@ class Test(unittest.TestCase):
     def test_formatted_paragraphs(self):
         self.editor.set_text(FORMATTED_PARAGRAPHS)
         self.assertEqual(self.editor.get_text(), FORMATTED_PARAGRAPHS)
+
+    def test_formatted_paragraphs_span_1(self):
+        self.editor.set_text(FORMATTED_PARAGRAPHS_SPAN_1)
+        self.assertEqual(self.editor.get_text(), FORMATTED_PARAGRAPHS_SPAN_1)
+
+    def test_formatted_paragraphs_span_2(self):
+        self.editor.set_text(FORMATTED_PARAGRAPHS_SPAN_2)
+        self.assertEqual(self.editor.get_text(), FORMATTED_PARAGRAPHS_SPAN_2)
 
     def test_formatted_span(self):
         self.editor.set_text(FORMATTED_SPAN)

@@ -5,8 +5,8 @@ from nvwriter.section_content_validator import SectionContentValidator
 import tkinter as tk
 
 SECTION_CONTENT = (
-    '<p><em>Paragraph emphasized</em></p>'
-    '<p><em>Paragraph emphasized</em></p>'
+    '<p><span xml:lang="en-US"><em>Paragraph emphasized</em></span></p>'
+    '<p><span xml:lang="en-US"><em>Paragraph emphasized</em></span></p>'
 )
 
 
