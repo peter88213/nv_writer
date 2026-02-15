@@ -142,10 +142,8 @@ class TextParser():
                 self._endXml()
                 self._endXml()
                 self._startXml(self._spanName)
-                self._retainSpan = True
             else:
                 self._endXml()
-                self._retainSpan = False
             return
 
         if name.startswith(T_SPAN):
@@ -203,11 +201,10 @@ class TextParser():
             self._paragraph = True
 
         if name in EMPHASIZING_TAGS:
-            if self._retainSpan:
+            if self._spanName:
                 self._endXml()
                 self._startXml(name)
                 self._startXml(self._spanName)
-                self._retainSpan = False
             else:
                 self._startXml(name)
             return
