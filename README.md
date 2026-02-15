@@ -1,4 +1,4 @@
-[![Download the latest release](docs/img/download-button.png)](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.13.0.pyz)
+[![Download the latest release](docs/img/download-button.png)](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.13.1.pyz)
 [![Changelog](docs/img/changelog-button.png)](docs/changelog.md)
 [![News/Feedback](docs/img/news-button.png)](https://github.com/peter88213/novelibre/discussions)
 [![Online help](docs/img/help-button.png)](https://peter88213.github.io/nv_writer/help/)
@@ -28,11 +28,11 @@ Hiding the menu might give you a typewriter feel:
 
 ## Features
 
-- Full screen mode with an editor window that resembles a 12" monochrome monitor as used with the early PCs.
+- Full screen mode with an editor window that resembles a 14" monochrome monitor as used with the early PCs.
 - A simple, mainly keyboard-operated text editor box without spell checker and search capability.
 - A basic function menu can be folded in at the bottom via `Ctrl`-`F1`.
 - Online help can be called up via `F1`.
-- Text is displayed like plain text; emphasized and strongly emphasized text is highlighted in an unobtrusive way.
+- Emphasized text is displayed slanted, strongly emphasized text is displayed in bold. 
 - The word count is displayed for the currently loaded section. Both the total word count and the change made during the current session are shown. 
 - The application is ready for internationalization with GNU gettext. A German localization is provided. 
 - Editor features:
@@ -57,10 +57,10 @@ Hiding the menu might give you a typewriter feel:
 
 ### Default: Executable Python zip archive
 
-Download the latest release [nv_writer_v0.13.0.pyz](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.13.0.pyz)
+Download the latest release [nv_writer_v0.13.1.pyz](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.13.1.pyz)
 
-- Launch *nv_writer_v0.13.0.pyz* by double-clicking (Windows desktop),
-- or execute `python nv_writer_v0.13.0.pyz` (Windows), resp. `python3 nv_writer_v0.13.0.pyz` (Linux) on the command line.
+- Launch *nv_writer_v0.13.1.pyz* by double-clicking (Windows desktop),
+- or execute `python nv_writer_v0.13.1.pyz` (Windows), resp. `python3 nv_writer_v0.13.1.pyz` (Linux) on the command line.
 
 > [!IMPORTANT]
 > Many web browsers recognize the download as an executable file and offer to open it immediately. 
@@ -75,9 +75,9 @@ Download the latest release [nv_writer_v0.13.0.pyz](https://github.com/peter8821
 
 ### Alternative: Zip file
 
-The package is also available in zip format: [nv_writer_v0.13.0.zip](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.13.0.zip)
+The package is also available in zip format: [nv_writer_v0.13.1.zip](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.13.1.zip)
 
-- Extract the *nv_writer_v0.13.0* folder from the downloaded zipfile "nv_writer_v0.13.0.zip".
+- Extract the *nv_writer_v0.13.1* folder from the downloaded zipfile "nv_writer_v0.13.1.zip".
 - Move into this new folder and launch *setup.py* by double-clicking (Windows/Linux desktop), 
 - or execute `python setup.py` (Windows), resp. `python3 setup.py` (Linux) on the command line.
 
