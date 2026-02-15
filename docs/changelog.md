@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 0.15.1 (Experimental Beta release)
+
+- Changed "Blue" color set's foreground color.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.15.0 (Experimental Beta release)
 
 - Added "Turquoise" color set.

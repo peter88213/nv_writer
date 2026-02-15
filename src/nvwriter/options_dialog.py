@@ -20,7 +20,7 @@ class OptionsDialog(ModalDialog):
     COLORS_AMBER = ('gray20', 'gold3', 'gold')
     COLORS_PAPER = ('floral white', 'gray30', 'black')
     COLORS_TURQUOISE = ('turquoise4', 'black', 'cyan')
-    COLORS_BLUE = ('navy', 'gray55', 'gray80',)
+    COLORS_BLUE = ('navy', 'gray60', 'gray80',)
     COLORS_GREEN = ('gray20', 'green3', 'green2')
     COLORS_WHITE = ('gray20', 'gray70', 'white')
 

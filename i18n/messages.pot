@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.15.0\n"
-"POT-Creation-Date: 2026-02-15 22:48:06\n"
+"Project-Id-Version: 0.15.1\n"
+"POT-Creation-Date: 2026-02-15 23:30:50\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
