@@ -5,6 +5,15 @@
 ## Changelog
 
 
+### Version 0.13.0 (Experimental Beta release)
+
+- The editor window geometry is defined in pixels.
+- Setting the geometry to defaults, if a value in the configuration is beyond the limits.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.12.2 (Experimental Beta release)
 
 - Fixed the `SectionContentValidator` class to consider footnotes/endnotes.
