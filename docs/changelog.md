@@ -13,6 +13,7 @@
 - Setting the geometry to defaults, if a value in the configuration is beyond the limits.
 - Making sure the default font is available.
 - Setting the editor font to default, if it is misconfigured.
+- Applying the default configuration, if the ini file is outdated.
 
 API: 5.52
 Based on novelibre 5.52.1
