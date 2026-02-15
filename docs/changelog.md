@@ -5,8 +5,9 @@
 ## Changelog
 
 
-### Version 0.13.0 (Experimental Beta release)
+### Version 0.13.1 (Experimental Beta release)
 
+- Emphasized text is displayed slanted, strongly emphasized text is displayed in bold. 
 - The editor window geometry is defined in pixels.
 - Setting the geometry to defaults, if a value in the configuration is beyond the limits.
 

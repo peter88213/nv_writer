@@ -16,6 +16,7 @@ DEFAULT_HEIGHT = 768
 DEFAULT_WIDTH = 1024
 MIN_HEIGHT = 600
 MIN_WIDTH = 800
+DEFAULT_FONT_SIZE = 15
 
 NOTE_MARK = '†'
 NOTE_PREFIX = 'ntId'
@@ -39,6 +40,14 @@ HEADING_TAGS = (T_H5, T_H6, T_H7, T_H8, T_H9)
 PARAGRAPH_TAGS = ('p', T_H5, T_H6, T_H7, T_H8, T_H9)
 PARAGRAPH_NESTING_TAGS = (T_COMMENT, T_NOTE)
 EMPHASIZING_TAGS = (T_EM, T_STRONG)
+
+FONTS = [
+    'DejaVu Sans Mono',
+    'Consolas',
+    'Liberation Mono',
+    'Courier',
+]
+DEFAULT_FONT = FONTS[0]
 
 
 def limit_editor_settings(window):

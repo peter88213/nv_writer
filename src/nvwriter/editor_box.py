@@ -4,6 +4,7 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+from tkinter import font as tkFont
 from tkinter import ttk
 
 from nvwriter.novx_parser import NovxParser
@@ -57,16 +58,30 @@ class EditorBox(tk.Text):
         # Configure the content parsers.
         self._novxParser = NovxParser()
 
+        defaultFont = tkFont.Font(
+            root=self,
+            font=kw['font'],
+            name='editor_font',
+        )
+
+        boldFont = tkFont.Font(**defaultFont.configure())
+        italicFont = tkFont.Font(**defaultFont.configure())
+
+        boldFont.configure(weight='bold')
+        italicFont.configure(slant='italic')
+
         self._textParser = TextParser()
 
         # Configure the editor box.
         self.tag_configure(
             T_EM,
-            foreground=color_highlight,
+            # foreground=color_highlight,
+            font=italicFont,
         )
         self.tag_configure(
             T_STRONG,
-            foreground=color_highlight,
+            # foreground=color_highlight,
+            font=boldFont,
         )
         self.tag_configure(
             T_COMMENT,

@@ -10,6 +10,8 @@ from pathlib import Path
 from nvlib.controller.sub_controller import SubController
 from nvlib.novx_globals import MANUSCRIPT_SUFFIX
 from nvlib.novx_globals import PROOF_SUFFIX
+from nvwriter.nvwriter_globals import DEFAULT_FONT
+from nvwriter.nvwriter_globals import DEFAULT_FONT_SIZE
 from nvwriter.nvwriter_globals import DEFAULT_HEIGHT
 from nvwriter.nvwriter_globals import DEFAULT_WIDTH
 from nvwriter.nvwriter_globals import FEATURE
@@ -29,8 +31,8 @@ class WriterService(SubController):
         color_bg='gray20',
         color_fg='gray80',
         color_desktop='gray30',
-        font_family='Courier',
-        font_size=13,
+        font_family=DEFAULT_FONT,
+        font_size=DEFAULT_FONT_SIZE,
         line_spacing=7,
         paragraph_spacing=14,
         margin_x=40,

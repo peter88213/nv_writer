@@ -28,11 +28,11 @@ Hiding the menu might give you a typewriter feel:
 
 ## Features
 
-- Full screen mode with an editor window that resembles a 12" monochrome monitor as used with the early PCs.
+- Full screen mode with an editor window that resembles a 14" monochrome monitor as used with the early PCs.
 - A simple, mainly keyboard-operated text editor box without spell checker and search capability.
 - A basic function menu can be folded in at the bottom via `Ctrl`-`F1`.
 - Online help can be called up via `F1`.
-- Text is displayed like plain text; emphasized and strongly emphasized text is highlighted in an unobtrusive way.
+- Emphasized text is displayed slanted, strongly emphasized text is displayed in bold. 
 - The word count is displayed for the currently loaded section. Both the total word count and the change made during the current session are shown. 
 - The application is ready for internationalization with GNU gettext. A German localization is provided. 
 - Editor features:
