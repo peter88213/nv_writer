@@ -25,6 +25,10 @@ Hiding the menu might give you a typewriter feel:
 
 ![Screenshot](docs/Screenshots/screen03.png)
 
+You can adjust the size of the editor window to fill high-resolution notebook screens:
+
+![Screenshot](docs/Screenshots/screen04.png)
+
 
 ## Features
 
