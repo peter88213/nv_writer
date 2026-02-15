@@ -58,10 +58,28 @@ class EditorBox(tk.Text):
 
         # Configure the content parsers.
         self._novxParser = NovxParser()
+        self._textParser = TextParser()
 
+        self.configure_font(kw['font'])
+        self.tag_configure(
+            T_COMMENT,
+            background=kw['fg'],
+            foreground=kw['bg'],
+        )
+        self.tag_configure(
+            T_NOTE,
+            foreground=color_highlight,
+        )
+
+        self.debug = False
+
+    def clear(self):
+        self.delete('1.0', 'end')
+
+    def configure_font(self, font):
         defaultFont = tkFont.Font(
             root=self,
-            font=kw['font'],
+            font=font,
             name='editor_font',
         )
 
@@ -70,8 +88,6 @@ class EditorBox(tk.Text):
 
         boldFont.configure(weight='bold')
         italicFont.configure(slant='italic')
-
-        self._textParser = TextParser()
 
         # Configure the editor box.
         self.tag_configure(
@@ -82,19 +98,6 @@ class EditorBox(tk.Text):
             T_STRONG,
             font=boldFont,
         )
-        self.tag_configure(
-            T_COMMENT,
-            background=kw['fg'],
-            foreground=kw['bg'],
-        )
-        self.tag_configure(
-            T_NOTE,
-            foreground=color_highlight,
-        )
-        self.debug = False
-
-    def clear(self):
-        self.delete('1.0', 'end')
 
     def get_text(self, start='1.0', end='end'):
         """Return the whole text from the editor box in .novx format."""

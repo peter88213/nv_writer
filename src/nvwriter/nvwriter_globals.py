@@ -13,11 +13,17 @@ BULLET = '* '
 COMMENT_PREFIX = 'cmId'
 FEATURE = _('Write in distraction free mode')
 
-DEFAULT_HEIGHT = 768
-DEFAULT_WIDTH = 1024
-MIN_HEIGHT = 600
-MIN_WIDTH = 800
-DEFAULT_FONT_SIZE = 15
+SCREENS = [
+    (600, 800, 12),
+    (768, 1024, 15),
+    (900, 1200, 18),
+    (1080, 1440, 20),
+    (1152, 1536, 22),
+    (1440, 1920, 28),
+]
+# settings for different screen resolutions: height, width, font size
+MIN_HEIGHT, MIN_WIDTH, MIN_FONT_SIZE = SCREENS[0]
+DEFAULT_HEIGHT, DEFAULT_WIDTH, DEFAULT_FONT_SIZE = SCREENS[1]
 
 NOTE_MARK = '†'
 NOTE_PREFIX = 'ntId'
@@ -59,33 +65,26 @@ DEFAULT_FONT = editorFont
 def check_editor_settings(window):
 
     window.update_idletasks()
+    screenIndex = int(prefs['screen_index'])
+    if screenIndex >= len(SCREENS):
+        prefs['screen_index'] = screenIndex = len(SCREENS) - 1
+    elif screenIndex < 0:
+        prefs['screen_index'] = screenIndex = 0
+
+    height, width, __ = SCREENS[screenIndex]
 
     screenheight = window.winfo_screenheight()
-    height = int(prefs['editor_height'])
-    if height == 15:
-        set_default_geometry()
-        set_default_font()
-
-    if height < MIN_HEIGHT or height > screenheight:
-        set_default_geometry()
-        return
+    while height > screenheight:
+        screenIndex -= 1
+        height, width, __ = SCREENS[screenIndex]
+        prefs['screen_index'] = screenIndex
 
     screenwidth = window.winfo_screenwidth()
-    width = int(prefs['editor_width'])
-    if width < MIN_WIDTH or width > screenwidth:
-        set_default_geometry()
-        return
+    while width > screenwidth:
+        screenIndex -= 1
+        height, width, __ = SCREENS[screenIndex]
+        prefs['screen_index'] = screenIndex
 
     if not prefs['font_family'] in INSTALLED_FONTS:
-        set_default_font()
-
-
-def set_default_font():
-    prefs['font_family'] = DEFAULT_FONT
-    prefs['font_size'] = DEFAULT_FONT_SIZE
-
-
-def set_default_geometry():
-    prefs['editor_width'] = DEFAULT_WIDTH
-    prefs['editor_height'] = DEFAULT_HEIGHT
+        prefs['font_family'] = DEFAULT_FONT
 

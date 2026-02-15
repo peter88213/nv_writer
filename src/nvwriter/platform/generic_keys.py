@@ -13,6 +13,8 @@ class GenericKeys:
     COPY = ('<Control-c>', f'{_("Ctrl")}-C')
     CREATE_SECTION = ('<Control-n>', f'{_("Ctrl")}-N')
     CUT = ('<Control-x>', f'{_("Ctrl")}-X')
+    DECREASE_SIZE = ('<Control-minus>', f'{_("Ctrl")}--')
+    INCREASE_SIZE = ('<Control-plus>', f'{_("Ctrl")}-+')
     ITALIC = ('<Control-i>', f'{_("Ctrl")}-I')
     NEXT = ('<Control-Next>', f'{_("Ctrl")}-{_("PgDn")}')
     OPEN_HELP = ('<F1>', 'F1')

@@ -13,6 +13,7 @@ from nvwriter.editor_box import EditorBox
 from nvwriter.footer_bar import FooterBar
 from nvwriter.nvwriter_globals import FEATURE, check_editor_settings
 from nvwriter.nvwriter_globals import prefs
+from nvwriter.nvwriter_globals import SCREENS
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.section_content_validator import SectionContentValidator
@@ -42,16 +43,18 @@ class WriterView(ModalDialog):
         self.attributes('-fullscreen', True)
         check_editor_settings(self)
 
-        editorWindow = ttk.Frame(
+        screenIndex = int(prefs['screen_index'])
+        height, width, fontSize = SCREENS[screenIndex]
+        self._editorWindow = ttk.Frame(
             self,
-            width=prefs['editor_width'],
-            height=prefs['editor_height'],
+            height=height,
+            width=width,
         )
-        editorWindow.pack(expand=True,)
-        editorWindow.pack_propagate(0)
+        self._editorWindow.pack(expand=True,)
+        self._editorWindow.pack_propagate(0)
 
         # Add a status bar to the editor window.
-        self._statusBar = StatusBar(editorWindow, self._mdl)
+        self._statusBar = StatusBar(self._editorWindow, self._mdl)
         self._statusBar.pack(fill='x')
 
         # Add a text editor with scrollbar to the editor window.
@@ -65,7 +68,7 @@ class WriterView(ModalDialog):
         )
 
         self._sectionEditor = EditorBox(
-            editorWindow,
+            self._editorWindow,
             vstyle='CustomScrollbarStyle.Vertical.TScrollbar',
             color_highlight=prefs['color_highlight'],
             wrap='word',
@@ -81,13 +84,13 @@ class WriterView(ModalDialog):
             insertbackground=prefs['color_fg'],
             font=(
                 prefs['font_family'],
-                prefs['font_size'],
+                fontSize,
             ),
         )
         self._sectionEditor.pack(fill='both', expand=True)
 
         # Add a footer bar to the editor window.
-        self._footerBar = FooterBar(editorWindow)
+        self._footerBar = FooterBar(self._editorWindow)
         if prefs['_show_footer_bar']:
             self._show_footer_bar()
             self._statusBar.highlight()
@@ -96,6 +99,8 @@ class WriterView(ModalDialog):
 
         #--- Key bindings.
         keyBindings = (
+            (KEYS.INCREASE_SIZE, self._increase_screen_size),
+            (KEYS.DECREASE_SIZE, self._decrease_screen_size),
             (KEYS.PREVIOUS, self._load_prev),
             (KEYS.NEXT, self._load_next),
             (KEYS.OPEN_HELP, self._open_help),
@@ -199,10 +204,24 @@ class WriterView(ModalDialog):
         self._askForConfirmation = False
         return newId
 
+    def _decrease_screen_size(self, event=False):
+        screenIndex = int(prefs['screen_index'])
+        if screenIndex > 0:
+            screenIndex -= 1
+            prefs['screen_index'] = screenIndex
+            self._reconfigure_screen()
+
     def _hide_footer_bar(self, event=None):
         self._footerBar.pack_forget()
         prefs['_show_footer_bar'] = False
         return 'break'
+
+    def _increase_screen_size(self, event=False):
+        screenIndex = int(prefs['screen_index'])
+        if screenIndex < len(SCREENS) - 1:
+            screenIndex += 1
+            prefs['screen_index'] = screenIndex
+            self._reconfigure_screen()
 
     def _is_editable(self, scId):
         if not scId or not scId.startswith(SECTION_PREFIX):
@@ -295,6 +314,26 @@ class WriterView(ModalDialog):
 
     def _open_help(self, event=None):
         NvwriterHelp.open_help_page('operation.html')
+
+    def _reconfigure_screen(self):
+        screenIndex = int(prefs['screen_index'])
+        height, width, fontSize = SCREENS[screenIndex]
+        self._editorWindow.configure(
+            height=height,
+            width=width,
+        )
+        self._sectionEditor.configure(
+            font=(
+                prefs['font_family'],
+                fontSize,
+            ),
+        )
+        self._sectionEditor.configure_font(
+            (
+                prefs['font_family'],
+                fontSize,
+            ),
+        )
 
     def _reset_modified_flag(self, event=None):
         self._statusBar.set_modified(False)

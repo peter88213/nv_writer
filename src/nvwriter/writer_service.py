@@ -11,9 +11,6 @@ from nvlib.controller.sub_controller import SubController
 from nvlib.novx_globals import MANUSCRIPT_SUFFIX
 from nvlib.novx_globals import PROOF_SUFFIX
 from nvwriter.nvwriter_globals import DEFAULT_FONT
-from nvwriter.nvwriter_globals import DEFAULT_FONT_SIZE
-from nvwriter.nvwriter_globals import DEFAULT_HEIGHT
-from nvwriter.nvwriter_globals import DEFAULT_WIDTH
 from nvwriter.nvwriter_globals import FEATURE
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.scrollbar_styles import make_scrollbar_style
@@ -25,14 +22,12 @@ class WriterService(SubController):
     INI_FILENAME = 'writer.ini'
     INI_FILEPATH = '.novx/config'
     SETTINGS = dict(
-        editor_height=DEFAULT_HEIGHT,
-        editor_width=DEFAULT_WIDTH,
+        screen_index=1,
         color_highlight='white',
         color_bg='gray20',
         color_fg='gray80',
         color_desktop='gray30',
         font_family=DEFAULT_FONT,
-        font_size=DEFAULT_FONT_SIZE,
         line_spacing=7,
         paragraph_spacing=14,
         margin_x=40,

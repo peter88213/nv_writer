@@ -12,6 +12,8 @@ class MacKeys(GenericKeys):
 
     BOLD = ('<Command-b>', 'Cmd-B')
     CREATE_SECTION = ('<Command-n>', 'Cmd-N')
+    DECREASE_SIZE = ('<Command-minus>', 'Cmd--')
+    INCREASE_SIZE = ('<Command-plus>', 'Cmd-+')
     ITALIC = ('<Command-i>', 'Cmd-I')
     NEXT = ('<Command-Next>', f'Cmd-{_("PgDn")}')
     PLAIN = ('<Command-m>', 'Cmd-M')
