@@ -59,8 +59,8 @@ With `Ctrl`-`S`, you can split the section at the cursor position.
 
 ### Format text
 
-- **Ctrl-I** formats the selected text "Emphasis". If the selection is already emphasized, remove formatting.
-- **Ctrl-B** formats the selected text "Strong emphasis". If the selection is already strongly emphasized, remove formatting.
+- **Ctrl-I** formats the selected text "Emphasis". If the selection (or any part of it) is already emphasized, remove formatting.
+- **Ctrl-B** formats the selected text "Strong emphasis". If the selection (or any part of it) is already strongly emphasized, remove formatting.
 - **Ctrl-M** removes "Emphasis" and "Strong emphasis" formatting from the selection.
 
 ## Undo/Redo
