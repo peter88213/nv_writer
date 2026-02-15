@@ -48,6 +48,7 @@ class TextParser():
         # list of str: novx raw text
 
         self._xmlStack = []
+        self._spanName = None
 
     @property
     def _list(self):
@@ -61,6 +62,8 @@ class TextParser():
         self._noteIndex = None
         self._xmlStack.clear()
         self.debug = debug
+        self._spanName = None
+        self._retainSpan = False
 
     def parse_triple(self, key, value, __):
         if self.debug:
@@ -135,11 +138,19 @@ class TextParser():
 
     def endElement(self, name):
         if name in EMPHASIZING_TAGS:
-            self._endXml()
+            if self._spanName:
+                self._endXml()
+                self._endXml()
+                self._startXml(self._spanName)
+                self._retainSpan = True
+            else:
+                self._endXml()
+                self._retainSpan = False
             return
 
         if name.startswith(T_SPAN):
             self._endXml()
+            self._spanName = None
             return
 
         if name.startswith(COMMENT_PREFIX):
@@ -192,11 +203,18 @@ class TextParser():
             self._paragraph = True
 
         if name in EMPHASIZING_TAGS:
-            self._startXml(name)
+            if self._retainSpan:
+                self._endXml()
+                self._startXml(name)
+                self._startXml(self._spanName)
+                self._retainSpan = False
+            else:
+                self._startXml(name)
             return
 
         if name.startswith(T_SPAN):
             self._startXml(name)
+            self._spanName = name
             return
 
     def _endXml(self, debug=False):
