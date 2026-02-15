@@ -103,9 +103,9 @@ class WriterView(ModalDialog):
             (KEYS.UPDATE_WORDCOUNT, self._show_wordcount),
             (KEYS.SPLIT_SECTION, self._split_section),
             (KEYS.CREATE_SECTION, self._create_section),
-            # (KEYS.ITALIC, self._sectionEditor.emphasis),
-            # (KEYS.BOLD, self._sectionEditor.strong_emphasis),
-            # (KEYS.PLAIN, self._sectionEditor.plain),
+            (KEYS.ITALIC, self._sectionEditor.emphasis),
+            (KEYS.BOLD, self._sectionEditor.strong_emphasis),
+            (KEYS.PLAIN, self._sectionEditor.plain),
             (KEYS.TOGGLE_FOOTER_BAR, self._toggle_display)
         )
         for key, callback in keyBindings:
