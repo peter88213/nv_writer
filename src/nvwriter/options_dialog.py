@@ -19,7 +19,8 @@ class OptionsDialog(ModalDialog):
 
     COLORS_AMBER = ('gray20', 'gold3', 'gold')
     COLORS_PAPER = ('floral white', 'gray30', 'black')
-    COLORS_BLUE = ('navy', 'gray60', 'gray80',)
+    COLORS_TURQUOISE = ('turquoise4', 'black', 'cyan')
+    COLORS_BLUE = ('navy', 'gray55', 'gray80',)
     COLORS_GREEN = ('gray20', 'green3', 'green2')
     COLORS_WHITE = ('gray20', 'gray70', 'white')
 
@@ -224,6 +225,36 @@ class OptionsDialog(ModalDialog):
             self.COLORS_BLUE,
         )
 
+        #--- "Turquoise" option.
+        optionFrameTurquoise = ttk.Frame(frame2)
+        optionFrameTurquoise.pack(
+            anchor='n',
+            padx=5,
+            pady=5,
+            fill='x',
+            side='left',
+        )
+        (
+            textDisplayTurquoise,
+            regularTextTurquoise,
+            highlightedTextTurquoise,
+            invertedTextTurquoise,
+
+        ) = self._get_color_display(optionFrameTurquoise)
+        textDisplayTurquoise.pack(fill='x')
+        ttk.Button(
+            optionFrameTurquoise,
+            text=_('Turquoise'),
+            command=self._set_option_turquoise
+        ).pack(pady=5)
+        self._configure_text_display(
+            textDisplayTurquoise,
+            regularTextTurquoise,
+            highlightedTextTurquoise,
+            invertedTextTurquoise,
+            self.COLORS_TURQUOISE,
+        )
+
         #--- "Paper" option.
         optionFramePaper = ttk.Frame(frame2)
         optionFramePaper.pack(
@@ -304,7 +335,7 @@ class OptionsDialog(ModalDialog):
         )
         invertedText.configure(
             fg=colorBg,
-            bg=colorHighlight,
+            bg=colorFg,
         )
 
     def _get_color_display(self, parent):
@@ -356,6 +387,14 @@ class OptionsDialog(ModalDialog):
             prefs['color_fg'],
             prefs['color_highlight']
         ) = self.COLORS_BLUE
+        self._update_colors()
+
+    def _set_option_turquoise(self, event=None):
+        (
+            prefs['color_bg'],
+            prefs['color_fg'],
+            prefs['color_highlight']
+        ) = self.COLORS_TURQUOISE
         self._update_colors()
 
     def _set_option_paper(self, event=None):
