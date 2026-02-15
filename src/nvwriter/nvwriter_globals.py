@@ -4,8 +4,9 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
-from nvwriter.writer_locale import _
 from tkinter import font as tkFont
+
+from nvwriter.writer_locale import _
 
 prefs = {}
 
@@ -13,22 +14,22 @@ BULLET = '* '
 COMMENT_PREFIX = 'cmId'
 FEATURE = _('Write in distraction free mode')
 
-SCREENS = [
-    (600, 800, 12, 30,),
-    (720, 960, 14, 38,),
-    (768, 1024, 15, 40,),
-    (864, 1152, 17, 44,),
-    (900, 1200, 18, 47,),
-    (1080, 1440, 20, 56,),
-    (1152, 1536, 22, 60,),
-    (1200, 1600, 23, 63,),
-    (1440, 1920, 28, 75,),
-    (1600, 2133, 31, 83,),
+RESOLUTIONS = [
+    (600, 800,),
+    (720, 960,),
+    (768, 1024,),
+    (864, 1152,),
+    (900, 1200,),
+    (1080, 1440,),
+    (1152, 1536,),
+    (1200, 1600,),
+    (1440, 1920,),
+    (1600, 2133,),
 ]
 # settings for different screen resolutions
 # (height, width, font size, margin)
-MIN_HEIGHT, MIN_WIDTH, MIN_FONT_SIZE, __ = SCREENS[0]
-DEFAULT_HEIGHT, DEFAULT_WIDTH, DEFAULT_FONT_SIZE, __ = SCREENS[2]
+MIN_HEIGHT, MIN_WIDTH = RESOLUTIONS[0]
+DEFAULT_HEIGHT, DEFAULT_WIDTH = RESOLUTIONS[0]
 
 NOTE_MARK = '†'
 NOTE_PREFIX = 'ntId'
@@ -71,28 +72,28 @@ def check_editor_settings(window):
 
     passed = True
     window.update_idletasks()
-    screenIndex = int(prefs['screen_index'])
-    if screenIndex >= len(SCREENS):
-        prefs['screen_index'] = screenIndex = len(SCREENS) - 1
+    resolutionIndex = int(prefs['resolution_index'])
+    if resolutionIndex >= len(RESOLUTIONS):
+        prefs['resolution_index'] = resolutionIndex = len(RESOLUTIONS) - 1
         passed = False
-    elif screenIndex < 0:
-        prefs['screen_index'] = screenIndex = 0
+    elif resolutionIndex < 0:
+        prefs['resolution_index'] = resolutionIndex = 0
         passed = False
 
-    height, width, __, __ = SCREENS[screenIndex]
+    height, width = RESOLUTIONS[resolutionIndex]
 
     screenheight = window.winfo_screenheight()
     while height > screenheight:
-        screenIndex -= 1
-        height, width, __, __ = SCREENS[screenIndex]
-        prefs['screen_index'] = screenIndex
+        resolutionIndex -= 1
+        height, width = RESOLUTIONS[resolutionIndex]
+        prefs['resolution_index'] = resolutionIndex
         passed = False
 
     screenwidth = window.winfo_screenwidth()
     while width > screenwidth:
-        screenIndex -= 1
-        height, width, __, __ = SCREENS[screenIndex]
-        prefs['screen_index'] = screenIndex
+        resolutionIndex -= 1
+        height, width = RESOLUTIONS[resolutionIndex]
+        prefs['resolution_index'] = resolutionIndex
         passed = False
 
     if not prefs['font_family'] in INSTALLED_FONTS:

@@ -11,9 +11,10 @@ from nvlib.novx_globals import CH_ROOT
 from nvlib.novx_globals import SECTION_PREFIX
 from nvwriter.editor_box import EditorBox
 from nvwriter.footer_bar import FooterBar
+from nvwriter.nvwriter_globals import DEFAULT_HEIGHT
 from nvwriter.nvwriter_globals import FEATURE, check_editor_settings
+from nvwriter.nvwriter_globals import RESOLUTIONS
 from nvwriter.nvwriter_globals import prefs
-from nvwriter.nvwriter_globals import SCREENS
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.section_content_validator import SectionContentValidator
@@ -43,8 +44,9 @@ class WriterView(ModalDialog):
         self.attributes('-fullscreen', True)
         check_editor_settings(self)
 
-        screenIndex = int(prefs['screen_index'])
-        height, width, fontSize, marginX = SCREENS[screenIndex]
+        resolutionIndex = int(prefs['resolution_index'])
+        height, width = RESOLUTIONS[resolutionIndex]
+        scale = height / DEFAULT_HEIGHT
         self._editorWindow = ttk.Frame(
             self,
             height=height,
@@ -73,18 +75,18 @@ class WriterView(ModalDialog):
             color_highlight=prefs['color_highlight'],
             wrap='word',
             undo=True,
-            autoseparators=True,
-            spacing1=prefs['paragraph_spacing'],
-            spacing2=prefs['line_spacing'],
             maxundo=-1,
-            padx=marginX,
-            pady=prefs['margin_y'],
+            autoseparators=True,
             fg=prefs['color_fg'],
             bg=prefs['color_bg'],
             insertbackground=prefs['color_fg'],
+            spacing1=int(int(prefs['paragraph_spacing']) * scale),
+            spacing2=int(int(prefs['line_spacing']) * scale),
+            padx=int(int(prefs['margin_x']) * scale),
+            pady=int(int(prefs['margin_y']) * scale),
             font=(
                 prefs['font_family'],
-                fontSize,
+                int(int(prefs['default_font_size']) * scale),
             ),
         )
         self._sectionEditor.pack(fill='both', expand=True)
@@ -205,10 +207,10 @@ class WriterView(ModalDialog):
         return newId
 
     def _decrease_screen_size(self, event=False):
-        screenIndex = int(prefs['screen_index'])
-        if screenIndex > 0:
-            screenIndex -= 1
-            prefs['screen_index'] = screenIndex
+        resolutionIndex = int(prefs['resolution_index'])
+        if resolutionIndex > 0:
+            resolutionIndex -= 1
+            prefs['resolution_index'] = resolutionIndex
             self._reconfigure_screen()
 
     def _hide_footer_bar(self, event=None):
@@ -217,10 +219,10 @@ class WriterView(ModalDialog):
         return 'break'
 
     def _increase_screen_size(self, event=False):
-        screenIndex = int(prefs['screen_index'])
-        if screenIndex < len(SCREENS) - 1:
-            screenIndex += 1
-            prefs['screen_index'] = screenIndex
+        resolutionIndex = int(prefs['resolution_index'])
+        if resolutionIndex < len(RESOLUTIONS) - 1:
+            resolutionIndex += 1
+            prefs['resolution_index'] = resolutionIndex
             if check_editor_settings(self):
                 self._reconfigure_screen()
 
@@ -317,23 +319,27 @@ class WriterView(ModalDialog):
         NvwriterHelp.open_help_page('operation.html')
 
     def _reconfigure_screen(self):
-        screenIndex = int(prefs['screen_index'])
-        height, width, fontSize, marginX = SCREENS[screenIndex]
+        resolutionIndex = int(prefs['resolution_index'])
+        height, width = RESOLUTIONS[resolutionIndex]
+        scale = height / DEFAULT_HEIGHT
         self._editorWindow.configure(
             height=height,
             width=width,
         )
         self._sectionEditor.configure(
-            padx=marginX,
+            spacing1=int(int(prefs['paragraph_spacing']) * scale),
+            spacing2=int(int(prefs['line_spacing']) * scale),
+            padx=int(int(prefs['margin_x']) * scale),
+            pady=int(int(prefs['margin_y']) * scale),
             font=(
                 prefs['font_family'],
-                fontSize,
+                int(int(prefs['default_font_size']) * scale),
             ),
         )
         self._sectionEditor.configure_font(
             (
                 prefs['font_family'],
-                fontSize,
+                int(int(prefs['default_font_size']) * scale),
             ),
         )
 
