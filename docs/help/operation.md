@@ -14,7 +14,7 @@
 ## Change the editor window and font size
 
 - `Ctrl`-`+` increases the size.
-- `Ctrl`-`-` decreases the size.
+- `Ctrl`-`–` decreases the size.
 
 
 ---
