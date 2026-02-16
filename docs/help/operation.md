@@ -81,8 +81,9 @@ With `Ctrl`-`S`, you can split the section at the cursor position.
 
 ## End the distraction-free writing mode
 
--  Under Windows you can exit with `Alt`-`F4`.
--  Otherwise you can exit with `Ctrl`-`Q`.
+-  `Esc` exits the distraction-free writing mode. 
+-  Under Windows you can optionally exit with `Alt`-`F4`.
+-  Otherwise you can optionally exit with `Ctrl`-`Q`.
 -  When closing the editor window, you may be asked for applying changes.
 
 

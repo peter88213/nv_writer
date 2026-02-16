@@ -9,7 +9,7 @@
 The [novelibre](https://github.com/peter88213/novelibre/) Python program helps authors organize novels.  
 
 *nv_writer* is a "distraction free editor" plugin for novelibre. 
-Just press `Ctrl`-`W`, and the editor window opens instantly with the selected section loaded. 
+Just press `F4`, and the editor window opens instantly with the selected section loaded. 
 Change the sections via `Ctrl`-`PgUp` and `Ctrl`-`PgDn`, or create new sections with `Ctrl`-`N`. 
 Although mouse operations are possible, the editor can be operated entirely via the keyboard. 
 

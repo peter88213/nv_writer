@@ -109,6 +109,7 @@ class WriterView(ModalDialog):
             (KEYS.NEXT, self._load_next),
             (KEYS.OPEN_HELP, self._open_help),
             (KEYS.QUIT_PROGRAM, self.on_quit),
+            (KEYS.ESCAPE, self.on_quit),
             (KEYS.UPDATE_WORDCOUNT, self._show_wordcount),
             (KEYS.SPLIT_SECTION, self._split_section),
             (KEYS.CREATE_SECTION, self._create_section),
