@@ -5,14 +5,6 @@
 ## Changelog
 
 
-### Version 0.15.1 (Experimental Beta release)
-
-- Changed "Blue" color set's foreground color.
-
-API: 5.52
-Based on novelibre 5.52.1
-
-
 ### Version 0.16.0 (Experimental Beta release)
 
 #### Changed the key bindings.
@@ -26,6 +18,14 @@ Based on novelibre 5.52.1
 - Major revision of the color setting.
 - Protecting changes from being lost when closing the editor from the task
 switcher.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
+### Version 0.15.1 (Experimental Beta release)
+
+- Changed "Blue" color set's foreground color.
 
 API: 5.52
 Based on novelibre 5.52.1
