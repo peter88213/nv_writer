@@ -31,7 +31,7 @@ the *novelibre* **Section** menu and the section context menu.
 
 ## End the distraction-free writing mode
 
-- Hit `Esc` or `Alt`-`Ctrl`-`W` (Windows) or `Ctrl`-`Q` (Linux) to finish the editing session.
+- Hit `Esc` or `Alt`-`F4` (Windows) or `Ctrl`-`Q` (Linux) to finish the editing session.
 
 > **Hint**
 >
