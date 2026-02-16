@@ -20,41 +20,47 @@ class FooterBar(tk.Frame):
         )
 
         #--- Add buttons to the bottom line.
+        self._entries = []
 
         #--- Create new section.
-        self._create_menu_entry(
+        text, accelerator = self._create_menu_entry(
             _('Create section'),
             KEYS.CREATE_SECTION[1],
             '<<new_section>>'
         )
+        self._entries.append((text, accelerator))
 
         #--- Split section at cursor position.
-        self._create_menu_entry(
+        text, accelerator = self._create_menu_entry(
             _('Split at cursor position'),
             KEYS.SPLIT_SECTION[1],
             '<<split_section>>'
         )
+        self._entries.append((text, accelerator))
 
         #--- Previous.
-        self._previousButton = self._create_menu_entry(
+        text, accelerator = self._create_menu_entry(
             _('Previous'),
             KEYS.PREVIOUS[1],
             '<<load_prev>>'
         )
+        self._entries.append((text, accelerator))
 
         #--- Next.
-        self._create_menu_entry(
+        text, accelerator = self._create_menu_entry(
             _('Next'),
             KEYS.NEXT[1],
             '<<load_next>>'
         )
+        self._entries.append((text, accelerator))
 
         #--- Close.
-        self._closeButton = self._create_menu_entry(
+        text, accelerator = self._create_menu_entry(
             _('Close'),
             KEYS.QUIT_PROGRAM[1],
             '<<on_quit>>'
         )
+        self._entries.append((text, accelerator))
 
     def _create_menu_entry(self, text, accelerator, sequence):
 
@@ -98,4 +104,12 @@ class FooterBar(tk.Frame):
             fill='x',
             expand=True,
         )
+        return text, accelerator
+
+    def set_font(self, scale):
+        size = int(int(prefs['default_font_size']) * scale * 0.8)
+        font = (prefs['font_family'], size)
+        for text, accelerator in self._entries:
+            text.configure(font=font)
+            accelerator.configure(font=font)
 

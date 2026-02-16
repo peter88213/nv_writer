@@ -57,6 +57,7 @@ class WriterView(ModalDialog):
 
         # Add a status bar to the editor window.
         self._statusBar = StatusBar(self._editorWindow, self._mdl)
+        self._statusBar.set_font(scale)
         self._statusBar.pack(fill='x')
 
         # Add a text editor with scrollbar to the editor window.
@@ -93,6 +94,7 @@ class WriterView(ModalDialog):
 
         # Add a footer bar to the editor window.
         self._footerBar = FooterBar(self._editorWindow)
+        self._footerBar.set_font(scale)
         if prefs['_show_footer_bar']:
             self._show_footer_bar()
             self._statusBar.highlight()
@@ -322,6 +324,8 @@ class WriterView(ModalDialog):
         resolutionIndex = int(prefs['resolution_index'])
         height, width = RESOLUTIONS[resolutionIndex]
         scale = height / DEFAULT_HEIGHT
+        self._statusBar.set_font(scale)
+        self._footerBar.set_font(scale)
         self._editorWindow.configure(
             height=height,
             width=width,

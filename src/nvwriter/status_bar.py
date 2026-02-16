@@ -4,6 +4,8 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_vriter
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+import textwrap
+
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.writer_locale import _
 import tkinter as tk
@@ -92,9 +94,24 @@ class StatusBar(tk.Frame):
         )
 
     def set_breadcrumbs(self, book, chapter, section):
+        lengthTotal = 70
+        length = 25
+        book = textwrap.shorten(book, length)
+        lengthTotal -= len(book)
+        length = lengthTotal // 2
+        chapter = textwrap.shorten(chapter, length)
+        lengthTotal -= len(chapter)
+        section = textwrap.shorten(section, lengthTotal)
         self._breadcrumbs.configure(
             text=(f'{book} | {chapter} | {section}')
         )
+
+    def set_font(self, scale):
+        size = int(int(prefs['default_font_size']) * scale * 0.8)
+        font = (prefs['font_family'], size)
+        self._breadcrumbs.configure(font=font)
+        self._modificationIndicator.configure(font=font)
+        self._wordCount.configure(font=font)
 
     def set_modified(self, isModified):
         if isModified:
