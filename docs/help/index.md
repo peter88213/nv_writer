@@ -16,7 +16,7 @@ the *novelibre* **Section** menu and the section context menu.
 
 - Select the section to start with (optional). If no section is selected in the project tree, the first section will be opened.
 - To enter the distraction free editing mode, either 
-   - hit `F4`, or
+   - hit `Ctrl`-`W`, or
    - right-click the selected section and select **Write in distraction free mode**, or 
    - click **Section > Write in distraction free mode**.
 
@@ -31,7 +31,7 @@ the *novelibre* **Section** menu and the section context menu.
 
 ## End the distraction-free writing mode
 
-- Hit `Esc` or `Alt`-`F4` (Windows) or `Ctrl`-`Q` (Linux) to finish the editing session.
+- Hit `Esc` or `Alt`-`Ctrl`-`W` (Windows) or `Ctrl`-`Q` (Linux) to finish the editing session.
 
 > **Hint**
 >

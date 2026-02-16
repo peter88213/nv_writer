@@ -13,6 +13,24 @@ API: 5.52
 Based on novelibre 5.52.1
 
 
+### Version 0.16.0 (Experimental Beta release)
+
+#### Changed the key bindings.
+
+- `F3` toggles the menu.
+- `Esc` is another option to end the distraction-free writing mode.
+
+--- 
+
+- Scaling the header and footer bars.
+- Major revision of the color setting.
+- Protecting changes from being lost when closing the editor from the task
+switcher.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.15.0 (Experimental Beta release)
 
 - Added "Turquoise" color set.
