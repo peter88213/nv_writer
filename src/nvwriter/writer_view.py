@@ -83,8 +83,8 @@ class WriterView(ModalDialog):
             insertbackground=prefs['color_fg'],
             spacing1=int(int(prefs['paragraph_spacing']) * scale),
             spacing2=int(int(prefs['line_spacing']) * scale),
-            padx=int(int(prefs['margin_x']) * scale),
-            pady=int(int(prefs['margin_y']) * scale),
+            padx=int(int(prefs['margin_horizontal']) * scale),
+            pady=int(int(prefs['margin_vertical']) * scale),
             font=(
                 prefs['font_family'],
                 int(int(prefs['default_font_size']) * scale),
@@ -130,6 +130,8 @@ class WriterView(ModalDialog):
         )
         for sequence, callback in eventBindings:
             self.bind(sequence, callback)
+
+        self.protocol("WM_DELETE_WINDOW", self.on_quit)
 
         # Configure the editor.
         self._set_wc_mode()
@@ -333,8 +335,8 @@ class WriterView(ModalDialog):
         self._sectionEditor.configure(
             spacing1=int(int(prefs['paragraph_spacing']) * scale),
             spacing2=int(int(prefs['line_spacing']) * scale),
-            padx=int(int(prefs['margin_x']) * scale),
-            pady=int(int(prefs['margin_y']) * scale),
+            padx=int(int(prefs['margin_horizontal']) * scale),
+            pady=int(int(prefs['margin_vertical']) * scale),
             font=(
                 prefs['font_family'],
                 int(int(prefs['default_font_size']) * scale),
