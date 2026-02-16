@@ -21,5 +21,4 @@ class MacKeys(GenericKeys):
     QUIT_PROGRAM = ('<Command-q>', 'Cmd-Q')
     SPLIT_SECTION = ('<Command-s>', 'Cmd-S')
     START_EDITOR = ('<Command-w>', 'Cmd-W')
-    TOGGLE_FOOTER_BAR = ('<Command-F1>', 'Cmd-F1')
 

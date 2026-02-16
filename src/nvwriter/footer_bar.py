@@ -77,8 +77,8 @@ class FooterBar(tk.Frame):
         )
         text = tk.Label(
             entry,
-            background=prefs['color_fg'],
-            foreground=prefs['color_bg'],
+            background=prefs['color_button_bg'],
+            foreground=prefs['color_button_fg'],
             text=text,
         )
         text.pack(
@@ -89,7 +89,7 @@ class FooterBar(tk.Frame):
         accelerator = tk.Label(
             entry,
             background=prefs['color_bg'],
-            foreground=prefs['color_highlight'],
+            foreground=prefs['color_shortcut'],
             text=accelerator,
         )
         accelerator.pack(

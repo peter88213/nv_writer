@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.15.1\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-02-15 23:30:50\n"
+"PO-Revision-Date: 2026-02-16 16:27:50\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -45,6 +45,9 @@ msgstr "Schließen"
 
 msgid "Color sets"
 msgstr "Farbkombinationen"
+
+msgid "Command"
+msgstr "Befehl"
 
 msgid "Comment"
 msgstr "Kommentar"
@@ -139,8 +142,14 @@ msgstr "Zurück"
 msgid "Regular text"
 msgstr "Gewöhnlicher Text"
 
+msgid "Shortcut"
+msgstr "Kürzel"
+
 msgid "Split at cursor position"
 msgstr "An der Cursorposition teilen"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "Tagged manuscript for proofing"
 msgstr "Manuskript mit Markierungen zum Überarbeiten"

@@ -12,17 +12,80 @@ from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.writer_locale import _
 import tkinter as tk
+from nvwriter.theme_preview import ThemePreview
 
 
 class OptionsDialog(ModalDialog):
     """A pop-up window with view preference settings."""
 
-    COLORS_AMBER = ('gray20', 'gold3', 'gold')
-    COLORS_PAPER = ('floral white', 'gray30', 'black')
-    COLORS_TURQUOISE = ('turquoise4', 'black', 'cyan')
-    COLORS_BLUE = ('navy', 'gray60', 'gray80',)
-    COLORS_GREEN = ('gray20', 'green3', 'green2')
-    COLORS_WHITE = ('gray20', 'gray70', 'white')
+    COLORS_WHITE = (
+        'gray20',
+        'gray70',
+        'white',
+        'gray70',
+        'gray20',
+        'gray70',
+        'gray20',
+        'white',
+    )
+    COLORS_GREEN = (
+        'gray20',
+        'green3',
+        'green2',
+        'green3',
+        'gray20',
+        'green3',
+        'gray20',
+        'green2',
+    )
+    COLORS_AMBER = (
+        'gray20',
+        'gold3',
+        'gold',
+        'gold3',
+        'gray20',
+        'gold3',
+        'gray20',
+        'gold',
+    )
+    COLORS_BLUE = (
+        'navy',
+        'gray60',
+        'yellow',
+        'gray60',
+        'black',
+        'gray60',
+        'black',
+        'white',
+    )
+    COLORS_TURQUOISE = (
+        'turquoise4',
+        'black',
+        'cyan',
+        'black',
+        'cyan',
+        'firebrick',
+        'white',
+        'white',
+    )
+    COLORS_PAPER = (
+        'floral white',
+        'gray30',
+        'black',
+        'gray60',
+        'floral white',
+        'gray60',
+        'floral white',
+        'gray60',
+    )
+    # background,
+    # foreground,
+    # highlight,
+    # status background,
+    # status foreground,
+    # button background,
+    # button foreground,
+    # shortcut foreground,
 
     def __init__(self, view, icon, **kw):
         super().__init__(view, **kw)
@@ -33,257 +96,121 @@ class OptionsDialog(ModalDialog):
         window.pack(
             fill='both',
         )
-        frame1 = ttk.Frame(window)
-        frame1.pack(fill='both', side='left')
-        ttk.Separator(
-            window,
-            orient='vertical',
-        ).pack(fill='y', side='left')
-        frame2 = ttk.Frame(window)
-        frame2.pack(fill='both', side='left')
+        optionsFrame = ttk.Frame(window)
+        optionsFrame.pack(fill='both')
 
         #--- Checkbox for confirmation.
+        askFrame = ttk.Frame(optionsFrame)
+        askFrame.pack(side='left', padx=20, pady=10,)
+        ttk.Label(
+            askFrame,
+            text=_('Apply changes')
+        ).pack(padx=5, pady=5, anchor='w',)
         self._askForConfirmationVar = tk.BooleanVar(
-            frame1,
+            askFrame,
             value=prefs['ask_for_confirmation'],
         )
-        ttk.Label(
-            frame1,
-            text=_('Apply changes')
-        ).pack(padx=5, pady=5, anchor='w')
         ttk.Checkbutton(
-            frame1,
+            askFrame,
             text=_('Ask for confirmation'),
             variable=self._askForConfirmationVar,
             command=self._change_ask_for_confirmation,
-        ).pack(padx=5, pady=5, anchor='w')
+        ).pack(padx=5, pady=5, anchor='w',)
 
-        ttk.Separator(frame1, orient='horizontal').pack(fill='x')
+        ttk.Separator(optionsFrame, orient='vertical').pack(fill='y', side='left',)
 
         #--- Checkbox for live word count.
+        liveFrame = ttk.Frame(optionsFrame)
+        liveFrame.pack(side='left', padx=20, pady=10,)
         ttk.Label(
-            frame1,
+            liveFrame,
             text=_('Word count')
-        ).pack(padx=5, pady=5, anchor='w')
+        ).pack(padx=5, pady=5, anchor='w',)
         self._liveWordcountVar = tk.BooleanVar(
-            frame1,
+            liveFrame,
             value=prefs['live_wordcount'],
         )
         ttk.Checkbutton(
-            frame1,
+            liveFrame,
             text=_('Live update'),
             variable=self._liveWordcountVar,
             command=self._change_live_wc,
-        ).pack(padx=5, pady=5, anchor='w')
+        ).pack(padx=5, pady=5, anchor='w',)
 
         #--- Color mode settings.
+        ttk.Separator(
+            window,
+            orient='horizontal',
+        ).pack(fill='x')
+        themesFrame = ttk.Frame(window)
+        themesFrame.pack(fill='both')
+
         ttk.Label(
-            frame2,
+            themesFrame,
             text=_('Color sets'),
         ).pack(padx=5, pady=5, anchor='w')
 
         #--- Show current setting.
-        currentSettingFrame = ttk.Frame(frame2)
-        currentSettingFrame.pack(
-            anchor='n',
-            padx=5,
-            pady=5,
-            fill='x',
-            side='left',
-        )
-        (
-            self._currentTextDisplay,
-            self._regularTextCurrent,
-            self._highlightedTextCurrent,
-            self._invertedTextCurrent,
-
-        ) = self._get_color_display(currentSettingFrame)
-        self._currentTextDisplay.pack(fill='x')
+        self._currentSettingPreview = ThemePreview(themesFrame)
         ttk.Label(
-            currentSettingFrame,
+            self._currentSettingPreview,
             text=_('Current setting'),
         ).pack(pady=5)
         self._update_colors()
 
         #--- "White" option.
-        optionFrameWhite = ttk.Frame(frame2)
-        optionFrameWhite.pack(
-            anchor='n',
-            padx=5,
-            pady=5,
-            fill='x',
-            side='left',
-        )
-        (
-            textDisplayWhite,
-            regularTextWhite,
-            highlightedTextWhite,
-            invertedTextWhite,
-
-        ) = self._get_color_display(optionFrameWhite)
-        textDisplayWhite.pack(fill='x')
+        optionWhitePreview = ThemePreview(themesFrame)
+        optionWhitePreview.configure_display(self.COLORS_WHITE)
         ttk.Button(
-            optionFrameWhite,
+            optionWhitePreview,
             text=_('White'),
             command=self._set_option_white
         ).pack(pady=5)
-        self._configure_text_display(
-            textDisplayWhite,
-            regularTextWhite,
-            highlightedTextWhite,
-            invertedTextWhite,
-            self.COLORS_WHITE,
-        )
 
         #--- "Green" option.
-        optionFrameGreen = ttk.Frame(frame2)
-        optionFrameGreen.pack(
-            anchor='n',
-            padx=5,
-            pady=5,
-            fill='x',
-            side='left',
-        )
-        (
-            textDisplayGreen,
-            regularTextGreen,
-            highlightedTextGreen,
-            invertedTextGreen,
-
-        ) = self._get_color_display(optionFrameGreen)
-        textDisplayGreen.pack(fill='x')
+        optionGreenPreview = ThemePreview(themesFrame)
+        optionGreenPreview.configure_display(self.COLORS_GREEN)
         ttk.Button(
-            optionFrameGreen,
+            optionGreenPreview,
             text=_('Green'),
             command=self._set_option_green
         ).pack(pady=5)
-        self._configure_text_display(
-            textDisplayGreen,
-            regularTextGreen,
-            highlightedTextGreen,
-            invertedTextGreen,
-            self.COLORS_GREEN,
-        )
 
         #--- "Amber" option.
-        optionFrameAmber = ttk.Frame(frame2)
-        optionFrameAmber.pack(
-            anchor='n',
-            padx=5,
-            pady=5,
-            fill='x',
-            side='left',
-        )
-        (
-            textDisplayAmber,
-            regularTextAmber,
-            highlightedTextAmber,
-            invertedTextAmber,
-
-        ) = self._get_color_display(optionFrameAmber)
-        textDisplayAmber.pack(fill='x')
+        optionAmberPreview = ThemePreview(themesFrame)
+        optionAmberPreview.configure_display(self.COLORS_AMBER)
         ttk.Button(
-            optionFrameAmber,
+            optionAmberPreview,
             text=_('Amber'),
             command=self._set_option_amber
         ).pack(pady=5)
-        self._configure_text_display(
-            textDisplayAmber,
-            regularTextAmber,
-            highlightedTextAmber,
-            invertedTextAmber,
-            self.COLORS_AMBER,
-        )
 
         #--- "Blue" option.
-        optionFrameBlue = ttk.Frame(frame2)
-        optionFrameBlue.pack(
-            anchor='n',
-            padx=5,
-            pady=5,
-            fill='x',
-            side='left',
-        )
-        (
-            textDisplayBlue,
-            regularTextBlue,
-            highlightedTextBlue,
-            invertedTextBlue,
-
-        ) = self._get_color_display(optionFrameBlue)
-        textDisplayBlue.pack(fill='x')
+        optionBluePreview = ThemePreview(themesFrame)
+        optionBluePreview.configure_display(self.COLORS_BLUE)
         ttk.Button(
-            optionFrameBlue,
+            optionBluePreview,
             text=_('Blue'),
             command=self._set_option_blue
         ).pack(pady=5)
-        self._configure_text_display(
-            textDisplayBlue,
-            regularTextBlue,
-            highlightedTextBlue,
-            invertedTextBlue,
-            self.COLORS_BLUE,
-        )
 
         #--- "Turquoise" option.
-        optionFrameTurquoise = ttk.Frame(frame2)
-        optionFrameTurquoise.pack(
-            anchor='n',
-            padx=5,
-            pady=5,
-            fill='x',
-            side='left',
-        )
-        (
-            textDisplayTurquoise,
-            regularTextTurquoise,
-            highlightedTextTurquoise,
-            invertedTextTurquoise,
-
-        ) = self._get_color_display(optionFrameTurquoise)
-        textDisplayTurquoise.pack(fill='x')
+        optionTurquoisePreview = ThemePreview(themesFrame)
+        optionTurquoisePreview.configure_display(self.COLORS_TURQUOISE)
         ttk.Button(
-            optionFrameTurquoise,
+            optionTurquoisePreview,
             text=_('Turquoise'),
             command=self._set_option_turquoise
         ).pack(pady=5)
-        self._configure_text_display(
-            textDisplayTurquoise,
-            regularTextTurquoise,
-            highlightedTextTurquoise,
-            invertedTextTurquoise,
-            self.COLORS_TURQUOISE,
-        )
 
         #--- "Paper" option.
-        optionFramePaper = ttk.Frame(frame2)
-        optionFramePaper.pack(
-            anchor='n',
-            padx=5,
-            pady=5,
-            fill='x',
-            side='left',
-        )
-        (
-            textDisplayPaper,
-            regularTextPaper,
-            highlightedTextPaper,
-            invertedTextPaper,
-
-        ) = self._get_color_display(optionFramePaper)
-        textDisplayPaper.pack(fill='x')
+        optionPaperPreview = ThemePreview(themesFrame)
+        optionPaperPreview.configure_display(self.COLORS_PAPER)
         ttk.Button(
-            optionFramePaper,
+            optionPaperPreview,
             text=_('Paper'),
             command=self._set_option_paper
         ).pack(pady=5)
-        self._configure_text_display(
-            textDisplayPaper,
-            regularTextPaper,
-            highlightedTextPaper,
-            invertedTextPaper,
-            self.COLORS_PAPER,
-        )
 
         ttk.Separator(self, orient='horizontal').pack(fill='x')
 
@@ -313,63 +240,6 @@ class OptionsDialog(ModalDialog):
     def _change_colors(self, *args, **kwargs):
         pass
 
-    def _configure_text_display(
-        self,
-        TextDisplay,
-        currentText,
-        highlightedText,
-        invertedText,
-        colors,
-    ):
-        colorBg, colorFg, colorHighlight = colors
-        TextDisplay.configure(
-            bg=colorBg,
-        )
-        currentText.configure(
-            fg=colorFg,
-            bg=colorBg,
-        )
-        highlightedText.configure(
-            fg=colorHighlight,
-            bg=colorBg,
-        )
-        invertedText.configure(
-            fg=colorBg,
-            bg=colorFg,
-        )
-
-    def _get_color_display(self, parent):
-        textFrame = tk.Frame(
-            parent,
-            padx=15,
-            pady=15,
-        )
-        regularText = tk.Label(
-            textFrame,
-            text=_('Regular text'),
-        )
-        regularText.pack(
-            anchor='w',
-            pady=3,
-        )
-        highlightedText = tk.Label(
-            textFrame,
-            text=_('Highlighted text'),
-        )
-        highlightedText.pack(
-            anchor='w',
-            pady=3,
-        )
-        invertedText = tk.Label(
-            textFrame,
-            text=_('Comment'),
-        )
-        invertedText.pack(
-            anchor='w',
-            pady=3,
-        )
-        return textFrame, regularText, highlightedText, invertedText
-
     def _open_help(self, event=None):
         NvwriterHelp.open_help_page('options.html')
 
@@ -377,7 +247,12 @@ class OptionsDialog(ModalDialog):
         (
             prefs['color_bg'],
             prefs['color_fg'],
-            prefs['color_highlight']
+            prefs['color_highlight'],
+            prefs['color_status_bg'],
+            prefs['color_status_fg'],
+            prefs['color_button_bg'],
+            prefs['color_button_fg'],
+            prefs['color_shortcut'],
         ) = self.COLORS_AMBER
         self._update_colors()
 
@@ -385,48 +260,78 @@ class OptionsDialog(ModalDialog):
         (
             prefs['color_bg'],
             prefs['color_fg'],
-            prefs['color_highlight']
+            prefs['color_highlight'],
+            prefs['color_status_bg'],
+            prefs['color_status_fg'],
+            prefs['color_button_bg'],
+            prefs['color_button_fg'],
+            prefs['color_shortcut'],
         ) = self.COLORS_BLUE
-        self._update_colors()
-
-    def _set_option_turquoise(self, event=None):
-        (
-            prefs['color_bg'],
-            prefs['color_fg'],
-            prefs['color_highlight']
-        ) = self.COLORS_TURQUOISE
-        self._update_colors()
-
-    def _set_option_paper(self, event=None):
-        (
-            prefs['color_bg'],
-            prefs['color_fg'],
-            prefs['color_highlight']
-        ) = self.COLORS_PAPER
         self._update_colors()
 
     def _set_option_green(self, event=None):
         (
             prefs['color_bg'],
             prefs['color_fg'],
-            prefs['color_highlight']
+            prefs['color_highlight'],
+            prefs['color_status_bg'],
+            prefs['color_status_fg'],
+            prefs['color_button_bg'],
+            prefs['color_button_fg'],
+            prefs['color_shortcut'],
         ) = self.COLORS_GREEN
+        self._update_colors()
+
+    def _set_option_paper(self, event=None):
+        (
+            prefs['color_bg'],
+            prefs['color_fg'],
+            prefs['color_highlight'],
+            prefs['color_status_bg'],
+            prefs['color_status_fg'],
+            prefs['color_button_bg'],
+            prefs['color_button_fg'],
+            prefs['color_shortcut'],
+        ) = self.COLORS_PAPER
+        self._update_colors()
+
+    def _set_option_turquoise(self, event=None):
+        (
+            prefs['color_bg'],
+            prefs['color_fg'],
+            prefs['color_highlight'],
+            prefs['color_status_bg'],
+            prefs['color_status_fg'],
+            prefs['color_button_bg'],
+            prefs['color_button_fg'],
+            prefs['color_shortcut'],
+        ) = self.COLORS_TURQUOISE
         self._update_colors()
 
     def _set_option_white(self, event=None):
         (
             prefs['color_bg'],
             prefs['color_fg'],
-            prefs['color_highlight']
+            prefs['color_highlight'],
+            prefs['color_status_bg'],
+            prefs['color_status_fg'],
+            prefs['color_button_bg'],
+            prefs['color_button_fg'],
+            prefs['color_shortcut'],
         ) = self.COLORS_WHITE
         self._update_colors()
 
     def _update_colors(self):
-        self._configure_text_display(
-            self._currentTextDisplay,
-            self._regularTextCurrent,
-            self._highlightedTextCurrent,
-            self._invertedTextCurrent,
-            (prefs['color_bg'], prefs['color_fg'], prefs['color_highlight'])
+        self._currentSettingPreview.configure_display(
+            (
+                prefs['color_bg'],
+                prefs['color_fg'],
+                prefs['color_highlight'],
+                prefs['color_status_bg'],
+                prefs['color_status_fg'],
+                prefs['color_button_bg'],
+                prefs['color_button_fg'],
+                prefs['color_shortcut'],
+            )
         )
 

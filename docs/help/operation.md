@@ -8,7 +8,7 @@
 
 ## Toggle the menu
 
-- `Ctrl`-`F1` folds the clickable menu bar below the editor window in or out.
+- `F3` folds the clickable menu bar below the editor window in or out.
 
 
 ## Change the editor window and font size

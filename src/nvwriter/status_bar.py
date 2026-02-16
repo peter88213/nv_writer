@@ -21,25 +21,9 @@ class StatusBar(tk.Frame):
         )
         self._mdl = model
 
-        # Navigational breadcrumbs: Book | Chapter | Section.
-        self._breadcrumbs = tk.Label(
-            self,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
-            text='',
-            anchor='w',
-            padx=5,
-            pady=2,
-        )
-        self._breadcrumbs.pack(
-            side='left',
-        )
-
         # Word count.
         self._wordCount = tk.Label(
             self,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
             text='',
             anchor='w',
             padx=5,
@@ -52,8 +36,6 @@ class StatusBar(tk.Frame):
         # Modification indicator.
         self._modificationIndicator = tk.Label(
             self,
-            background=prefs['color_bg'],
-            foreground=prefs['color_fg'],
             text='',
             anchor='w',
             padx=5,
@@ -61,6 +43,18 @@ class StatusBar(tk.Frame):
         )
         self._modificationIndicator.pack(
             side='right',
+        )
+
+        # Navigational breadcrumbs: Book | Chapter | Section.
+        self._breadcrumbs = tk.Label(
+            self,
+            text='',
+            anchor='w',
+            padx=5,
+            pady=2,
+        )
+        self._breadcrumbs.pack(
+            side='left',
         )
 
     def normal(self):
@@ -79,27 +73,27 @@ class StatusBar(tk.Frame):
         )
 
     def highlight(self):
-        self.configure(background=prefs['color_fg'])
+        self.configure(background=prefs['color_status_bg'])
         self._breadcrumbs.configure(
-            foreground=prefs['color_bg'],
-            background=prefs['color_fg'],
+            foreground=prefs['color_status_fg'],
+            background=prefs['color_status_bg'],
         )
         self._modificationIndicator.configure(
-            foreground=prefs['color_bg'],
-            background=prefs['color_fg'],
+            foreground=prefs['color_status_fg'],
+            background=prefs['color_status_bg'],
         )
         self._wordCount.configure(
-            foreground=prefs['color_bg'],
-            background=prefs['color_fg'],
+            foreground=prefs['color_status_fg'],
+            background=prefs['color_status_bg'],
         )
 
     def set_breadcrumbs(self, book, chapter, section):
-        lengthTotal = 70
-        length = 25
-        book = textwrap.shorten(book, length)
+        lengthTotal = 80
+        lengthEntry = 25
+        book = textwrap.shorten(book, lengthEntry)
         lengthTotal -= len(book)
-        length = lengthTotal // 2
-        chapter = textwrap.shorten(chapter, length)
+        lengthEntry = lengthTotal // 2
+        chapter = textwrap.shorten(chapter, lengthEntry)
         lengthTotal -= len(chapter)
         section = textwrap.shorten(section, lengthTotal)
         self._breadcrumbs.configure(

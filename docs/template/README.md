@@ -34,7 +34,7 @@ You can adjust the size of the editor window to fill high-resolution notebook sc
 
 - Full screen mode with an editor window that resembles a 14" monochrome monitor as used with the early PCs.
 - A simple, mainly keyboard-operated text editor box without spell checker and search capability.
-- A basic function menu can be folded in at the bottom via `Ctrl`-`F1`.
+- A basic function menu can be folded in at the bottom via `F3`.
 - Online help can be called up via `F1`.
 - Emphasized text is displayed slanted, strongly emphasized text is displayed in bold. 
 - The word count is displayed for the currently loaded section. Both the total word count and the change made during the current session are shown. 

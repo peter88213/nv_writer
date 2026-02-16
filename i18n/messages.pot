@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.15.1\n"
-"POT-Creation-Date: 2026-02-15 23:30:50\n"
+"POT-Creation-Date: 2026-02-16 16:28:29\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -45,6 +45,9 @@ msgid "Close"
 msgstr ""
 
 msgid "Color sets"
+msgstr ""
+
+msgid "Command"
 msgstr ""
 
 msgid "Comment"
@@ -140,7 +143,13 @@ msgstr ""
 msgid "Regular text"
 msgstr ""
 
+msgid "Shortcut"
+msgstr ""
+
 msgid "Split at cursor position"
+msgstr ""
+
+msgid "Status"
 msgstr ""
 
 msgid "Tagged manuscript for proofing"
