@@ -31,12 +31,12 @@ class WriterService(SubController):
         color_shortcut='white',
         color_status_bg='gray70',
         color_status_fg='gray20',
+        editor_font=DEFAULT_FONT,
         font_size_1=12,
-        font_family=DEFAULT_FONT,
         line_spacing=7,
+        paragraph_spacing=14,
         margin_horizontal=10,
         margin_vertical=10,
-        paragraph_spacing=14,
         resolution_index=1,
     )
     OPTIONS = dict(

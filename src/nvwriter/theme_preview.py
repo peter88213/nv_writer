@@ -22,7 +22,7 @@ class ThemePreview(ttk.Frame):
         self._statusBar = tk.Label(
             self,
             text=_('Status'),
-            font=(prefs['font_family'], uiSize)
+            font=(prefs['editor_font'], uiSize)
         )
         self._statusBar.pack(
             fill='x',
@@ -37,7 +37,7 @@ class ThemePreview(ttk.Frame):
         self._regularText = tk.Label(
             self._textFrame,
             text=_('Regular text'),
-            font=(prefs['font_family'], wsSize)
+            font=(prefs['editor_font'], wsSize)
         )
         self._regularText.pack(
             anchor='w',
@@ -47,7 +47,7 @@ class ThemePreview(ttk.Frame):
         self._highlightedText = tk.Label(
             self._textFrame,
             text=_('Highlighted text'),
-            font=(prefs['font_family'], wsSize)
+            font=(prefs['editor_font'], wsSize)
         )
         self._highlightedText.pack(
             anchor='w',
@@ -57,7 +57,7 @@ class ThemePreview(ttk.Frame):
         self._invertedText = tk.Label(
             self._textFrame,
             text=_('Comment'),
-            font=(prefs['font_family'], wsSize)
+            font=(prefs['editor_font'], wsSize)
         )
         self._invertedText.pack(
             anchor='w',
@@ -80,7 +80,7 @@ class ThemePreview(ttk.Frame):
         self._button = tk.Label(
             self._footer,
             text=_('Command'),
-            font=(prefs['font_family'], uiSize)
+            font=(prefs['editor_font'], uiSize)
         )
         self._button.pack(
             padx=10,
@@ -90,7 +90,7 @@ class ThemePreview(ttk.Frame):
         self._shortcut = tk.Label(
             self._footer,
             text=_('Key shortcut'),
-            font=(prefs['font_family'], uiSize)
+            font=(prefs['editor_font'], uiSize)
         )
         self._shortcut.pack(
             fill='x',

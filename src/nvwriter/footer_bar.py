@@ -116,7 +116,7 @@ class FooterBar(tk.Frame):
 
     def set_font(self, scale):
         size = int(int(prefs['font_size_1']) * scale * 0.8)
-        font = (prefs['font_family'], size)
+        font = (prefs['editor_font'], size)
         for text, accelerator in self._entries:
             text.configure(font=font)
             accelerator.configure(font=font)

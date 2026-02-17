@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 0.17.2
+
+- Making sure that the current font settings are applied.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.17.1
 
 - New feature: Apply changes and save the project on demand.

@@ -96,7 +96,7 @@ def check_editor_settings(window):
         prefs['resolution_index'] = resolutionIndex
         passed = False
 
-    if not prefs['font_family'] in INSTALLED_FONTS:
-        prefs['font_family'] = DEFAULT_FONT
+    if not prefs['editor_font'] in INSTALLED_FONTS:
+        prefs['editor_font'] = DEFAULT_FONT
 
     return passed

@@ -86,7 +86,7 @@ class WriterView(ModalDialog):
             padx=int(int(prefs['margin_horizontal']) * scale),
             pady=int(int(prefs['margin_vertical']) * scale),
             font=(
-                prefs['font_family'],
+                prefs['editor_font'],
                 int(int(prefs['font_size_1']) * scale),
             ),
         )
@@ -341,13 +341,13 @@ class WriterView(ModalDialog):
             padx=int(int(prefs['margin_horizontal']) * scale),
             pady=int(int(prefs['margin_vertical']) * scale),
             font=(
-                prefs['font_family'],
+                prefs['editor_font'],
                 int(int(prefs['font_size_1']) * scale),
             ),
         )
         self._sectionEditor.configure_font(
             (
-                prefs['font_family'],
+                prefs['editor_font'],
                 int(int(prefs['font_size_1']) * scale),
             ),
         )
