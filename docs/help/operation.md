@@ -49,24 +49,67 @@ With `Ctrl`-`S`, you can split the section at the cursor position.
 
 ---
 
-## Select text
+## Move the cursor and select text
 
--  `Ctrl`-`A` selects the whole text.
--  Select a word via double-clicking.
--  Select a paragraph via triple-clicking.
--  Extend the selection via `Shift`-`Arrow`.
--  Extend the selection to the next word via `Ctrl`-`Shift`-`Arrow`.
+-  Clicking the left mouse button positions the insertion cursor just before the character underneath the mouse cursor, sets the input focus, and clears any selection in the widget.
+-  Dragging with the left mouse button strokes out a selection between the insertion cursor and the character under the mouse.
+
+-  Double-clicking with the left mouse button selects the word under the mouse and positions the insertion cursor at the beginning of the word.
+-  Dragging after a double click will stroke out a selection consisting of whole words.
+
+-  Triple-clicking with the left mouse button selects the line under the mouse and positions the insertion cursor at the beginning of the line.
+-  Dragging after a triple click will stroke out a selection consisting of whole lines.
+
+-  The ends of the selection can be adjusted by dragging with the left mouse button while `Shift` is down; this will adjust the end of the selection that was nearest to the mouse cursor when the left button was pressed.
+-  If the button is double-clicked before dragging then the selection will be adjusted in units of whole words; if it is triple-clicked then the selection will be adjusted in units of whole lines.
+-  Clicking the left mouse button with `Ctrl` down will reposition the insertion cursor without affecting the selection.
+
+-  `Ctrl`-`A` and `Ctrl`-`/` select the whole text.
+
+-  `Left` and `Right` move the insertion cursor one character to the left or right and clear any selection in the text. 
+-  If `Left` or `Right` is typed with the `Shift` key down, then the insertion cursor moves and the selection is extended to include the new character. Control-Left and Control-Right move the insertion cursor by words, and Control-Shift-Left and Control-Shift-Right move the insertion cursor by words and also extend the selection. Control-b and Control-f behave the same as Left and Right, respectively. Meta-b and Meta-f behave the same as Control-Left and Control-Right, respectively.
+-  `Ctrl`-`Left` and `Ctrl`-`Right` move the insertion cursor by words
+-  `Ctrl`-`Shift`-`Left` and `Ctrl`-`Shift`-`Right` move the insertion cursor by words and also extend the selection.
+
+-  `Up` and `Down` move the insertion cursor one line up or down and clear any selection in the text. 
+-  If `Up` or `Down` is typed with `Shift` down, then the insertion cursor moves and the selection is extended to include the new characters. 
+
+-  `PgUp` and `PgDn` move the insertion cursor forward or backwards by one screenful and clear any selection in the text. 
+-  If `Shift` is held down while `PgUp` or `PgDn` is typed, then the selection is extended to include the new characters. 
+
+-  `Home` moves the insertion cursor to the beginning of its line and clear any selection. 
+-  `Shift`-`Home` moves the insertion cursor to the beginning of the line and also extends the selection to that point.
+-  `Ctrl`-`Home` and `Ctrl`-`Up` move the insertion cursor to the beginning of the text and clear any selection. 
+-  `Ctrl`-`Shift`-`Home` moves the insertion cursor to the beginning of the text and also extends the selection to that point.
+
+-  `End` moves the insertion cursor to the end of the line and clears any selection. 
+-  `Shift`-`End` moves the cursor to the end of the line and extends the selection to that point.
+-  `Ctrl`-`End` and `Ctrl`-`Down` move the insertion cursor to the end of the text and clear any selection in the widget.
+-  `Ctrl`-`Shift`-`End` and and `Ctrl`-`Shift`-`Down` move the cursor to the end of the text and extend the selection to that point.
  
-## Copy/Paste text
+## Modify text
 
--  `Ctrl`-`C` copies the selected text to the clipboard.
--  `Ctrl`-`X` cuts the selected text and moves it to the clipboard.
--  `Ctrl`-`V` pastes the clipboard text content to the cursor position.
+-  If any normal printing characters are typed, they are inserted at the point of the insertion cursor.
+-  `Del` deletes the selection, if any. Otherwise, it deletes the character to the right of the insertion cursor.
+-  `Backspace` deletes the selection, if any. Otherwise, it deletes the character to the left of the insertion cursor.
+-  `Ctrl`-`H` deletes the character to the left of the insertion cursor.
+-  `Ctrl`-`K` deletes from the insertion cursor to the end of its line; if the insertion cursor is already at the end of a line, then Control-k deletes the newline character.
+-  `Ctrl`-`D` deletes the character to the right of the insertion cursor.
+
+-  `Ctrl`-`T` reverses the order of the two characters to the left and right of the insertion cursor.
+-  `Ctrl`-`O` opens a new line by inserting a newline character in front of the insertion cursor without moving the insertion cursor.
+
+## Copy/cut/paste text
+
+-  `Ctrl`-`C` copies the selection, to the clipboard.
+-  `Ctrl`-`X` copies the selection to the clipboard and deletes the selection. 
+-  `Ctrl`-`V` inserts the contents of the clipboard at the position of the insertion cursor.
 
 ## Undo/Redo
 
 -  `Ctrl`-`Z` undoes the last editing. Multiple undo is possible.
 -  `Ctrl`-`Y` redoes the last undo. Multiple redo is possible.
+
 
 ---
 
