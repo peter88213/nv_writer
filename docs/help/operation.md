@@ -81,10 +81,10 @@ With `Ctrl`-`S`, you can apply the changes made to the current section, and save
 -  `PgUp` and `PgDn` move the insertion cursor forward or backwards by one screenful and clear any selection in the text. 
 -  If `Shift` is held down while `PgUp` or `PgDn` is typed, then the selection is extended to include the new characters. 
 
--  `Home` moves the insertion cursor to the beginning of its line and clear any selection. 
+-  `Home` moves the insertion cursor to the beginning of its line and clears any selection. 
 -  `Shift`-`Home` moves the insertion cursor to the beginning of the line and also extends the selection to that point.
 -  `Ctrl`-`Home` and `Ctrl`-`Up` move the insertion cursor to the beginning of the text and clear any selection. 
--  `Ctrl`-`Shift`-`Home` moves the insertion cursor to the beginning of the text and also extends the selection to that point.
+-  `Ctrl`-`Shift`-`Home` and `Ctrl`-`Shift`-`Up` move the insertion cursor to the beginning of the text and also extend the selection to that point.
 
 -  `End` moves the insertion cursor to the end of the line and clears any selection. 
 -  `Shift`-`End` moves the cursor to the end of the line and extends the selection to that point.
