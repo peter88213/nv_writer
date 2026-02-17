@@ -40,13 +40,13 @@ class OptionsDialog(ModalDialog):
     )
     COLORS_AMBER = (
         'gray20',
-        'gold3',
-        'gold',
-        'gold3',
+        'orange2',
+        'orange',
+        'orange2',
         'gray20',
-        'gold3',
+        'orange2',
         'gray20',
-        'gold',
+        'orange',
     )
     COLORS_BLUE = (
         'navy',
