@@ -50,6 +50,10 @@ You can adjust the size of the editor window to fill high-resolution notebook sc
 > [!CAUTION]
 > This is an experimental Beta release. 
 > Please check the results with *OpenOffice/LibreOffice Writer*, and report any issues if something seems strange. 
+> 
+> Since this plugin is currently under testing and development, updates may be provided frequently.
+> Consider installing the [nv_updater](https://github.com/peter88213/nv_updater/) update checker and running it from time to time. 
+>
 > Feel free to share your thoughts in the [novelibre discussion forum](https://github.com/peter88213/novelibre/discussions). 
 
 

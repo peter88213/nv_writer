@@ -2,7 +2,7 @@
 
 --- 
 
-A [novelibre](https://github.com/peter88213/novelibre/) plugin providing a detachable text viewer.
+A [novelibre](https://github.com/peter88213/novelibre/) plugin providing a distraction-free writing mode.
 
 ---
 

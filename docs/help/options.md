@@ -40,9 +40,9 @@ i.e. just while entering text.
 
 ---
 
-## Coloring mode
+## Color sets
 
-You can select a color set by clicking on the button below the preview.
+You can select a color set (theme) by clicking on the button below the preview.
 
 
 ---

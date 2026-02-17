@@ -8,11 +8,13 @@ This page refers to the latest
 [nv_writer](https://github.com/peter88213/nv_writer/) release.
 
 The plugin adds an **Write in distraction free mode** entry to both 
-the *novelibre* **Section** menu and the section context menu. 
+the *novelibre* **Section** menu and the section context menu, 
+and a **Distraction-free writing plugin Options** entry to the **Tools** menu, 
+and a **Distraction-free writing plugin Online help** entry to the **Help** menu. 
 
 ---
 
-## Start the distraction free writing mode
+## Start the distraction-free writing mode
 
 - Select the section to start with (optional). If no section is selected in the project tree, the first section will be opened.
 - To enter the distraction free editing mode, either 
@@ -43,9 +45,8 @@ the *novelibre* **Section** menu and the section context menu.
 
 ## Help pages
 
-### [Operation](operation.md)
-
-### [Options](options.md)
+- [Operation](operation.md)
+- [Options](options.md)
 
 ---
 
