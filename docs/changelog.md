@@ -5,9 +5,12 @@
 ## Changelog
 
 
-### Version 0.17.0
+### Version 0.17.1
 
-- New feature: Apply changes and save the project on demand. 
+- New feature: Apply changes and save the project on demand.
+- Adjusted the default font size.
+- Updated the footer bar entries.
+
 
 #### Changed the key bindings.
 

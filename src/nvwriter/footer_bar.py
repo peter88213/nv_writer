@@ -32,7 +32,7 @@ class FooterBar(tk.Frame):
 
         #--- Split section at cursor position.
         text, accelerator = self._create_menu_entry(
-            _('Split at cursor position'),
+            _('Split section'),
             KEYS.SPLIT_SECTION[1],
             '<<split_section>>'
         )
@@ -115,7 +115,7 @@ class FooterBar(tk.Frame):
         return text, accelerator
 
     def set_font(self, scale):
-        size = int(int(prefs['default_font_size']) * scale * 0.8)
+        size = int(int(prefs['font_size_1']) * scale * 0.8)
         font = (prefs['font_family'], size)
         for text, accelerator in self._entries:
             text.configure(font=font)

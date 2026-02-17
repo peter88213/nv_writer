@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.17.0\n"
-"POT-Creation-Date: 2026-02-17 02:21:54\n"
+"Project-Id-Version: 0.17.1\n"
+"POT-Creation-Date: 2026-02-17 12:52:05\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -95,6 +95,9 @@ msgstr ""
 msgid "Highlighted text"
 msgstr ""
 
+msgid "Key shortcut"
+msgstr ""
+
 msgid "Live update"
 msgstr ""
 
@@ -149,10 +152,7 @@ msgstr ""
 msgid "Saved"
 msgstr ""
 
-msgid "Shortcut"
-msgstr ""
-
-msgid "Split at cursor position"
+msgid "Split section"
 msgstr ""
 
 msgid "Status"

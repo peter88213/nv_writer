@@ -31,7 +31,7 @@ class WriterService(SubController):
         color_shortcut='white',
         color_status_bg='gray70',
         color_status_fg='gray20',
-        default_font_size=12,
+        font_size_1=12,
         font_family=DEFAULT_FONT,
         line_spacing=7,
         margin_horizontal=10,

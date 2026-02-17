@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.17.0\n"
+"Project-Id-Version: 0.17.1\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-02-17 02:21:54\n"
+"PO-Revision-Date: 2026-02-17 12:52:05\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -94,6 +94,9 @@ msgstr "Grün"
 msgid "Highlighted text"
 msgstr "Hervorgehobener Text"
 
+msgid "Key shortcut"
+msgstr "Tastenkürzel"
+
 msgid "Live update"
 msgstr "Laufende Aktualisierung"
 
@@ -148,11 +151,8 @@ msgstr "Speichern"
 msgid "Saved"
 msgstr "Gespeichert"
 
-msgid "Shortcut"
-msgstr "Kürzel"
-
-msgid "Split at cursor position"
-msgstr "An der Cursorposition teilen"
+msgid "Split section"
+msgstr "Abschnitt aufteilen"
 
 msgid "Status"
 msgstr "Status"

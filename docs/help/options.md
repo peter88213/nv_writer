@@ -21,7 +21,7 @@ If the **Ask for confirmation** checkbox is checked, you will be asked for confi
 >
 > *Applying changes* does not save your current project on disk, but update it in memory,
 > and set the change notification in the *novelibre* footer bar.
-
+> To save changes while in distraction-free writing mode, press `Ctrl`-`S`.
 
 ---
 

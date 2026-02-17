@@ -89,7 +89,7 @@ class ThemePreview(ttk.Frame):
 
         self._shortcut = tk.Label(
             self._footer,
-            text=_('Shortcut'),
+            text=_('Key shortcut'),
             font=(prefs['font_family'], uiSize)
         )
         self._shortcut.pack(
