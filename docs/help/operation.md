@@ -28,28 +28,29 @@
 
 ## Create a new section
 
-With `Ctrl`-`N`, you can create a new section.
+-  `Ctrl`-`N` creates a new section.
 
--  The new section is placed after the currently edited section.
--  The new section is of the same type as the currently edited section.
--  The editor loads the newly created section.
+   -  The new section is placed after the currently edited section.
+   -  The new section is of the same type as the currently edited section.
+   -  The editor loads the newly created section.
 
 
 ## Split a section
 
-With `Ctrl`-`L`, you can split the section at the cursor position.
+-  `Ctrl`-`L` splits the section at the cursor position.
 
--  All the text from the cursor position is cut and pasted into a newly created section.
--  The new section is placed after the currently edited section.
--  The new section is appended to the currently edited section.
--  The new section has the same status as the currently edited section.
--  The new section is of the same type as the currently edited section.
--  The new section has the same viewpoint character as the currently edited section.
--  The editor loads the newly created section.
+   -  All the text from the cursor position is cut and pasted into a newly created section.
+   -  The new section is placed after the currently edited section.
+   -  The new section is appended to the currently edited section.
+   -  The new section has the same status as the currently edited section.
+   -  The new section is of the same type as the currently edited section.
+   -  The new section has the same viewpoint character as the currently edited section.
+   -  The editor loads the newly created section.
+
 
 ## Apply changes and save the project
 
-With `Ctrl`-`S`, you can apply the changes made to the current section, and save the whole project.
+-  `Ctrl`-`S` applies the changes made to the current section, and saves the whole project.
 
 ---
 
