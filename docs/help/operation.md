@@ -98,7 +98,7 @@
 -  `Del` deletes the selection, if any. Otherwise, it deletes the character to the right of the cursor.
 -  `Backspace` deletes the selection, if any. Otherwise, it deletes the character to the left of the cursor.
 -  `Ctrl`-`H` deletes the character to the left of the cursor.
--  `Ctrl`-`K` deletes from the cursor to the end of its line; if the cursor is already at the end of a line, then Control-k deletes the newline character.
+-  `Ctrl`-`K` deletes from the cursor to the end of its line; if the cursor is already at the end of a line, then `Ctrl`-`K` deletes the newline character.
 -  `Ctrl`-`D` deletes the character to the right of the cursor.
 
 -  `Ctrl`-`T` reverses the order of the two characters to the left and right of the cursor.
