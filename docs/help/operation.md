@@ -71,7 +71,7 @@ With `Ctrl`-`S`, you can apply the changes made to the current section, and save
 -  `Ctrl`-`A` and `Ctrl`-`/` select the whole text.
 
 -  `Left` and `Right` move the insertion cursor one character to the left or right and clear any selection in the text. 
--  If `Left` or `Right` is typed with the `Shift` key down, then the insertion cursor moves and the selection is extended to include the new character. Control-Left and Control-Right move the insertion cursor by words, and Control-Shift-Left and Control-Shift-Right move the insertion cursor by words and also extend the selection. Control-b and Control-f behave the same as Left and Right, respectively. Meta-b and Meta-f behave the same as Control-Left and Control-Right, respectively.
+-  If `Left` or `Right` is typed with the `Shift` key down, then the insertion cursor moves and the selection is extended to include the new character. 
 -  `Ctrl`-`Left` and `Ctrl`-`Right` move the insertion cursor by words
 -  `Ctrl`-`Shift`-`Left` and `Ctrl`-`Shift`-`Right` move the insertion cursor by words and also extend the selection.
 
