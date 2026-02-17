@@ -19,33 +19,33 @@ class OptionsDialog(ModalDialog):
     """A pop-up window with view preference settings."""
 
     COLORS_WHITE = (
-        'gray20',
+        '#282828',
         'gray70',
         'white',
         'gray70',
-        'gray20',
+        '#282828',
         'gray70',
-        'gray20',
+        '#282828',
         'white',
     )
     COLORS_GREEN = (
-        'gray20',
-        'green3',
+        '#282828',
+        '#33FF00',
         'green2',
-        'green3',
-        'gray20',
-        'green3',
-        'gray20',
+        '#33FF00',
+        '#282828',
+        '#33FF00',
+        '#282828',
         'green2',
     )
     COLORS_AMBER = (
-        'gray20',
-        'gold3',
+        '#282828',
+        '#FFB000',
         'gold',
-        'gold3',
-        'gray20',
-        'gold3',
-        'gray20',
+        '#FFB000',
+        '#282828',
+        '#FFB000',
+        '#282828',
         'gold',
     )
     COLORS_BLUE = (
