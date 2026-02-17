@@ -89,7 +89,7 @@ With `Ctrl`-`S`, you can apply the changes made to the current section, and save
 -  `End` moves the insertion cursor to the end of the line and clears any selection. 
 -  `Shift`-`End` moves the cursor to the end of the line and extends the selection to that point.
 -  `Ctrl`-`End` and `Ctrl`-`Down` move the insertion cursor to the end of the text and clear any selection in the widget.
--  `Ctrl`-`Shift`-`End` and and `Ctrl`-`Shift`-`Down` move the cursor to the end of the text and extend the selection to that point.
+-  `Ctrl`-`Shift`-`End` and `Ctrl`-`Shift`-`Down` move the cursor to the end of the text and extend the selection to that point.
  
 ## Modify text
 
