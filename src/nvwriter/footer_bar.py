@@ -54,6 +54,14 @@ class FooterBar(tk.Frame):
         )
         self._entries.append((text, accelerator))
 
+        #--- Save.
+        text, accelerator = self._create_menu_entry(
+            _('Save'),
+            KEYS.SAVE[1],
+            '<<save>>'
+        )
+
+        self._entries.append((text, accelerator))
         #--- Close.
         text, accelerator = self._create_menu_entry(
             _('Close'),

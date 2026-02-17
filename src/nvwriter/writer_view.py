@@ -116,6 +116,7 @@ class WriterView(ModalDialog):
             # (KEYS.ITALIC, self._sectionEditor.emphasis),
             # (KEYS.BOLD, self._sectionEditor.strong_emphasis),
             # (KEYS.PLAIN, self._sectionEditor.plain),
+            (KEYS.SAVE, self._save_project),
             (KEYS.TOGGLE_FOOTER_BAR, self._toggle_display)
         )
         for key, callback in keyBindings:
@@ -128,6 +129,7 @@ class WriterView(ModalDialog):
             ('<<load_prev>>', self._load_prev),
             ('<<split_section>>', self._split_section),
             ('<<new_section>>', self._create_section),
+            ('<<save>>', self._save_project),
         )
         for sequence, callback in eventBindings:
             self.bind(sequence, callback)
@@ -353,6 +355,12 @@ class WriterView(ModalDialog):
     def _reset_modified_flag(self, event=None):
         self._statusBar.set_modified(False)
         self._sectionEditor.edit_modified(False)
+
+    def _save_project(self, event=None):
+        self._sectionEditor.edit_modified(False)
+        self._apply_changes()
+        self._ctrl.save_project()
+        self._statusBar.set_saved()
 
     def _set_wc_mode(self):
         if prefs['live_wordcount']:

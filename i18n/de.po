@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.16.0\n"
+"Project-Id-Version: 0.17.0\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-02-16 17:40:17\n"
+"PO-Revision-Date: 2026-02-17 02:21:54\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -141,6 +141,12 @@ msgstr "Zurück"
 
 msgid "Regular text"
 msgstr "Gewöhnlicher Text"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Saved"
+msgstr "Gespeichert"
 
 msgid "Shortcut"
 msgstr "Kürzel"

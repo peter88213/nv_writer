@@ -21,6 +21,8 @@ class StatusBar(tk.Frame):
         )
         self._mdl = model
 
+        self._lockModificationIndicator = False
+
         # Word count.
         self._wordCount = tk.Label(
             self,
@@ -110,8 +112,13 @@ class StatusBar(tk.Frame):
     def set_modified(self, isModified):
         if isModified:
             self._modificationIndicator.configure(text=_('Modified'))
-        else:
+            self._lockModificationIndicator = False
+        elif not self._lockModificationIndicator:
             self._modificationIndicator.configure(text='')
+
+    def set_saved(self):
+        self._modificationIndicator.configure(text=_('Saved'))
+        self._lockModificationIndicator = True
 
     def set_wordcount(self, wc, diff):
         self._wordCount.configure(

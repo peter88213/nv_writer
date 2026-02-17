@@ -5,6 +5,20 @@
 ## Changelog
 
 
+### Version 0.17.0
+
+- New feature: Apply changes and save the project on demand. 
+
+#### Changed the key bindings.
+
+- `Ctrl`-`S` applies changes and saves the project. 
+- `Ctrl`-`L` splits the section at the cursor position.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
+
 ### Version 0.16.0 (Experimental Beta release)
 
 #### Changed the key bindings.
