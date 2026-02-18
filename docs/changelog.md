@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 0.17.4
+
+- Adjusted the "Turquoise" theme to match the original EGA color.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.17.3
 
 - Adjusted the "Amber" theme to match the original phosphor color.

@@ -64,7 +64,7 @@ class OptionsDialog(ModalDialog):
         'cyan',
         'black',
         'cyan',
-        'firebrick',
+        'red4',
         'white',
         'white',
     )
