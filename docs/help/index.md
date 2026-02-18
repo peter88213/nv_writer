@@ -18,7 +18,7 @@ and a **Distraction-free writing plugin Online help** entry to the **Help** menu
 
 - Select the section to start with (optional). If no section is selected in the project tree, the first section will be opened.
 - To enter the distraction free editing mode, either 
-   - hit `Ctrl`-`W`, or
+   - hit `F11`, or
    - right-click the selected section and select **Write in distraction free mode**, or 
    - click **Section > Write in distraction free mode**.
 

@@ -4,6 +4,13 @@
 
 ## Changelog
 
+### Version 0.18.0
+
+- Changed keyboard shortcut for starting the writing mode to `F11`.
+
+API: 5.52
+Based on novelibre 5.52.1
+
 
 ### Version 0.17.4
 

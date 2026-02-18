@@ -25,6 +25,6 @@ class GenericKeys:
     QUIT_PROGRAM = ('<Control-q>', f'{_("Ctrl")}-Q')
     SAVE = ('<Control-s>', f'{_("Ctrl")}-S')
     SPLIT_SECTION = ('<Control-l>', f'{_("Ctrl")}-L')
-    START_EDITOR = ('<Control-w>', f'{_("Ctrl")}-W')
+    START_EDITOR = ('<F11>', 'F11')
     TOGGLE_FOOTER_BAR = ('<F3>', 'F3')
     UPDATE_WORDCOUNT = ('<F5>', 'F5')
