@@ -48,17 +48,27 @@ class OptionsDialog(ModalDialog):
         'gray20',
         'orange',
     )
-    COLORS_BLUE = (
-        'navy',
-        'gray60',
+    COLORS_PERFECT = (
+        'blue4',
+        'gray65',
         'yellow',
-        'gray60',
+        'gray65',
         'black',
-        'gray60',
+        'gray65',
         'black',
         'white',
     )
-    COLORS_TURQUOISE = (
+    COLORS_SOFT = (
+        'blue4',
+        'gray90',
+        'cyan',
+        'turquoise4',
+        'black',
+        'gray65',
+        'black',
+        'turquoise4',
+    )
+    COLORS_STAR = (
         'turquoise4',
         'black',
         'cyan',
@@ -137,21 +147,25 @@ class OptionsDialog(ModalDialog):
             command=self._change_live_wc,
         ).pack(padx=5, pady=5, anchor='w',)
 
+        ttk.Separator(optionsFrame, orient='vertical').pack(fill='y', side='left',)
+
         #--- Color mode settings.
         ttk.Separator(
             window,
             orient='horizontal',
         ).pack(fill='x')
-        themesFrame = ttk.Frame(window)
-        themesFrame.pack(fill='both')
+        themesFrame1 = ttk.Frame(window)
+        themesFrame1.pack(fill='both')
+        themesFrame2 = ttk.Frame(window)
+        themesFrame2.pack(fill='both')
 
         ttk.Label(
-            themesFrame,
+            themesFrame1,
             text=_('Color sets'),
         ).pack(padx=5, pady=5, anchor='w')
 
         #--- Show current setting.
-        self._currentSettingPreview = ThemePreview(themesFrame)
+        self._currentSettingPreview = ThemePreview(themesFrame1)
         ttk.Label(
             self._currentSettingPreview,
             text=_('Current setting'),
@@ -159,7 +173,7 @@ class OptionsDialog(ModalDialog):
         self._update_colors()
 
         #--- "White" option.
-        optionWhitePreview = ThemePreview(themesFrame)
+        optionWhitePreview = ThemePreview(themesFrame1)
         optionWhitePreview.configure_display(self.COLORS_WHITE)
         ttk.Button(
             optionWhitePreview,
@@ -168,7 +182,7 @@ class OptionsDialog(ModalDialog):
         ).pack(pady=5)
 
         #--- "Green" option.
-        optionGreenPreview = ThemePreview(themesFrame)
+        optionGreenPreview = ThemePreview(themesFrame1)
         optionGreenPreview.configure_display(self.COLORS_GREEN)
         ttk.Button(
             optionGreenPreview,
@@ -177,7 +191,7 @@ class OptionsDialog(ModalDialog):
         ).pack(pady=5)
 
         #--- "Amber" option.
-        optionAmberPreview = ThemePreview(themesFrame)
+        optionAmberPreview = ThemePreview(themesFrame1)
         optionAmberPreview.configure_display(self.COLORS_AMBER)
         ttk.Button(
             optionAmberPreview,
@@ -185,26 +199,35 @@ class OptionsDialog(ModalDialog):
             command=self._set_option_amber
         ).pack(pady=5)
 
-        #--- "Blue" option.
-        optionBluePreview = ThemePreview(themesFrame)
-        optionBluePreview.configure_display(self.COLORS_BLUE)
+        #--- "Perfect" option.
+        optionBluePreview = ThemePreview(themesFrame2)
+        optionBluePreview.configure_display(self.COLORS_PERFECT)
         ttk.Button(
             optionBluePreview,
-            text=_('Blue'),
-            command=self._set_option_blue
+            text='Perfect',
+            command=self._set_option_perfect
+        ).pack(pady=5)
+
+        #--- "Micro" option.
+        optionBluePreview = ThemePreview(themesFrame2)
+        optionBluePreview.configure_display(self.COLORS_SOFT)
+        ttk.Button(
+            optionBluePreview,
+            text='Soft',
+            command=self._set_option_soft
         ).pack(pady=5)
 
         #--- "Turquoise" option.
-        optionTurquoisePreview = ThemePreview(themesFrame)
-        optionTurquoisePreview.configure_display(self.COLORS_TURQUOISE)
+        optionTurquoisePreview = ThemePreview(themesFrame2)
+        optionTurquoisePreview.configure_display(self.COLORS_STAR)
         ttk.Button(
             optionTurquoisePreview,
-            text=_('Turquoise'),
-            command=self._set_option_turquoise
+            text='Star',
+            command=self._set_option_star
         ).pack(pady=5)
 
         #--- "Paper" option.
-        optionPaperPreview = ThemePreview(themesFrame)
+        optionPaperPreview = ThemePreview(themesFrame2)
         optionPaperPreview.configure_display(self.COLORS_PAPER)
         ttk.Button(
             optionPaperPreview,
@@ -256,19 +279,6 @@ class OptionsDialog(ModalDialog):
         ) = self.COLORS_AMBER
         self._update_colors()
 
-    def _set_option_blue(self, event=None):
-        (
-            prefs['color_bg'],
-            prefs['color_fg'],
-            prefs['color_highlight'],
-            prefs['color_status_bg'],
-            prefs['color_status_fg'],
-            prefs['color_button_bg'],
-            prefs['color_button_fg'],
-            prefs['color_shortcut'],
-        ) = self.COLORS_BLUE
-        self._update_colors()
-
     def _set_option_green(self, event=None):
         (
             prefs['color_bg'],
@@ -295,7 +305,7 @@ class OptionsDialog(ModalDialog):
         ) = self.COLORS_PAPER
         self._update_colors()
 
-    def _set_option_turquoise(self, event=None):
+    def _set_option_perfect(self, event=None):
         (
             prefs['color_bg'],
             prefs['color_fg'],
@@ -305,7 +315,33 @@ class OptionsDialog(ModalDialog):
             prefs['color_button_bg'],
             prefs['color_button_fg'],
             prefs['color_shortcut'],
-        ) = self.COLORS_TURQUOISE
+        ) = self.COLORS_PERFECT
+        self._update_colors()
+
+    def _set_option_soft(self, event=None):
+        (
+            prefs['color_bg'],
+            prefs['color_fg'],
+            prefs['color_highlight'],
+            prefs['color_status_bg'],
+            prefs['color_status_fg'],
+            prefs['color_button_bg'],
+            prefs['color_button_fg'],
+            prefs['color_shortcut'],
+        ) = self.COLORS_SOFT
+        self._update_colors()
+
+    def _set_option_star(self, event=None):
+        (
+            prefs['color_bg'],
+            prefs['color_fg'],
+            prefs['color_highlight'],
+            prefs['color_status_bg'],
+            prefs['color_status_fg'],
+            prefs['color_button_bg'],
+            prefs['color_button_fg'],
+            prefs['color_shortcut'],
+        ) = self.COLORS_STAR
         self._update_colors()
 
     def _set_option_white(self, event=None):
