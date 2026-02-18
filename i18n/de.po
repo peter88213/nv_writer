@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.18.0\n"
+"Project-Id-Version: 0.18.1\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-02-18 15:54:27\n"
+"PO-Revision-Date: 2026-02-18 21:53:03\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -33,9 +33,6 @@ msgstr "Nach Bestätigung fragen"
 
 msgid "Bio"
 msgstr "Biographie"
-
-msgid "Blue"
-msgstr "Blau"
 
 msgid "Characterization"
 msgstr "Charakterisierung"
@@ -159,9 +156,6 @@ msgstr "Status"
 
 msgid "Tagged manuscript for proofing"
 msgstr "Manuskript mit Markierungen zum Überarbeiten"
-
-msgid "Turquoise"
-msgstr "Türkis"
 
 msgid "White"
 msgstr "Weiß"

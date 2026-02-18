@@ -4,9 +4,10 @@
 
 ## Changelog
 
-### Version 0.18.0
+### Version 0.18.1
 
 - Changed keyboard shortcut for starting the writing mode to `F11`.
+- Revised and renamed the color sets.
 
 API: 5.52
 Based on novelibre 5.52.1

@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.18.0\n"
-"POT-Creation-Date: 2026-02-18 15:54:27\n"
+"Project-Id-Version: 0.18.1\n"
+"POT-Creation-Date: 2026-02-18 21:53:03\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -33,9 +33,6 @@ msgid "Ask for confirmation"
 msgstr ""
 
 msgid "Bio"
-msgstr ""
-
-msgid "Blue"
 msgstr ""
 
 msgid "Characterization"
@@ -159,9 +156,6 @@ msgid "Status"
 msgstr ""
 
 msgid "Tagged manuscript for proofing"
-msgstr ""
-
-msgid "Turquoise"
 msgstr ""
 
 msgid "White"
