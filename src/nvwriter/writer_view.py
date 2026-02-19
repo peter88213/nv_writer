@@ -39,7 +39,7 @@ class WriterView(ModalDialog):
         self._section = None
         self._scId = None
         self.wordCounter = self._mdl.nvService.get_word_counter()
-        self._initialWc = None
+        self._initialWc = 0
 
         self.attributes('-fullscreen', True)
         check_editor_settings(self)
@@ -144,8 +144,10 @@ class WriterView(ModalDialog):
         self._validator = SectionContentValidator()
 
         # Load the section content into the text editor.
-        self._load_section(self._ui.selectedNode)
-        self._sectionEditor.focus()
+        if  self._load_section(self._ui.selectedNode):
+            self._sectionEditor.focus()
+        else:
+            self.on_quit()
 
     def on_quit(self, event=None):
         """Exit the editor. Apply changes, if possible."""
@@ -280,7 +282,7 @@ class WriterView(ModalDialog):
         else:
             finished = True
         if not finished:
-            return
+            return False
 
         self._section = self._mdl.novel.sections[scId]
         self._sectionEditor.clear()
@@ -321,6 +323,7 @@ class WriterView(ModalDialog):
             self._update_modified_flag
         )
         self._askForConfirmation = prefs['ask_for_confirmation']
+        return True
 
     def _open_help(self, event=None):
         NvwriterHelp.open_help_page('operation.html')

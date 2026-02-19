@@ -5,6 +5,16 @@
 ## Changelog
 
 
+### Version 0.18.3 
+
+- Fixed a bug where an exception is raised if the project has no title. 
+- Do not start the editor if a newly created project is not yet saved. 
+- Do not start the editor if the project has no sections. 
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.18.2
 
 - Fixed a bug where the options dialog cannot be opened due to missing icons.

@@ -85,6 +85,12 @@ class WriterService(SubController):
         if not self._mdl.prjFile:
             return
 
+        if not self._mdl.prjFile.filePath:
+            return
+
+        if not self._mdl.novel.sections:
+            return
+
         activeDocuments = self._active_documents()
         if activeDocuments:
             activeDocuments.insert(
@@ -105,7 +111,11 @@ class WriterService(SubController):
             _('Editable manuscript'): f'{MANUSCRIPT_SUFFIX}.odt',
             _('Tagged manuscript for proofing'): f'{PROOF_SUFFIX}.odt',
         }
-        fileName, __ = os.path.splitext(self._mdl.prjFile.filePath)
+        try:
+            fileName, __ = os.path.splitext(self._mdl.prjFile.filePath)
+        except TypeError:
+            return []
+
         activeDocs = []
         for doc in docTypes:
             if os.path.isfile(f'{fileName}{docTypes[doc]}'):
