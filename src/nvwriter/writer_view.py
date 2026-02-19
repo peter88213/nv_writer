@@ -323,6 +323,7 @@ class WriterView(ModalDialog):
             self._update_modified_flag
         )
         self._askForConfirmation = prefs['ask_for_confirmation']
+        self._sectionEditor.focus()
         return True
 
     def _open_help(self, event=None):
