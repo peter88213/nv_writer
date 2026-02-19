@@ -17,6 +17,7 @@ from nvwriter.nvwriter_globals import RESOLUTIONS
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
+from nvwriter.platform.platform_settings import PLATFORM
 from nvwriter.section_content_validator import SectionContentValidator
 from nvwriter.status_bar import StatusBar
 from nvwriter.writer_locale import _
@@ -30,10 +31,10 @@ class WriterView(ModalDialog):
         view,
         controller,
     ):
-        view.root.iconify()
         self._mdl = model
         self._ui = view
         self._ctrl = controller
+        self._focus_app_window(False)
         super().__init__(view, bg=prefs['color_desktop'])
 
         self._section = None
@@ -154,8 +155,7 @@ class WriterView(ModalDialog):
         if not self._apply_changes_after_asking():
             return 'break'
 
-        self._ui.root.deiconify()
-        self._ui.root.lift()
+        self._focus_app_window(True)
         self.destroy()
 
     def _apply_changes(self, event=None):
@@ -221,6 +221,15 @@ class WriterView(ModalDialog):
             resolutionIndex -= 1
             prefs['resolution_index'] = resolutionIndex
             self._reconfigure_screen()
+
+    def _focus_app_window(self, giveFocus):
+        if giveFocus:
+            if PLATFORM == 'win':
+                self._ui.root.deiconify()
+            self._ui.root.lift()
+        else:
+            if PLATFORM == 'win':
+                self._ui.root.iconify()
 
     def _hide_footer_bar(self, event=None):
         self._footerBar.pack_forget()
@@ -290,8 +299,7 @@ class WriterView(ModalDialog):
             self._sectionEditor.set_text(self._section.sectionContent)
             self._validator.validate_section(self._sectionEditor.get_text())
         except:
-            self._ui.root.deiconify()
-            self._ui.root.lift()
+            self._focus_app_window(True)
             self.destroy()
             self._ui.show_error(
                 message='This section cannot be processed with nv_writer.',
