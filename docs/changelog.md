@@ -4,6 +4,15 @@
 
 ## Changelog
 
+
+### Version 0.18.2
+
+- Fixed a bug where the options dialog cannot be opened due to missing icons.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.18.1
 
 - Changed keyboard shortcut for starting the writing mode to `F11`.

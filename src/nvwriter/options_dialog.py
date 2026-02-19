@@ -101,7 +101,8 @@ class OptionsDialog(ModalDialog):
         super().__init__(view, **kw)
 
         self.title(_('Distraction-free writing plugin Options'))
-        self.iconphoto(False, icon)
+        if icon:
+            self.iconphoto(False, icon)
         window = ttk.Frame(self)
         window.pack(
             fill='both',
