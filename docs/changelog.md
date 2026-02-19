@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 0.18.6 
+
+- Added numpad key bindings for Linux.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.18.5
 
 - No longer minimizing the novelibre main window under Linux (#7).

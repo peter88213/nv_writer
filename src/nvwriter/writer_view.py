@@ -103,7 +103,7 @@ class WriterView(ModalDialog):
             self._statusBar.normal()
 
         #--- Key bindings.
-        keyBindings = (
+        keyBindings = [
             (KEYS.INCREASE_SIZE, self._increase_screen_size),
             (KEYS.DECREASE_SIZE, self._decrease_screen_size),
             (KEYS.PREVIOUS, self._load_prev),
@@ -119,7 +119,16 @@ class WriterView(ModalDialog):
             # (KEYS.PLAIN, self._sectionEditor.plain),
             (KEYS.SAVE, self._save_project),
             (KEYS.TOGGLE_FOOTER_BAR, self._toggle_display)
-        )
+        ]
+        if PLATFORM == 'ix':
+            keyBindings.extend(
+                [
+                    (KEYS.INCREASE_SIZE_KP, self._increase_screen_size),
+                    (KEYS.DECREASE_SIZE_KP, self._decrease_screen_size),
+                    (KEYS.NEXT_KP, self._load_next),
+                    (KEYS.PREVIOUS_KP, self._load_prev),
+                ]
+            )
         for key, callback in keyBindings:
             self._sectionEditor.bind(key[0], callback)
 
