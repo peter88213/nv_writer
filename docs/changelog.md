@@ -5,6 +5,22 @@
 ## Changelog
 
 
+### Version 0.19.0
+
+- Saving the last cursor position when exiting the editor.
+
+   - If no editable section is selected on entering the writing mode, 
+     the last section is loaded and the cursor position is restored. 
+     If the last section is unknown, the first editable section is loaded (as usual).
+   - If the last edited section is selected on entering the writing mode, 
+     the cursor position is restored.
+   - If another editable section is selected on entering the writing mode,
+     the cursor is set to the beginning (as usual). 
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.18.6 
 
 - Added numpad key bindings for Linux.
