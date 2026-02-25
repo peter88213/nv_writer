@@ -351,6 +351,7 @@ class WriterView(ModalDialog):
 
         try:
             self._sectionEditor.mark_set('insert', cursorPos)
+            self._sectionEditor.see('insert')
         except:
             pass
 

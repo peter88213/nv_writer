@@ -99,8 +99,6 @@ class StatusBar(tk.Frame):
         if chapter:
             chapter = textwrap.shorten(chapter, lengthEntry)
         lengthTotal -= len(chapter)
-        if section:
-            section = textwrap.shorten(section, lengthTotal)
         self._breadcrumbs.configure(
             text=(f'{book} | {chapter} | {section}')
         )
@@ -114,13 +112,13 @@ class StatusBar(tk.Frame):
 
     def set_modified(self, isModified):
         if isModified:
-            self._modificationIndicator.configure(text=_('Modified'))
+            self._modificationIndicator.configure(text=f"[{_('Modified')}]")
             self._lockModificationIndicator = False
         elif not self._lockModificationIndicator:
             self._modificationIndicator.configure(text='')
 
     def set_saved(self):
-        self._modificationIndicator.configure(text=_('Saved'))
+        self._modificationIndicator.configure(text=f"[{'Saved'}]")
         self._lockModificationIndicator = True
 
     def set_wordcount(self, wc, diff):

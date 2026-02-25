@@ -5,7 +5,7 @@
 ## Changelog
 
 
-### Version 0.19.0
+### Version 0.19.1
 
 - Saving the last cursor position when exiting the editor.
 
@@ -16,6 +16,8 @@
      the cursor position is restored.
    - If another editable section is selected on entering the writing mode,
      the cursor is set to the beginning (as usual). 
+
+- Enclosing the status messages in brackets.
 
 API: 5.52
 Based on novelibre 5.52.1
