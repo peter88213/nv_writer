@@ -54,6 +54,8 @@ PARAGRAPH_TAGS = ('p', T_H5, T_H6, T_H7, T_H8, T_H9)
 PARAGRAPH_NESTING_TAGS = (T_COMMENT, T_NOTE)
 EMPHASIZING_TAGS = (T_EM, T_STRONG)
 
+LAST_POSITION_TAG = 'writer-last-position'
+
 FONTS = [
     'DejaVu Sans Mono',  # preferred font, usually bundled with LibreOffice
     'Liberation Mono',

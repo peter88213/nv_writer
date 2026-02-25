@@ -12,8 +12,10 @@ from nvlib.novx_globals import SECTION_PREFIX
 from nvwriter.editor_box import EditorBox
 from nvwriter.footer_bar import FooterBar
 from nvwriter.nvwriter_globals import DEFAULT_HEIGHT
-from nvwriter.nvwriter_globals import FEATURE, check_editor_settings
+from nvwriter.nvwriter_globals import check_editor_settings
 from nvwriter.nvwriter_globals import RESOLUTIONS
+from nvwriter.nvwriter_globals import FEATURE
+from nvwriter.nvwriter_globals import LAST_POSITION_TAG
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
@@ -164,6 +166,12 @@ class WriterView(ModalDialog):
         if not self._apply_changes_after_asking():
             return 'break'
 
+        fields = self._mdl.novel.fields
+        fields[LAST_POSITION_TAG] = (
+            f"{self._scId} "
+            f"{self._sectionEditor.index('insert')}"
+        )
+        self._mdl.novel.fields = fields
         self._focus_app_window(True)
         self.destroy()
 
@@ -240,6 +248,28 @@ class WriterView(ModalDialog):
             if PLATFORM == 'win':
                 self._ui.root.iconify()
 
+    def _get_first_editable_section(self):
+        result = None
+        for chId in self._mdl.novel.tree.get_children(CH_ROOT):
+            for scId in self._mdl.novel.tree.get_children(chId):
+                if self._is_editable(scId):
+                    result = scId
+                    break
+            if result is not None:
+                break
+        return result
+
+    def _get_last_position(self):
+        lastPosition = self._mdl.novel.fields.get(LAST_POSITION_TAG, None)
+        if lastPosition is None:
+            return None, None
+
+        scId, cursorPos = lastPosition.split(' ')
+        if not self._is_editable(scId):
+            return None, None
+
+        return scId, cursorPos
+
     def _hide_footer_bar(self, event=None):
         self._footerBar.pack_forget()
         prefs['_show_footer_bar'] = False
@@ -254,7 +284,7 @@ class WriterView(ModalDialog):
                 self._reconfigure_screen()
 
     def _is_editable(self, scId):
-        if not scId or not scId.startswith(SECTION_PREFIX):
+        if not scId in self._mdl.novel.sections:
             return False
 
         return self._mdl.novel.sections[scId].scType == 0
@@ -268,9 +298,7 @@ class WriterView(ModalDialog):
         while nextNode and not self._is_editable(nextNode):
             nextNode = self._ui.tv.next_node(nextNode)
         if nextNode:
-            self._ui.tv.go_to_node(nextNode)
-            self._scId = nextNode
-            self._load_section(self._scId)
+            self._load_section(nextNode)
 
     def _load_prev(self, event=None):
         """Load the previous section in the tree."""
@@ -281,28 +309,27 @@ class WriterView(ModalDialog):
         while prevNode and not self._is_editable(prevNode):
             prevNode = self._ui.tv.prev_node(prevNode)
         if prevNode:
-            self._ui.tv.go_to_node(prevNode)
-            self._scId = prevNode
-            self._load_section(self._scId)
+            self._load_section(prevNode)
 
     def _load_section(self, scId=None):
         """Load the section content into the text editor."""
         self._sectionEditor.unbind("<<Modified>>")
-        finished = False
-        if not self._is_editable(scId):
-            for chId in self._mdl.novel.tree.get_children(CH_ROOT):
-                for scId in self._mdl.novel.tree.get_children(chId):
-                    if self._is_editable(scId):
-                        finished = True
-                        break
-                if finished:
-                    break
+        cursorPos = '1.0'
+        lastScId, lastCursorPos = self._get_last_position()
+        if self._is_editable(scId):
+            if scId == lastScId:
+                cursorPos = lastCursorPos
+        elif lastScId is not None:
+            scId = lastScId
+            cursorPos = lastCursorPos
         else:
-            finished = True
-        if not finished:
-            return False
+            scId = self._get_first_editable_section()
+            if scId is None:
+                return False
 
+        self._ui.tv.go_to_node(scId)
         self._section = self._mdl.novel.sections[scId]
+        self._scId = scId
         self._sectionEditor.clear()
         try:
             self._sectionEditor.set_text(self._section.sectionContent)
@@ -321,6 +348,11 @@ class WriterView(ModalDialog):
                 title='nv_writer debug message',
             )
             raise UserWarning('nv_writer aborted to prevent damage.')
+
+        try:
+            self._sectionEditor.mark_set('insert', cursorPos)
+        except:
+            pass
 
         self._scId = scId
         chId = self._mdl.novel.tree.parent(self._scId)
