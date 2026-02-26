@@ -194,7 +194,7 @@ class WriterView(ModalDialog):
                 self.on_quit()
                 return
 
-        self._load_section(scId, cursorPos)
+        self._load_section(scId, cursorPos=cursorPos)
 
     def on_quit(self, event=None):
         """Exit the editor. Apply changes, if possible."""
