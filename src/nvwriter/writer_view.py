@@ -14,6 +14,10 @@ from nvwriter.editor_box import EditorBox
 from nvwriter.footer_bar import FooterBar
 from nvwriter.nvwriter_globals import DEFAULT_HEIGHT
 from nvwriter.nvwriter_globals import FEATURE
+from nvwriter.nvwriter_globals import PRJ_CONFIG_FILE
+from nvwriter.nvwriter_globals import RECENT
+from nvwriter.nvwriter_globals import RECENT_POSITION
+from nvwriter.nvwriter_globals import RECENT_SECTION
 from nvwriter.nvwriter_globals import RESOLUTIONS
 from nvwriter.nvwriter_globals import check_editor_settings
 from nvwriter.nvwriter_globals import prefs
@@ -26,8 +30,6 @@ from nvwriter.writer_locale import _
 
 
 class WriterView(ModalDialog):
-
-    PRJ_CONFIG_FILE = 'writer.ini'
 
     def __init__(
         self,
@@ -154,6 +156,9 @@ class WriterView(ModalDialog):
         self._set_wc_mode()
         self._askForConfirmation = prefs['ask_for_confirmation']
 
+        #--- Provide validator, just for debugging.
+        self._validator = SectionContentValidator()
+
         #--- Project-specific configuration
         fields = self._mdl.novel.fields
         fields.pop('writer-last-position', None)
@@ -161,28 +166,35 @@ class WriterView(ModalDialog):
         # removing entry from version 0.19.1, if any
 
         prjDir, __ = os.path.split(self._mdl.prjFile.filePath)
-        self.prjConfigFile = os.path.join(prjDir, self.PRJ_CONFIG_FILE)
+        self.prjConfigFile = os.path.join(prjDir, PRJ_CONFIG_FILE)
         prjConfig = ConfigParser()
         prjConfig.read(self.prjConfigFile)
         try:
-            recent = prjConfig['RECENT']
+            recent = prjConfig[RECENT]
         except:
-            scId = cursorPos = None
+            lastScId = lastCursorPos = None
         else:
-            scId = recent.get('section_ID', None)
-            cursorPos = recent.get('position', None)
-            if not self._is_editable(scId):
-                scId = cursorPos = None
-        self._recent = (scId, cursorPos)
-
-        #--- Provide validator, just for debugging.
-        self._validator = SectionContentValidator()
+            lastScId = recent.get(RECENT_SECTION, None)
+            lastCursorPos = recent.get(RECENT_POSITION, None)
+            if not self._is_editable(lastScId):
+                lastScId = lastCursorPos = None
 
         #--- Load the section content into the text editor.
-        if  self._load_section(self._ui.selectedNode):
-            self._sectionEditor.focus()
+        scId = self._ui.selectedNode
+        cursorPos = '1.0'
+        if self._is_editable(scId):
+            if scId == lastScId:
+                cursorPos = lastCursorPos
+        elif lastScId is not None:
+            scId = lastScId
+            cursorPos = lastCursorPos
         else:
-            self.on_quit()
+            scId = self._get_first_editable_section()
+            if scId is None:
+                self.on_quit()
+                return
+
+        self._load_section(scId, cursorPos)
 
     def on_quit(self, event=None):
         """Exit the editor. Apply changes, if possible."""
@@ -191,15 +203,15 @@ class WriterView(ModalDialog):
 
         # Save the last edited section and the cursor position.
         prjConfig = ConfigParser()
-        prjConfig.add_section('RECENT')
+        prjConfig.add_section(RECENT)
         prjConfig.set(
-            'RECENT',
-            'section_ID',
+            RECENT,
+            RECENT_SECTION,
             self._scId,
         )
         prjConfig.set(
-            'RECENT',
-            'position',
+            RECENT,
+            RECENT_POSITION,
             self._sectionEditor.index('insert'),
         )
         with open(self.prjConfigFile, 'w') as f:
@@ -333,23 +345,9 @@ class WriterView(ModalDialog):
         if prevNode:
             self._load_section(prevNode)
 
-    def _load_section(self, scId=None):
+    def _load_section(self, scId=None, cursorPos='1.0'):
         """Load the section content into the text editor."""
         self._sectionEditor.unbind("<<Modified>>")
-        cursorPos = '1.0'
-        lastScId, lastCursorPos = self._recent
-        self._recent = (None, None)
-        if self._is_editable(scId):
-            if scId == lastScId:
-                cursorPos = lastCursorPos
-        elif lastScId is not None:
-            scId = lastScId
-            cursorPos = lastCursorPos
-        else:
-            scId = self._get_first_editable_section()
-            if scId is None:
-                return False
-
         self._ui.tv.go_to_node(scId)
         self._section = self._mdl.novel.sections[scId]
         self._scId = scId
@@ -397,7 +395,6 @@ class WriterView(ModalDialog):
         )
         self._askForConfirmation = prefs['ask_for_confirmation']
         self._sectionEditor.focus()
-        return True
 
     def _open_help(self, event=None):
         NvwriterHelp.open_help_page('operation.html')

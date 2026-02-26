@@ -67,6 +67,11 @@ for editorFont in FONTS:
 
 DEFAULT_FONT = editorFont
 
+PRJ_CONFIG_FILE = 'nv_writer.ini'
+RECENT = 'RECENT'
+RECENT_SECTION = 'section_ID'
+RECENT_POSITION = 'position'
+
 
 def check_editor_settings(window):
 
