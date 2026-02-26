@@ -4,18 +4,18 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+from configparser import ConfigParser
+import os
 from tkinter import ttk
 
 from nvlib.gui.widgets.modal_dialog import ModalDialog
 from nvlib.novx_globals import CH_ROOT
-from nvlib.novx_globals import SECTION_PREFIX
 from nvwriter.editor_box import EditorBox
 from nvwriter.footer_bar import FooterBar
 from nvwriter.nvwriter_globals import DEFAULT_HEIGHT
-from nvwriter.nvwriter_globals import check_editor_settings
-from nvwriter.nvwriter_globals import RESOLUTIONS
 from nvwriter.nvwriter_globals import FEATURE
-from nvwriter.nvwriter_globals import LAST_POSITION_TAG
+from nvwriter.nvwriter_globals import RESOLUTIONS
+from nvwriter.nvwriter_globals import check_editor_settings
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
@@ -26,6 +26,8 @@ from nvwriter.writer_locale import _
 
 
 class WriterView(ModalDialog):
+
+    PRJ_CONFIG_FILE = 'writer.ini'
 
     def __init__(
         self,
@@ -58,12 +60,12 @@ class WriterView(ModalDialog):
         self._editorWindow.pack(expand=True,)
         self._editorWindow.pack_propagate(0)
 
-        # Add a status bar to the editor window.
+        #--- Add a status bar to the editor window.
         self._statusBar = StatusBar(self._editorWindow, self._mdl)
         self._statusBar.set_font(scale)
         self._statusBar.pack(fill='x')
 
-        # Add a text editor with scrollbar to the editor window.
+        #--- Add a text editor with scrollbar to the editor window.
 
         # Update the scrollbar color.
         # (CustomScrollbarStyle is created once in WriterService)
@@ -148,14 +150,35 @@ class WriterView(ModalDialog):
 
         self.protocol("WM_DELETE_WINDOW", self.on_quit)
 
-        # Configure the editor.
+        #--- Configure the editor.
         self._set_wc_mode()
         self._askForConfirmation = prefs['ask_for_confirmation']
 
-        # Provide validator, just for debugging.
+        #--- Project-specific configuration
+        fields = self._mdl.novel.fields
+        fields.pop('writer-last-position', None)
+        self._mdl.novel.fields = fields
+        # removing entry from version 0.19.1, if any
+
+        prjDir, __ = os.path.split(self._mdl.prjFile.filePath)
+        self.prjConfigFile = os.path.join(prjDir, self.PRJ_CONFIG_FILE)
+        prjConfig = ConfigParser()
+        prjConfig.read(self.prjConfigFile)
+        try:
+            recent = prjConfig['RECENT']
+        except:
+            scId = cursorPos = None
+        else:
+            scId = recent.get('section_ID', None)
+            cursorPos = recent.get('position', None)
+            if not self._is_editable(scId):
+                scId = cursorPos = None
+        self._recent = (scId, cursorPos)
+
+        #--- Provide validator, just for debugging.
         self._validator = SectionContentValidator()
 
-        # Load the section content into the text editor.
+        #--- Load the section content into the text editor.
         if  self._load_section(self._ui.selectedNode):
             self._sectionEditor.focus()
         else:
@@ -166,12 +189,22 @@ class WriterView(ModalDialog):
         if not self._apply_changes_after_asking():
             return 'break'
 
-        fields = self._mdl.novel.fields
-        fields[LAST_POSITION_TAG] = (
-            f"{self._scId} "
-            f"{self._sectionEditor.index('insert')}"
+        # Save the last edited section and the cursor position.
+        prjConfig = ConfigParser()
+        prjConfig.add_section('RECENT')
+        prjConfig.set(
+            'RECENT',
+            'section_ID',
+            self._scId,
         )
-        self._mdl.novel.fields = fields
+        prjConfig.set(
+            'RECENT',
+            'position',
+            self._sectionEditor.index('insert'),
+        )
+        with open(self.prjConfigFile, 'w') as f:
+            prjConfig.write(f)
+
         self._focus_app_window(True)
         self.destroy()
 
@@ -259,17 +292,6 @@ class WriterView(ModalDialog):
                 break
         return result
 
-    def _get_last_position(self):
-        lastPosition = self._mdl.novel.fields.get(LAST_POSITION_TAG, None)
-        if lastPosition is None:
-            return None, None
-
-        scId, cursorPos = lastPosition.split(' ')
-        if not self._is_editable(scId):
-            return None, None
-
-        return scId, cursorPos
-
     def _hide_footer_bar(self, event=None):
         self._footerBar.pack_forget()
         prefs['_show_footer_bar'] = False
@@ -315,7 +337,8 @@ class WriterView(ModalDialog):
         """Load the section content into the text editor."""
         self._sectionEditor.unbind("<<Modified>>")
         cursorPos = '1.0'
-        lastScId, lastCursorPos = self._get_last_position()
+        lastScId, lastCursorPos = self._recent
+        self._recent = (None, None)
         if self._is_editable(scId):
             if scId == lastScId:
                 cursorPos = lastCursorPos
