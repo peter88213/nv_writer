@@ -345,7 +345,7 @@ class WriterView(ModalDialog):
         if prevNode:
             self._load_section(prevNode)
 
-    def _load_section(self, scId=None, cursorPos='1.0'):
+    def _load_section(self, scId, cursorPos='1.0'):
         """Load the section content into the text editor."""
         self._sectionEditor.unbind("<<Modified>>")
         self._ui.tv.go_to_node(scId)
@@ -376,8 +376,7 @@ class WriterView(ModalDialog):
         except:
             pass
 
-        self._scId = scId
-        chId = self._mdl.novel.tree.parent(self._scId)
+        chId = self._mdl.novel.tree.parent(scId)
 
         self._statusBar.set_breadcrumbs(
             self._mdl.novel.title,
