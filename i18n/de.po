@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.19.1\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-02-25 09:20:08\n"
+"PO-Revision-Date: 2026-02-26 11:25:33\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -165,6 +165,9 @@ msgstr "Weltenbau"
 
 msgid "Write in distraction free mode"
 msgstr "Im ablenkungsfreien Modus schreiben"
+
+msgid "https://peter88213.github.io/nvhelp-en"
+msgstr "https://peter88213.github.io/nvhelp-de"
 
 msgid "new"
 msgstr "neu"

@@ -6,10 +6,12 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 import webbrowser
 
+from nvwriter.writer_locale import _
+
 
 class NvwriterHelp:
 
-    HELP_URL = 'https://peter88213.github.io/nv_writer/help/'
+    HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_writer/'
 
     @classmethod
     def open_help_page(cls, page='', event=None):

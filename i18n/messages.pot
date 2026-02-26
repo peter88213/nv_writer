@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.19.1\n"
-"POT-Creation-Date: 2026-02-25 09:20:08\n"
+"POT-Creation-Date: 2026-02-26 11:25:33\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -165,6 +165,9 @@ msgid "World building"
 msgstr ""
 
 msgid "Write in distraction free mode"
+msgstr ""
+
+msgid "https://peter88213.github.io/nvhelp-en"
 msgstr ""
 
 msgid "new"
