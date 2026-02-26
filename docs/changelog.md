@@ -5,6 +5,17 @@
 ## Changelog
 
 
+### Version 0.19.2
+
+- Saving the last position in a project-specific INI file.
+  Thus, the project isn't unnecessarily "modified" after each editing session. 
+- fields in the .novx file entered by version 0.19.1 will be removed.
+- Help is redirected to the main novelibre user manual, including the German pages. 
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.19.1
 
 - Saving the last cursor position when exiting the editor.
