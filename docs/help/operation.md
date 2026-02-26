@@ -56,7 +56,7 @@
 
 ## Move the cursor and select text
 
--  Clicking the left mouse button positions the cursor just before the character underneath the mouse cursor, sets the input focus, and clears any selection in the widget.
+-  Clicking the left mouse button positions the cursor just before the character underneath the mouse cursor, sets the input focus, and clears any selection.
 -  Dragging with the left mouse button strokes out a selection between the cursor and the character under the mouse.
 
 -  Double-clicking the left mouse button selects the word under the mouse and positions the cursor at the beginning of the word.
@@ -89,7 +89,7 @@
 
 -  `End` moves the cursor to the end of the line and clears any selection. 
 -  `Shift`-`End` moves the cursor to the end of the line and extends the selection to that point.
--  `Ctrl`-`End` and `Ctrl`-`Down` move the cursor to the end of the text and clear any selection in the widget.
+-  `Ctrl`-`End` and `Ctrl`-`Down` move the cursor to the end of the text and clear any selection.
 -  `Ctrl`-`Shift`-`End` and `Ctrl`-`Shift`-`Down` move the cursor to the end of the text and extend the selection to that point.
  
 ## Modify text
