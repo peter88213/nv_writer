@@ -13,7 +13,7 @@ Just press `F11`, and the editor window opens instantly with the selected sectio
 Change the sections via `Ctrl`-`PgUp` and `Ctrl`-`PgDn`, or create new sections with `Ctrl`-`N`. 
 Although mouse operations are possible, the editor can be operated entirely via the keyboard. 
 
-With the menu displayed, it resembles a DOS word processor.:
+With the menu displayed, it resembles a DOS word processor:
 
 ![Screenshot](docs/Screenshots/screen01.png)
 
