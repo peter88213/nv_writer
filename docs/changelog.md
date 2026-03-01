@@ -5,6 +5,16 @@
 ## Changelog
 
 
+### Version 0.20.0
+
+- Highlighting H5...H9 paragraphs.
+- Updated/fixed the unit tests.
+- Refactored the code for better maintainability.
+
+API: 5.52
+Based on novelibre 5.52.1
+
+
 ### Version 0.19.2
 
 - Saving the last position in a project-specific INI file.
