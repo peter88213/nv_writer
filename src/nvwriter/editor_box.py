@@ -11,6 +11,11 @@ from nvwriter.novx_parser import NovxParser
 from nvwriter.nvwriter_globals import EMPHASIZING_TAGS
 from nvwriter.nvwriter_globals import T_COMMENT
 from nvwriter.nvwriter_globals import T_EM
+from nvwriter.nvwriter_globals import T_H5
+from nvwriter.nvwriter_globals import T_H6
+from nvwriter.nvwriter_globals import T_H7
+from nvwriter.nvwriter_globals import T_H8
+from nvwriter.nvwriter_globals import T_H9
 from nvwriter.nvwriter_globals import T_NOTE
 from nvwriter.nvwriter_globals import T_STRONG
 from nvwriter.text_parser import TextParser
@@ -68,6 +73,26 @@ class EditorBox(tk.Text):
         )
         self.tag_configure(
             T_NOTE,
+            foreground=color_highlight,
+        )
+        self.tag_configure(
+            T_H5,
+            foreground=color_highlight,
+        )
+        self.tag_configure(
+            T_H6,
+            foreground=color_highlight,
+        )
+        self.tag_configure(
+            T_H7,
+            foreground=color_highlight,
+        )
+        self.tag_configure(
+            T_H8,
+            foreground=color_highlight,
+        )
+        self.tag_configure(
+            T_H9,
             foreground=color_highlight,
         )
 
