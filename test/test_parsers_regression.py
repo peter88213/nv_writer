@@ -6,8 +6,11 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 import unittest
 
-from nvwriter.editor_box import EditorBox
 import tkinter as tk
+
+root = tk.Tk()
+
+from nvwriter.editor_box import EditorBox
 
 FOOTNOTE = (
     '<p>This is a regular line'
@@ -245,7 +248,6 @@ OK_WITH_0_10_0 = (
 class Test(unittest.TestCase):
 
     def setUp(self):
-        root = tk.Tk()
         self.editor = EditorBox(root, font=('Courier', 12), fg='black', bg='white')
 
     def tearDown(self):

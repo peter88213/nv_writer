@@ -1,8 +1,11 @@
 import unittest
 
-from nvwriter.editor_box import EditorBox
-from nvwriter.section_content_validator import SectionContentValidator
 import tkinter as tk
+
+root = tk.Tk()
+
+from nvwriter.section_content_validator import SectionContentValidator
+from nvwriter.editor_box import EditorBox
 
 SECTION_CONTENT = (
     '<p><span xml:lang="en-US"><em>Paragraph emphasized</em></span></p>'
@@ -13,7 +16,6 @@ SECTION_CONTENT = (
 class Test(unittest.TestCase):
 
     def setUp(self):
-        root = tk.Tk()
         self.editor = EditorBox(root, font=('Courier', 12), fg='black', bg='white')
 
     def test_novx_validity(self):
