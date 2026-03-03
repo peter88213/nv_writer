@@ -118,7 +118,7 @@ class StatusBar(tk.Frame):
             self._modificationIndicator.configure(text='')
 
     def set_saved(self):
-        self._modificationIndicator.configure(text=f"[{'Saved'}]")
+        self._modificationIndicator.configure(text=f"[{_('Saved')}]")
         self._lockModificationIndicator = True
 
     def set_wordcount(self, wc, diff):
