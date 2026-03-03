@@ -18,7 +18,7 @@ A [novelibre](https://github.com/peter88213/novelibre/) plugin providing a distr
 
 # Usage
 
-See the [online help](https://peter88213.github.io/nv_writer/help/).
+See the [online help](https://peter88213.github.io/nvhelp-en/nv_writer/).
 
 ---
 

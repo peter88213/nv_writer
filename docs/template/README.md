@@ -1,7 +1,7 @@
 [![Download the latest release](docs/img/download-button.png)](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.99.0.pyz)
 [![Changelog](docs/img/changelog-button.png)](docs/changelog.md)
 [![News/Feedback](docs/img/news-button.png)](https://github.com/peter88213/novelibre/discussions)
-[![Online help](docs/img/help-button.png)](https://peter88213.github.io/nv_writer/help/)
+[![Online help](docs/img/help-button.png)](https://peter88213.github.io/nvhelp-en/nv_writer/)
 
 
 # nv_writer
@@ -95,7 +95,7 @@ The package is also available in zip format: [nv_writer_v0.99.0.zip](https://git
 
 ## Usage
 
-See the [instructions for use](https://peter88213.github.io/nv_writer/help/)
+See the [instructions for use](https://peter88213.github.io/nvhelp-en/nv_writer/)
 
 ---
 
