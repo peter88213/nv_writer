@@ -11,6 +11,7 @@ from nvwriter.writer_locale import _
 class MacKeys(GenericKeys):
 
     BOLD = ('<Command-b>', 'Cmd-B')
+    CLONE_SECTION = ('<Command-u>', 'Cmd-U')
     CREATE_SECTION = ('<Command-n>', 'Cmd-N')
     DECREASE_SIZE = ('<Command-minus>', 'Cmd--')
     INCREASE_SIZE = ('<Command-plus>', 'Cmd-+')

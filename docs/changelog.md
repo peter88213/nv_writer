@@ -5,14 +5,16 @@
 ## Changelog
 
 
-### Version 0.20.0
+### Version 0.20.1
 
+- Supporting the "Clone section" feature.
+- Updated the footer bar.
 - Highlighting H5...H9 paragraphs.
 - Updated/fixed the unit tests.
 - Refactored the code for better maintainability.
 
-API: 5.52
-Based on novelibre 5.52.1
+API: 5.53
+Based on novelibre 5.53.0 
 
 
 ### Version 0.19.2

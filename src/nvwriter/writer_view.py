@@ -120,6 +120,7 @@ class WriterView(ModalDialog):
             (KEYS.UPDATE_WORDCOUNT, self._show_wordcount),
             (KEYS.SPLIT_SECTION, self._split_section),
             (KEYS.CREATE_SECTION, self._create_section),
+            (KEYS.CLONE_SECTION, self._clone_section),
             # (KEYS.ITALIC, self._sectionEditor.emphasis),
             # (KEYS.BOLD, self._sectionEditor.strong_emphasis),
             # (KEYS.PLAIN, self._sectionEditor.plain),
@@ -144,6 +145,7 @@ class WriterView(ModalDialog):
             ('<<on_quit>>', self.on_quit),
             ('<<load_prev>>', self._load_prev),
             ('<<split_section>>', self._split_section),
+            ('<<clone_section>>', self._clone_section),
             ('<<new_section>>', self._create_section),
             ('<<save>>', self._save_project),
         )
@@ -255,6 +257,16 @@ class WriterView(ModalDialog):
             )
         else:
             return True
+
+    def _clone_section(self, event=None):
+        """Create a duplicate of the loaded section and add it to the novel.
+        
+        - Place the cloned section after the original. 
+        - The cloned section's type is "unused".
+        - Keep editing the original section.
+        """
+        self._apply_changes()
+        self._mdl.clone_section(self._scId)
 
     def _create_section(self, event=None):
         # Create a new section after the currently edited section.

@@ -27,7 +27,7 @@ from nvwriter.writer_service import WriterService
 class Plugin(PluginBase):
     """novelibre distraction free editor mode class."""
     VERSION = '@release'
-    API_VERSION = '5.52'
+    API_VERSION = '5.53'
     DESCRIPTION = 'Distraction free editor'
     URL = 'https://github.com/peter88213/nv_writer'
 

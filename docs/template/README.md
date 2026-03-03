@@ -59,7 +59,7 @@ You can adjust the size of the editor window to fill high-resolution notebook sc
 
 ## Requirements
 
-- [novelibre](https://github.com/peter88213/novelibre/) version 5.52+
+- [novelibre](https://github.com/peter88213/novelibre/) version 5.53+
 
 ## Download and install
 

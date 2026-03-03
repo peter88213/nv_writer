@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.20.0\n"
-"POT-Creation-Date: 2026-03-01 19:35:56\n"
+"Project-Id-Version: 0.20.1\n"
+"POT-Creation-Date: 2026-03-03 17:47:33\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -38,6 +38,9 @@ msgstr ""
 msgid "Characterization"
 msgstr ""
 
+msgid "Clone"
+msgstr ""
+
 msgid "Close"
 msgstr ""
 
@@ -48,9 +51,6 @@ msgid "Command"
 msgstr ""
 
 msgid "Comment"
-msgstr ""
-
-msgid "Create section"
 msgstr ""
 
 msgid "Ctrl"
@@ -110,6 +110,9 @@ msgstr ""
 msgid "Move the text from the cursor position to the end into a new section?"
 msgstr ""
 
+msgid "New"
+msgstr ""
+
 msgid "Next"
 msgstr ""
 
@@ -146,7 +149,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-msgid "Split section"
+msgid "Split"
 msgstr ""
 
 msgid "Status"

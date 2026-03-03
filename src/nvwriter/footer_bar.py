@@ -24,7 +24,7 @@ class FooterBar(tk.Frame):
 
         #--- Create new section.
         text, accelerator = self._create_menu_entry(
-            _('Create section'),
+            _('New'),
             KEYS.CREATE_SECTION[1],
             '<<new_section>>'
         )
@@ -32,9 +32,17 @@ class FooterBar(tk.Frame):
 
         #--- Split section at cursor position.
         text, accelerator = self._create_menu_entry(
-            _('Split section'),
+            _('Split'),
             KEYS.SPLIT_SECTION[1],
             '<<split_section>>'
+        )
+        self._entries.append((text, accelerator))
+
+        #--- Clone section.
+        text, accelerator = self._create_menu_entry(
+            _('Clone'),
+            KEYS.CLONE_SECTION[1],
+            '<<clone_section>>'
         )
         self._entries.append((text, accelerator))
 

@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.20.0\n"
+"Project-Id-Version: 0.20.1\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-03-01 19:35:56\n"
+"PO-Revision-Date: 2026-03-03 17:47:33\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,9 @@ msgstr "Biographie"
 msgid "Characterization"
 msgstr "Charakterisierung"
 
+msgid "Clone"
+msgstr "Klonen"
+
 msgid "Close"
 msgstr "Schließen"
 
@@ -48,9 +51,6 @@ msgstr "Befehl"
 
 msgid "Comment"
 msgstr "Kommentar"
-
-msgid "Create section"
-msgstr "Abschnitt erzeugen"
 
 msgid "Ctrl"
 msgstr "Strg"
@@ -109,6 +109,9 @@ msgstr "Geändert"
 msgid "Move the text from the cursor position to the end into a new section?"
 msgstr "Den Text von der Cursorposition bis zum Ende in einen neuen Abschnitt verschieben?"
 
+msgid "New"
+msgstr "Neu"
+
 msgid "Next"
 msgstr "Vor"
 
@@ -145,8 +148,8 @@ msgstr "Gewöhnlicher Text"
 msgid "Save"
 msgstr "Speichern"
 
-msgid "Split section"
-msgstr "Abschnitt aufteilen"
+msgid "Split"
+msgstr "Teilen"
 
 msgid "Status"
 msgstr "Status"

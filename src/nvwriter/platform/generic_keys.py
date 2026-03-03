@@ -11,6 +11,7 @@ class GenericKeys:
 
     BOLD = ('<Control-b>', f'{_("Ctrl")}-B')
     COPY = ('<Control-c>', f'{_("Ctrl")}-C')
+    CLONE_SECTION = ('<Control-u>', f'{_("Ctrl")}-U')
     CREATE_SECTION = ('<Control-n>', f'{_("Ctrl")}-N')
     CUT = ('<Control-x>', f'{_("Ctrl")}-X')
     DECREASE_SIZE = ('<Control-minus>', f'{_("Ctrl")}--')
