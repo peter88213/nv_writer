@@ -107,6 +107,17 @@ class Plugin(PluginBase):
             command=NvwriterHelp.open_help_page,
         )
 
+        #--- Configure the toolbar.
+        self._ui.toolbar.add_separator(),
+
+        # Put a button on the toolbar.
+        self._ui.toolbar.new_button(
+            text=FEATURE,
+            image=self._icon,
+            command=self.start_editor,
+            accelerator=KEYS.START_EDITOR[1],
+        ).pack(side='left')
+
         # Hotkey to start the distraction-free editing mode.
         self._ui.root.bind(KEYS.START_EDITOR[0], self.start_editor)
 
