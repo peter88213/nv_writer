@@ -4,7 +4,7 @@
 [![Online help](docs/img/help-button.png)](https://peter88213.github.io/nvhelp-en/nv_writer/)
 
 
-# nv_writer
+# ![W](icons/writer.png) nv_writer
 
 The [novelibre](https://github.com/peter88213/novelibre/) Python program helps authors organize novels.  
 

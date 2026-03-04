@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 0.21.0
+
+- Added a toolbar button.
+
+API: 5.53
+Based on novelibre 5.53.0
+
+
 ### Version 0.20.2
 
 - Translating the "Saved" marker in the status bar.
