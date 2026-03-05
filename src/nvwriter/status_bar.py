@@ -24,11 +24,19 @@ class StatusBar(tk.Frame):
         self._lockModificationIndicator = False
 
         # Word count.
+        self._wordCountFlag = tk.Label(
+            self,
+            text='',
+            anchor='w',
+            pady=2,
+        )
+        self._wordCountFlag.pack(
+            side='right',
+        )
         self._wordCount = tk.Label(
             self,
             text='',
             anchor='w',
-            padx=5,
             pady=2,
         )
         self._wordCount.pack(
@@ -59,21 +67,6 @@ class StatusBar(tk.Frame):
             side='left',
         )
 
-    def normal(self):
-        self.configure(background=prefs['color_bg'])
-        self._breadcrumbs.configure(
-            foreground=prefs['color_fg'],
-            background=prefs['color_bg'],
-        )
-        self._wordCount.configure(
-            foreground=prefs['color_fg'],
-            background=prefs['color_bg'],
-        )
-        self._modificationIndicator.configure(
-            foreground=prefs['color_fg'],
-            background=prefs['color_bg'],
-        )
-
     def highlight(self):
         self.configure(background=prefs['color_status_bg'])
         self._breadcrumbs.configure(
@@ -87,6 +80,29 @@ class StatusBar(tk.Frame):
         self._wordCount.configure(
             foreground=prefs['color_status_fg'],
             background=prefs['color_status_bg'],
+        )
+        self._wordCountFlag.configure(
+            foreground=prefs['color_status_fg'],
+            background=prefs['color_status_bg'],
+        )
+
+    def normal(self):
+        self.configure(background=prefs['color_bg'])
+        self._breadcrumbs.configure(
+            foreground=prefs['color_fg'],
+            background=prefs['color_bg'],
+        )
+        self._modificationIndicator.configure(
+            foreground=prefs['color_fg'],
+            background=prefs['color_bg'],
+        )
+        self._wordCount.configure(
+            foreground=prefs['color_fg'],
+            background=prefs['color_bg'],
+        )
+        self._wordCountFlag.configure(
+            foreground=prefs['color_fg'],
+            background=prefs['color_bg'],
         )
 
     def set_breadcrumbs(self, book, chapter, section):
@@ -109,6 +125,7 @@ class StatusBar(tk.Frame):
         self._breadcrumbs.configure(font=font)
         self._modificationIndicator.configure(font=font)
         self._wordCount.configure(font=font)
+        self._wordCountFlag.configure(font=(prefs['editor_font'], size, 'bold'))
 
     def set_modified(self, isModified):
         if isModified:
@@ -121,8 +138,10 @@ class StatusBar(tk.Frame):
         self._modificationIndicator.configure(text=f"[{_('Saved')}]")
         self._lockModificationIndicator = True
 
-    def set_wordcount(self, wc, diff):
-        self._wordCount.configure(
-            text=f'{wc} {_("words")} ({diff} {_("new")})'
-        )
+    def set_wordcount(self, wcText):
+        self._wordCount.configure(text=wcText)
+        self.set_wc_flag('')
+
+    def set_wc_flag(self, flagText):
+        self._wordCountFlag.configure(text=flagText)
 

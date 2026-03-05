@@ -47,6 +47,7 @@ class WriterView(ModalDialog):
         self._scId = None
         self.wordCounter = self._mdl.nvService.get_word_counter()
         self._initialWc = 0
+        self._actualWordCount = None
 
         self.attributes('-fullscreen', True)
         check_editor_settings(self)
@@ -128,6 +129,7 @@ class WriterView(ModalDialog):
             (KEYS.TOGGLE_FOOTER_BAR, self._toggle_display)
         ]
         if PLATFORM == 'ix':
+            # the keys on the numeric keypad must be explicitly assigned
             keyBindings.extend(
                 [
                     (KEYS.INCREASE_SIZE_KP, self._increase_screen_size),
@@ -148,6 +150,7 @@ class WriterView(ModalDialog):
             ('<<clone_section>>', self._clone_section),
             ('<<new_section>>', self._create_section),
             ('<<save>>', self._save_project),
+            ('<space>', self._freeze_wordcount),
         )
         for sequence, callback in eventBindings:
             self.bind(sequence, callback)
@@ -160,12 +163,14 @@ class WriterView(ModalDialog):
 
         #--- Provide validator, just for debugging.
         self._validator = SectionContentValidator()
+        # TODO: comment this out when preparing the final release
 
         #--- Project-specific configuration
         fields = self._mdl.novel.fields
         fields.pop('writer-last-position', None)
         self._mdl.novel.fields = fields
         # removing entry from version 0.19.1, if any
+        # TODO: comment this out when preparing the final release
 
         prjDir, __ = os.path.split(self._mdl.prjFile.filePath)
         self.prjConfigFile = os.path.join(prjDir, PRJ_CONFIG_FILE)
@@ -305,6 +310,9 @@ class WriterView(ModalDialog):
             if PLATFORM == 'win':
                 self._ui.root.iconify()
 
+    def _freeze_wordcount(self, event=None):
+        self._statusBar.set_wc_flag(KEYS.UPDATE_WORDCOUNT[1])
+
     def _get_first_editable_section(self):
         result = None
         for chId in self._mdl.novel.tree.get_children(CH_ROOT):
@@ -367,6 +375,7 @@ class WriterView(ModalDialog):
         try:
             self._sectionEditor.set_text(self._section.sectionContent)
             self._validator.validate_section(self._sectionEditor.get_text())
+            # TODO: comment this out when preparing the final release
         except:
             self._focus_app_window(True)
             self.destroy()
@@ -398,7 +407,7 @@ class WriterView(ModalDialog):
         self._initialWc = self.wordCounter.get_word_count(
             self._sectionEditor.get('1.0', 'end')
         )
-        self._show_wordcount()
+        self._show_wordcount(wc=self._initialWc)
         self._reset_modified_flag()
         self._sectionEditor.bind(
             "<<Modified>>",
@@ -461,13 +470,16 @@ class WriterView(ModalDialog):
         prefs['_show_footer_bar'] = True
         return 'break'
 
-    def _show_wordcount(self, event=None):
+    def _show_wordcount(self, event=None, wc=None):
         # Display the word count on the status bar.
-        wc = self.wordCounter.get_word_count(
-            self._sectionEditor.get('1.0', 'end')
-        )
+        if wc is None:
+            wc = self.wordCounter.get_word_count(
+                self._sectionEditor.get('1.0', 'end')
+            )
+        self._actualWordCount = wc
         diff = wc - self._initialWc
-        self._statusBar.set_wordcount(wc, diff)
+        text = f'{wc} {_("words")} ({diff} {_("new")})'
+        self._statusBar.set_wordcount(text)
 
     def _split_section(self, event=None):
         # Split a section at the cursor position.
@@ -527,6 +539,8 @@ class WriterView(ModalDialog):
     def _update_modified_flag(self, event=None):
         if self._sectionEditor.edit_modified():
             self._statusBar.set_modified(True)
+            if not prefs['live_wordcount']:
+                self._freeze_wordcount()
         else:
             self._reset_modified_flag()
 

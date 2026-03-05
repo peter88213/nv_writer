@@ -48,7 +48,7 @@ You can adjust the size of the editor window to fill high-resolution notebook sc
     - Switch to the next or previous section.
 
 > [!CAUTION]
-> This is an experimental Beta release. 
+> This is a beta version intended for testing purposes. 
 > Please check the results with *OpenOffice/LibreOffice Writer*, and report any issues if something seems strange. 
 > 
 > Since this plugin is currently under testing and development, updates may be provided frequently.
