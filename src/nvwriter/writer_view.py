@@ -319,7 +319,7 @@ class WriterView(ModalDialog):
                 'Distraction-free mode aborted '
                 'in order not to cause damage to your project. '
                 'You can ignore the following "Unexpected Error" message '
-                'and continue without distraction-free mode.\n\n'
+                'and continue without distraction-free mode.'
                 f'{msg}'
             ),
             title='nv_writer debug message',
@@ -404,6 +404,7 @@ class WriterView(ModalDialog):
             self._validator.validate_section(self._sectionEditor.get_text())
         except:
             self._emergency_exit()
+
         try:
             self._sectionEditor.mark_set('insert', cursorPos)
             self._sectionEditor.see('insert')
@@ -567,14 +568,6 @@ class WriterView(ModalDialog):
             emergencyFile = f'{self._mdl.prjFile.filePath}_{self._scId}.txt'
             with open(emergencyFile, 'w', encoding='utf-8') as f:
                 f.write(savedText)
-
-            self._ui.show_error(
-                message='The changes made in this section cannot be applied.',
-                detail=(
-                    f'{self._EXIT_MESSAGE}\n\n'
-                ),
-                title='nv_writer debug message',
-            )
             self._emergency_exit(
                 '\n\nThe edited section is saved as plain text in '
                 f'"{emergencyFile}".'
