@@ -41,7 +41,7 @@ class WriterService(SubController):
     )
     OPTIONS = dict(
         live_wordcount=False,
-        _show_footer_bar=False,
+        show_footer_bar=True,
         ask_for_confirmation=True,
     )
 

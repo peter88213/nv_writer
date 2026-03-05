@@ -12,8 +12,8 @@ from nvlib.model.xml.xml_filter import strip_illegal_characters
 from nvwriter.nvwriter_globals import BULLET
 from nvwriter.nvwriter_globals import COMMENT_PREFIX
 from nvwriter.nvwriter_globals import EMPHASIZING_TAGS
-from nvwriter.nvwriter_globals import HEADING_TAGS
 from nvwriter.nvwriter_globals import NOTE_PREFIX
+from nvwriter.nvwriter_globals import PARAGRAPH_TAGS
 from nvwriter.nvwriter_globals import T_LI
 from nvwriter.nvwriter_globals import T_SPAN
 from nvwriter.nvwriter_globals import T_UL
@@ -41,7 +41,6 @@ class TextParser():
 
         # Flags.
         self._paragraph = None
-        self._heading = None
 
         # Collections for the results.
         self._xmlList = []
@@ -55,7 +54,6 @@ class TextParser():
 
     def reset(self, debug=False):
         self._paragraph = False
-        self._heading = False
         self._xmlList.clear()
         self._commentIndex = None
         self._noteIndex = None
@@ -120,11 +118,7 @@ class TextParser():
             # Content ends the current paragraph.
             self._xmlList.append(content.rstrip('\n'))
             # removing the linebreak
-            if not self._heading:
-                self._endXml()
-            else:
-                # note that headings are tagged and trigger endElement()
-                self._heading = False
+            self._endXml()
             self._paragraph = False
 
             if self._list:
@@ -152,10 +146,6 @@ class TextParser():
             self._noteIndex = None
             return
 
-        tag = self._get_heading_tag(name)
-        if tag is not None:
-            self._endXml()
-
     def get_result(self):
         while self._xmlStack:
             # The final paragraph was a list element, so close the list.
@@ -172,19 +162,11 @@ class TextParser():
             self._noteIndex = int(name.split(':')[1])
             return
 
-        if self._is_paragraph_tag(name):
+        if  name.split('_')[0] in PARAGRAPH_TAGS:
             if self._list:
                 self._endXml(self.debug)
             self._startXml(name)
             self._paragraph = True
-            return
-
-        if self._get_heading_tag(name) is not None:
-            if self._list:
-                self._endXml(self.debug)
-            self._startXml(name)
-            self._paragraph = True
-            self._heading = True
             return
 
         if not self._paragraph:
@@ -204,20 +186,6 @@ class TextParser():
         if debug:
             print(f'* Closing {tag}')
         self._xmlList.append(f'</{tag}>')
-
-    def _get_heading_tag(self, name):
-        # Separate the XML tag from the attributes, if any.
-        tag = name.split('_')[0]
-        if tag in HEADING_TAGS:
-            return tag
-        else:
-            return None
-
-    def _is_paragraph_tag(self, name):
-        if not name.startswith('p'):
-            return False
-
-        return name.split('_')[0] == 'p'
 
     def _startXml(self, name, debug=False):
         tag = name.split('_')[0]

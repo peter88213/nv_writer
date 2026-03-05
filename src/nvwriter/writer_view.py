@@ -103,7 +103,7 @@ class WriterView(ModalDialog):
         # Add a footer bar to the editor window.
         self._footerBar = FooterBar(self._editorWindow)
         self._footerBar.set_font(scale)
-        if prefs['_show_footer_bar']:
+        if prefs['show_footer_bar']:
             self._show_footer_bar()
             self._statusBar.highlight()
         else:
@@ -150,7 +150,6 @@ class WriterView(ModalDialog):
             ('<<clone_section>>', self._clone_section),
             ('<<new_section>>', self._create_section),
             ('<<save>>', self._save_project),
-            ('<space>', self._freeze_wordcount),
         )
         for sequence, callback in eventBindings:
             self.bind(sequence, callback)
@@ -311,7 +310,9 @@ class WriterView(ModalDialog):
                 self._ui.root.iconify()
 
     def _freeze_wordcount(self, event=None):
-        self._statusBar.set_wc_flag(KEYS.UPDATE_WORDCOUNT[1])
+        self._statusBar.set_wordcount(
+            f'{KEYS.UPDATE_WORDCOUNT[1]}: {_("Count words")}'
+        )
 
     def _get_first_editable_section(self):
         result = None
@@ -326,7 +327,7 @@ class WriterView(ModalDialog):
 
     def _hide_footer_bar(self, event=None):
         self._footerBar.pack_forget()
-        prefs['_show_footer_bar'] = False
+        prefs['show_footer_bar'] = False
         return 'break'
 
     def _increase_screen_size(self, event=False):
@@ -459,15 +460,17 @@ class WriterView(ModalDialog):
     def _set_wc_mode(self):
         if prefs['live_wordcount']:
             self.bind('<KeyRelease>', self._show_wordcount)
+            self.unbind('<space>')
         else:
             self.unbind('<KeyRelease>')
+            self.bind('<space>', self._freeze_wordcount)
 
     def _show_footer_bar(self, event=None):
         if self._sectionEditor.winfo_manager():
             self._sectionEditor.pack_forget()
         self._footerBar.pack(fill='x', side='bottom')
         self._sectionEditor.pack(fill='both', expand=True)
-        prefs['_show_footer_bar'] = True
+        prefs['show_footer_bar'] = True
         return 'break'
 
     def _show_wordcount(self, event=None, wc=None):
