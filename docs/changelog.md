@@ -5,6 +5,15 @@
 ## Changelog
 
 
+### Version 0.21.2
+
+- Validating the editing result before applying changes. 
+- Saving the edited section as plain text file in case of an error.
+
+API: 5.53
+Based on novelibre 5.53.0
+
+
 ### Version 0.21.1
 
 - Fixed a bug where extending a heading line in the editor produces invalid XML. 

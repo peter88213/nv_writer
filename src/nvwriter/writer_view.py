@@ -232,6 +232,8 @@ class WriterView(ModalDialog):
             return
 
         sectionText = self._sectionEditor.get_text()
+        self._validate_edited_section(sectionText)
+        # TODO: comment this out when preparing the final release
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
                 self._section.sectionContent = sectionText
@@ -242,6 +244,8 @@ class WriterView(ModalDialog):
             return True
 
         sectionText = self._sectionEditor.get_text()
+        self._validate_edited_section(sectionText)
+        # TODO: comment this out when preparing the final release
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
                 result = self._confirm(message=_('Apply section changes?'))
@@ -546,4 +550,26 @@ class WriterView(ModalDialog):
                 self._freeze_wordcount()
         else:
             self._reset_modified_flag()
+
+    def _validate_edited_section(self, xmlString):
+        try:
+            self._validator.validate_section(xmlString)
+        except:
+            savedText = self._sectionEditor.get('1.0', 'end')
+            emergencyFile = f'{self._mdl.prjFile.filePath}_{self._scId}.txt'
+            with open(emergencyFile, 'w', encoding='utf-8') as f:
+                f.write(savedText)
+
+            self._focus_app_window(True)
+            self.destroy()
+            self._ui.show_error(
+                message='The changes made in this section cannot be applied.',
+                detail=(
+                    'Distraction-free mode aborted due to an unexpected error.\n'
+                    'The edited section is saved as plain text in '
+                    f'"{emergencyFile}".'
+                ),
+                title='nv_writer debug message',
+            )
+            raise UserWarning('nv_writer aborted to prevent damage.')
 
