@@ -231,9 +231,12 @@ class WriterView(ModalDialog):
         if not self._scId in self._mdl.novel.sections:
             return
 
-        sectionText = self._sectionEditor.get_text()
+        try:
+            sectionText = self._sectionEditor.get_text()
+        except:
+            self._emergency_exit()
+
         self._validate_edited_section(sectionText)
-        # TODO: comment this out when preparing the final release
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
                 self._section.sectionContent = sectionText
@@ -243,9 +246,12 @@ class WriterView(ModalDialog):
         if not self._scId in self._mdl.novel.sections:
             return True
 
-        sectionText = self._sectionEditor.get_text()
+        try:
+            sectionText = self._sectionEditor.get_text()
+        except:
+            self._emergency_exit()
+
         self._validate_edited_section(sectionText)
-        # TODO: comment this out when preparing the final release
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
                 result = self._confirm(message=_('Apply section changes?'))
@@ -303,6 +309,22 @@ class WriterView(ModalDialog):
             resolutionIndex -= 1
             prefs['resolution_index'] = resolutionIndex
             self._reconfigure_screen()
+
+    def _emergency_exit(self, msg=''):
+        self._focus_app_window(True)
+        self.destroy()
+        self._ui.show_error(
+            message='This section cannot be processed with nv_writer.',
+            detail=(
+                'Distraction-free mode aborted '
+                'in order not to cause damage to your project. '
+                'You can ignore the following "Unexpected Error" message '
+                'and continue without distraction-free mode.\n\n'
+                f'{msg}'
+            ),
+            title='nv_writer debug message',
+        )
+        raise UserWarning('nv_writer aborted to prevent damage.')
 
     def _focus_app_window(self, giveFocus):
         if giveFocus:
@@ -380,22 +402,8 @@ class WriterView(ModalDialog):
         try:
             self._sectionEditor.set_text(self._section.sectionContent)
             self._validator.validate_section(self._sectionEditor.get_text())
-            # TODO: comment this out when preparing the final release
         except:
-            self._focus_app_window(True)
-            self.destroy()
-            self._ui.show_error(
-                message='This section cannot be processed with nv_writer.',
-                detail=(
-                    'Distraction-free mode aborted '
-                    'in order not to cause damage to your project. '
-                    'You can ignore the following "Unexpected Error" message '
-                    'and continue without distraction-free mode.'
-                ),
-                title='nv_writer debug message',
-            )
-            raise UserWarning('nv_writer aborted to prevent damage.')
-
+            self._emergency_exit()
         try:
             self._sectionEditor.mark_set('insert', cursorPos)
             self._sectionEditor.see('insert')
@@ -560,16 +568,15 @@ class WriterView(ModalDialog):
             with open(emergencyFile, 'w', encoding='utf-8') as f:
                 f.write(savedText)
 
-            self._focus_app_window(True)
-            self.destroy()
             self._ui.show_error(
                 message='The changes made in this section cannot be applied.',
                 detail=(
-                    'Distraction-free mode aborted due to an unexpected error.\n'
-                    'The edited section is saved as plain text in '
-                    f'"{emergencyFile}".'
+                    f'{self._EXIT_MESSAGE}\n\n'
                 ),
                 title='nv_writer debug message',
             )
-            raise UserWarning('nv_writer aborted to prevent damage.')
+            self._emergency_exit(
+                '\n\nThe edited section is saved as plain text in '
+                f'"{emergencyFile}".'
+            )
 
