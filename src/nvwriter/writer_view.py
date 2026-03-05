@@ -162,14 +162,13 @@ class WriterView(ModalDialog):
 
         #--- Provide validator, just for debugging.
         self._validator = SectionContentValidator()
-        # TODO: comment this out when preparing the final release
 
         #--- Project-specific configuration
         fields = self._mdl.novel.fields
         fields.pop('writer-last-position', None)
         self._mdl.novel.fields = fields
         # removing entry from version 0.19.1, if any
-        # TODO: comment this out when preparing the final release
+        # TODO: drop this when preparing the final release
 
         prjDir, __ = os.path.split(self._mdl.prjFile.filePath)
         self.prjConfigFile = os.path.join(prjDir, PRJ_CONFIG_FILE)
@@ -231,12 +230,7 @@ class WriterView(ModalDialog):
         if not self._scId in self._mdl.novel.sections:
             return
 
-        try:
-            sectionText = self._sectionEditor.get_text()
-        except:
-            self._emergency_exit()
-
-        self._validate_edited_section(sectionText)
+        sectionText = self._get_edited_section_content()
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
                 self._section.sectionContent = sectionText
@@ -246,12 +240,7 @@ class WriterView(ModalDialog):
         if not self._scId in self._mdl.novel.sections:
             return True
 
-        try:
-            sectionText = self._sectionEditor.get_text()
-        except:
-            self._emergency_exit()
-
-        self._validate_edited_section(sectionText)
+        sectionText = self._get_edited_section_content()
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
                 result = self._confirm(message=_('Apply section changes?'))
@@ -310,17 +299,17 @@ class WriterView(ModalDialog):
             prefs['resolution_index'] = resolutionIndex
             self._reconfigure_screen()
 
-    def _emergency_exit(self, msg=''):
+    def _emergency_exit(self, message='Conversion error', detail=''):
         self._focus_app_window(True)
         self.destroy()
         self._ui.show_error(
-            message='This section cannot be processed with nv_writer.',
+            message=message,
             detail=(
                 'Distraction-free mode aborted '
                 'in order not to cause damage to your project. '
                 'You can ignore the following "Unexpected Error" message '
                 'and continue without distraction-free mode.'
-                f'{msg}'
+                f'{detail}'
             ),
             title='nv_writer debug message',
         )
@@ -339,6 +328,24 @@ class WriterView(ModalDialog):
         self._statusBar.set_wordcount(
             f'{KEYS.UPDATE_WORDCOUNT[1]}: {_("Count words")}'
         )
+
+    def _get_edited_section_content(self):
+        try:
+            sectionText = self._sectionEditor.get_text()
+            self._validator.validate_section(sectionText)
+        except:
+            savedText = self._sectionEditor.get('1.0', 'end')
+            emergencyFile = f'{self._mdl.prjFile.filePath}_{self._scId}.txt'
+            with open(emergencyFile, 'w', encoding='utf-8') as f:
+                f.write(savedText)
+            self._emergency_exit(
+                detail=(
+                    '\n\nThe edited section is saved as plain text in '
+                    f'"{emergencyFile}".'
+                ),
+            )
+        else:
+            return sectionText
 
     def _get_first_editable_section(self):
         result = None
@@ -559,17 +566,4 @@ class WriterView(ModalDialog):
                 self._freeze_wordcount()
         else:
             self._reset_modified_flag()
-
-    def _validate_edited_section(self, xmlString):
-        try:
-            self._validator.validate_section(xmlString)
-        except:
-            savedText = self._sectionEditor.get('1.0', 'end')
-            emergencyFile = f'{self._mdl.prjFile.filePath}_{self._scId}.txt'
-            with open(emergencyFile, 'w', encoding='utf-8') as f:
-                f.write(savedText)
-            self._emergency_exit(
-                '\n\nThe edited section is saved as plain text in '
-                f'"{emergencyFile}".'
-            )
 
