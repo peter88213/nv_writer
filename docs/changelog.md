@@ -4,6 +4,13 @@
 
 ## Changelog
 
+### Version 0.21.3
+
+- Updated error handling.
+
+API: 5.53
+Based on novelibre 5.53.0
+
 
 ### Version 0.21.2
 
