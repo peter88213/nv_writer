@@ -28,4 +28,6 @@ class GenericKeys:
     SPLIT_SECTION = ('<Control-l>', f'{_("Ctrl")}-L')
     START_EDITOR = ('<F11>', 'F11')
     TOGGLE_FOOTER_BAR = ('<F3>', 'F3')
+    UNDO = ('<Control-z>', f'_("Ctrl")-Z')
+    REDO = ('<Control-y>', f'_("Ctrl")-Y')
     UPDATE_WORDCOUNT = ('<F5>', 'F5')

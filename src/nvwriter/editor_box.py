@@ -44,6 +44,14 @@ class EditorBox(tk.Text):
 
         kw.update({'yscrollcommand': self.vbar.set})
         tk.Text.__init__(self, self.frame, **kw)
+
+        self._undo_stack = []
+        self._redo_stack = []
+        # Create proxy (see:
+        self._orig = self._w + "_orig"
+        self.tk.call("rename", self._w, self._orig)
+        self.tk.createcommand(self._w, self._proxy)
+
         self.pack(side='left', fill='both', expand=True)
         self.vbar['command'] = self.yview
 
@@ -97,6 +105,44 @@ class EditorBox(tk.Text):
         )
 
         self.debug = False
+
+    def _proxy(self, *args):
+        # Source: https://stackoverflow.com/a/67434713
+        if args[0] in ["insert", "delete"]:
+            if args[1] == "end":
+                index = self.index("end-1c")
+            else:
+                index = self.index(args[1])
+            if args[0] == "insert":
+                undo_args = ("delete", index, "{}+{}c".format(index, len(args[2])))
+            else:  # args[0] == "delete":
+                undo_args = ("insert", index, self.get(*args[:1]))
+            self._redo_stack.clear()
+            self._undo_stack.append((undo_args, args))
+        elif args[0] == "tag":
+            if args[1] in ["add", "remove"] and args[2] != "sel":
+                indexes = tuple(self.index(ind) for ind in args[3:])
+                undo_args = ("tag", "remove" if args[1] == "add" else "add", args[2]) + indexes
+                self._redo_stack.clear()
+                self._undo_stack.append((undo_args, args))
+        result = self.tk.call((self._orig,) + args)
+        return result
+
+    def undo(self):
+        if not self._undo_stack:
+            return
+        undo_args, redo_args = self._undo_stack.pop()
+        self._redo_stack.append((undo_args, redo_args))
+        self.tk.call((self._orig,) + undo_args)
+        return 'break'
+
+    def redo(self):
+        if not self._redo_stack:
+            return
+        undo_args, redo_args = self._redo_stack.pop()
+        self._undo_stack.append((undo_args, redo_args))
+        self.tk.call((self._orig,) + redo_args)
+        return 'break'
 
     def clear(self):
         self.delete('1.0', 'end')

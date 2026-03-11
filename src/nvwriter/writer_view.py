@@ -126,7 +126,9 @@ class WriterView(ModalDialog):
             (KEYS.BOLD, self._sectionEditor.strong_emphasis),
             (KEYS.PLAIN, self._sectionEditor.plain),
             (KEYS.SAVE, self._save_project),
-            (KEYS.TOGGLE_FOOTER_BAR, self._toggle_display)
+            (KEYS.TOGGLE_FOOTER_BAR, self._toggle_display),
+            (KEYS.UNDO, self._sectionEditor.undo),
+            (KEYS.REDO, self._sectionEditor.redo),
         ]
         if PLATFORM == 'ix':
             # the keys on the numeric keypad must be explicitly assigned
