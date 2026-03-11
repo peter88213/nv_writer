@@ -5,7 +5,7 @@
 ## Changelog
 
 
-### Version 0.22.2
+### Version 0.22.3
 
 - New feature: Formatting text via keyboard shortcuts. 
 - Bugfix: Handling footnotes/endnotes within formatted text. 

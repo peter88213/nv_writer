@@ -97,7 +97,7 @@ class EditorBox(tk.Text):
             foreground=color_highlight,
         )
 
-        self.debug = True
+        self.debug = False
 
     def clear(self):
         self.delete('1.0', 'end')
