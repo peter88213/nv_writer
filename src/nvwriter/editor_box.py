@@ -194,34 +194,41 @@ class EditorBox(tk.Text):
     def _set_format(self, newTag):
         # Apply newTag to the selected text.
         # Return True in case of modification.
-        isModified = False
-        if self.tag_ranges(tk.SEL):
-            index = tk.SEL_FIRST
-            while self.compare(index, '<=', tk.SEL_LAST):
-                if not newTag in self.tag_names(index):
-                    isModified = True
-                    break
-                index = self.index(f'{index}+1c')
-                if self.compare(index, '>=', tk.END):
-                    break
+        if not self.tag_ranges(tk.SEL):
+            return False
 
-            # Insert the new tag before the first character's
-            # paragraph-opening tag, if any.
-            # This ensures the correct nesting when converting back to XML.
-            firstCharTags = [newTag]
-            for tag in self.tag_names(tk.SEL_FIRST):
-                if tag in EMPHASIZING_TAGS:
-                    self.tag_remove(tag, tk.SEL_FIRST)
-                elif tag.split('_')[0] in PARAGRAPH_TAGS:
-                    self.tag_remove(tag, tk.SEL_FIRST)
-                    firstCharTags.append(tag)
-            for tag in firstCharTags:
-                self.tag_add(tag, tk.SEL_FIRST)
+        # Is the new tag already applied to the entire selection?
+        willModify = False
+        index = tk.SEL_FIRST
+        while self.compare(index, '<=', tk.SEL_LAST):
+            if not newTag in self.tag_names(index):
+                willModify = True
+                break
 
-            # Append the new tag to the other characters' tag lists
-            for tag in EMPHASIZING_TAGS:
-                self.tag_remove(tag, f'{tk.SEL_FIRST}+1c', tk.SEL_LAST)
-                self.tag_add(newTag, f'{tk.SEL_FIRST}+1c', tk.SEL_LAST)
+            index = self.index(f'{index}+1c')
+            if self.compare(index, '>=', tk.END):
+                break
 
-        return isModified
+        if not willModify:
+            return False
+
+        # Insert the new tag before the first character's
+        # paragraph-opening tag, if any.
+        # This ensures the correct nesting when converting back to XML.
+        firstCharTags = [newTag]
+        for tag in self.tag_names(tk.SEL_FIRST):
+            if tag in EMPHASIZING_TAGS:
+                self.tag_remove(tag, tk.SEL_FIRST)
+            elif tag.split('_')[0] in PARAGRAPH_TAGS:
+                self.tag_remove(tag, tk.SEL_FIRST)
+                firstCharTags.append(tag)
+        for tag in firstCharTags:
+            self.tag_add(tag, tk.SEL_FIRST)
+
+        # Append the new tag to the other characters' tag lists.
+        for tag in EMPHASIZING_TAGS:
+            self.tag_remove(tag, f'{tk.SEL_FIRST}+1c', tk.SEL_LAST)
+            self.tag_add(newTag, f'{tk.SEL_FIRST}+1c', tk.SEL_LAST)
+
+        return True
 
