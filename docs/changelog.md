@@ -5,9 +5,10 @@
 ## Changelog
 
 
-### Version 0.22.1
+### Version 0.22.2
 
 - New feature: Formatting text via keyboard shortcuts. 
+- Bugfix: Handling footnotes/endnotes within formatted text. 
 - Removed `Alt`-`F4` from the Linux key bindings.
 
 API: 5.53
