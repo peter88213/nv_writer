@@ -47,6 +47,7 @@ class TextParser():
         # list of str: novx raw text
 
         self._xmlStack = []
+        self._transferStack = []
 
     @property
     def _list(self):
@@ -58,6 +59,7 @@ class TextParser():
         self._commentIndex = None
         self._noteIndex = None
         self._xmlStack.clear()
+        self._transferStack.clear()
         self.debug = debug
 
     def parse_triple(self, key, value, __):
@@ -101,39 +103,38 @@ class TextParser():
                 if not self._list:
                     # The first list element.
                     # Open the list.
-                    self._startXml(T_UL)
-                self._startXml(T_LI)
+                    self._start_xml(T_UL)
+                self._start_xml(T_LI)
 
             elif self._list:
                 # The first regular paragraph after a list.
                 # Close the list.
-                self._endXml()
+                self._end_xml()
 
             # Paragraph starts.
-            self._startXml('p')
-            self._paragraph = True
+            self._start_paragraph()
 
         if content.endswith('\n'):
 
             # Content ends the current paragraph.
             self._xmlList.append(content.rstrip('\n'))
             # removing the linebreak
-            self._endXml()
-            self._paragraph = False
+
+            self._end_paragraph()
 
             if self._list:
-                self._endXml(self.debug)
+                self._end_xml(self.debug)
             return
 
         self._xmlList.append(content)
 
     def endElement(self, name):
         if name in EMPHASIZING_TAGS:
-            self._endXml()
+            self._end_xml()
             return
 
         if name.startswith(T_SPAN):
-            self._endXml()
+            self._end_xml()
             return
 
         if name.startswith(COMMENT_PREFIX):
@@ -149,7 +150,7 @@ class TextParser():
     def get_result(self):
         while self._xmlStack:
             # The final paragraph was a list element, so close the list.
-            self._endXml()
+            self._end_xml()
         return ''.join(self._xmlList)
 
     def startElement(self, name):
@@ -164,33 +165,56 @@ class TextParser():
 
         if  name.split('_')[0] in PARAGRAPH_TAGS:
             if self._list:
-                self._endXml(self.debug)
-            self._startXml(name)
-            self._paragraph = True
+                self._end_xml(self.debug)
+            self._start_paragraph(name=name)
             return
 
         if not self._paragraph:
-            self._startXml('p')
-            self._paragraph = True
+            self._start_paragraph()
 
         if name in EMPHASIZING_TAGS:
-            self._startXml(name)
+            self._start_xml(name)
             return
 
         if name.startswith(T_SPAN):
-            self._startXml(name)
+            self._start_xml(name)
             return
 
-    def _endXml(self, debug=False):
+    def _end_paragraph(self):
+        self._paragraph = False
+
+        # Handle paragraph-spanning formatting applied by the user:
+        # Before closing the paragraph,
+        # close all open tags and keep them in the transfer stack.
+        while self._xmlStack:
+            tag = self._xmlStack.pop()
+            self._xmlList.append(f'</{tag}>')
+            if not tag in PARAGRAPH_TAGS:
+                self._transferStack.append(tag)
+            else:
+                break
+
+    def _end_xml(self, debug=False):
         tag = self._xmlStack.pop()
         if debug:
             print(f'* Closing {tag}')
         self._xmlList.append(f'</{tag}>')
 
-    def _startXml(self, name, debug=False):
+    def _start_paragraph(self, name='p'):
+        self._paragraph = True
+
+        # Handle paragraph-spanning formatting applied by the user:
+        # After opening the paragraph,
+        # reopen the tags kept in the transfer stack.
+        self._start_xml(name)
+        while self._transferStack:
+            tag = self._transferStack.pop()
+            self._xmlStack.append(tag)
+            self._xmlList.append(f'<{tag}>')
+
+    def _start_xml(self, name, debug=False):
         tag = name.split('_')[0]
         if debug:
             print(f'* Opening {tag}')
         self._xmlStack.append(tag)
         self._xmlList.append(f'<{name.replace("_", " ")}>')
-
