@@ -122,9 +122,9 @@ class WriterView(ModalDialog):
             (KEYS.SPLIT_SECTION, self._split_section),
             (KEYS.CREATE_SECTION, self._create_section),
             (KEYS.CLONE_SECTION, self._clone_section),
-            (KEYS.ITALIC, self._sectionEditor.emphasis),
-            (KEYS.BOLD, self._sectionEditor.strong_emphasis),
-            (KEYS.PLAIN, self._sectionEditor.plain),
+            (KEYS.ITALIC, self._emphasis),
+            (KEYS.BOLD, self._strong_emphasis),
+            (KEYS.PLAIN, self._plain),
             (KEYS.SAVE, self._save_project),
             (KEYS.TOGGLE_FOOTER_BAR, self._toggle_display)
         ]
@@ -315,6 +315,11 @@ class WriterView(ModalDialog):
         )
         raise UserWarning('nv_writer aborted to prevent damage.')
 
+    def _emphasis(self, event=None):
+        if self._sectionEditor.emphasis():
+            self._statusBar.set_modified(True)
+        return 'break'
+
     def _focus_app_window(self, giveFocus):
         if giveFocus:
             if PLATFORM == 'win':
@@ -407,10 +412,12 @@ class WriterView(ModalDialog):
         self._scId = scId
         self._sectionEditor.clear()
         try:
+            msg = 'Cannot load text.'
             self._sectionEditor.set_text(self._section.sectionContent)
+            msg = 'Validation error.'
             self._validator.validate_section(self._sectionEditor.get_text())
         except:
-            self._emergency_exit()
+            self._emergency_exit(message=msg)
 
         try:
             self._sectionEditor.mark_set('insert', cursorPos)
@@ -439,6 +446,11 @@ class WriterView(ModalDialog):
 
     def _open_help(self, event=None):
         NvwriterHelp.open_help_page('operation.html')
+
+    def _plain(self, event=None):
+        if self._sectionEditor.plain():
+            self._statusBar.set_modified(True)
+        return 'break'
 
     def _reconfigure_screen(self):
         resolutionIndex = int(prefs['resolution_index'])
@@ -549,6 +561,11 @@ class WriterView(ModalDialog):
             # Go to the new section.
             self._load_next()
             self._askForConfirmation = False
+
+    def _strong_emphasis(self, event=None):
+        if self._sectionEditor.strong_emphasis():
+            self._statusBar.set_modified(True)
+        return 'break'
 
     def _toggle_display(self, event=None):
         if self._footerBar.winfo_manager():

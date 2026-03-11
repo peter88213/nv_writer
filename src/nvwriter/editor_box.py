@@ -124,6 +124,13 @@ class EditorBox(tk.Text):
             font=boldFont,
         )
 
+    def emphasis(self):
+        """Make the selection emphasized.
+        
+        Return True in case of modification.
+        """
+        return self._set_format(newTag=T_EM)
+
     def get_text(self, start='1.0', end='end'):
         """Return the whole text from the editor box in .novx format."""
         self._textParser.reset(debug=self.debug)
@@ -131,6 +138,27 @@ class EditorBox(tk.Text):
         self._textParser.notes = self._novxParser.notes
         self.dump(start, end, command=self._textParser.parse_triple)
         return self._textParser.get_result()
+
+    def plain(self):
+        """Remove formatting from the selection.
+
+        Return True in case of modification.
+        """
+        isModified = False
+        if self.tag_ranges(tk.SEL):
+            index = tk.SEL_FIRST
+            while not isModified and self.compare(index, '<=', tk.SEL_LAST):
+                tags = self.tag_names(index)
+                for tag in tags:
+                    if tag in EMPHASIZING_TAGS:
+                        isModified = True
+                        break
+                index = self.index(f'{index}+1c')
+                if self.compare(index, '>=', tk.END):
+                    break
+            for tag in EMPHASIZING_TAGS:
+                self.tag_remove(tag, tk.SEL_FIRST, tk.SEL_LAST)
+        return isModified
 
     def set_text(self, text):
         """Put text into the editor box and clear the undo/redo stack."""
@@ -155,44 +183,29 @@ class EditorBox(tk.Text):
         # this is to prevent the user from clearing the box with Ctrl-Z
         self.mark_set('insert', f'1.0')
 
-    def emphasis(self, event=None):
-        """Make the selection emphasized.
-        
-        Or begin with emphasized input.
-        """
-        self._set_format(tag=T_EM)
-        return 'break'
-
-    def strong_emphasis(self, event=None):
+    def strong_emphasis(self):
         """Make the selection strongly emphasized.
         
-        Or begin with strongly emphasized input.
+        Return True in case of modification.
         """
-        self._set_format(tag=T_STRONG)
-        return 'break'
+        return self._set_format(newTag=T_STRONG)
 
-    def plain(self, event=None):
-        """Remove formatting from the selection."""
+    def _set_format(self, newTag=''):
+        # Apply newTag to the selected text.
+        # Return True in case of modification.
+        isModified = False
         if self.tag_ranges(tk.SEL):
+            index = tk.SEL_FIRST
+            while self.compare(index, '<=', tk.SEL_LAST):
+                if not newTag in self.tag_names(index):
+                    isModified = True
+                    break
+                index = self.index(f'{index}+1c')
+                if self.compare(index, '>=', tk.END):
+                    break
             for tag in EMPHASIZING_TAGS:
                 self.tag_remove(tag, tk.SEL_FIRST, tk.SEL_LAST)
-        return 'break'
+                self.tag_add(newTag, tk.SEL_FIRST, tk.SEL_LAST)
 
-    def _get_tags(self, start, end):
-        """Get a set of tags between the start and end text mark.     
-        
-        Kudos to Bryan Oakley
-        https://stackoverflow.com/questions/61661490/how-do-you-get-the-tags-from-text-in-a-tkinter-text-widget
-        """
-        index = start
-        tags = []
-        while self.compare(index, '<=', end):
-            tags.extend(self.tag_names(index))
-            index = self.index(f'{index}+1c')
-        return set(tags)
-
-    def _set_format(self, event=None, tag=''):
-        if self.tag_ranges(tk.SEL):
-            self.plain()
-            self.tag_add(tag, tk.SEL_FIRST, tk.SEL_LAST)
+        return isModified
 
