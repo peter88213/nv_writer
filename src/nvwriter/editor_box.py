@@ -4,11 +4,10 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
-from tkinter import font as tkFont
-from tkinter import ttk
 
 from nvwriter.novx_parser import NovxParser
 from nvwriter.nvwriter_globals import EMPHASIZING_TAGS
+from nvwriter.nvwriter_globals import PARAGRAPH_TAGS
 from nvwriter.nvwriter_globals import T_COMMENT
 from nvwriter.nvwriter_globals import T_EM
 from nvwriter.nvwriter_globals import T_H5
@@ -19,6 +18,8 @@ from nvwriter.nvwriter_globals import T_H9
 from nvwriter.nvwriter_globals import T_NOTE
 from nvwriter.nvwriter_globals import T_STRONG
 from nvwriter.text_parser import TextParser
+from tkinter import font as tkFont
+from tkinter import ttk
 import tkinter as tk
 
 
@@ -96,7 +97,7 @@ class EditorBox(tk.Text):
             foreground=color_highlight,
         )
 
-        self.debug = False
+        self.debug = True
 
     def clear(self):
         self.delete('1.0', 'end')
@@ -203,9 +204,24 @@ class EditorBox(tk.Text):
                 index = self.index(f'{index}+1c')
                 if self.compare(index, '>=', tk.END):
                     break
+
+            # Insert the new tag before the first character's
+            # paragraph-opening tag, if any.
+            # This ensures the correct nesting when converting back to XML.
+            firstCharTags = [newTag]
+            for tag in self.tag_names(tk.SEL_FIRST):
+                if tag in EMPHASIZING_TAGS:
+                    self.tag_remove(tag, tk.SEL_FIRST)
+                elif tag.split('_')[0] in PARAGRAPH_TAGS:
+                    self.tag_remove(tag, tk.SEL_FIRST)
+                    firstCharTags.append(tag)
+            for tag in firstCharTags:
+                self.tag_add(tag, tk.SEL_FIRST)
+
+            # Append the new tag to the other characters' tag lists
             for tag in EMPHASIZING_TAGS:
-                self.tag_remove(tag, tk.SEL_FIRST, tk.SEL_LAST)
-                self.tag_add(newTag, tk.SEL_FIRST, tk.SEL_LAST)
+                self.tag_remove(tag, f'{tk.SEL_FIRST}+1c', tk.SEL_LAST)
+                self.tag_add(newTag, f'{tk.SEL_FIRST}+1c', tk.SEL_LAST)
 
         return isModified
 

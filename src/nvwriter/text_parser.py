@@ -169,7 +169,7 @@ class TextParser():
             self._start_paragraph(name=name)
             return
 
-        if not self._paragraph:
+        if not self._paragraph and name != 'sel':
             self._start_paragraph()
 
         if name in EMPHASIZING_TAGS:
