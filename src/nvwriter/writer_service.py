@@ -111,14 +111,14 @@ class WriterService(SubController):
             _('Editable manuscript'): f'{MANUSCRIPT_SUFFIX}.odt',
             _('Tagged manuscript for proofing'): f'{PROOF_SUFFIX}.odt',
         }
+        activeDocs = []
         try:
             fileName, __ = os.path.splitext(self._mdl.prjFile.filePath)
         except TypeError:
-            return []
-
-        activeDocs = []
-        for doc in docTypes:
-            if os.path.isfile(f'{fileName}{docTypes[doc]}'):
-                activeDocs.append(doc)
+            pass
+        else:
+            for doc in docTypes:
+                if os.path.isfile(f'{fileName}{docTypes[doc]}'):
+                    activeDocs.append(doc)
         return activeDocs
 
