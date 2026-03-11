@@ -123,7 +123,7 @@ class TextParser():
             self._end_paragraph()
 
             if self._list:
-                self._end_xml(self.debug)
+                self._end_xml()
             return
 
         self._xmlList.append(content)
@@ -165,7 +165,7 @@ class TextParser():
 
         if  name.split('_')[0] in PARAGRAPH_TAGS:
             if self._list:
-                self._end_xml(self.debug)
+                self._end_xml()
             self._start_paragraph(name=name)
             return
 
@@ -188,17 +188,20 @@ class TextParser():
         # close all open tags and keep them in the transfer stack.
         while self._xmlStack:
             tag = self._xmlStack.pop()
+            if self.debug:
+                print(f'* Closing {tag}')
             self._xmlList.append(f'</{tag}>')
             if not tag in PARAGRAPH_TAGS:
                 self._transferStack.append(tag)
             else:
                 break
 
-    def _end_xml(self, debug=False):
-        tag = self._xmlStack.pop()
-        if debug:
-            print(f'* Closing {tag}')
-        self._xmlList.append(f'</{tag}>')
+    def _end_xml(self):
+        if self._xmlStack:
+            tag = self._xmlStack.pop()
+            if self.debug:
+                print(f'* Closing {tag}')
+            self._xmlList.append(f'</{tag}>')
 
     def _start_paragraph(self, name='p'):
         self._paragraph = True
@@ -209,12 +212,14 @@ class TextParser():
         self._start_xml(name)
         while self._transferStack:
             tag = self._transferStack.pop()
+            if self.debug:
+                print(f'* Opening {tag}')
             self._xmlStack.append(tag)
             self._xmlList.append(f'<{tag}>')
 
-    def _start_xml(self, name, debug=False):
+    def _start_xml(self, name):
         tag = name.split('_')[0]
-        if debug:
+        if self.debug:
             print(f'* Opening {tag}')
         self._xmlStack.append(tag)
         self._xmlList.append(f'<{name.replace("_", " ")}>')
