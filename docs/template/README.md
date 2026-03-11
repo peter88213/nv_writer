@@ -41,6 +41,7 @@ You can adjust the size of the editor window to fill high-resolution notebook sc
 - The application is ready for internationalization with GNU gettext. A German localization is provided. 
 - Editor features:
     - Text selection.
+    - Formatting via keyboard shortcuts: Emphasis, strong emphasis, and plain. 
     - Copy/Cut/Paste to/from the clipboard.
     - Undo/Redo.
     - Create a new section after the current one.

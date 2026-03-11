@@ -4,6 +4,15 @@
 
 ## Changelog
 
+
+### Version 0.22.0
+
+- Formatting text via keyboard shortcuts. 
+
+API: 5.53
+Based on novelibre 5.53.0
+
+
 ### Version 0.21.3
 
 - Updated error handling.
