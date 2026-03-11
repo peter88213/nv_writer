@@ -5,9 +5,10 @@
 ## Changelog
 
 
-### Version 0.22.0
+### Version 0.22.1
 
-- Formatting text via keyboard shortcuts. 
+- New feature: Formatting text via keyboard shortcuts. 
+- Removed `Alt`-`F4` from the Linux key bindings.
 
 API: 5.53
 Based on novelibre 5.53.0

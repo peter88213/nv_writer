@@ -10,8 +10,6 @@ from nvwriter.writer_locale import _
 
 class LinuxKeys(GenericKeys):
 
-    QUIT_PROGRAM = ('<Alt-F4>', 'Alt-F4')
-
     # Numpad keys (needed for Linux)
     INCREASE_SIZE_KP = ('<Control-KP_Add>', f'{_("Ctrl")}-+')
     DECREASE_SIZE_KP = ('<Control-KP_Subtract>', f'{_("Ctrl")}--')
