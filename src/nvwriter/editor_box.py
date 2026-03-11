@@ -129,7 +129,7 @@ class EditorBox(tk.Text):
         
         Return True in case of modification.
         """
-        return self._set_format(newTag=T_EM)
+        return self._set_format(T_EM)
 
     def get_text(self, start='1.0', end='end'):
         """Return the whole text from the editor box in .novx format."""
@@ -188,9 +188,9 @@ class EditorBox(tk.Text):
         
         Return True in case of modification.
         """
-        return self._set_format(newTag=T_STRONG)
+        return self._set_format(T_STRONG)
 
-    def _set_format(self, newTag=''):
+    def _set_format(self, newTag):
         # Apply newTag to the selected text.
         # Return True in case of modification.
         isModified = False
