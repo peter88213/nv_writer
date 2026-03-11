@@ -119,9 +119,14 @@ class NovxParser(sax.ContentHandler):
 
         if name == T_NOTE:
             # Generate a tag using the list index of the Note instance.
-            tag = (T_NOTE, f'{NOTE_PREFIX}:{len(self.notes)-1}')
+            tags = [
+                T_NOTE,
+                f'{NOTE_PREFIX}:{len(self.notes)-1}',
+            ]
+            if self._tags:
+                tags.extend(self._tags)
             # Use the note's text, tagged with the comment's list index.
-            self._taggedText.append((NOTE_MARK, tag))
+            self._taggedText.append((NOTE_MARK, tags))
             self._noteXmlTag = None
             return
 
@@ -134,7 +139,7 @@ class NovxParser(sax.ContentHandler):
             return
 
         if name in PARAGRAPH_TAGS:
-            if self._commentXmlTag is None:
+            if self._commentXmlTag is None and self._noteXmlTag is None:
                 self._spans.clear()
                 self._tags.clear()
             return

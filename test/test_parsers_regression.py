@@ -19,6 +19,12 @@ FOOTNOTE = (
     '<p>This is a footnote</p></note>'
     ' of the test section</p>'
 )
+FOOTNOTE_EM = (
+    '<p><em>Text<note id="ftn1" class="footnote">'
+    '<note-citation>1</note-citation>'
+    '<p>Footnote</p>'
+    '</note>.</em></p>'
+)
 FORMATTED_PARAGRAPHS = (
     '<p><em>Paragraph emphasized</em></p>'
     '<p><em>Paragraph emphasized</em></p>'
@@ -256,6 +262,10 @@ class Test(unittest.TestCase):
     def test_footnote(self):
         self.editor.set_text(FOOTNOTE)
         self.assertEqual(self.editor.get_text(), FOOTNOTE)
+
+    def test_footnote_em(self):
+        self.editor.set_text(FOOTNOTE_EM)
+        self.assertEqual(self.editor.get_text(), FOOTNOTE_EM)
 
     def test_formatted_paragraphs(self):
         self.editor.set_text(FORMATTED_PARAGRAPHS)

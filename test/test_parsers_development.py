@@ -8,8 +8,10 @@ from nvwriter.section_content_validator import SectionContentValidator
 from nvwriter.editor_box import EditorBox
 
 SECTION_CONTENT = (
-    '<p><span xml:lang="en-US"><em>Paragraph emphasized</em></span></p>'
-    '<p><span xml:lang="en-US"><em>Paragraph emphasized</em></span></p>'
+    '<p><em>Text<note id="ftn1" class="footnote">'
+    '<note-citation>1</note-citation>'
+    '<p>Footnote</p>'
+    '</note>.</em></p>'
 )
 
 
