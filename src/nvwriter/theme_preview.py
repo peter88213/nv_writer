@@ -37,9 +37,29 @@ class ThemePreview(ttk.Frame):
         self._regularText = tk.Label(
             self._textFrame,
             text=_('Regular text'),
-            font=(prefs['editor_font'], wsSize)
+            font=(prefs['editor_font'], wsSize),
         )
         self._regularText.pack(
+            anchor='w',
+            pady=3,
+        )
+
+        self._emphasizedText = tk.Label(
+            self._textFrame,
+            text=_('Emphasis'),
+            font=(prefs['editor_font'], wsSize, 'italic'),
+        )
+        self._emphasizedText.pack(
+            anchor='w',
+            pady=3,
+        )
+
+        self._strongText = tk.Label(
+            self._textFrame,
+            text=_('Strong emphasis'),
+            font=(prefs['editor_font'], wsSize, 'bold'),
+        )
+        self._strongText.pack(
             anchor='w',
             pady=3,
         )
@@ -47,7 +67,7 @@ class ThemePreview(ttk.Frame):
         self._highlightedText = tk.Label(
             self._textFrame,
             text=_('Highlighted text'),
-            font=(prefs['editor_font'], wsSize)
+            font=(prefs['editor_font'], wsSize),
         )
         self._highlightedText.pack(
             anchor='w',
@@ -57,7 +77,7 @@ class ThemePreview(ttk.Frame):
         self._invertedText = tk.Label(
             self._textFrame,
             text=_('Comment'),
-            font=(prefs['editor_font'], wsSize)
+            font=(prefs['editor_font'], wsSize),
         )
         self._invertedText.pack(
             anchor='w',
@@ -100,6 +120,8 @@ class ThemePreview(ttk.Frame):
         (
             colorBg,
             colorFg,
+            colorEm,
+            colorStrong,
             colorHighlight,
             colorStatusBg,
             colorStatusFg,
@@ -116,6 +138,14 @@ class ThemePreview(ttk.Frame):
         )
         self._regularText.configure(
             fg=colorFg,
+            bg=colorBg,
+        )
+        self._emphasizedText.configure(
+            fg=colorEm,
+            bg=colorBg,
+        )
+        self._strongText.configure(
+            fg=colorStrong,
             bg=colorBg,
         )
         self._highlightedText.configure(

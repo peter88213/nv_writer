@@ -27,6 +27,8 @@ class WriterService(SubController):
         color_button_fg='gray20',
         color_desktop='gray30',
         color_fg='gray70',
+        color_em='gray70',
+        color_strong='white',
         color_highlight='white',
         color_shortcut='white',
         color_status_bg='gray70',

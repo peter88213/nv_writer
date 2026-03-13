@@ -28,6 +28,8 @@ class OptionsDialog(ModalDialog):
     COLORS_WHITE = (
         'gray20',
         'gray70',
+        'gray70',
+        'white',
         'white',
         'gray70',
         'gray20',
@@ -38,6 +40,8 @@ class OptionsDialog(ModalDialog):
     COLORS_GREEN = (
         'gray20',
         'green3',
+        'green3',
+        'green2',
         'green2',
         'green3',
         'gray20',
@@ -48,6 +52,8 @@ class OptionsDialog(ModalDialog):
     COLORS_AMBER = (
         'gray20',
         'orange2',
+        'orange2',
+        'orange',
         'orange',
         'orange2',
         'gray20',
@@ -59,6 +65,8 @@ class OptionsDialog(ModalDialog):
         EGA_BLUE,
         EGA_GRAY,
         EGA_BRIGHT_YELLOW,
+        'white',
+        EGA_BRIGHT_YELLOW,
         EGA_GRAY,
         'black',
         EGA_GRAY,
@@ -68,6 +76,8 @@ class OptionsDialog(ModalDialog):
     COLORS_SOFT = (
         EGA_BLUE,
         EGA_GRAY,
+        EGA_BRIGHT_CYAN,
+        'white',
         'white',
         EGA_CYAN,
         'black',
@@ -78,6 +88,8 @@ class OptionsDialog(ModalDialog):
     COLORS_STAR = (
         EGA_CYAN,
         'black',
+        'black',
+        EGA_BRIGHT_CYAN,
         EGA_BRIGHT_CYAN,
         'black',
         EGA_BRIGHT_CYAN,
@@ -88,6 +100,8 @@ class OptionsDialog(ModalDialog):
     COLORS_PAPER = (
         'floral white',
         'gray30',
+        'gray30',
+        'black',
         'black',
         'gray60',
         'floral white',
@@ -97,6 +111,8 @@ class OptionsDialog(ModalDialog):
     )
     # background,
     # foreground,
+    # emphasis,
+    # strong emphasis,
     # highlight,
     # status background,
     # status foreground,
@@ -278,6 +294,8 @@ class OptionsDialog(ModalDialog):
         (
             prefs['color_bg'],
             prefs['color_fg'],
+            prefs['color_em'],
+            prefs['color_strong'],
             prefs['color_highlight'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
@@ -291,6 +309,8 @@ class OptionsDialog(ModalDialog):
         (
             prefs['color_bg'],
             prefs['color_fg'],
+            prefs['color_em'],
+            prefs['color_strong'],
             prefs['color_highlight'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
@@ -304,6 +324,8 @@ class OptionsDialog(ModalDialog):
         (
             prefs['color_bg'],
             prefs['color_fg'],
+            prefs['color_em'],
+            prefs['color_strong'],
             prefs['color_highlight'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
@@ -317,6 +339,8 @@ class OptionsDialog(ModalDialog):
         (
             prefs['color_bg'],
             prefs['color_fg'],
+            prefs['color_em'],
+            prefs['color_strong'],
             prefs['color_highlight'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
@@ -330,6 +354,8 @@ class OptionsDialog(ModalDialog):
         (
             prefs['color_bg'],
             prefs['color_fg'],
+            prefs['color_em'],
+            prefs['color_strong'],
             prefs['color_highlight'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
@@ -343,6 +369,8 @@ class OptionsDialog(ModalDialog):
         (
             prefs['color_bg'],
             prefs['color_fg'],
+            prefs['color_em'],
+            prefs['color_strong'],
             prefs['color_highlight'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
@@ -356,6 +384,8 @@ class OptionsDialog(ModalDialog):
         (
             prefs['color_bg'],
             prefs['color_fg'],
+            prefs['color_em'],
+            prefs['color_strong'],
             prefs['color_highlight'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
@@ -370,6 +400,8 @@ class OptionsDialog(ModalDialog):
             (
                 prefs['color_bg'],
                 prefs['color_fg'],
+                prefs['color_em'],
+                prefs['color_strong'],
                 prefs['color_highlight'],
                 prefs['color_status_bg'],
                 prefs['color_status_fg'],

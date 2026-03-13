@@ -81,7 +81,6 @@ class WriterView(ModalDialog):
         self._sectionEditor = EditorBox(
             self._editorWindow,
             vstyle='CustomScrollbarStyle.Vertical.TScrollbar',
-            color_highlight=prefs['color_highlight'],
             wrap='word',
             undo=True,
             maxundo=-1,

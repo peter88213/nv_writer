@@ -21,6 +21,7 @@ from nvwriter.text_parser import TextParser
 from tkinter import font as tkFont
 from tkinter import ttk
 import tkinter as tk
+from nvwriter.nvwriter_globals import prefs
 
 
 class EditorBox(tk.Text):
@@ -30,7 +31,6 @@ class EditorBox(tk.Text):
         self,
         master=None,
         vstyle=None,
-        color_highlight='grey',
         **kw,
     ):
         """Copied from tkinter.scrolledtext and modified (use ttk widgets).
@@ -74,27 +74,7 @@ class EditorBox(tk.Text):
         )
         self.tag_configure(
             T_NOTE,
-            foreground=color_highlight,
-        )
-        self.tag_configure(
-            T_H5,
-            foreground=color_highlight,
-        )
-        self.tag_configure(
-            T_H6,
-            foreground=color_highlight,
-        )
-        self.tag_configure(
-            T_H7,
-            foreground=color_highlight,
-        )
-        self.tag_configure(
-            T_H8,
-            foreground=color_highlight,
-        )
-        self.tag_configure(
-            T_H9,
-            foreground=color_highlight,
+            foreground=prefs['color_highlight'],
         )
 
         self.debug = False
@@ -119,10 +99,12 @@ class EditorBox(tk.Text):
         self.tag_configure(
             T_EM,
             font=italicFont,
+            foreground=prefs['color_em'],
         )
         self.tag_configure(
             T_STRONG,
             font=boldFont,
+            foreground=prefs['color_strong'],
         )
 
     def emphasis(self):
