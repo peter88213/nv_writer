@@ -64,16 +64,6 @@ class ThemePreview(ttk.Frame):
             pady=3,
         )
 
-        self._highlightedText = tk.Label(
-            self._textFrame,
-            text=_('Highlighted text'),
-            font=(prefs['editor_font'], wsSize),
-        )
-        self._highlightedText.pack(
-            anchor='w',
-            pady=3,
-        )
-
         self._invertedText = tk.Label(
             self._textFrame,
             text=_('Comment'),
@@ -122,7 +112,7 @@ class ThemePreview(ttk.Frame):
             colorFg,
             colorEm,
             colorStrong,
-            colorHighlight,
+            colorNotes,
             colorStatusBg,
             colorStatusFg,
             colorButtonBg,
@@ -146,10 +136,6 @@ class ThemePreview(ttk.Frame):
         )
         self._strongText.configure(
             fg=colorStrong,
-            bg=colorBg,
-        )
-        self._highlightedText.configure(
-            fg=colorHighlight,
             bg=colorBg,
         )
         self._invertedText.configure(

@@ -73,7 +73,7 @@ class FooterBar(tk.Frame):
         #--- Close.
         text, accelerator = self._create_menu_entry(
             _('Close'),
-            KEYS.QUIT_PROGRAM[1],
+            KEYS.END_WRITING_MODE[1],
             '<<on_quit>>'
         )
         self._entries.append((text, accelerator))

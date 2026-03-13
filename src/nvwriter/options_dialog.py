@@ -22,15 +22,19 @@ class OptionsDialog(ModalDialog):
     EGA_CYAN = '#00AAAA'
     EGA_RED = '#AA0000'
     EGA_GRAY = '#AAAAAA'
+    EGA_GREEN = '#00AA00'
+    # EGA_BRIGHT_GREEN = '#55FF55'
     EGA_BRIGHT_CYAN = '#55FFFF'
+    EGA_BRIGHT_RED = '#FF5555'
     EGA_BRIGHT_YELLOW = '#FFFF55'
+    CRT_BG = 'gray15'
 
     COLORS_WHITE = (
-        'gray20',
+        CRT_BG,
         'gray70',
-        'gray70',
-        'white',
-        'white',
+        'gray85',
+        'gray85',
+        'red',
         'gray70',
         'gray20',
         'gray70',
@@ -38,11 +42,11 @@ class OptionsDialog(ModalDialog):
         'white',
     )
     COLORS_GREEN = (
-        'gray20',
-        'green3',
+        CRT_BG,
         'green3',
         'green2',
         'green2',
+        'yellow',
         'green3',
         'gray20',
         'green3',
@@ -50,59 +54,71 @@ class OptionsDialog(ModalDialog):
         'green2',
     )
     COLORS_AMBER = (
-        'gray20',
-        'orange2',
+        CRT_BG,
         'orange2',
         'orange',
         'orange',
+        'yellow',
         'orange2',
         'gray20',
         'orange2',
         'gray20',
         'orange',
     )
-    COLORS_PERFECT = (
+    COLORS_PERFECT51 = (
         EGA_BLUE,
         EGA_GRAY,
         EGA_BRIGHT_YELLOW,
         'white',
-        EGA_BRIGHT_YELLOW,
+        EGA_BRIGHT_RED,
         EGA_GRAY,
         'black',
         EGA_GRAY,
         'black',
         'white',
     )
-    COLORS_SOFT = (
+    COLORS_SOFT55 = (
         EGA_BLUE,
         EGA_GRAY,
         EGA_BRIGHT_CYAN,
         'white',
-        'white',
+        EGA_BRIGHT_RED,
         EGA_CYAN,
         'black',
         EGA_GRAY,
         'black',
         EGA_BRIGHT_CYAN,
     )
-    COLORS_STAR = (
+    COLORS_STAR3 = (
         EGA_CYAN,
         'black',
-        'black',
         EGA_BRIGHT_CYAN,
         EGA_BRIGHT_CYAN,
+        EGA_BRIGHT_RED,
         'black',
         EGA_BRIGHT_CYAN,
         EGA_RED,
         'white',
         'white',
     )
+    COLORS_STAR7 = (
+        CRT_BG,
+        EGA_CYAN,
+        EGA_GRAY,
+        EGA_GRAY,
+        EGA_BRIGHT_RED,
+        EGA_GREEN,
+        'black',
+        EGA_BRIGHT_CYAN,
+        'black',
+        EGA_BRIGHT_CYAN,
+    )
     COLORS_PAPER = (
         'floral white',
         'gray30',
         'gray30',
         'black',
-        'black',
+        'red',
         'gray60',
         'floral white',
         'gray60',
@@ -113,7 +129,7 @@ class OptionsDialog(ModalDialog):
     # foreground,
     # emphasis,
     # strong emphasis,
-    # highlight,
+    # notes,
     # status background,
     # status foreground,
     # button background,
@@ -178,18 +194,20 @@ class OptionsDialog(ModalDialog):
             window,
             orient='horizontal',
         ).pack(fill='x')
+        themesFrame0 = ttk.Frame(window)
+        themesFrame0.pack(fill='both')
         themesFrame1 = ttk.Frame(window)
         themesFrame1.pack(fill='both')
         themesFrame2 = ttk.Frame(window)
         themesFrame2.pack(fill='both')
 
         ttk.Label(
-            themesFrame1,
+            themesFrame0,
             text=_('Color sets'),
         ).pack(padx=5, pady=5, anchor='w')
 
         #--- Show current setting.
-        self._currentSettingPreview = ThemePreview(themesFrame1)
+        self._currentSettingPreview = ThemePreview(themesFrame0)
         ttk.Label(
             self._currentSettingPreview,
             text=_('Current setting'),
@@ -223,40 +241,49 @@ class OptionsDialog(ModalDialog):
             command=self._set_option_amber
         ).pack(pady=5)
 
-        #--- "Perfect" option.
-        optionBluePreview = ThemePreview(themesFrame2)
-        optionBluePreview.configure_display(self.COLORS_PERFECT)
-        ttk.Button(
-            optionBluePreview,
-            text='Perfect',
-            command=self._set_option_perfect
-        ).pack(pady=5)
-
-        #--- "Micro" option.
-        optionBluePreview = ThemePreview(themesFrame2)
-        optionBluePreview.configure_display(self.COLORS_SOFT)
-        ttk.Button(
-            optionBluePreview,
-            text='Soft',
-            command=self._set_option_soft
-        ).pack(pady=5)
-
-        #--- "Turquoise" option.
-        optionTurquoisePreview = ThemePreview(themesFrame2)
-        optionTurquoisePreview.configure_display(self.COLORS_STAR)
-        ttk.Button(
-            optionTurquoisePreview,
-            text='Star',
-            command=self._set_option_star
-        ).pack(pady=5)
-
         #--- "Paper" option.
-        optionPaperPreview = ThemePreview(themesFrame2)
+        optionPaperPreview = ThemePreview(themesFrame1)
         optionPaperPreview.configure_display(self.COLORS_PAPER)
         ttk.Button(
             optionPaperPreview,
             text=_('Paper'),
             command=self._set_option_paper
+        ).pack(pady=5)
+
+        #--- "Perfect51" option.
+        optionBluePreview = ThemePreview(themesFrame2)
+        optionBluePreview.configure_display(self.COLORS_PERFECT51)
+        ttk.Button(
+            optionBluePreview,
+            text='Perfect51',
+            command=self._set_option_perfect51
+        ).pack(pady=5)
+
+        #--- "Soft55" option.
+        optionBluePreview = ThemePreview(themesFrame2)
+        optionBluePreview.configure_display(self.COLORS_SOFT55)
+        ttk.Button(
+            optionBluePreview,
+            text='Soft55',
+            command=self._set_option_soft55
+        ).pack(pady=5)
+
+        #--- "Star3" option.
+        optionStar3Preview = ThemePreview(themesFrame2)
+        optionStar3Preview.configure_display(self.COLORS_STAR3)
+        ttk.Button(
+            optionStar3Preview,
+            text='Star3',
+            command=self._set_option_star3
+        ).pack(pady=5)
+
+        #--- "Star7" option.
+        optionStar7Preview = ThemePreview(themesFrame2)
+        optionStar7Preview.configure_display(self.COLORS_STAR7)
+        ttk.Button(
+            optionStar7Preview,
+            text='Star7',
+            command=self._set_option_star7
         ).pack(pady=5)
 
         ttk.Separator(self, orient='horizontal').pack(fill='x')
@@ -296,7 +323,7 @@ class OptionsDialog(ModalDialog):
             prefs['color_fg'],
             prefs['color_em'],
             prefs['color_strong'],
-            prefs['color_highlight'],
+            prefs['color_notes'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
             prefs['color_button_bg'],
@@ -311,7 +338,7 @@ class OptionsDialog(ModalDialog):
             prefs['color_fg'],
             prefs['color_em'],
             prefs['color_strong'],
-            prefs['color_highlight'],
+            prefs['color_notes'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
             prefs['color_button_bg'],
@@ -326,7 +353,7 @@ class OptionsDialog(ModalDialog):
             prefs['color_fg'],
             prefs['color_em'],
             prefs['color_strong'],
-            prefs['color_highlight'],
+            prefs['color_notes'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
             prefs['color_button_bg'],
@@ -335,49 +362,64 @@ class OptionsDialog(ModalDialog):
         ) = self.COLORS_PAPER
         self._update_colors()
 
-    def _set_option_perfect(self, event=None):
+    def _set_option_perfect51(self, event=None):
         (
             prefs['color_bg'],
             prefs['color_fg'],
             prefs['color_em'],
             prefs['color_strong'],
-            prefs['color_highlight'],
+            prefs['color_notes'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
             prefs['color_button_bg'],
             prefs['color_button_fg'],
             prefs['color_shortcut'],
-        ) = self.COLORS_PERFECT
+        ) = self.COLORS_PERFECT51
         self._update_colors()
 
-    def _set_option_soft(self, event=None):
+    def _set_option_soft55(self, event=None):
         (
             prefs['color_bg'],
             prefs['color_fg'],
             prefs['color_em'],
             prefs['color_strong'],
-            prefs['color_highlight'],
+            prefs['color_notes'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
             prefs['color_button_bg'],
             prefs['color_button_fg'],
             prefs['color_shortcut'],
-        ) = self.COLORS_SOFT
+        ) = self.COLORS_SOFT55
         self._update_colors()
 
-    def _set_option_star(self, event=None):
+    def _set_option_star3(self, event=None):
         (
             prefs['color_bg'],
             prefs['color_fg'],
             prefs['color_em'],
             prefs['color_strong'],
-            prefs['color_highlight'],
+            prefs['color_notes'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
             prefs['color_button_bg'],
             prefs['color_button_fg'],
             prefs['color_shortcut'],
-        ) = self.COLORS_STAR
+        ) = self.COLORS_STAR3
+        self._update_colors()
+
+    def _set_option_star7(self, event=None):
+        (
+            prefs['color_bg'],
+            prefs['color_fg'],
+            prefs['color_em'],
+            prefs['color_strong'],
+            prefs['color_notes'],
+            prefs['color_status_bg'],
+            prefs['color_status_fg'],
+            prefs['color_button_bg'],
+            prefs['color_button_fg'],
+            prefs['color_shortcut'],
+        ) = self.COLORS_STAR7
         self._update_colors()
 
     def _set_option_white(self, event=None):
@@ -386,7 +428,7 @@ class OptionsDialog(ModalDialog):
             prefs['color_fg'],
             prefs['color_em'],
             prefs['color_strong'],
-            prefs['color_highlight'],
+            prefs['color_notes'],
             prefs['color_status_bg'],
             prefs['color_status_fg'],
             prefs['color_button_bg'],
@@ -402,7 +444,7 @@ class OptionsDialog(ModalDialog):
                 prefs['color_fg'],
                 prefs['color_em'],
                 prefs['color_strong'],
-                prefs['color_highlight'],
+                prefs['color_notes'],
                 prefs['color_status_bg'],
                 prefs['color_status_fg'],
                 prefs['color_button_bg'],

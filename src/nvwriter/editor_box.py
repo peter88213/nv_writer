@@ -74,7 +74,7 @@ class EditorBox(tk.Text):
         )
         self.tag_configure(
             T_NOTE,
-            foreground=prefs['color_highlight'],
+            foreground=prefs['color_notes'],
         )
 
         self.debug = False

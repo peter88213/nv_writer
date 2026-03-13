@@ -5,6 +5,15 @@
 ## Changelog
 
 
+### Version 0.23.0
+
+- F11 ends the writing mode.
+- Revised the color settings.
+
+API: 5.53
+Based on novelibre 5.53.0
+
+
 ### Version 0.22.4
 
 - New feature: Formatting text via keyboard shortcuts. 

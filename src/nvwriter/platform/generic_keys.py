@@ -15,7 +15,7 @@ class GenericKeys:
     CREATE_SECTION = ('<Control-n>', f'{_("Ctrl")}-N')
     CUT = ('<Control-x>', f'{_("Ctrl")}-X')
     DECREASE_SIZE = ('<Control-minus>', f'{_("Ctrl")}--')
-    ESCAPE = ('<Escape>', 'Esc')
+    END_WRITING_MODE = ('<F11>', 'F11')
     INCREASE_SIZE = ('<Control-plus>', f'{_("Ctrl")}-+')
     ITALIC = ('<Control-i>', f'{_("Ctrl")}-I')
     NEXT = ('<Control-Next>', f'{_("Ctrl")}-{_("PgDn")}')
