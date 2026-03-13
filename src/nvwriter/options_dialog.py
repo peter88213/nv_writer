@@ -18,6 +18,13 @@ from nvwriter.theme_preview import ThemePreview
 class OptionsDialog(ModalDialog):
     """A pop-up window with view preference settings."""
 
+    EGA_BLUE = '#0000AA'
+    EGA_CYAN = '#00AAAA'
+    EGA_RED = '#AA0000'
+    EGA_GRAY = '#AAAAAA'
+    EGA_BRIGHT_CYAN = '#55FFFF'
+    EGA_BRIGHT_YELLOW = '#FFFF55'
+
     COLORS_WHITE = (
         'gray20',
         'gray70',
@@ -49,32 +56,32 @@ class OptionsDialog(ModalDialog):
         'orange',
     )
     COLORS_PERFECT = (
-        'blue4',
-        'gray65',
-        'yellow',
-        'gray65',
+        EGA_BLUE,
+        EGA_GRAY,
+        EGA_BRIGHT_YELLOW,
+        EGA_GRAY,
         'black',
-        'gray65',
+        EGA_GRAY,
         'black',
         'white',
     )
     COLORS_SOFT = (
-        'blue4',
-        'gray90',
-        'cyan',
-        'turquoise4',
+        EGA_BLUE,
+        EGA_GRAY,
+        'white',
+        EGA_CYAN,
         'black',
-        'gray65',
+        EGA_GRAY,
         'black',
-        'turquoise4',
+        EGA_BRIGHT_CYAN,
     )
     COLORS_STAR = (
-        'turquoise4',
+        EGA_CYAN,
         'black',
-        'cyan',
+        EGA_BRIGHT_CYAN,
         'black',
-        'cyan',
-        'red4',
+        EGA_BRIGHT_CYAN,
+        EGA_RED,
         'white',
         'white',
     )
