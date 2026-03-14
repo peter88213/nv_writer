@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.23.0\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-03-13 23:03:54\n"
+"PO-Revision-Date: 2026-03-14 11:57:07\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,9 @@ msgstr "Befehl"
 
 msgid "Comment"
 msgstr "Kommentar"
+
+msgid "Contrast"
+msgstr "Kontrast"
 
 msgid "Count words"
 msgstr "Wörter zählen"

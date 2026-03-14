@@ -66,7 +66,7 @@ class OptionsDialog(ModalDialog):
             color_button_fg='gray20',
             color_shortcut='orange',
         ),
-        _('Contrast1'): dict(
+        f"{_('Contrast')} 1": dict(
             color_bg='black',
             color_fg='white',
             color_em='white',
@@ -78,7 +78,7 @@ class OptionsDialog(ModalDialog):
             color_button_fg='black',
             color_shortcut='white',
         ),
-        _('Contrast2'): dict(
+        f"{_('Contrast')} 2": dict(
             color_bg='white',
             color_fg='black',
             color_em='black',

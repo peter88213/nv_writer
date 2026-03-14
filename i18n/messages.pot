@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.23.0\n"
-"POT-Creation-Date: 2026-03-13 23:03:54\n"
+"POT-Creation-Date: 2026-03-14 11:57:27\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -51,6 +51,9 @@ msgid "Command"
 msgstr ""
 
 msgid "Comment"
+msgstr ""
+
+msgid "Contrast"
 msgstr ""
 
 msgid "Count words"
