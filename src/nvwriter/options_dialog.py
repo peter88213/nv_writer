@@ -10,9 +10,9 @@ from nvlib.gui.widgets.modal_dialog import ModalDialog
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
+from nvwriter.theme_preview import ThemePreview
 from nvwriter.writer_locale import _
 import tkinter as tk
-from nvwriter.theme_preview import ThemePreview
 
 
 class OptionsDialog(ModalDialog):
@@ -29,112 +29,128 @@ class OptionsDialog(ModalDialog):
     EGA_BRIGHT_YELLOW = '#FFFF55'
     CRT_BG = 'gray15'
 
-    COLORS_WHITE = (
-        CRT_BG,
-        'gray70',
-        'gray85',
-        'gray85',
-        'red',
-        'gray70',
-        'gray20',
-        'gray70',
-        'gray20',
-        'white',
-    )
-    COLORS_GREEN = (
-        CRT_BG,
-        'green3',
-        'green2',
-        'green2',
-        'yellow',
-        'green3',
-        'gray20',
-        'green3',
-        'gray20',
-        'green2',
-    )
-    COLORS_AMBER = (
-        CRT_BG,
-        'orange2',
-        'orange',
-        'orange',
-        'yellow',
-        'orange2',
-        'gray20',
-        'orange2',
-        'gray20',
-        'orange',
-    )
-    COLORS_PERFECT51 = (
-        EGA_BLUE,
-        EGA_GRAY,
-        EGA_BRIGHT_YELLOW,
-        'white',
-        EGA_BRIGHT_RED,
-        EGA_GRAY,
-        'black',
-        EGA_GRAY,
-        'black',
-        'white',
-    )
-    COLORS_SOFT55 = (
-        EGA_BLUE,
-        EGA_GRAY,
-        EGA_BRIGHT_CYAN,
-        'white',
-        EGA_BRIGHT_RED,
-        EGA_CYAN,
-        'black',
-        EGA_GRAY,
-        'black',
-        EGA_BRIGHT_CYAN,
-    )
-    COLORS_STAR3 = (
-        EGA_CYAN,
-        'black',
-        EGA_BRIGHT_CYAN,
-        EGA_BRIGHT_CYAN,
-        EGA_BRIGHT_RED,
-        'black',
-        EGA_BRIGHT_CYAN,
-        EGA_RED,
-        'white',
-        'white',
-    )
-    COLORS_STAR7 = (
-        CRT_BG,
-        EGA_CYAN,
-        EGA_GRAY,
-        EGA_GRAY,
-        EGA_BRIGHT_RED,
-        EGA_GREEN,
-        'black',
-        EGA_BRIGHT_CYAN,
-        'black',
-        EGA_BRIGHT_CYAN,
-    )
-    COLORS_PAPER = (
-        'floral white',
-        'gray30',
-        'gray30',
-        'black',
-        'red',
-        'gray60',
-        'floral white',
-        'gray60',
-        'floral white',
-        'gray60',
-    )
-    # background,
-    # foreground,
-    # emphasis,
-    # strong emphasis,
-    # notes,
-    # status background,
-    # status foreground,
-    # button background,
-    # button foreground,
-    # shortcut foreground,
+    THEMES = {
+        _('White'): dict(
+            color_bg=CRT_BG,
+            color_fg='gray70',
+            color_em='gray85',
+            color_strong='gray85',
+            color_notes='red',
+            color_status_bg='gray70',
+            color_status_fg='gray20',
+            color_button_bg='gray70',
+            color_button_fg='gray20',
+            color_shortcut='white',
+        ),
+        _('Green'): dict(
+            color_bg=CRT_BG,
+            color_fg='green3',
+            color_em='green2',
+            color_strong='green2',
+            color_notes='yellow',
+            color_status_bg='green3',
+            color_status_fg='gray20',
+            color_button_bg='green3',
+            color_button_fg='gray20',
+            color_shortcut='green2',
+        ),
+        _('Amber'): dict(
+            color_bg=CRT_BG,
+            color_fg='orange2',
+            color_em='orange',
+            color_strong='orange',
+            color_notes='yellow',
+            color_status_bg='orange2',
+            color_status_fg='gray20',
+            color_button_bg='orange2',
+            color_button_fg='gray20',
+            color_shortcut='orange',
+        ),
+        _('Contrast1'): dict(
+            color_bg='black',
+            color_fg='white',
+            color_em='white',
+            color_strong='white',
+            color_notes='white',
+            color_status_bg='white',
+            color_status_fg='black',
+            color_button_bg='white',
+            color_button_fg='black',
+            color_shortcut='white',
+        ),
+        _('Contrast2'): dict(
+            color_bg='white',
+            color_fg='black',
+            color_em='black',
+            color_strong='black',
+            color_notes='black',
+            color_status_bg='black',
+            color_status_fg='white',
+            color_button_bg='black',
+            color_button_fg='white',
+            color_shortcut='black',
+        ),
+        _('Paper'): dict(
+            color_bg='floral white',
+            color_fg='gray30',
+            color_em='gray30',
+            color_strong='black',
+            color_notes='red',
+            color_status_bg='gray60',
+            color_status_fg='floral white',
+            color_button_bg='gray60',
+            color_button_fg='floral white',
+            color_shortcut='gray60',
+        ),
+        'Perfect5': dict(
+            color_bg=EGA_BLUE,
+            color_fg=EGA_GRAY,
+            color_em=EGA_BRIGHT_YELLOW,
+            color_strong='white',
+            color_notes=EGA_BRIGHT_RED,
+            color_status_bg=EGA_GRAY,
+            color_status_fg='black',
+            color_button_bg=EGA_GRAY,
+            color_button_fg='black',
+            color_shortcut='white',
+        ),
+        'Soft5': dict(
+            color_bg=EGA_BLUE,
+            color_fg=EGA_GRAY,
+            color_em=EGA_BRIGHT_CYAN,
+            color_strong='white',
+            color_notes=EGA_BRIGHT_RED,
+            color_status_bg=EGA_CYAN,
+            color_status_fg='black',
+            color_button_bg=EGA_GRAY,
+            color_button_fg='black',
+            color_shortcut=EGA_BRIGHT_CYAN,
+        ),
+        'Star3': dict(
+            color_bg=EGA_CYAN,
+            color_fg='black',
+            color_em=EGA_BRIGHT_CYAN,
+            color_strong=EGA_BRIGHT_CYAN,
+            color_notes=EGA_BRIGHT_RED,
+            color_status_bg='black',
+            color_status_fg=EGA_BRIGHT_CYAN,
+            color_button_bg=EGA_RED,
+            color_button_fg='white',
+            color_shortcut='white',
+        ),
+        'Star7': dict(
+            color_bg=CRT_BG,
+            color_fg=EGA_CYAN,
+            color_em=EGA_GRAY,
+            color_strong=EGA_GRAY,
+            color_notes=EGA_BRIGHT_RED,
+            color_status_bg=EGA_GREEN,
+            color_status_fg='black',
+            color_button_bg=EGA_BRIGHT_CYAN,
+            color_button_fg='black',
+            color_shortcut=EGA_BRIGHT_CYAN,
+        ),
+    }
 
     def __init__(self, view, icon, **kw):
         super().__init__(view, **kw)
@@ -167,7 +183,10 @@ class OptionsDialog(ModalDialog):
             command=self._change_ask_for_confirmation,
         ).pack(padx=5, pady=5, anchor='w',)
 
-        ttk.Separator(optionsFrame, orient='vertical').pack(fill='y', side='left',)
+        ttk.Separator(
+            optionsFrame,
+            orient='vertical'
+        ).pack(fill='y', side='left',)
 
         #--- Checkbox for live word count.
         liveFrame = ttk.Frame(optionsFrame)
@@ -187,104 +206,46 @@ class OptionsDialog(ModalDialog):
             command=self._change_live_wc,
         ).pack(padx=5, pady=5, anchor='w',)
 
-        ttk.Separator(optionsFrame, orient='vertical').pack(fill='y', side='left',)
+        ttk.Separator(
+            optionsFrame,
+            orient='vertical'
+        ).pack(fill='y', side='left',)
 
         #--- Color mode settings.
         ttk.Separator(
             window,
             orient='horizontal',
         ).pack(fill='x')
-        themesFrame0 = ttk.Frame(window)
-        themesFrame0.pack(fill='both')
-        themesFrame1 = ttk.Frame(window)
-        themesFrame1.pack(fill='both')
-        themesFrame2 = ttk.Frame(window)
-        themesFrame2.pack(fill='both')
 
+        # Show current setting.
+        currentSettingsFrame = ttk.Frame(window)
+        currentSettingsFrame.pack(fill='both')
         ttk.Label(
-            themesFrame0,
+            currentSettingsFrame,
             text=_('Color sets'),
         ).pack(padx=5, pady=5, anchor='w')
-
-        #--- Show current setting.
-        self._currentSettingPreview = ThemePreview(themesFrame0)
+        self._currentSettingPreview = ThemePreview(currentSettingsFrame)
         ttk.Label(
             self._currentSettingPreview,
             text=_('Current setting'),
         ).pack(pady=5)
         self._update_colors()
 
-        #--- "White" option.
-        optionWhitePreview = ThemePreview(themesFrame1)
-        optionWhitePreview.configure_display(self.COLORS_WHITE)
-        ttk.Button(
-            optionWhitePreview,
-            text=_('White'),
-            command=self._set_option_white
-        ).pack(pady=5)
+        # Show theme previews.
+        themesPerFrame = 5
+        themeFrames = []
+        for __ in range((len(self.THEMES) + 1) // themesPerFrame):
+            themeFrames.append(ttk.Frame(window))
+            themeFrames[-1].pack(fill='both')
 
-        #--- "Green" option.
-        optionGreenPreview = ThemePreview(themesFrame1)
-        optionGreenPreview.configure_display(self.COLORS_GREEN)
-        ttk.Button(
-            optionGreenPreview,
-            text=_('Green'),
-            command=self._set_option_green
-        ).pack(pady=5)
-
-        #--- "Amber" option.
-        optionAmberPreview = ThemePreview(themesFrame1)
-        optionAmberPreview.configure_display(self.COLORS_AMBER)
-        ttk.Button(
-            optionAmberPreview,
-            text=_('Amber'),
-            command=self._set_option_amber
-        ).pack(pady=5)
-
-        #--- "Paper" option.
-        optionPaperPreview = ThemePreview(themesFrame1)
-        optionPaperPreview.configure_display(self.COLORS_PAPER)
-        ttk.Button(
-            optionPaperPreview,
-            text=_('Paper'),
-            command=self._set_option_paper
-        ).pack(pady=5)
-
-        #--- "Perfect51" option.
-        optionBluePreview = ThemePreview(themesFrame2)
-        optionBluePreview.configure_display(self.COLORS_PERFECT51)
-        ttk.Button(
-            optionBluePreview,
-            text='Perfect51',
-            command=self._set_option_perfect51
-        ).pack(pady=5)
-
-        #--- "Soft55" option.
-        optionBluePreview = ThemePreview(themesFrame2)
-        optionBluePreview.configure_display(self.COLORS_SOFT55)
-        ttk.Button(
-            optionBluePreview,
-            text='Soft55',
-            command=self._set_option_soft55
-        ).pack(pady=5)
-
-        #--- "Star3" option.
-        optionStar3Preview = ThemePreview(themesFrame2)
-        optionStar3Preview.configure_display(self.COLORS_STAR3)
-        ttk.Button(
-            optionStar3Preview,
-            text='Star3',
-            command=self._set_option_star3
-        ).pack(pady=5)
-
-        #--- "Star7" option.
-        optionStar7Preview = ThemePreview(themesFrame2)
-        optionStar7Preview.configure_display(self.COLORS_STAR7)
-        ttk.Button(
-            optionStar7Preview,
-            text='Star7',
-            command=self._set_option_star7
-        ).pack(pady=5)
+        for i, theme in enumerate(self.THEMES):
+            preview = ThemePreview(themeFrames[i // themesPerFrame])
+            preview.configure_display(self.THEMES[theme])
+            ttk.Button(
+                preview,
+                text=theme,
+                command=lambda t=theme: self._set_option(t)
+            ).pack(pady=5)
 
         ttk.Separator(self, orient='horizontal').pack(fill='x')
 
@@ -317,139 +278,24 @@ class OptionsDialog(ModalDialog):
     def _open_help(self, event=None):
         NvwriterHelp.open_help_page('options.html')
 
-    def _set_option_amber(self, event=None):
-        (
-            prefs['color_bg'],
-            prefs['color_fg'],
-            prefs['color_em'],
-            prefs['color_strong'],
-            prefs['color_notes'],
-            prefs['color_status_bg'],
-            prefs['color_status_fg'],
-            prefs['color_button_bg'],
-            prefs['color_button_fg'],
-            prefs['color_shortcut'],
-        ) = self.COLORS_AMBER
-        self._update_colors()
-
-    def _set_option_green(self, event=None):
-        (
-            prefs['color_bg'],
-            prefs['color_fg'],
-            prefs['color_em'],
-            prefs['color_strong'],
-            prefs['color_notes'],
-            prefs['color_status_bg'],
-            prefs['color_status_fg'],
-            prefs['color_button_bg'],
-            prefs['color_button_fg'],
-            prefs['color_shortcut'],
-        ) = self.COLORS_GREEN
-        self._update_colors()
-
-    def _set_option_paper(self, event=None):
-        (
-            prefs['color_bg'],
-            prefs['color_fg'],
-            prefs['color_em'],
-            prefs['color_strong'],
-            prefs['color_notes'],
-            prefs['color_status_bg'],
-            prefs['color_status_fg'],
-            prefs['color_button_bg'],
-            prefs['color_button_fg'],
-            prefs['color_shortcut'],
-        ) = self.COLORS_PAPER
-        self._update_colors()
-
-    def _set_option_perfect51(self, event=None):
-        (
-            prefs['color_bg'],
-            prefs['color_fg'],
-            prefs['color_em'],
-            prefs['color_strong'],
-            prefs['color_notes'],
-            prefs['color_status_bg'],
-            prefs['color_status_fg'],
-            prefs['color_button_bg'],
-            prefs['color_button_fg'],
-            prefs['color_shortcut'],
-        ) = self.COLORS_PERFECT51
-        self._update_colors()
-
-    def _set_option_soft55(self, event=None):
-        (
-            prefs['color_bg'],
-            prefs['color_fg'],
-            prefs['color_em'],
-            prefs['color_strong'],
-            prefs['color_notes'],
-            prefs['color_status_bg'],
-            prefs['color_status_fg'],
-            prefs['color_button_bg'],
-            prefs['color_button_fg'],
-            prefs['color_shortcut'],
-        ) = self.COLORS_SOFT55
-        self._update_colors()
-
-    def _set_option_star3(self, event=None):
-        (
-            prefs['color_bg'],
-            prefs['color_fg'],
-            prefs['color_em'],
-            prefs['color_strong'],
-            prefs['color_notes'],
-            prefs['color_status_bg'],
-            prefs['color_status_fg'],
-            prefs['color_button_bg'],
-            prefs['color_button_fg'],
-            prefs['color_shortcut'],
-        ) = self.COLORS_STAR3
-        self._update_colors()
-
-    def _set_option_star7(self, event=None):
-        (
-            prefs['color_bg'],
-            prefs['color_fg'],
-            prefs['color_em'],
-            prefs['color_strong'],
-            prefs['color_notes'],
-            prefs['color_status_bg'],
-            prefs['color_status_fg'],
-            prefs['color_button_bg'],
-            prefs['color_button_fg'],
-            prefs['color_shortcut'],
-        ) = self.COLORS_STAR7
-        self._update_colors()
-
-    def _set_option_white(self, event=None):
-        (
-            prefs['color_bg'],
-            prefs['color_fg'],
-            prefs['color_em'],
-            prefs['color_strong'],
-            prefs['color_notes'],
-            prefs['color_status_bg'],
-            prefs['color_status_fg'],
-            prefs['color_button_bg'],
-            prefs['color_button_fg'],
-            prefs['color_shortcut'],
-        ) = self.COLORS_WHITE
+    def _set_option(self, theme):
+        for color in self.THEMES[theme]:
+            prefs[color] = self.THEMES[theme][color]
         self._update_colors()
 
     def _update_colors(self):
         self._currentSettingPreview.configure_display(
-            (
-                prefs['color_bg'],
-                prefs['color_fg'],
-                prefs['color_em'],
-                prefs['color_strong'],
-                prefs['color_notes'],
-                prefs['color_status_bg'],
-                prefs['color_status_fg'],
-                prefs['color_button_bg'],
-                prefs['color_button_fg'],
-                prefs['color_shortcut'],
+            dict(
+                color_bg=prefs['color_bg'],
+                color_fg=prefs['color_fg'],
+                color_em=prefs['color_em'],
+                color_strong=prefs['color_strong'],
+                color_notes=prefs['color_notes'],
+                color_status_bg=prefs['color_status_bg'],
+                color_status_fg=prefs['color_status_fg'],
+                color_button_bg=prefs['color_button_bg'],
+                color_button_fg=prefs['color_button_fg'],
+                color_shortcut=prefs['color_shortcut'],
             )
         )
 

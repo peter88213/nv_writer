@@ -107,49 +107,37 @@ class ThemePreview(ttk.Frame):
         )
 
     def configure_display(self, colors):
-        (
-            colorBg,
-            colorFg,
-            colorEm,
-            colorStrong,
-            colorNotes,
-            colorStatusBg,
-            colorStatusFg,
-            colorButtonBg,
-            colorButtonFg,
-            colorShortcut,
-        ) = colors
         self._textFrame.configure(
-            bg=colorBg,
+            bg=colors['color_bg'],
         )
         self._statusBar.configure(
-            fg=colorStatusFg,
-            bg=colorStatusBg,
+            fg=colors['color_status_fg'],
+            bg=colors['color_status_bg'],
         )
         self._regularText.configure(
-            fg=colorFg,
-            bg=colorBg,
+            fg=colors['color_fg'],
+            bg=colors['color_bg'],
         )
         self._emphasizedText.configure(
-            fg=colorEm,
-            bg=colorBg,
+            fg=colors['color_em'],
+            bg=colors['color_bg'],
         )
         self._strongText.configure(
-            fg=colorStrong,
-            bg=colorBg,
+            fg=colors['color_strong'],
+            bg=colors['color_bg'],
         )
         self._invertedText.configure(
-            fg=colorBg,
-            bg=colorFg,
+            fg=colors['color_bg'],
+            bg=colors['color_fg'],
         )
         self._footer.configure(
-            bg=colorBg,
+            bg=colors['color_bg'],
         )
         self._button.configure(
-            fg=colorButtonFg,
-            bg=colorButtonBg,
+            fg=colors['color_button_fg'],
+            bg=colors['color_button_bg'],
         )
         self._shortcut.configure(
-            fg=colorShortcut,
-            bg=colorBg,
+            fg=colors['color_shortcut'],
+            bg=colors['color_bg'],
         )
