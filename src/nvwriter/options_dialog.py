@@ -18,6 +18,13 @@ import tkinter as tk
 class OptionsDialog(ModalDialog):
     """A pop-up window with view preference settings."""
 
+    CRT_BG = 'gray15'
+    CRT_WHITE_LO = 'gray70'
+    CRT_WHITE_HI = 'gray85'
+    CRT_GREEN_LO = 'green3'
+    CRT_GREEN_HI = 'green2'
+    CRT_AMBER_LO = 'orange2'
+    CRT_AMBER_HI = 'orange'
     EGA_BLUE = '#0000AA'
     EGA_CYAN = '#00AAAA'
     EGA_RED = '#AA0000'
@@ -27,44 +34,43 @@ class OptionsDialog(ModalDialog):
     EGA_BRIGHT_CYAN = '#55FFFF'
     EGA_BRIGHT_RED = '#FF5555'
     EGA_BRIGHT_YELLOW = '#FFFF55'
-    CRT_BG = 'gray15'
 
     THEMES = {
         _('White'): dict(
             color_bg=CRT_BG,
-            color_fg='gray70',
-            color_em='gray85',
-            color_strong='gray85',
+            color_fg=CRT_WHITE_LO,
+            color_em=CRT_WHITE_HI,
+            color_strong=CRT_WHITE_HI,
             color_notes='red',
-            color_status_bg='gray70',
-            color_status_fg='gray20',
-            color_button_bg='gray70',
-            color_button_fg='gray20',
-            color_shortcut='white',
+            color_status_bg=CRT_WHITE_LO,
+            color_status_fg=CRT_BG,
+            color_button_bg=CRT_WHITE_LO,
+            color_button_fg=CRT_BG,
+            color_shortcut=CRT_WHITE_HI,
         ),
         _('Green'): dict(
             color_bg=CRT_BG,
-            color_fg='green3',
-            color_em='green2',
-            color_strong='green2',
+            color_fg=CRT_GREEN_LO,
+            color_em=CRT_GREEN_HI,
+            color_strong=CRT_GREEN_HI,
             color_notes='yellow',
-            color_status_bg='green3',
-            color_status_fg='gray20',
-            color_button_bg='green3',
-            color_button_fg='gray20',
-            color_shortcut='green2',
+            color_status_bg=CRT_GREEN_LO,
+            color_status_fg=CRT_BG,
+            color_button_bg=CRT_GREEN_LO,
+            color_button_fg=CRT_BG,
+            color_shortcut=CRT_GREEN_HI,
         ),
         _('Amber'): dict(
             color_bg=CRT_BG,
-            color_fg='orange2',
-            color_em='orange',
-            color_strong='orange',
+            color_fg=CRT_AMBER_LO,
+            color_em=CRT_AMBER_HI,
+            color_strong=CRT_AMBER_HI,
             color_notes='yellow',
-            color_status_bg='orange2',
-            color_status_fg='gray20',
-            color_button_bg='orange2',
-            color_button_fg='gray20',
-            color_shortcut='orange',
+            color_status_bg=CRT_AMBER_LO,
+            color_status_fg=CRT_BG,
+            color_button_bg=CRT_AMBER_LO,
+            color_button_fg=CRT_BG,
+            color_shortcut=CRT_AMBER_HI,
         ),
         f"{_('Contrast')} 1": dict(
             color_bg='black',
