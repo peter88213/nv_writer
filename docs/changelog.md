@@ -5,6 +5,16 @@
 ## Changelog
 
 
+### Version 0.24.0
+
+- Added high contrast color modes.
+- Fine tuned the CRT color modes.
+- Refactored the color mode setting.
+
+API: 5.53
+Based on novelibre 5.53.0
+
+
 ### Version 0.23.0
 
 - F11 ends the writing mode.
