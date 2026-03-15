@@ -43,6 +43,8 @@ class WriterView(ModalDialog):
         self._focus_app_window(False)
         super().__init__(view, bg=prefs['color_desktop'])
 
+        self._contentSplitter = self._mdl.nvService.new_content_splitter()
+
         self._section = None
         self._scId = None
         self.wordCounter = self._mdl.nvService.get_word_counter()
@@ -232,7 +234,7 @@ class WriterView(ModalDialog):
         sectionText = self._get_edited_section_content()
         if sectionText or self._section.sectionContent:
             if self._section.sectionContent != sectionText:
-                self._section.sectionContent = sectionText
+                self._write_section_content(sectionText)
 
     def _apply_changes_after_asking(self, event=None):
         """Transfer the editor content to the project, if modified. Ask first."""
@@ -247,7 +249,7 @@ class WriterView(ModalDialog):
                     return False
 
                 if result:
-                    self._section.sectionContent = sectionText
+                    self._write_section_content(sectionText)
         return True
 
     def _confirm(self, message):
@@ -582,4 +584,9 @@ class WriterView(ModalDialog):
                 self._freeze_wordcount()
         else:
             self._reset_modified_flag()
+
+    def _write_section_content(self, sectionText):
+        self._section.sectionContent = sectionText
+        if self._contentSplitter.split_sections(self._mdl.novel):
+            self._load_section(self._scId)
 
