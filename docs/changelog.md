@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 0.24.1
+
+- Highlighting the "Notes" marker in the high-contrast color sets. 
+
+API: 5.53
+Based on novelibre 5.53.3
+
+
 ### Version 0.24.0
 
 - Added high contrast color modes.
