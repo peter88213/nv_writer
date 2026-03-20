@@ -1,7 +1,7 @@
 """Provide a widget for a status bar.
 
 Copyright (c) Peter Triesberger
-For further information see https://github.com/peter88213/nv_vriter
+For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 import textwrap
@@ -16,7 +16,6 @@ class StatusBar(tk.Frame):
     def __init__(self, parent, model, **kw):
         super().__init__(
             parent,
-
             **kw,
         )
         self._mdl = model

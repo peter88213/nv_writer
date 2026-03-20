@@ -12,6 +12,7 @@ from nvlib.gui.widgets.modal_dialog import ModalDialog
 from nvlib.novx_globals import CH_ROOT
 from nvwriter.editor_box import EditorBox
 from nvwriter.footer_bar import FooterBar
+from nvwriter.help_screen import HelpScreen
 from nvwriter.nvwriter_globals import DEFAULT_HEIGHT
 from nvwriter.nvwriter_globals import FEATURE
 from nvwriter.nvwriter_globals import PRJ_CONFIG_FILE
@@ -67,6 +68,13 @@ class WriterView(ModalDialog):
         self._statusBar = StatusBar(self._editorWindow, self._mdl)
         self._statusBar.set_font(scale)
         self._statusBar.pack(fill='x')
+
+        #--- Add a help window to the editor window.
+        self._helpScreen = HelpScreen(
+            self._editorWindow,
+        )
+        self._helpScreen.set_font(scale)
+        self._helpScreen.pack(fill='x')
 
         #--- Add a text editor with scrollbar to the editor window.
 
@@ -125,7 +133,8 @@ class WriterView(ModalDialog):
             (KEYS.BOLD, self._strong_emphasis),
             (KEYS.PLAIN, self._plain),
             (KEYS.SAVE, self._save_project),
-            (KEYS.TOGGLE_FOOTER_BAR, self._toggle_display)
+            (KEYS.TOGGLE_FOOTER_BAR, self._toggle_display),
+            (KEYS.TOGGLE_HELP, self._toggle_help),
         ]
         if PLATFORM == 'ix':
             # the keys on the numeric keypad must be explicitly assigned
@@ -362,6 +371,11 @@ class WriterView(ModalDialog):
                 break
         return result
 
+    def _hide_help_screen(self, event=None):
+        self._helpScreen.pack_forget()
+        prefs['show_help_screen'] = False
+        return 'break'
+
     def _hide_footer_bar(self, event=None):
         self._footerBar.pack_forget()
         prefs['show_footer_bar'] = False
@@ -445,6 +459,7 @@ class WriterView(ModalDialog):
 
     def _open_help(self, event=None):
         NvwriterHelp.open_help_page('operation.html')
+        return 'break'
 
     def _plain(self, event=None):
         if self._sectionEditor.plain():
@@ -456,6 +471,7 @@ class WriterView(ModalDialog):
         height, width = RESOLUTIONS[resolutionIndex]
         scale = height / DEFAULT_HEIGHT
         self._statusBar.set_font(scale)
+        self._helpScreen.set_font(scale)
         self._footerBar.set_font(scale)
         self._editorWindow.configure(
             height=height,
@@ -495,6 +511,14 @@ class WriterView(ModalDialog):
         else:
             self.unbind('<KeyRelease>')
             self.bind('<space>', self._freeze_wordcount)
+
+    def _show_help_screen(self, event=None):
+        if self._sectionEditor.winfo_manager():
+            self._sectionEditor.pack_forget()
+        self._helpScreen.pack(fill='x', side='top')
+        self._sectionEditor.pack(fill='both', expand=True)
+        prefs['show_help_screen'] = True
+        return 'break'
 
     def _show_footer_bar(self, event=None):
         if self._sectionEditor.winfo_manager():
@@ -564,6 +588,13 @@ class WriterView(ModalDialog):
     def _strong_emphasis(self, event=None):
         if self._sectionEditor.strong_emphasis():
             self._statusBar.set_modified(True)
+        return 'break'
+
+    def _toggle_help(self, event=None):
+        if self._helpScreen.winfo_manager():
+            self._hide_help_screen()
+        else:
+            self._show_help_screen()
         return 'break'
 
     def _toggle_display(self, event=None):

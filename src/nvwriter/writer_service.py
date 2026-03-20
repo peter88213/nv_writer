@@ -42,9 +42,10 @@ class WriterService(SubController):
         resolution_index=1,
     )
     OPTIONS = dict(
+        ask_for_confirmation=True,
         live_wordcount=False,
         show_footer_bar=True,
-        ask_for_confirmation=True,
+        show_help_screen=True,
     )
 
     def __init__(self, model, view, controller):

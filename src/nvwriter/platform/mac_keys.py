@@ -17,6 +17,7 @@ class MacKeys(GenericKeys):
     INCREASE_SIZE = ('<Command-plus>', 'Cmd-+')
     ITALIC = ('<Command-i>', 'Cmd-I')
     NEXT = ('<Command-Next>', f'Cmd-{_("PgDn")}')
+    OPEN_HELP = ('<Command-F1>', 'Cmd-F1')
     PLAIN = ('<Command-m>', 'Cmd-M')
     PREVIOUS = ('<Command-Prior>', f'Cmd-{_("PgUp")}')
     QUIT_PROGRAM = ('<Command-q>', 'Cmd-Q')
