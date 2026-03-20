@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 0.24.2
+
+- Changed the color of the "Notes" marker in the "Star3" color set. 
+
+API: 5.53
+Based on novelibre 5.53.4
+
+
 ### Version 0.24.1
 
 - Highlighting the "Notes" marker in the high-contrast color sets. 

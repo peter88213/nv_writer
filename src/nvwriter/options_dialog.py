@@ -137,7 +137,7 @@ class OptionsDialog(ModalDialog):
             color_fg='black',
             color_em=EGA_BRIGHT_CYAN,
             color_strong=EGA_BRIGHT_CYAN,
-            color_notes=EGA_BRIGHT_RED,
+            color_notes='white',
             color_status_bg='black',
             color_status_fg=EGA_BRIGHT_CYAN,
             color_button_bg=EGA_RED,
