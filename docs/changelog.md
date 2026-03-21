@@ -5,6 +5,17 @@
 ## Changelog
 
 
+### Version 5.0.0
+
+- Providing a help screen like WordStar.
+- Changed the "Online help" key binding.
+- Updated color sets for optimized help display.
+- Refactored the code for better maintainability.
+
+API: 5.53
+Based on novelibre 5.53.4
+
+
 ### Version 0.24.2
 
 - Changed the color of the "Notes" marker in the "Star3" color set. 

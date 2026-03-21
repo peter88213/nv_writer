@@ -29,13 +29,17 @@ You can adjust the size of the editor window to fill high-resolution notebook sc
 
 ![Screenshot](docs/Screenshots/screen04.png)
 
+The most essential keyboard shortcuts can be viewed on a help screen.
+
+![Screenshot](docs/Screenshots/screen05.png)
+
 
 ## Features
 
 - Full screen mode with an editor window that resembles a 14" monochrome or EGA monitor as used with the early PCs.
 - A simple, mainly keyboard-operated text editor box without spell checker and search capability.
 - A basic function menu can be folded in at the bottom via `F3`.
-- Online help can be called up via `F1`.
+- Help can be called up via `F1`.
 - Emphasized text is displayed slanted, strongly emphasized text is displayed in bold. 
 - The word count is displayed for the currently loaded section. Both the total word count and the change made during the current session are shown. 
 - The application is ready for internationalization with GNU gettext. A German localization is provided. 
@@ -47,15 +51,6 @@ You can adjust the size of the editor window to fill high-resolution notebook sc
     - Create a new section after the current one.
     - Split the section at the cursor position.
     - Switch to the next or previous section.
-
-> [!CAUTION]
-> This is a beta version intended for testing purposes. 
-> Please check the results with *OpenOffice/LibreOffice Writer*, and report any issues if something seems strange. 
-> 
-> Since this plugin is currently under testing and development, updates may be provided frequently.
-> Consider installing the [nv_updater](https://github.com/peter88213/nv_updater/) update checker and running it from time to time. 
->
-> Feel free to share your thoughts in the [novelibre discussion forum](https://github.com/peter88213/novelibre/discussions). 
 
 
 ## Requirements

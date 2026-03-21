@@ -1,4 +1,4 @@
-[![Download the latest release](docs/img/download-button.png)](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.24.2.pyz)
+[![Download the latest release](docs/img/download-button.png)](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v5.0.0.pyz)
 [![Changelog](docs/img/changelog-button.png)](docs/changelog.md)
 [![News/Feedback](docs/img/news-button.png)](https://github.com/peter88213/novelibre/discussions)
 [![Online help](docs/img/help-button.png)](https://peter88213.github.io/nvhelp-en/nv_writer/)
@@ -29,13 +29,17 @@ You can adjust the size of the editor window to fill high-resolution notebook sc
 
 ![Screenshot](docs/Screenshots/screen04.png)
 
+The most essential keyboard shortcuts can be viewed on a help screen.
+
+![Screenshot](docs/Screenshots/screen05.png)
+
 
 ## Features
 
 - Full screen mode with an editor window that resembles a 14" monochrome or EGA monitor as used with the early PCs.
 - A simple, mainly keyboard-operated text editor box without spell checker and search capability.
 - A basic function menu can be folded in at the bottom via `F3`.
-- Online help can be called up via `F1`.
+- Help can be called up via `F1`.
 - Emphasized text is displayed slanted, strongly emphasized text is displayed in bold. 
 - The word count is displayed for the currently loaded section. Both the total word count and the change made during the current session are shown. 
 - The application is ready for internationalization with GNU gettext. A German localization is provided. 
@@ -48,15 +52,6 @@ You can adjust the size of the editor window to fill high-resolution notebook sc
     - Split the section at the cursor position.
     - Switch to the next or previous section.
 
-> [!CAUTION]
-> This is a beta version intended for testing purposes. 
-> Please check the results with *OpenOffice/LibreOffice Writer*, and report any issues if something seems strange. 
-> 
-> Since this plugin is currently under testing and development, updates may be provided frequently.
-> Consider installing the [nv_updater](https://github.com/peter88213/nv_updater/) update checker and running it from time to time. 
->
-> Feel free to share your thoughts in the [novelibre discussion forum](https://github.com/peter88213/novelibre/discussions). 
-
 
 ## Requirements
 
@@ -66,10 +61,10 @@ You can adjust the size of the editor window to fill high-resolution notebook sc
 
 ### Default: Executable Python zip archive
 
-Download the latest release [nv_writer_v0.24.2.pyz](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.24.2.pyz)
+Download the latest release [nv_writer_v5.0.0.pyz](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v5.0.0.pyz)
 
-- Launch *nv_writer_v0.24.2.pyz* by double-clicking (Windows desktop),
-- or execute `python nv_writer_v0.24.2.pyz` (Windows), resp. `python3 nv_writer_v0.24.2.pyz` (Linux) on the command line.
+- Launch *nv_writer_v5.0.0.pyz* by double-clicking (Windows desktop),
+- or execute `python nv_writer_v5.0.0.pyz` (Windows), resp. `python3 nv_writer_v5.0.0.pyz` (Linux) on the command line.
 
 > [!IMPORTANT]
 > Many web browsers recognize the download as an executable file and offer to open it immediately. 
@@ -84,9 +79,9 @@ Download the latest release [nv_writer_v0.24.2.pyz](https://github.com/peter8821
 
 ### Alternative: Zip file
 
-The package is also available in zip format: [nv_writer_v0.24.2.zip](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v0.24.2.zip)
+The package is also available in zip format: [nv_writer_v5.0.0.zip](https://github.com/peter88213/nv_writer/raw/main/dist/nv_writer_v5.0.0.zip)
 
-- Extract the *nv_writer_v0.24.2* folder from the downloaded zipfile "nv_writer_v0.24.2.zip".
+- Extract the *nv_writer_v5.0.0* folder from the downloaded zipfile "nv_writer_v5.0.0.zip".
 - Move into this new folder and launch *setup.py* by double-clicking (Windows/Linux desktop), 
 - or execute `python setup.py` (Windows), resp. `python3 setup.py` (Linux) on the command line.
 

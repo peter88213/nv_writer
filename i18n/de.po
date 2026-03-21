@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.24.2\n"
+"Project-Id-Version: 5.0.0\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-03-21 15:40:39\n"
+"PO-Revision-Date: 2026-03-21 17:05:40\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -75,8 +75,6 @@ msgstr "Zeichen links löschen"
 
 msgid "Delete character right"
 msgstr "Zeichen rechts löschen"
-msgid "Open new line"
-msgstr "Neue Zeile öffnen"
 
 msgid "Delete to end of line"
 msgstr "Löschen bis Zeilenende"
@@ -155,6 +153,9 @@ msgstr "Vor"
 
 msgid "Online help"
 msgstr "Online-Hilfe"
+
+msgid "Open new line"
+msgstr "Neue Zeile öffnen"
 
 msgid "Opening"
 msgstr "Eröffnung"
