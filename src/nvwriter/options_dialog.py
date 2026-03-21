@@ -106,7 +106,7 @@ class OptionsDialog(ModalDialog):
             color_status_fg='floral white',
             color_button_bg='gray60',
             color_button_fg='floral white',
-            color_shortcut='gray60',
+            color_shortcut='black',
         ),
         'Perfect5': dict(
             color_bg=EGA_BLUE,
@@ -144,17 +144,17 @@ class OptionsDialog(ModalDialog):
             color_button_fg='white',
             color_shortcut='white',
         ),
-        'Star7': dict(
-            color_bg=CRT_BG,
-            color_fg=EGA_CYAN,
-            color_em=EGA_GRAY,
-            color_strong=EGA_GRAY,
-            color_notes=EGA_BRIGHT_RED,
-            color_status_bg=EGA_GREEN,
+        'RJS': dict(
+            color_bg='black',
+            color_fg='cyan3',
+            color_em='gray85',
+            color_strong='gray65',
+            color_notes='red',
+            color_status_bg='green3',
             color_status_fg='black',
-            color_button_bg=EGA_BRIGHT_CYAN,
+            color_button_bg='cyan2',
             color_button_fg='black',
-            color_shortcut=EGA_BRIGHT_CYAN,
+            color_shortcut='cyan2',
         ),
     }
 
