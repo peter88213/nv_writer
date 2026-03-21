@@ -22,9 +22,9 @@ class HelpScreen(tk.Frame):
         self._innerFrame.pack(fill='both',)
         self._headings = []
         self._entries = []
+
         row = 0
         col = 0
-
         self._headings.append(
             self._create_heading(_('Section'), row, col)
         )
@@ -36,6 +36,60 @@ class HelpScreen(tk.Frame):
             (_('Next'), KEYS.NEXT[1],),
             (_('Save'), KEYS.SAVE[1],),
             (_('Close'), KEYS.END_WRITING_MODE[1],),
+        ):
+            row += 1
+            self._entries.append(
+                self._create_help_entry(desc, shortcut, row, col)
+            )
+
+        row = 0
+        col = 2
+        self._headings.append(
+            self._create_heading(_('Edit'), row, col)
+        )
+        for desc, shortcut in (
+            (_('Cut'), KEYS.CUT[1],),
+            (_('Copy'), KEYS.COPY[1],),
+            (_('Paste'), KEYS.PASTE[1],),
+            (_('Swap characters'), f'{_("Ctrl")}-T'),
+            (_('Delete character left'), f'{_("Ctrl")}-H'),
+            (_('Delete to end of line'), f'{_("Ctrl")}-K'),
+            (_('Delete character right'), f'{_("Ctrl")}-D'),
+            (_('Open new line'), f'{_("Ctrl")}-O'),
+            (_('Undo'), f'{_("Ctrl")}-Z'),
+            (_('Redo'), f'{_("Ctrl")}-Y'),
+        ):
+            row += 1
+            self._entries.append(
+                self._create_help_entry(desc, shortcut, row, col)
+            )
+
+        row = 0
+        col = 4
+        self._headings.append(
+            self._create_heading(_('Format'), row, col)
+        )
+        for desc, shortcut in (
+            (_('Emphasis'), KEYS.ITALIC[1],),
+            (_('Strong emphasis'), KEYS.BOLD[1],),
+            (_('Plain'), KEYS.PLAIN[1],),
+        ):
+            row += 1
+            self._entries.append(
+                self._create_help_entry(desc, shortcut, row, col)
+            )
+
+        row += 1
+        self._headings.append(
+            self._create_heading(_('View'), row, col)
+        )
+        for desc, shortcut in (
+            (_('Word count'), KEYS.UPDATE_WORDCOUNT[1],),
+            (_('Menu on/off'), KEYS.TOGGLE_FOOTER_BAR[1],),
+            (_('Help on/off'), KEYS.TOGGLE_HELP[1],),
+            (_('Online help'), KEYS.OPEN_HELP[1],),
+            (_('Enlarge'), KEYS.INCREASE_SIZE[1],),
+            (_('Shrink'), KEYS.DECREASE_SIZE[1],),
         ):
             row += 1
             self._entries.append(
@@ -91,7 +145,7 @@ class HelpScreen(tk.Frame):
         return descLabel, shortcutLabel
 
     def set_font(self, scale):
-        size = int(int(prefs['font_size_1']) * scale)
+        size = int(int(prefs['font_size_1']) * scale * 0.8)
         accFont = (prefs['editor_font'], size, 'bold')
         dscFont = (prefs['editor_font'], size)
         for descLabel, shortcutLabel in self._entries:

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.24.2\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-03-20 11:45:03\n"
+"PO-Revision-Date: 2026-03-21 15:40:39\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -55,6 +55,9 @@ msgstr "Kommentar"
 msgid "Contrast"
 msgstr "Kontrast"
 
+msgid "Copy"
+msgstr "Kopieren"
+
 msgid "Count words"
 msgstr "Wörter zählen"
 
@@ -63,6 +66,20 @@ msgstr "Strg"
 
 msgid "Current setting"
 msgstr "Aktuelle Einstellung"
+
+msgid "Cut"
+msgstr "Ausschneiden"
+
+msgid "Delete character left"
+msgstr "Zeichen links löschen"
+
+msgid "Delete character right"
+msgstr "Zeichen rechts löschen"
+msgid "Open new line"
+msgstr "Neue Zeile öffnen"
+
+msgid "Delete to end of line"
+msgstr "Löschen bis Zeilenende"
 
 msgid "Distraction-free writing plugin Online help"
 msgstr "Ablenkungsfreies Schreiben-Plugin Online-Hilfe"
@@ -79,6 +96,9 @@ msgstr "Fertiggestellt"
 msgid "Draft"
 msgstr "Entwurf"
 
+msgid "Edit"
+msgstr "Bearbeiten"
+
 msgid "Editable manuscript"
 msgstr "Manuskript zum Bearbeiten"
 
@@ -91,11 +111,20 @@ msgstr "Betont"
 msgid "Ending"
 msgstr "Ende"
 
+msgid "Enlarge"
+msgstr "Vergrößern"
+
+msgid "Format"
+msgstr "Format"
+
 msgid "Goals"
 msgstr "Ziele"
 
 msgid "Green"
 msgstr "Grün"
+
+msgid "Help on/off"
+msgstr "Hilfe ein/aus"
 
 msgid "Key shortcut"
 msgstr "Tastenkürzel"
@@ -105,6 +134,9 @@ msgstr "Laufende Aktualisierung"
 
 msgid "Major Character"
 msgstr "Hauptfigur"
+
+msgid "Menu on/off"
+msgstr "Menü ein/aus"
 
 msgid "Minor Character"
 msgstr "Nebenfigur"
@@ -133,6 +165,9 @@ msgstr "Gliederung"
 msgid "Paper"
 msgstr "Papier"
 
+msgid "Paste"
+msgstr "Einfügen"
+
 msgid "Peak emotional moment"
 msgstr "Emotionaler Höhepunkt"
 
@@ -142,11 +177,17 @@ msgstr "Bild↓"
 msgid "PgUp"
 msgstr "Bild↑"
 
+msgid "Plain"
+msgstr "Unformatiert"
+
 msgid "Plot progress"
 msgstr "Handlungsfortschritt"
 
 msgid "Previous"
 msgstr "Zurück"
+
+msgid "Redo"
+msgstr "Wiederherstellen"
 
 msgid "Regular text"
 msgstr "Gewöhnlicher Text"
@@ -157,6 +198,12 @@ msgstr "Speichern"
 msgid "Saved"
 msgstr "Gespeichert"
 
+msgid "Section"
+msgstr "Abschnitt"
+
+msgid "Shrink"
+msgstr "Verkleinern"
+
 msgid "Split"
 msgstr "Teilen"
 
@@ -166,8 +213,17 @@ msgstr "Status"
 msgid "Strong emphasis"
 msgstr "Stark betont"
 
+msgid "Swap characters"
+msgstr "Zeichen vertauschen"
+
 msgid "Tagged manuscript for proofing"
 msgstr "Manuskript mit Markierungen zum Überarbeiten"
+
+msgid "Undo"
+msgstr "Rückgängig"
+
+msgid "View"
+msgstr "Ansicht"
 
 msgid "White"
 msgstr "Weiß"
