@@ -14,19 +14,68 @@ class HelpScreen(tk.Frame):
 
     def __init__(self, parent, **kw):
         super().__init__(parent, bg=prefs['color_bg'],)
-        outerFrame = tk.Frame(self, padx=2, pady=2, bg=prefs['color_fg'],)
-        outerFrame.pack(padx=6, pady=6, fill='both',)
-        self._innerFrame = tk.Frame(
-            outerFrame, padx=6, pady=6, bg=prefs['color_bg'],
+
+        #--- Building a symmetrical frame set.
+        self._frameWidth = 1
+        self._outerFrame = tk.Frame(
+            self,
+            padx=self._frameWidth,
+            pady=self._frameWidth,
+            bg=prefs['color_fg'],
         )
-        self._innerFrame.pack(fill='both',)
+        self._outerFrame.pack(
+            fill='both',
+            padx=6,
+            pady=6,
+        )
         self._headings = []
         self._entries = []
 
+        leftFrame = tk.Frame(
+            self._outerFrame,
+            padx=20,
+            pady=6,
+            bg=prefs['color_bg'],
+        )
+        leftFrame.pack(
+            side='left',
+            anchor='n',
+            fill='both',
+        )
+        innerFrame = tk.Frame(
+            self._outerFrame,
+            padx=20,
+            pady=6,
+            bg=prefs['color_bg'],
+        )
+        innerFrame.pack(
+            side='left',
+            anchor='n',
+            fill='both',
+            expand=True,
+        )
+        middleFrame = tk.Frame(
+            innerFrame,
+        )
+        middleFrame.pack(
+            anchor='n',
+        )
+        rightFrame = tk.Frame(
+            self._outerFrame,
+            padx=20,
+            pady=6,
+            bg=prefs['color_bg'],
+        )
+        rightFrame.pack(
+            side='right',
+            anchor='n',
+            fill='both',
+        )
+
+        #--- Left frame: Section-related commands.
         row = 0
-        col = 0
         self._headings.append(
-            self._create_heading(_('Section'), row, col)
+            self._create_heading(leftFrame, _('Section'), row)
         )
         for desc, shortcut in (
             (_('New'), KEYS.CREATE_SECTION[1],),
@@ -39,13 +88,13 @@ class HelpScreen(tk.Frame):
         ):
             row += 1
             self._entries.append(
-                self._create_help_entry(desc, shortcut, row, col)
+                self._create_help_entry(leftFrame, desc, shortcut, row)
             )
 
+        #--- Middle frame: Edit commands.
         row = 0
-        col = 2
         self._headings.append(
-            self._create_heading(_('Edit'), row, col)
+            self._create_heading(middleFrame, _('Edit'), row)
         )
         for desc, shortcut in (
             (_('Cut'), KEYS.CUT[1],),
@@ -61,13 +110,13 @@ class HelpScreen(tk.Frame):
         ):
             row += 1
             self._entries.append(
-                self._create_help_entry(desc, shortcut, row, col)
+                self._create_help_entry(middleFrame, desc, shortcut, row)
             )
 
+        #--- Right frame: Format and View commands.
         row = 0
-        col = 4
         self._headings.append(
-            self._create_heading(_('Format'), row, col)
+            self._create_heading(rightFrame, _('Format'), row)
         )
         for desc, shortcut in (
             (_('Emphasis'), KEYS.ITALIC[1],),
@@ -76,12 +125,12 @@ class HelpScreen(tk.Frame):
         ):
             row += 1
             self._entries.append(
-                self._create_help_entry(desc, shortcut, row, col)
+                self._create_help_entry(rightFrame, desc, shortcut, row)
             )
 
         row += 1
         self._headings.append(
-            self._create_heading(_('View'), row, col)
+            self._create_heading(rightFrame, _('View'), row)
         )
         for desc, shortcut in (
             (_('Word count'), KEYS.UPDATE_WORDCOUNT[1],),
@@ -93,13 +142,13 @@ class HelpScreen(tk.Frame):
         ):
             row += 1
             self._entries.append(
-                self._create_help_entry(desc, shortcut, row, col)
+                self._create_help_entry(rightFrame, desc, shortcut, row)
             )
 
-    def _create_heading(self, heading, row, col):
+    def _create_heading(self, parent, heading, row):
 
         headingLabel = tk.Label(
-            self._innerFrame,
+            parent,
             background=prefs['color_bg'],
             foreground=prefs['color_shortcut'],
             text=heading,
@@ -108,16 +157,16 @@ class HelpScreen(tk.Frame):
         )
         headingLabel.grid(
             row=row,
-            column=col,
+            column=0,
             columnspan=2,
             sticky="ew",
         )
         return headingLabel
 
-    def _create_help_entry(self, desc, shortcut, row, col):
+    def _create_help_entry(self, parent, desc, shortcut, row):
 
         descLabel = tk.Label(
-            self._innerFrame,
+            parent,
             background=prefs['color_bg'],
             foreground=prefs['color_fg'],
             text=desc,
@@ -126,11 +175,11 @@ class HelpScreen(tk.Frame):
         )
         descLabel.grid(
             row=row,
-            column=col,
+            column=0,
             sticky="ew",
         )
         shortcutLabel = tk.Label(
-            self._innerFrame,
+            parent,
             background=prefs['color_bg'],
             foreground=prefs['color_fg'],
             text=shortcut,
@@ -139,7 +188,7 @@ class HelpScreen(tk.Frame):
         )
         shortcutLabel.grid(
             row=row,
-            column=col + 1,
+            column=1,
             sticky="ew",
         )
         return descLabel, shortcutLabel
@@ -154,4 +203,8 @@ class HelpScreen(tk.Frame):
         hdFont = (prefs['editor_font'], size, 'bold')
         for headinglabel in self._headings:
             headinglabel.configure(font=hdFont)
+        self._outerFrame.configure(
+            padx=self._frameWidth * scale,
+            pady=self._frameWidth * scale,
+        )
 
