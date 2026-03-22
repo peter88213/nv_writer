@@ -79,7 +79,7 @@ class EditorBox(tk.Text):
             return
 
         self._replace_selected(
-            self.get(tk.SEL_FIRST, tk.SEL_LAST).capitalize()
+            self.get('sel.first', 'sel.last').capitalize()
         )
 
     def clear(self):
@@ -181,7 +181,7 @@ class EditorBox(tk.Text):
             return
 
         self._replace_selected(
-            self.get(tk.SEL_FIRST, tk.SEL_LAST).lower()
+            self.get('sel.first', 'sel.last').lower()
         )
 
     def to_uppercase(self):
@@ -189,13 +189,13 @@ class EditorBox(tk.Text):
             return
 
         self._replace_selected(
-            self.get(tk.SEL_FIRST, tk.SEL_LAST).upper()
+            self.get('sel.first', 'sel.last').upper()
         )
 
     def toggle_case(self):
         if not self.tag_ranges('sel'):
             return
-        string = self.get(tk.SEL_FIRST, tk.SEL_LAST)
+        string = self.get('sel.first', 'sel.last')
         toggled = []
         for c in string:
             if c.isupper():
