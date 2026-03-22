@@ -33,7 +33,7 @@ class HelpScreen(tk.Frame):
 
         leftFrame = tk.Frame(
             self._outerFrame,
-            padx=20,
+            padx=6,
             pady=6,
             bg=prefs['color_bg'],
         )
@@ -44,7 +44,7 @@ class HelpScreen(tk.Frame):
         )
         innerFrame = tk.Frame(
             self._outerFrame,
-            padx=20,
+            padx=6,
             pady=6,
             bg=prefs['color_bg'],
         )
@@ -62,7 +62,7 @@ class HelpScreen(tk.Frame):
         )
         rightFrame = tk.Frame(
             self._outerFrame,
-            padx=20,
+            padx=6,
             pady=6,
             bg=prefs['color_bg'],
         )
@@ -72,29 +72,51 @@ class HelpScreen(tk.Frame):
             fill='both',
         )
 
-        #--- Left frame: Section-related commands.
+        #--- Left frame.
+        frame = leftFrame
         row = 0
+
+        # View  commands.
         self._headings.append(
-            self._create_heading(leftFrame, _('Section'), row)
+            self._create_heading(frame, _('View'), row)
         )
         for desc, shortcut in (
-            (_('New'), KEYS.CREATE_SECTION[1],),
-            (_('Split'), KEYS.SPLIT_SECTION[1],),
-            (_('Clone'), KEYS.CLONE_SECTION[1],),
-            (_('Previous'), KEYS.PREVIOUS[1],),
-            (_('Next'), KEYS.NEXT[1],),
-            (_('Save'), KEYS.SAVE[1],),
-            (_('Close'), KEYS.END_WRITING_MODE[1],),
+            (_('Word count'), KEYS.UPDATE_WORDCOUNT[1],),
+            (_('Menu on/off'), KEYS.TOGGLE_FOOTER_BAR[1],),
+            (_('Help on/off'), KEYS.TOGGLE_HELP[1],),
+            (_('Online help'), KEYS.OPEN_HELP[1],),
+            (_('Enlarge'), KEYS.INCREASE_SIZE[1],),
+            (_('Shrink'), KEYS.DECREASE_SIZE[1],),
         ):
             row += 1
             self._entries.append(
-                self._create_help_entry(leftFrame, desc, shortcut, row)
+                self._create_help_entry(frame, desc, shortcut, row)
             )
 
-        #--- Middle frame: Edit commands.
-        row = 0
+        row += 1
+
+        # Change case commands.
         self._headings.append(
-            self._create_heading(middleFrame, _('Edit'), row)
+            self._create_heading(frame, _('Change case'), row)
+        )
+        for desc, shortcut in (
+            (_('UPPERCASE'), KEYS.UPPER_CASE[1],),
+            (_('lowercase'), KEYS.LOWER_CASE[1],),
+            (_('Capitalize'), KEYS.CAPITALIZE[1],),
+            (_('tOGGLE cASE'), KEYS.TOGGLE_CASE[1],),
+        ):
+            row += 1
+            self._entries.append(
+                self._create_help_entry(frame, desc, shortcut, row)
+            )
+
+        #--- Middle frame.
+        frame = middleFrame
+        row = 0
+
+        # Edit commands.
+        self._headings.append(
+            self._create_heading(frame, _('Edit'), row)
         )
         for desc, shortcut in (
             (_('Cut'), KEYS.CUT[1],),
@@ -110,13 +132,16 @@ class HelpScreen(tk.Frame):
         ):
             row += 1
             self._entries.append(
-                self._create_help_entry(middleFrame, desc, shortcut, row)
+                self._create_help_entry(frame, desc, shortcut, row)
             )
 
-        #--- Right frame: Format and View commands.
+        #--- Right frame.
+        frame = rightFrame
         row = 0
+
+        # Format commands.
         self._headings.append(
-            self._create_heading(rightFrame, _('Format'), row)
+            self._create_heading(frame, _('Format'), row)
         )
         for desc, shortcut in (
             (_('Emphasis'), KEYS.ITALIC[1],),
@@ -125,24 +150,27 @@ class HelpScreen(tk.Frame):
         ):
             row += 1
             self._entries.append(
-                self._create_help_entry(rightFrame, desc, shortcut, row)
+                self._create_help_entry(frame, desc, shortcut, row)
             )
 
         row += 1
+
+        # Section commands.
         self._headings.append(
-            self._create_heading(rightFrame, _('View'), row)
+            self._create_heading(frame, _('Section'), row)
         )
         for desc, shortcut in (
-            (_('Word count'), KEYS.UPDATE_WORDCOUNT[1],),
-            (_('Menu on/off'), KEYS.TOGGLE_FOOTER_BAR[1],),
-            (_('Help on/off'), KEYS.TOGGLE_HELP[1],),
-            (_('Online help'), KEYS.OPEN_HELP[1],),
-            (_('Enlarge'), KEYS.INCREASE_SIZE[1],),
-            (_('Shrink'), KEYS.DECREASE_SIZE[1],),
+            (_('New'), KEYS.CREATE_SECTION[1],),
+            (_('Split'), KEYS.SPLIT_SECTION[1],),
+            (_('Clone'), KEYS.CLONE_SECTION[1],),
+            (_('Previous'), KEYS.PREVIOUS[1],),
+            (_('Next'), KEYS.NEXT[1],),
+            (_('Save'), KEYS.SAVE[1],),
+            (_('Close'), KEYS.END_WRITING_MODE[1],),
         ):
             row += 1
             self._entries.append(
-                self._create_help_entry(rightFrame, desc, shortcut, row)
+                self._create_help_entry(frame, desc, shortcut, row)
             )
 
     def _create_heading(self, parent, heading, row):

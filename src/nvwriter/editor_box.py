@@ -10,11 +10,6 @@ from nvwriter.nvwriter_globals import EMPHASIZING_TAGS
 from nvwriter.nvwriter_globals import PARAGRAPH_TAGS
 from nvwriter.nvwriter_globals import T_COMMENT
 from nvwriter.nvwriter_globals import T_EM
-from nvwriter.nvwriter_globals import T_H5
-from nvwriter.nvwriter_globals import T_H6
-from nvwriter.nvwriter_globals import T_H7
-from nvwriter.nvwriter_globals import T_H8
-from nvwriter.nvwriter_globals import T_H9
 from nvwriter.nvwriter_globals import T_NOTE
 from nvwriter.nvwriter_globals import T_STRONG
 from nvwriter.text_parser import TextParser
@@ -79,6 +74,14 @@ class EditorBox(tk.Text):
 
         self.debug = False
 
+    def capitalize(self):
+        if not self.tag_ranges('sel'):
+            return
+
+        self._replace_selected(
+            self.get(tk.SEL_FIRST, tk.SEL_LAST).capitalize()
+        )
+
     def clear(self):
         self.delete('1.0', 'end')
 
@@ -128,19 +131,19 @@ class EditorBox(tk.Text):
         Return True in case of modification.
         """
         isModified = False
-        if self.tag_ranges(tk.SEL):
-            index = tk.SEL_FIRST
-            while not isModified and self.compare(index, '<=', tk.SEL_LAST):
+        if self.tag_ranges('sel'):
+            index = 'sel.first'
+            while not isModified and self.compare(index, '<=', 'sel.last'):
                 tags = self.tag_names(index)
                 for tag in tags:
                     if tag in EMPHASIZING_TAGS:
                         isModified = True
                         break
                 index = self.index(f'{index}+1c')
-                if self.compare(index, '>=', tk.END):
+                if self.compare(index, '>=', 'end'):
                     break
             for tag in EMPHASIZING_TAGS:
-                self.tag_remove(tag, tk.SEL_FIRST, tk.SEL_LAST)
+                self.tag_remove(tag, 'sel.first', 'sel.last')
         return isModified
 
     def set_text(self, text):
@@ -173,22 +176,59 @@ class EditorBox(tk.Text):
         """
         return self._set_format(T_STRONG)
 
+    def to_lowercase(self):
+        if not self.tag_ranges('sel'):
+            return
+
+        self._replace_selected(
+            self.get(tk.SEL_FIRST, tk.SEL_LAST).lower()
+        )
+
+    def to_uppercase(self):
+        if not self.tag_ranges('sel'):
+            return
+
+        self._replace_selected(
+            self.get(tk.SEL_FIRST, tk.SEL_LAST).upper()
+        )
+
+    def toggle_case(self):
+        if not self.tag_ranges('sel'):
+            return
+        string = self.get(tk.SEL_FIRST, tk.SEL_LAST)
+        toggled = []
+        for c in string:
+            if c.isupper():
+                toggled.append(c.lower())
+            else:
+                toggled.append(c.upper())
+        self._replace_selected(''.join(toggled))
+
+    def _replace_selected(self, text):
+        """Replace the selected passage with text; keep the selection."""
+        self.mark_set('insert', 'sel.first')
+        self.delete('sel.first', 'sel.last')
+        selFirst = self.index('insert')
+        self.insert('insert', text)
+        selLast = self.index('insert')
+        self.tag_add('sel', selFirst, selLast)
+
     def _set_format(self, newTag):
         # Apply newTag to the selected text.
         # Return True in case of modification.
-        if not self.tag_ranges(tk.SEL):
+        if not self.tag_ranges('sel'):
             return False
 
         # Is the new tag already applied to the entire selection?
         willModify = False
-        index = tk.SEL_FIRST
-        while self.compare(index, '<=', tk.SEL_LAST):
+        index = 'sel.first'
+        while self.compare(index, '<=', 'sel.last'):
             if not newTag in self.tag_names(index):
                 willModify = True
                 break
 
             index = self.index(f'{index}+1c')
-            if self.compare(index, '>=', tk.END):
+            if self.compare(index, '>=', 'end'):
                 break
 
         if not willModify:
@@ -198,19 +238,19 @@ class EditorBox(tk.Text):
         # paragraph-opening tag, if any.
         # This ensures the correct nesting when converting back to XML.
         firstCharTags = [newTag]
-        for tag in self.tag_names(tk.SEL_FIRST):
+        for tag in self.tag_names('sel.first'):
             if tag in EMPHASIZING_TAGS:
-                self.tag_remove(tag, tk.SEL_FIRST)
+                self.tag_remove(tag, 'sel.first')
             elif tag.split('_')[0] in PARAGRAPH_TAGS:
-                self.tag_remove(tag, tk.SEL_FIRST)
+                self.tag_remove(tag, 'sel.first')
                 firstCharTags.append(tag)
         for tag in firstCharTags:
-            self.tag_add(tag, tk.SEL_FIRST)
+            self.tag_add(tag, 'sel.first')
 
         # Append the new tag to the other characters' tag lists.
         for tag in EMPHASIZING_TAGS:
-            self.tag_remove(tag, f'{tk.SEL_FIRST}+1c', tk.SEL_LAST)
-            self.tag_add(newTag, f'{tk.SEL_FIRST}+1c', tk.SEL_LAST)
+            self.tag_remove(tag, 'sel.first+1c', 'sel.last')
+            self.tag_add(newTag, 'sel.first+1c', 'sel.last')
 
         return True
 

@@ -5,6 +5,18 @@
 ## Changelog
 
 
+### Version 5.1.0
+
+-  New feature: Change case.
+   - UPPERCASE
+   - lowercase
+   - Capitalize
+   - tOGGLE cASE
+   
+API: 5.53
+Based on novelibre 5.53.4
+
+
 ### Version 5.0.2
 
 - Restoring the previous session's help level.

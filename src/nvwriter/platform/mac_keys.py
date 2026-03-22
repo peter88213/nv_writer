@@ -11,11 +11,13 @@ from nvwriter.writer_locale import _
 class MacKeys(GenericKeys):
 
     BOLD = ('<Command-b>', 'Cmd-B')
+    CAPITALIZE = ('<Command-C>', f'Cmd-{_("Shift")}-C')
     CLONE_SECTION = ('<Command-u>', 'Cmd-U')
     CREATE_SECTION = ('<Command-n>', 'Cmd-N')
     DECREASE_SIZE = ('<Command-minus>', 'Cmd--')
     INCREASE_SIZE = ('<Command-plus>', 'Cmd-+')
     ITALIC = ('<Command-i>', 'Cmd-I')
+    LOWER_CASE = ('<Command-Y>', f'Cmd-{_("Shift")}-Y')
     NEXT = ('<Command-Next>', f'Cmd-{_("PgDn")}')
     OPEN_HELP = ('<Command-F1>', 'Cmd-F1')
     PLAIN = ('<Command-m>', 'Cmd-M')
@@ -24,4 +26,6 @@ class MacKeys(GenericKeys):
     SAVE = ('<Command-s>', 'Cmd-S')
     SPLIT_SECTION = ('<Command-l>', 'Cmd-L')
     START_EDITOR = ('<Command-w>', 'Cmd-W')
+    TOGGLE_CASE = ('<Control-V>', f'Cmd-{_("Shift")}-V')
+    UPPER_CASE = ('<Command-X>', f'Cmd-{_("Shift")}-X')
 

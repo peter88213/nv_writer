@@ -10,6 +10,7 @@ from nvwriter.writer_locale import _
 class GenericKeys:
 
     BOLD = ('<Control-b>', f'{_("Ctrl")}-B')
+    CAPITALIZE = ('<Control-C>', f'{_("Ctrl")}-{_("Shift")}-C')
     COPY = ('<Control-c>', f'{_("Ctrl")}-C')
     CLONE_SECTION = ('<Control-u>', f'{_("Ctrl")}-U')
     CREATE_SECTION = ('<Control-n>', f'{_("Ctrl")}-N')
@@ -18,6 +19,7 @@ class GenericKeys:
     END_WRITING_MODE = ('<F11>', 'F11')
     INCREASE_SIZE = ('<Control-plus>', f'{_("Ctrl")}-+')
     ITALIC = ('<Control-i>', f'{_("Ctrl")}-I')
+    LOWER_CASE = ('<Control-Y>', f'{_("Ctrl")}-{_("Shift")}-Y')
     NEXT = ('<Control-Next>', f'{_("Ctrl")}-{_("PgDn")}')
     OPEN_HELP = ('<Alt-F1>', 'Alt-F1')
     PASTE = ('<Control-v>', f'{_("Ctrl")}-V')
@@ -27,6 +29,8 @@ class GenericKeys:
     SAVE = ('<Control-s>', f'{_("Ctrl")}-S')
     SPLIT_SECTION = ('<Control-l>', f'{_("Ctrl")}-L')
     START_EDITOR = ('<F11>', 'F11')
+    TOGGLE_CASE = ('<Control-V>', f'{_("Ctrl")}-{_("Shift")}-V')
     TOGGLE_FOOTER_BAR = ('<F3>', 'F3')
     TOGGLE_HELP = ('<F1>', 'F1')
     UPDATE_WORDCOUNT = ('<F5>', 'F5')
+    UPPER_CASE = ('<Control-X>', f'{_("Ctrl")}-{_("Shift")}-X')

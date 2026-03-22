@@ -138,6 +138,10 @@ class WriterView(ModalDialog):
             (KEYS.SAVE, self._save_project),
             (KEYS.TOGGLE_FOOTER_BAR, self._toggle_display),
             (KEYS.TOGGLE_HELP, self._toggle_help),
+            (KEYS.UPPER_CASE, self._to_uppercase),
+            (KEYS.LOWER_CASE, self._to_lowercase),
+            (KEYS.CAPITALIZE, self._capitalize),
+            (KEYS.TOGGLE_CASE, self._toggle_case),
         ]
         if PLATFORM == 'ix':
             # the keys on the numeric keypad must be explicitly assigned
@@ -261,6 +265,10 @@ class WriterView(ModalDialog):
                 if result:
                     self._section.sectionContent = sectionText
         return True
+
+    def _capitalize(self, event=None):
+        self._sectionEditor.capitalize()
+        return 'break'
 
     def _confirm(self, message):
         if self._askForConfirmation:
@@ -591,6 +599,18 @@ class WriterView(ModalDialog):
     def _strong_emphasis(self, event=None):
         if self._sectionEditor.strong_emphasis():
             self._statusBar.set_modified(True)
+        return 'break'
+
+    def _to_lowercase(self, event=None):
+        self._sectionEditor.to_lowercase()
+        return 'break'
+
+    def _to_uppercase(self, event=None):
+        self._sectionEditor.to_uppercase()
+        return 'break'
+
+    def _toggle_case(self, event=None):
+        self._sectionEditor.toggle_case()
         return 'break'
 
     def _toggle_help(self, event=None):
