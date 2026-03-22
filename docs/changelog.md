@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.0.2
+
+- Restoring the previous session's help level.
+
+API: 5.53
+Based on novelibre 5.53.4
+
+
 ### Version 5.0.1
 
 - Improved the help screen layout.

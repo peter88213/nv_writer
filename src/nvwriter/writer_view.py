@@ -74,7 +74,6 @@ class WriterView(ModalDialog):
             self._editorWindow,
         )
         self._helpScreen.set_font(scale)
-        self._helpScreen.pack(fill='x')
 
         #--- Add a text editor with scrollbar to the editor window.
 
@@ -107,14 +106,18 @@ class WriterView(ModalDialog):
         )
         self._sectionEditor.pack(fill='both', expand=True)
 
-        # Add a footer bar to the editor window.
+        #--- Add a footer bar to the editor window.
         self._footerBar = FooterBar(self._editorWindow)
         self._footerBar.set_font(scale)
+
+        #--- Restore the previous session's layout.
         if prefs['show_footer_bar']:
             self._show_footer_bar()
             self._statusBar.highlight()
         else:
             self._statusBar.normal()
+        if prefs['show_help_screen']:
+            self._show_help_screen()
 
         #--- Key bindings.
         keyBindings = [
