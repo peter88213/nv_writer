@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 5.1.0\n"
-"POT-Creation-Date: 2026-03-22 17:03:50\n"
+"POT-Creation-Date: 2026-03-23 11:20:44\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -234,6 +234,9 @@ msgid "UPPERCASE"
 msgstr ""
 
 msgid "Undo"
+msgstr ""
+
+msgid "Untitled"
 msgstr ""
 
 msgid "View"

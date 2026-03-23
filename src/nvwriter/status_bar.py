@@ -91,13 +91,14 @@ class StatusBar(tk.Frame):
     def set_breadcrumbs(self, book, chapter, section):
         lengthTotal = 80
         lengthEntry = 25
-        if book:
-            book = textwrap.shorten(book, lengthEntry)
+        book = book or _('Untitled')
+        book = textwrap.shorten(book, lengthEntry)
         lengthTotal -= len(book)
         lengthEntry = lengthTotal // 2
-        if chapter:
-            chapter = textwrap.shorten(chapter, lengthEntry)
+        chapter = chapter or _('Untitled')
+        chapter = textwrap.shorten(chapter, lengthEntry)
         lengthTotal -= len(chapter)
+        section = section or _('Untitled')
         self._breadcrumbs.configure(
             text=(f'{book} | {chapter} | {section}')
         )
