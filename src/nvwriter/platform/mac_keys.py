@@ -26,6 +26,6 @@ class MacKeys(GenericKeys):
     SAVE = ('<Command-s>', 'Cmd-S')
     SPLIT_SECTION = ('<Command-l>', 'Cmd-L')
     START_EDITOR = ('<Command-w>', 'Cmd-W')
-    TOGGLE_CASE = ('<Control-V>', f'Cmd-{_("Shift")}-V')
+    TOGGLE_CASE = ('<Control-S>', f'Cmd-{_("Shift")}-S')
     UPPER_CASE = ('<Command-X>', f'Cmd-{_("Shift")}-X')
 

@@ -29,7 +29,7 @@ class GenericKeys:
     SAVE = ('<Control-s>', f'{_("Ctrl")}-S')
     SPLIT_SECTION = ('<Control-l>', f'{_("Ctrl")}-L')
     START_EDITOR = ('<F11>', 'F11')
-    TOGGLE_CASE = ('<Control-V>', f'{_("Ctrl")}-{_("Shift")}-V')
+    TOGGLE_CASE = ('<Control-S>', f'{_("Ctrl")}-{_("Shift")}-S')
     TOGGLE_FOOTER_BAR = ('<F3>', 'F3')
     TOGGLE_HELP = ('<F1>', 'F1')
     UPDATE_WORDCOUNT = ('<F5>', 'F5')
