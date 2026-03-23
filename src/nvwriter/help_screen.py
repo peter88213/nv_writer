@@ -102,7 +102,7 @@ class HelpScreen(tk.Frame):
         for desc, shortcut in (
             (_('UPPERCASE'), KEYS.UPPER_CASE[1],),
             (_('lowercase'), KEYS.LOWER_CASE[1],),
-            (_('Capitalize'), KEYS.CAPITALIZE[1],),
+            (_('Capitalize Every Word'), KEYS.CAPITALIZE[1],),
             (_('tOGGLE cASE'), KEYS.TOGGLE_CASE[1],),
         ):
             row += 1

@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 5.1.2\n"
+"Project-Id-Version: 5.1.3\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-03-23 20:56:01\n"
+"PO-Revision-Date: 2026-03-23 21:29:15\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -34,8 +34,8 @@ msgstr "Nach Bestätigung fragen"
 msgid "Bio"
 msgstr "Biographie"
 
-msgid "Capitalize"
-msgstr "Erstes wort groß"
+msgid "Capitalize Every Word"
+msgstr "Jedes Wort Groß"
 
 msgid "Change case"
 msgstr "Groß/Kleinschreibung"
@@ -263,7 +263,7 @@ msgid "new"
 msgstr "neu"
 
 msgid "tOGGLE cASE"
-msgstr "uMKEHREN"
+msgstr "sCHREIBUNG uMKEHREN"
 
 msgid "words"
 msgstr "Wörter"

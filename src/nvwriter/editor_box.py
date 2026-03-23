@@ -190,16 +190,19 @@ class EditorBox(tk.Text):
         if not self.tag_ranges('sel'):
             return
 
+        modFirstWord = modFirst
         self.mark_set('insert', 'sel.first')
         index = 'sel.first'
         n = self.count('sel.first', 'sel.last')[0]
         for __ in range(n):
             character = self.get(index)
-            if modFirst is not None:
-                modifiedCharacter = modFirst(character)
-                modFirst = None
+            if modFirstWord is not None:
+                modifiedCharacter = modFirstWord(character)
+                modFirstWord = None
             else:
                 modifiedCharacter = modify(character)
+            if modFirst is not None and character in (' ', '\n'):
+                modFirstWord = modFirst
 
             nextIndex = f'{index}+{len(modifiedCharacter)}c'
             if modifiedCharacter != character:

@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.1.3
+
+-  Changed the `Capitalize` feature, capitalizing every word in the selection. 
+   
+API: 5.53
+Based on novelibre 5.53.5
+
+
 ### Version 5.1.2
 
 -  Fixed a bug where overlapping of language spans and inline formatting
@@ -18,7 +26,7 @@
    - tOGGLE cASE
    
 API: 5.53
-Based on novelibre 5.53.4
+Based on novelibre 5.53.5
 
 
 ### Version 5.0.2
