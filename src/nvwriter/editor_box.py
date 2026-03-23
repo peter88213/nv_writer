@@ -206,12 +206,33 @@ class EditorBox(tk.Text):
 
     def _replace_selected(self, text):
         """Replace the selected passage with text; keep the selection."""
+
+        # Keep tags of the selection.
+        selTags = []
+        index = 'sel.first'
+        while self.compare(index, '<=', 'sel.last'):
+            selTags.append(self.tag_names(index))
+            index = self.index(f'{index}+1c')
+            if self.compare(index, '>=', 'end'):
+                break
+
         self.mark_set('insert', 'sel.first')
         self.delete('sel.first', 'sel.last')
         selFirst = self.index('insert')
         self.insert('insert', text)
         selLast = self.index('insert')
         self.tag_add('sel', selFirst, selLast)
+
+        # Restore tags.
+        index = 'sel.first'
+        i = 0
+        while self.compare(index, '<=', 'sel.last'):
+            for tag in selTags[i]:
+                self.tag_add(tag, index)
+            index = self.index(f'{index}+1c')
+            i += 1
+            if self.compare(index, '>=', 'end'):
+                break
 
     def _set_format(self, newTag):
         # Apply newTag to the selected text.

@@ -11,6 +11,7 @@ import tkinter as tk
 root = tk.Tk()
 
 from nvwriter.editor_box import EditorBox
+from nvwriter.nvwriter_globals import prefs
 
 FOOTNOTE = (
     '<p>This is a regular line'
@@ -249,12 +250,20 @@ OK_WITH_0_10_0 = (
     '<li><p>One</p></li>'
     '</ul>'
 )
+prefs['color_em'] = 'gray85'
+prefs['color_notes'] = 'red'
+prefs['color_strong'] = 'gray85'
 
 
 class Test(unittest.TestCase):
 
     def setUp(self):
-        self.editor = EditorBox(root, font=('Courier', 12), fg='black', bg='white')
+        self.editor = EditorBox(
+            root,
+            font=('Courier', 12),
+            fg='black',
+            bg='white',
+        )
 
     def tearDown(self):
         pass

@@ -14,8 +14,10 @@ from nvwriter.nvwriter_globals import COMMENT_PREFIX
 from nvwriter.nvwriter_globals import EMPHASIZING_TAGS
 from nvwriter.nvwriter_globals import NOTE_PREFIX
 from nvwriter.nvwriter_globals import PARAGRAPH_TAGS
+from nvwriter.nvwriter_globals import T_EM
 from nvwriter.nvwriter_globals import T_LI
 from nvwriter.nvwriter_globals import T_SPAN
+from nvwriter.nvwriter_globals import T_STRONG
 from nvwriter.nvwriter_globals import T_UL
 
 
@@ -47,7 +49,10 @@ class TextParser():
         # list of str: novx raw text
 
         self._xmlStack = []
+        self._span = None
+        self._format = None
         self._transferStack = []
+        self._spanNames = []
 
     @property
     def _list(self):
@@ -130,11 +135,23 @@ class TextParser():
 
     def endElement(self, name):
         if name in EMPHASIZING_TAGS:
-            self._end_xml()
+            self._format = None
+            if self._span is not None:
+                self._end_xml()
+                self._end_xml()
+                self._start_xml(self._span)
+            else:
+                self._end_xml()
             return
 
         if name.startswith(T_SPAN):
-            self._end_xml()
+            self._span = None
+            if self._format is not None:
+                self._end_xml()
+                self._end_xml()
+                self._start_xml(self._format)
+            else:
+                self._end_xml()
             return
 
         if name.startswith(COMMENT_PREFIX):
@@ -151,7 +168,7 @@ class TextParser():
         while self._xmlStack:
             # The final paragraph was a list element, so close the list.
             self._end_xml()
-        return ''.join(self._xmlList)
+        return self._remove_redundant_tags(''.join(self._xmlList))
 
     def startElement(self, name):
         if name.startswith(COMMENT_PREFIX):
@@ -173,11 +190,16 @@ class TextParser():
             self._start_paragraph()
 
         if name in EMPHASIZING_TAGS:
+            self._format = name
             self._start_xml(name)
             return
 
         if name.startswith(T_SPAN):
+            self._span = name
             self._start_xml(name)
+            xmlName = name.replace("_", " ")
+            if not xmlName in self._spanNames:
+                self._spanNames.append(xmlName)
             return
 
     def _end_paragraph(self):
@@ -202,6 +224,13 @@ class TextParser():
             if self.debug:
                 print(f'* Closing {tag}')
             self._xmlList.append(f'</{tag}>')
+
+    def _remove_redundant_tags(self, text):
+        for name in EMPHASIZING_TAGS:
+            text = text.replace(f'</{name}><{name}>', '')
+        for name in self._spanNames:
+            text = text.replace(f'<{name}></{T_SPAN}>', '')
+        return text
 
     def _start_paragraph(self, name='p'):
         self._paragraph = True

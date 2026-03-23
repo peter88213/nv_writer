@@ -5,8 +5,11 @@
 ## Changelog
 
 
-### Version 5.1.0
+### Version 5.1.1
 
+-  Fixed a bug where overlapping of language spans and inline formatting
+   in the Editor leads to messed up XML results.
+-  Bugfix: Status bar is now handling untitled projects/chapters/sections.
 -  New feature: Change case.
    - UPPERCASE
    - lowercase
