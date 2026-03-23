@@ -75,11 +75,9 @@ class EditorBox(tk.Text):
         self.debug = False
 
     def capitalize(self):
-        if not self.tag_ranges('sel'):
-            return
-
         self._replace_selected(
-            self.get('sel.first', 'sel.last').capitalize()
+            self._lower,
+            modFirst=self._upper,
         )
 
     def clear(self):
@@ -140,7 +138,7 @@ class EditorBox(tk.Text):
                         isModified = True
                         break
                 index = self.index(f'{index}+1c')
-                if self.compare(index, '>=', 'end'):
+                if self.compare(index, '>=', 'end-1c'):
                     break
             for tag in EMPHASIZING_TAGS:
                 self.tag_remove(tag, 'sel.first', 'sel.last')
@@ -177,61 +175,43 @@ class EditorBox(tk.Text):
         return self._set_format(T_STRONG)
 
     def to_lowercase(self):
-        if not self.tag_ranges('sel'):
-            return
-
-        self._replace_selected(
-            self.get('sel.first', 'sel.last').lower()
-        )
+        self._replace_selected(self._lower)
 
     def to_uppercase(self):
-        if not self.tag_ranges('sel'):
-            return
-
-        self._replace_selected(
-            self.get('sel.first', 'sel.last').upper()
-        )
+        self._replace_selected(self._upper)
 
     def toggle_case(self):
+        self._replace_selected(self._toggle_case)
+
+    def _lower(self, text):
+        return text.lower()
+
+    def _replace_selected(self, modify, modFirst=None):
         if not self.tag_ranges('sel'):
             return
-        string = self.get('sel.first', 'sel.last')
-        toggled = []
-        for c in string:
-            if c.isupper():
-                toggled.append(c.lower())
-            else:
-                toggled.append(c.upper())
-        self._replace_selected(''.join(toggled))
-
-    def _replace_selected(self, text):
-        """Replace the selected passage with text; keep the selection."""
-
-        # Keep tags of the selection.
-        selTags = []
-        index = 'sel.first'
-        while self.compare(index, '<=', 'sel.last'):
-            selTags.append(self.tag_names(index))
-            index = self.index(f'{index}+1c')
-            if self.compare(index, '>=', 'end'):
-                break
 
         self.mark_set('insert', 'sel.first')
-        self.delete('sel.first', 'sel.last')
-        selFirst = self.index('insert')
-        self.insert('insert', text)
-        selLast = self.index('insert')
-        self.tag_add('sel', selFirst, selLast)
-
-        # Restore tags.
         index = 'sel.first'
-        i = 0
-        while self.compare(index, '<=', 'sel.last'):
-            for tag in selTags[i]:
-                self.tag_add(tag, index)
-            index = self.index(f'{index}+1c')
-            i += 1
-            if self.compare(index, '>=', 'end'):
+        n = self.count('sel.first', 'sel.last')[0]
+        for i in range(n):
+            character = self.get(index)
+            selTags = self.tag_names(index)
+            if modFirst and i == 0:
+                modifiedCharacter = modFirst(character)
+            else:
+                modifiedCharacter = modify(character)
+
+            self.delete(index)
+            selFirst = self.index('insert')
+            self.insert('insert', modifiedCharacter)
+            selLast = self.index('insert')
+            self.tag_add('sel', selFirst, selLast)
+            for tag in selTags:
+                if tag != 'sel':
+                    self.tag_add((tag), index)
+
+            index = self.index(f'{index}+{len(modifiedCharacter)}c')
+            if self.compare(index, '>=', 'end-1c'):
                 break
 
     def _set_format(self, newTag):
@@ -249,7 +229,7 @@ class EditorBox(tk.Text):
                 break
 
             index = self.index(f'{index}+1c')
-            if self.compare(index, '>=', 'end'):
+            if self.compare(index, '>=', 'end-1c'):
                 break
 
         if not willModify:
@@ -274,4 +254,14 @@ class EditorBox(tk.Text):
             self.tag_add(newTag, 'sel.first+1c', 'sel.last')
 
         return True
+
+    def _toggle_case(self, text):
+        if text.isupper():
+            return text.lower()
+
+        else:
+            return text.upper()
+
+    def _upper(self, text):
+        return text.upper()
 
