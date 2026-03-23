@@ -193,24 +193,28 @@ class EditorBox(tk.Text):
         self.mark_set('insert', 'sel.first')
         index = 'sel.first'
         n = self.count('sel.first', 'sel.last')[0]
-        for i in range(n):
+        for __ in range(n):
             character = self.get(index)
-            selTags = self.tag_names(index)
-            if modFirst and i == 0:
+            if modFirst is not None:
                 modifiedCharacter = modFirst(character)
+                modFirst = None
             else:
                 modifiedCharacter = modify(character)
 
-            self.delete(index)
-            selFirst = self.index('insert')
-            self.insert('insert', modifiedCharacter)
-            selLast = self.index('insert')
-            self.tag_add('sel', selFirst, selLast)
-            for tag in selTags:
-                if tag != 'sel':
-                    self.tag_add((tag), index)
-
-            index = self.index(f'{index}+{len(modifiedCharacter)}c')
+            nextIndex = f'{index}+{len(modifiedCharacter)}c'
+            if modifiedCharacter != character:
+                selTags = self.tag_names(index)
+                self.delete(index)
+                selFirst = self.index('insert')
+                self.insert('insert', modifiedCharacter)
+                selLast = self.index('insert')
+                self.tag_add('sel', selFirst, selLast)
+                for tag in selTags:
+                    if tag != 'sel':
+                        self.tag_add((tag), index)
+            else:
+                self.mark_set('insert', nextIndex)
+            index = self.index(nextIndex)
             if self.compare(index, '>=', 'end-1c'):
                 break
 
