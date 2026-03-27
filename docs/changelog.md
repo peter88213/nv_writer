@@ -5,6 +5,15 @@
 ## Changelog
 
 
+### Version 5.1.4
+
+-  Handling *PermissionError* that might occur when the writing mode 
+   is toggled quickly via F11. 
+   
+API: 5.53
+Based on novelibre 5.54.4
+
+
 ### Version 5.1.3
 
 -  Changed the `Capitalize` feature, capitalizing every word in the selection. 

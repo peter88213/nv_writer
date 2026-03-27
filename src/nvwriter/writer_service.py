@@ -79,7 +79,11 @@ class WriterService(SubController):
                 self.configuration.options[keyword] = prefs[keyword]
             elif keyword in self.configuration.settings:
                 self.configuration.settings[keyword] = prefs[keyword]
-        self.configuration.write()
+        try:
+            self.configuration.write()
+        except PermissionError:
+            # this might occur when the mode is toggled quickly via F11
+            pass
 
     def start_editor(self):
         if self._ctrl.isLocked:
