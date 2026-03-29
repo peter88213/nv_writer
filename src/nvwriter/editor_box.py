@@ -5,6 +5,9 @@ For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 
+from tkinter import font as tkFont
+from tkinter import ttk
+
 from nvwriter.novx_parser import NovxParser
 from nvwriter.nvwriter_globals import EMPHASIZING_TAGS
 from nvwriter.nvwriter_globals import PARAGRAPH_TAGS
@@ -12,11 +15,9 @@ from nvwriter.nvwriter_globals import T_COMMENT
 from nvwriter.nvwriter_globals import T_EM
 from nvwriter.nvwriter_globals import T_NOTE
 from nvwriter.nvwriter_globals import T_STRONG
-from nvwriter.text_parser import TextParser
-from tkinter import font as tkFont
-from tkinter import ttk
-import tkinter as tk
 from nvwriter.nvwriter_globals import prefs
+from nvwriter.text_parser import TextParser
+import tkinter as tk
 
 
 class EditorBox(tk.Text):
@@ -91,9 +92,8 @@ class EditorBox(tk.Text):
         )
 
         boldFont = tkFont.Font(**defaultFont.configure())
-        italicFont = tkFont.Font(**defaultFont.configure())
-
         boldFont.configure(weight='bold')
+        italicFont = tkFont.Font(**defaultFont.configure())
         italicFont.configure(slant='italic')
 
         # Configure the editor box.
