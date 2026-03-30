@@ -46,7 +46,7 @@ class Plugin(PluginBase):
         Extends the superclass method.
         """
         # Raise an exception if the plugin is not compatible
-        # with the DVD supported by novelibre.
+        # with the DTD supported by novelibre.
         (
             novelibreDtdMajorVersion,
             novelibreDtdMinorVersion
