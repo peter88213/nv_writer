@@ -27,12 +27,12 @@ from nvwriter.writer_service import WriterService
 class Plugin(PluginBase):
     """novelibre distraction free editor mode class."""
     VERSION = '@release'
-    API_VERSION = '5.53'
+    API_VERSION = '5.55'
     DESCRIPTION = 'Distraction free editor'
     URL = 'https://github.com/peter88213/nv_writer'
 
     DTD_MAJOR_VERSION = 1
-    DTD_MINOR_VERSION = 9
+    DTD_MINOR_VERSION = 10
     # DTD version supported by the plugin.
 
     def install(self, model, view, controller):

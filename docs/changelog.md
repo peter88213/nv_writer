@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.1.5
+
+-  DTD version upgrade. 
+   
+API: 5.55
+Based on novelibre 5.55.0
+
+
 ### Version 5.1.4
 
 -  Handling *PermissionError* that might occur when the writing mode 
