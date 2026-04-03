@@ -25,15 +25,15 @@ class OptionsDialog(ModalDialog):
     CRT_GREEN_HI = 'green2'
     CRT_AMBER_LO = 'orange2'
     CRT_AMBER_HI = 'orange'
-    EGA_BLUE = '#0000AA'
-    EGA_CYAN = '#00AAAA'
-    EGA_RED = '#AA0000'
-    EGA_GRAY = '#AAAAAA'
-    EGA_GREEN = '#00AA00'
-    # EGA_BRIGHT_GREEN = '#55FF55'
-    EGA_BRIGHT_CYAN = '#55FFFF'
-    EGA_BRIGHT_RED = '#FF5555'
-    EGA_BRIGHT_YELLOW = '#FFFF55'
+    EGA_BLUE = '#0000aa'
+    EGA_CYAN = '#00aaaa'
+    EGA_RED = '#aa0000'
+    EGA_GRAY = '#aaaaaa'
+    EGA_GREEN = '#00aa00'
+    # EGA_BRIGHT_GREEN = '#55ff55'
+    EGA_BRIGHT_CYAN = '#55ffff'
+    EGA_BRIGHT_RED = '#ff5555'
+    EGA_BRIGHT_YELLOW = '#ffff55'
 
     THEMES = {
         _('White'): dict(
@@ -98,8 +98,8 @@ class OptionsDialog(ModalDialog):
         ),
         _('Paper'): dict(
             color_bg='floral white',
-            color_fg='gray30',
-            color_em='gray30',
+            color_fg='gray10',
+            color_em='gray10',
             color_strong='black',
             color_notes='red',
             color_status_bg='gray60',

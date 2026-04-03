@@ -5,12 +5,13 @@
 ## Changelog
 
 
-### Version 5.1.5
+### Version 5.1.6
 
--  DTD version upgrade. 
+- Increased the contrast of the "Paper" color set.
+- DTD version upgrade. 
    
 API: 5.55
-Based on novelibre 5.55.0
+Based on novelibre 5.55.4
 
 
 ### Version 5.1.4
