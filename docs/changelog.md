@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.1.7
+
+- Minor refactoring.
+
+API: 5.55
+Based on novelibre 5.55.14
+
+
 ### Version 5.1.6
 
 - Increased the contrast of the "Paper" color set.

@@ -6,7 +6,7 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
-from xml.sax.saxutils import escape
+from xml import sax
 
 from nvlib.model.xml.xml_filter import strip_illegal_characters
 from nvwriter.nvwriter_globals import BULLET
@@ -14,10 +14,8 @@ from nvwriter.nvwriter_globals import COMMENT_PREFIX
 from nvwriter.nvwriter_globals import EMPHASIZING_TAGS
 from nvwriter.nvwriter_globals import NOTE_PREFIX
 from nvwriter.nvwriter_globals import PARAGRAPH_TAGS
-from nvwriter.nvwriter_globals import T_EM
 from nvwriter.nvwriter_globals import T_LI
 from nvwriter.nvwriter_globals import T_SPAN
-from nvwriter.nvwriter_globals import T_STRONG
 from nvwriter.nvwriter_globals import T_UL
 
 
@@ -80,7 +78,7 @@ class TextParser():
     def characters(self, content):
 
         # Sanitize content for XML use.
-        content = escape(content)
+        content = sax.saxutils.escape(content)
         content = strip_illegal_characters(content)
 
         if self._commentIndex is not None:
