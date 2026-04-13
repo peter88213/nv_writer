@@ -55,7 +55,7 @@ The most essential keyboard shortcuts can be viewed on a help screen.
 
 ## Requirements
 
-- [novelibre](https://github.com/peter88213/novelibre/) version 5.55+
+- [novelibre](https://github.com/peter88213/novelibre/) version $ApiVersion+
 
 ## Download and install
 
