@@ -5,6 +5,15 @@
 ## Changelog
 
 
+### Version 5.1.8
+
+- Refactored the colors: replaced tk names with hex RGB triples.
+- Fixed unit test module.
+
+API: 5.55
+Based on novelibre 5.55.14
+
+
 ### Version 5.1.7
 
 - Minor refactoring.

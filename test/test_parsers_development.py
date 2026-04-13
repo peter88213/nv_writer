@@ -6,6 +6,7 @@ root = tk.Tk()
 
 from nvwriter.section_content_validator import SectionContentValidator
 from nvwriter.editor_box import EditorBox
+from nvwriter.nvwriter_globals import prefs
 
 SECTION_CONTENT = (
     '<p><em>Text<note id="ftn1" class="footnote">'
@@ -13,12 +14,20 @@ SECTION_CONTENT = (
     '<p>Footnote</p>'
     '</note>.</em></p>'
 )
+prefs['color_em'] = 'gray85'
+prefs['color_notes'] = 'red'
+prefs['color_strong'] = 'gray85'
 
 
 class Test(unittest.TestCase):
 
     def setUp(self):
-        self.editor = EditorBox(root, font=('Courier', 12), fg='black', bg='white')
+        self.editor = EditorBox(
+            root,
+            font=('Courier', 12),
+            fg='black',
+            bg='white',
+        )
 
     def test_novx_validity(self):
         validator = SectionContentValidator()

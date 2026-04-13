@@ -18,13 +18,14 @@ import tkinter as tk
 class OptionsDialog(ModalDialog):
     """A pop-up window with view preference settings."""
 
-    CRT_BG = 'gray15'
-    CRT_WHITE_LO = 'gray70'
-    CRT_WHITE_HI = 'gray85'
-    CRT_GREEN_LO = 'green3'
-    CRT_GREEN_HI = 'green2'
-    CRT_AMBER_LO = 'orange2'
-    CRT_AMBER_HI = 'orange'
+    BLACK = '#000000'
+    CRT_BG = '#262626'
+    CRT_WHITE_LO = '#b3b3b3'
+    CRT_WHITE_HI = '#d9d9d9'
+    CRT_GREEN_LO = '#00cd00'
+    CRT_GREEN_HI = '#00ee00'
+    CRT_AMBER_LO = '#ee9a00'
+    CRT_AMBER_HI = '#ffa500'
     EGA_BLUE = '#0000aa'
     EGA_CYAN = '#00aaaa'
     EGA_RED = '#aa0000'
@@ -34,6 +35,9 @@ class OptionsDialog(ModalDialog):
     EGA_BRIGHT_CYAN = '#55ffff'
     EGA_BRIGHT_RED = '#ff5555'
     EGA_BRIGHT_YELLOW = '#ffff55'
+    RED = '#ff0000'
+    WHITE = '#ffffff'
+    YELLOW = '#ffff00'
 
     THEMES = {
         _('White'): dict(
@@ -41,7 +45,7 @@ class OptionsDialog(ModalDialog):
             color_fg=CRT_WHITE_LO,
             color_em=CRT_WHITE_HI,
             color_strong=CRT_WHITE_HI,
-            color_notes='red',
+            color_notes=RED,
             color_status_bg=CRT_WHITE_LO,
             color_status_fg=CRT_BG,
             color_button_bg=CRT_WHITE_LO,
@@ -53,7 +57,7 @@ class OptionsDialog(ModalDialog):
             color_fg=CRT_GREEN_LO,
             color_em=CRT_GREEN_HI,
             color_strong=CRT_GREEN_HI,
-            color_notes='yellow',
+            color_notes=YELLOW,
             color_status_bg=CRT_GREEN_LO,
             color_status_fg=CRT_BG,
             color_button_bg=CRT_GREEN_LO,
@@ -65,7 +69,7 @@ class OptionsDialog(ModalDialog):
             color_fg=CRT_AMBER_LO,
             color_em=CRT_AMBER_HI,
             color_strong=CRT_AMBER_HI,
-            color_notes='yellow',
+            color_notes=YELLOW,
             color_status_bg=CRT_AMBER_LO,
             color_status_fg=CRT_BG,
             color_button_bg=CRT_AMBER_LO,
@@ -73,88 +77,88 @@ class OptionsDialog(ModalDialog):
             color_shortcut=CRT_AMBER_HI,
         ),
         f"{_('Contrast')} 1": dict(
-            color_bg='black',
-            color_fg='white',
-            color_em='white',
-            color_strong='white',
-            color_notes='red',
-            color_status_bg='white',
-            color_status_fg='black',
-            color_button_bg='white',
-            color_button_fg='black',
-            color_shortcut='white',
+            color_bg=BLACK,
+            color_fg=WHITE,
+            color_em=WHITE,
+            color_strong=WHITE,
+            color_notes=RED,
+            color_status_bg=WHITE,
+            color_status_fg=BLACK,
+            color_button_bg=WHITE,
+            color_button_fg=BLACK,
+            color_shortcut=WHITE,
         ),
         f"{_('Contrast')} 2": dict(
-            color_bg='white',
-            color_fg='black',
-            color_em='black',
-            color_strong='black',
-            color_notes='red',
-            color_status_bg='black',
-            color_status_fg='white',
-            color_button_bg='black',
-            color_button_fg='white',
-            color_shortcut='black',
+            color_bg=WHITE,
+            color_fg=BLACK,
+            color_em=BLACK,
+            color_strong=BLACK,
+            color_notes=RED,
+            color_status_bg=BLACK,
+            color_status_fg=WHITE,
+            color_button_bg=BLACK,
+            color_button_fg=WHITE,
+            color_shortcut=BLACK,
         ),
         _('Paper'): dict(
-            color_bg='floral white',
-            color_fg='gray10',
-            color_em='gray10',
-            color_strong='black',
-            color_notes='red',
-            color_status_bg='gray60',
-            color_status_fg='floral white',
-            color_button_bg='gray60',
-            color_button_fg='floral white',
-            color_shortcut='black',
+            color_bg='#fffaf0',
+            color_fg='#1a1a1a',
+            color_em='#1a1a1a',
+            color_strong=BLACK,
+            color_notes=RED,
+            color_status_bg='#999999',
+            color_status_fg='#fffaf0',
+            color_button_bg='#999999',
+            color_button_fg='#fffaf0',
+            color_shortcut=BLACK,
         ),
         'Perfect5': dict(
             color_bg=EGA_BLUE,
             color_fg=EGA_GRAY,
             color_em=EGA_BRIGHT_YELLOW,
-            color_strong='white',
+            color_strong=WHITE,
             color_notes=EGA_BRIGHT_RED,
             color_status_bg=EGA_GRAY,
-            color_status_fg='black',
+            color_status_fg=BLACK,
             color_button_bg=EGA_GRAY,
-            color_button_fg='black',
-            color_shortcut='white',
+            color_button_fg=BLACK,
+            color_shortcut=WHITE,
         ),
         'Soft5': dict(
             color_bg=EGA_BLUE,
             color_fg=EGA_GRAY,
             color_em=EGA_BRIGHT_CYAN,
-            color_strong='white',
+            color_strong=WHITE,
             color_notes=EGA_BRIGHT_RED,
             color_status_bg=EGA_CYAN,
-            color_status_fg='black',
+            color_status_fg=BLACK,
             color_button_bg=EGA_GRAY,
-            color_button_fg='black',
+            color_button_fg=BLACK,
             color_shortcut=EGA_BRIGHT_CYAN,
         ),
         'Star3': dict(
             color_bg=EGA_CYAN,
-            color_fg='black',
+            color_fg=BLACK,
             color_em=EGA_BRIGHT_CYAN,
             color_strong=EGA_BRIGHT_CYAN,
-            color_notes='white',
-            color_status_bg='black',
+            color_notes=WHITE,
+            color_status_bg=BLACK,
             color_status_fg=EGA_BRIGHT_CYAN,
             color_button_bg=EGA_RED,
-            color_button_fg='white',
-            color_shortcut='white',
+            color_button_fg=WHITE,
+            color_shortcut=WHITE,
         ),
         'RJS': dict(
-            color_bg='black',
-            color_fg='cyan3',
-            color_em='gray85',
-            color_strong='gray65',
-            color_notes='red',
-            color_status_bg='green3',
-            color_status_fg='black',
-            color_button_bg='cyan2',
-            color_button_fg='black',
-            color_shortcut='cyan2',
+            color_bg=BLACK,
+            color_fg='#00cdcd',
+            color_em='#d9d9d9',
+            color_strong='#a6a6a6',
+            color_notes=RED,
+            color_status_bg='#00cd00',
+            color_status_fg=BLACK,
+            color_button_bg='#00eeee',
+            color_button_fg=BLACK,
+            color_shortcut='#00eeee',
         ),
     }
 
