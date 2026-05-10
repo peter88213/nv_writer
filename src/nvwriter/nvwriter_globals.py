@@ -38,6 +38,7 @@ T_COMMENT = 'comment'
 T_CREATOR = 'creator'
 T_DATE = 'date'
 T_EM = 'em'
+T_H4 = 'h4'
 T_H5 = 'h5'
 T_H6 = 'h6'
 T_H7 = 'h7'
@@ -49,8 +50,8 @@ T_SPAN = 'span'
 T_STRONG = 'strong'
 T_UL = 'ul'
 
-HEADING_TAGS = (T_H5, T_H6, T_H7, T_H8, T_H9)
-PARAGRAPH_TAGS = ('p', T_H5, T_H6, T_H7, T_H8, T_H9)
+HEADING_TAGS = (T_H4, T_H5, T_H6, T_H7, T_H8, T_H9)
+PARAGRAPH_TAGS = ('p', T_H4, T_H5, T_H6, T_H7, T_H8, T_H9)
 PARAGRAPH_NESTING_TAGS = (T_COMMENT, T_NOTE)
 EMPHASIZING_TAGS = (T_EM, T_STRONG)
 
