@@ -4,8 +4,6 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
-import textwrap
-
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.writer_locale import _
 import tkinter as tk
@@ -92,11 +90,11 @@ class StatusBar(tk.Frame):
         lengthTotal = 80
         lengthEntry = 25
         book = book or _('Untitled')
-        book = textwrap.shorten(book, lengthEntry)
+        book = self.shorten(book, lengthEntry)
         lengthTotal -= len(book)
         lengthEntry = lengthTotal // 2
         chapter = chapter or _('Untitled')
-        chapter = textwrap.shorten(chapter, lengthEntry)
+        chapter = self.shorten(chapter, lengthEntry)
         lengthTotal -= len(chapter)
         section = section or _('Untitled')
         self._breadcrumbs.configure(
@@ -124,3 +122,8 @@ class StatusBar(tk.Frame):
     def set_wordcount(self, wcText):
         self._wordCount.configure(text=wcText)
 
+    def shorten(self, text, length):
+        if len(text) > length:
+            return f'{text[:length - 3]}[…]'
+
+        return text

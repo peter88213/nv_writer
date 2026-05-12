@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.1.9
+
+- Improved the status bar by changing the "shorten" method.
+
+API: 5.55
+Based on novelibre 5.55.16
+
+
 ### Version 5.1.8
 
 - Refactored the colors: replaced tk names with hex RGB triples.
