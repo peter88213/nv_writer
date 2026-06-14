@@ -94,9 +94,20 @@ class EditorBox(tk.Text):
         
         Return True in case of modification.
         """
+
+        # Prevent nesting comments.
+        index = 'sel.first'
+        while self.compare(index, '<=', 'sel.last'):
+            if T_COMMENT in self.tag_names(index):
+                return False
+
+            index = self.index(f'{index}+1c')
+
+        # Format the selected text as a comment.
         if not self._set_format(T_COMMENT):
             return False
 
+        # Add a new comment to the parser's list of comments.
         newComment = Comment()
         newComment.creator = self._authorName
         newComment.date = datetime.now().replace(
