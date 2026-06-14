@@ -129,6 +129,7 @@ class HelpScreen(tk.Frame):
             (_('Open new line'), f'{_("Ctrl")}-O'),
             (_('Undo'), f'{_("Ctrl")}-Z'),
             (_('Redo'), f'{_("Ctrl")}-Y'),
+            (_('Convert into comment'), KEYS.COMMENT[1],),
         ):
             row += 1
             self._entries.append(
@@ -147,7 +148,6 @@ class HelpScreen(tk.Frame):
             (_('Emphasis'), KEYS.ITALIC[1],),
             (_('Strong emphasis'), KEYS.BOLD[1],),
             (_('Plain'), KEYS.PLAIN[1],),
-            (_('Comment'), KEYS.COMMENT[1],),
         ):
             row += 1
             self._entries.append(

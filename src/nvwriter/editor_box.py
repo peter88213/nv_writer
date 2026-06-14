@@ -95,13 +95,24 @@ class EditorBox(tk.Text):
         Return True in case of modification.
         """
 
-        # Prevent nesting comments.
+        # If a comment is within the selection, uncomment it.
+        uncommented = False
         index = 'sel.first'
         while self.compare(index, '<=', 'sel.last'):
             if T_COMMENT in self.tag_names(index):
-                return False
+                self.tag_remove(T_COMMENT, index)
+                for i in range(len(self._novxParser.comments)):
+                    commentTag = f'{COMMENT_PREFIX}:{i}'
+                    if commentTag in self.tag_names(index):
+                        self.tag_remove(commentTag, index)
+                        uncommented = True
 
             index = self.index(f'{index}+1c')
+            if self.compare(index, '>=', 'end-1c'):
+                break
+
+        if uncommented:
+            return False
 
         # Format the selected text as a comment.
         if not self._set_format(T_COMMENT):
