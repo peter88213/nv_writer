@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.2.0
+
+- Creating comments with Ctrl-Alt-C.
+
+API: 5.55
+Based on novelibre 5.59.0
+
+
 ### Version 5.1.9
 
 - Improved the status bar by changing the "shorten" method.
