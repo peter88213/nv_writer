@@ -4,11 +4,13 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
-
+from datetime import datetime
 from tkinter import font as tkFont
 from tkinter import ttk
 
+from nvwriter.comment import Comment
 from nvwriter.novx_parser import NovxParser
+from nvwriter.nvwriter_globals import COMMENT_PREFIX
 from nvwriter.nvwriter_globals import EMPHASIZING_TAGS
 from nvwriter.nvwriter_globals import PARAGRAPH_TAGS
 from nvwriter.nvwriter_globals import T_COMMENT
@@ -27,6 +29,7 @@ class EditorBox(tk.Text):
         self,
         master=None,
         vstyle=None,
+        authorName=None,
         **kw,
     ):
         """Copied from tkinter.scrolledtext and modified (use ttk widgets).
@@ -61,6 +64,8 @@ class EditorBox(tk.Text):
         # Configure the content parsers.
         self._novxParser = NovxParser()
         self._textParser = TextParser()
+        self._authorName = authorName or ''
+        # used for new comments
 
         self.configure_font(kw['font'])
         self.tag_configure(
@@ -83,6 +88,24 @@ class EditorBox(tk.Text):
 
     def clear(self):
         self.delete('1.0', 'end')
+
+    def comment(self):
+        """Make the selection a comment.
+        
+        Return True in case of modification.
+        """
+        if not self._set_format(T_COMMENT):
+            return False
+
+        newComment = Comment()
+        newComment.creator = self._authorName
+        newComment.date = datetime.now().replace(
+            microsecond=0
+        ).isoformat()
+        self._novxParser.comments.append(newComment)
+        return self._set_format(
+            f'{COMMENT_PREFIX}:{len(self._novxParser.comments)-1}'
+        )
 
     def configure_font(self, font):
         defaultFont = tkFont.Font(

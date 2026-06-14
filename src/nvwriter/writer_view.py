@@ -88,6 +88,7 @@ class WriterView(ModalDialog):
         self._sectionEditor = EditorBox(
             self._editorWindow,
             vstyle='CustomScrollbarStyle.Vertical.TScrollbar',
+            authorName=self._mdl.novel.authorName,
             wrap='word',
             undo=True,
             maxundo=-1,
@@ -132,6 +133,7 @@ class WriterView(ModalDialog):
             (KEYS.SPLIT_SECTION, self._split_section),
             (KEYS.CREATE_SECTION, self._create_section),
             (KEYS.CLONE_SECTION, self._clone_section),
+            (KEYS.COMMENT, self._comment),
             (KEYS.ITALIC, self._emphasis),
             (KEYS.BOLD, self._strong_emphasis),
             (KEYS.PLAIN, self._plain),
@@ -268,6 +270,10 @@ class WriterView(ModalDialog):
 
     def _capitalize(self, event=None):
         self._sectionEditor.capitalize()
+        return 'break'
+
+    def _comment(self, event=None):
+        self._sectionEditor.comment()
         return 'break'
 
     def _confirm(self, message):

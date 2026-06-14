@@ -13,6 +13,7 @@ class MacKeys(GenericKeys):
     BOLD = ('<Command-b>', 'Cmd-B')
     CAPITALIZE = ('<Command-C>', f'Cmd-{_("Shift")}-C')
     CLONE_SECTION = ('<Command-u>', 'Cmd-U')
+    COMMENT = ('<Command-Option-c>', 'Cmd-Option-C')
     CREATE_SECTION = ('<Command-n>', 'Cmd-N')
     DECREASE_SIZE = ('<Command-minus>', 'Cmd--')
     INCREASE_SIZE = ('<Command-plus>', 'Cmd-+')

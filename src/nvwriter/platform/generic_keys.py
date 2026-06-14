@@ -13,6 +13,7 @@ class GenericKeys:
     CAPITALIZE = ('<Control-C>', f'{_("Ctrl")}-{_("Shift")}-C')
     COPY = ('<Control-c>', f'{_("Ctrl")}-C')
     CLONE_SECTION = ('<Control-u>', f'{_("Ctrl")}-U')
+    COMMENT = ('<Control-Alt-c>', f'{_("Ctrl")}-Alt-C')
     CREATE_SECTION = ('<Control-n>', f'{_("Ctrl")}-N')
     CUT = ('<Control-x>', f'{_("Ctrl")}-X')
     DECREASE_SIZE = ('<Control-minus>', f'{_("Ctrl")}--')

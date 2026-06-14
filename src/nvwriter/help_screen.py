@@ -147,6 +147,7 @@ class HelpScreen(tk.Frame):
             (_('Emphasis'), KEYS.ITALIC[1],),
             (_('Strong emphasis'), KEYS.BOLD[1],),
             (_('Plain'), KEYS.PLAIN[1],),
+            (_('Comment'), KEYS.COMMENT[1],),
         ):
             row += 1
             self._entries.append(
