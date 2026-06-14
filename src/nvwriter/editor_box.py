@@ -94,6 +94,8 @@ class EditorBox(tk.Text):
         
         Return True in case of modification.
         """
+        if not self.tag_ranges('sel'):
+            return False
 
         # If a comment is within the selection, uncomment it.
         uncommented = False

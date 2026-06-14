@@ -5,7 +5,7 @@
 ## Changelog
 
 
-### Version 5.2.1
+### Version 5.2.2
 
 - Toggling commenting with Ctrl-Alt-C.
 
