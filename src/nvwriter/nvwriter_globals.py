@@ -55,9 +55,9 @@ PARAGRAPH_NESTING_TAGS = (T_COMMENT, T_NOTE)
 EMPHASIZING_TAGS = (T_EM, T_STRONG)
 
 FONTS = [
-    'DejaVu Sans Mono',  # preferred font, usually bundled with LibreOffice
-    'Liberation Mono',
     'Consolas',  # available on Windows
+    'DejaVu Sans Mono',  # usually bundled with LibreOffice
+    'Liberation Mono',
     'Courier',  # fallback, if none of the above is installed
 ]
 INSTALLED_FONTS = tkFont.families()

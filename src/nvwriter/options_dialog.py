@@ -17,6 +17,7 @@ import tkinter as tk
 
 class OptionsDialog(ModalDialog):
     """A pop-up window with view preference settings."""
+    OFFSET = 0
 
     BLACK = '#000000'
     CRT_BG = '#262626'

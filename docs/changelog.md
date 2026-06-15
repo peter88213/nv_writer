@@ -5,9 +5,11 @@
 ## Changelog
 
 
-### Version 5.2.2
+### Version 5.2.3
 
 - Toggling commenting with Ctrl-Alt-C.
+- Changed the default font under Windows.
+- Changed the offset of the settings dialog.
 
 API: 5.55
 Based on novelibre 5.59.0
