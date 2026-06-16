@@ -11,7 +11,9 @@ from nvwriter.writer_locale import _
 class LinuxKeys(GenericKeys):
 
     # Numpad keys (needed for Linux)
-    INCREASE_SIZE_KP = ('<Control-KP_Add>', f'{_("Ctrl")}-+')
-    DECREASE_SIZE_KP = ('<Control-KP_Subtract>', f'{_("Ctrl")}--')
+    INCREASE_FONT_SIZE_KP = ('<Control-Alt-KP_Add>', f'{_("Ctrl")}-Alt-+')
+    DECREASE_FONT_SIZE_KP = ('<Control-Alt-KP_Subtract>', f'{_("Ctrl")}-Alt--')
+    INCREASE_SCREEN_SIZE_KP = ('<Control-KP_Add>', f'{_("Ctrl")}-+')
+    DECREASE_SCREEN_SIZE_KP = ('<Control-KP_Subtract>', f'{_("Ctrl")}--')
     PREVIOUS_KP = ('<Control-KP_Prior>', f'{_("Ctrl")}-{_("PgUp")}')
     NEXT_KP = ('<Control-KP_Next>', f'{_("Ctrl")}-{_("PgDn")}')

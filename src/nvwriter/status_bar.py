@@ -4,6 +4,7 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+from nvwriter.nvwriter_globals import get_font_size
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.writer_locale import _
 import tkinter as tk
@@ -102,7 +103,7 @@ class StatusBar(tk.Frame):
         )
 
     def set_font(self, scale):
-        size = int(int(prefs['font_size_1']) * scale * 0.8)
+        size = round(get_font_size(prefs['font_size']) * scale * 0.8)
         font = (prefs['editor_font'], size)
         self._breadcrumbs.configure(font=font)
         self._modificationIndicator.configure(font=font)

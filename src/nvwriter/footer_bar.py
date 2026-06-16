@@ -4,6 +4,7 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+from nvwriter.nvwriter_globals import get_font_size
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.writer_locale import _
@@ -30,7 +31,7 @@ class FooterBar(tk.Frame):
             self._create_menu_entry(desc, shortcut, sequence)
 
     def set_font(self, scale):
-        size = int(int(prefs['font_size_1']) * scale * 0.8)
+        size = round(get_font_size(prefs['font_size']) * scale * 0.8)
         font = (prefs['editor_font'], size)
         for descLabel, shortcutLabel in self._entries:
             descLabel.configure(font=font)

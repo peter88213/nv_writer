@@ -21,6 +21,8 @@ from nvwriter.nvwriter_globals import RECENT_POSITION
 from nvwriter.nvwriter_globals import RECENT_SECTION
 from nvwriter.nvwriter_globals import RESOLUTIONS
 from nvwriter.nvwriter_globals import check_editor_settings
+from nvwriter.nvwriter_globals import get_font_size
+from nvwriter.nvwriter_globals import limit_font_index
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
@@ -96,13 +98,13 @@ class WriterView(ModalDialog):
             fg=prefs['color_fg'],
             bg=prefs['color_bg'],
             insertbackground=prefs['color_fg'],
-            spacing1=int(int(prefs['paragraph_spacing']) * scale),
-            spacing2=int(int(prefs['line_spacing']) * scale),
-            padx=int(int(prefs['margin_horizontal']) * scale),
-            pady=int(int(prefs['margin_vertical']) * scale),
+            spacing1=round(int(prefs['paragraph_spacing']) * scale),
+            spacing2=round(int(prefs['line_spacing']) * scale),
+            padx=round(int(prefs['margin_horizontal']) * scale),
+            pady=round(int(prefs['margin_vertical']) * scale),
             font=(
                 prefs['editor_font'],
-                int(int(prefs['font_size_1']) * scale),
+                round(get_font_size(prefs['font_size']) * scale),
             ),
         )
         self._sectionEditor.pack(fill='both', expand=True)
@@ -122,8 +124,10 @@ class WriterView(ModalDialog):
 
         #--- Key bindings.
         keyBindings = [
-            (KEYS.INCREASE_SIZE, self._increase_screen_size),
-            (KEYS.DECREASE_SIZE, self._decrease_screen_size),
+            (KEYS.INCREASE_SCREEN_SIZE, self._increase_screen_size),
+            (KEYS.DECREASE_SCREEN_SIZE, self._decrease_screen_size),
+            (KEYS.INCREASE_FONT_SIZE, self._increase_font_size),
+            (KEYS.DECREASE_FONT_SIZE, self._decrease_font_size),
             (KEYS.PREVIOUS, self._load_prev),
             (KEYS.NEXT, self._load_next),
             (KEYS.OPEN_HELP, self._open_help),
@@ -149,8 +153,10 @@ class WriterView(ModalDialog):
             # the keys on the numeric keypad must be explicitly assigned
             keyBindings.extend(
                 [
-                    (KEYS.INCREASE_SIZE_KP, self._increase_screen_size),
-                    (KEYS.DECREASE_SIZE_KP, self._decrease_screen_size),
+                    (KEYS.INCREASE_FONT_SIZE_KP, self._increase_font_size),
+                    (KEYS.DECREASE_FONT_SIZE_KP, self._decrease_font_size),
+                    (KEYS.INCREASE_SCREEN_SIZE_KP, self._increase_screen_size),
+                    (KEYS.DECREASE_SCREEN_SIZE_KP, self._decrease_screen_size),
                     (KEYS.NEXT_KP, self._load_next),
                     (KEYS.PREVIOUS_KP, self._load_prev),
                 ]
@@ -317,6 +323,12 @@ class WriterView(ModalDialog):
         self._askForConfirmation = False
         return newId
 
+    def _decrease_font_size(self, event=False):
+        fontIndex = limit_font_index(int(prefs['font_size']) - 1)
+        if fontIndex != int(prefs['font_size']):
+            prefs['font_size'] = fontIndex
+            self._reconfigure_screen()
+
     def _decrease_screen_size(self, event=False):
         resolutionIndex = int(prefs['resolution_index'])
         if resolutionIndex > 0:
@@ -397,6 +409,12 @@ class WriterView(ModalDialog):
         self._footerBar.pack_forget()
         prefs['show_footer_bar'] = False
         return 'break'
+
+    def _increase_font_size(self, event=False):
+        fontIndex = limit_font_index(int(prefs['font_size']) + 1)
+        if fontIndex != int(prefs['font_size']):
+            prefs['font_size'] = fontIndex
+            self._reconfigure_screen()
 
     def _increase_screen_size(self, event=False):
         resolutionIndex = int(prefs['resolution_index'])
@@ -495,19 +513,19 @@ class WriterView(ModalDialog):
             width=width,
         )
         self._sectionEditor.configure(
-            spacing1=int(int(prefs['paragraph_spacing']) * scale),
-            spacing2=int(int(prefs['line_spacing']) * scale),
-            padx=int(int(prefs['margin_horizontal']) * scale),
-            pady=int(int(prefs['margin_vertical']) * scale),
+            spacing1=round(int(prefs['paragraph_spacing']) * scale),
+            spacing2=round(int(prefs['line_spacing']) * scale),
+            padx=round(int(prefs['margin_horizontal']) * scale),
+            pady=round(int(prefs['margin_vertical']) * scale),
             font=(
                 prefs['editor_font'],
-                int(int(prefs['font_size_1']) * scale),
+                round(get_font_size(prefs['font_size']) * scale),
             ),
         )
         self._sectionEditor.configure_font(
             (
                 prefs['editor_font'],
-                int(int(prefs['font_size_1']) * scale),
+                round(get_font_size(prefs['font_size']) * scale),
             ),
         )
 

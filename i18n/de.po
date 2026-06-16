@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 5.2.3\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-06-14 22:37:10\n"
+"PO-Revision-Date: 2026-06-16 18:13:19\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -118,8 +118,8 @@ msgstr "Betont"
 msgid "Ending"
 msgstr "Ende"
 
-msgid "Enlarge"
-msgstr "Vergrößern"
+msgid "Enlarge window"
+msgstr "Fenster größer"
 
 msgid "Format"
 msgstr "Format"
@@ -208,14 +208,20 @@ msgstr "Speichern"
 msgid "Saved"
 msgstr "Gespeichert"
 
+msgid "Scale down text"
+msgstr "Text kleiner"
+
+msgid "Scale up text"
+msgstr "Text größer"
+
 msgid "Section"
 msgstr "Abschnitt"
 
 msgid "Shift"
-msgstr "Umschalt"
+msgstr "Umsch"
 
-msgid "Shrink"
-msgstr "Verkleinern"
+msgid "Shrink window"
+msgstr "Fenster kleiner"
 
 msgid "Split"
 msgstr "Teilen"

@@ -30,6 +30,7 @@ RESOLUTIONS = [
 # (height, width, font size, margin)
 MIN_HEIGHT, MIN_WIDTH = RESOLUTIONS[0]
 DEFAULT_HEIGHT, DEFAULT_WIDTH = RESOLUTIONS[0]
+FONT_SIZES = (11, 12, 13)
 
 NOTE_MARK = '†'
 NOTE_PREFIX = 'ntId'
@@ -105,3 +106,16 @@ def check_editor_settings(window):
         prefs['editor_font'] = DEFAULT_FONT
 
     return passed
+
+
+def limit_font_index(index):
+    index = int(index or 0)
+    if index < 0:
+        index = 0
+    elif index > len(FONT_SIZES) - 1:
+        index = len(FONT_SIZES) - 1
+    return index
+
+
+def get_font_size(index):
+    return FONT_SIZES[limit_font_index(index)]

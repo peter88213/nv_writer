@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 5.2.3\n"
-"POT-Creation-Date: 2026-06-14 22:37:10\n"
+"POT-Creation-Date: 2026-06-16 18:13:23\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -119,7 +119,7 @@ msgstr ""
 msgid "Ending"
 msgstr ""
 
-msgid "Enlarge"
+msgid "Enlarge window"
 msgstr ""
 
 msgid "Format"
@@ -209,13 +209,19 @@ msgstr ""
 msgid "Saved"
 msgstr ""
 
+msgid "Scale down text"
+msgstr ""
+
+msgid "Scale up text"
+msgstr ""
+
 msgid "Section"
 msgstr ""
 
 msgid "Shift"
 msgstr ""
 
-msgid "Shrink"
+msgid "Shrink window"
 msgstr ""
 
 msgid "Split"

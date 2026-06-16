@@ -4,6 +4,7 @@ Copyright (c) Peter Triesberger
 For further information see https://github.com/peter88213/nv_writer
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
+from nvwriter.nvwriter_globals import get_font_size
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.writer_locale import _
@@ -85,8 +86,10 @@ class HelpScreen(tk.Frame):
             (_('Menu on/off'), KEYS.TOGGLE_FOOTER_BAR[1],),
             (_('Help on/off'), KEYS.TOGGLE_HELP[1],),
             (_('Online help'), KEYS.OPEN_HELP[1],),
-            (_('Enlarge'), KEYS.INCREASE_SIZE[1],),
-            (_('Shrink'), KEYS.DECREASE_SIZE[1],),
+            (_('Enlarge window'), KEYS.INCREASE_SCREEN_SIZE[1],),
+            (_('Shrink window'), KEYS.DECREASE_SCREEN_SIZE[1],),
+            (_('Scale up text'), KEYS.INCREASE_FONT_SIZE[1],),
+            (_('Scale down text'), KEYS.DECREASE_FONT_SIZE[1],),
         ):
             row += 1
             self._entries.append(
@@ -95,15 +98,14 @@ class HelpScreen(tk.Frame):
 
         row += 1
 
-        # Change case commands.
+        # Format commands.
         self._headings.append(
-            self._create_heading(frame, _('Change case'), row)
+            self._create_heading(frame, _('Format'), row)
         )
         for desc, shortcut in (
-            (_('UPPERCASE'), KEYS.UPPER_CASE[1],),
-            (_('lowercase'), KEYS.LOWER_CASE[1],),
-            (_('Capitalize Every Word'), KEYS.CAPITALIZE[1],),
-            (_('tOGGLE cASE'), KEYS.TOGGLE_CASE[1],),
+            (_('Emphasis'), KEYS.ITALIC[1],),
+            (_('Strong emphasis'), KEYS.BOLD[1],),
+            (_('Plain'), KEYS.PLAIN[1],),
         ):
             row += 1
             self._entries.append(
@@ -140,14 +142,15 @@ class HelpScreen(tk.Frame):
         frame = rightFrame
         row = 0
 
-        # Format commands.
+        # Change case commands.
         self._headings.append(
-            self._create_heading(frame, _('Format'), row)
+            self._create_heading(frame, _('Change case'), row)
         )
         for desc, shortcut in (
-            (_('Emphasis'), KEYS.ITALIC[1],),
-            (_('Strong emphasis'), KEYS.BOLD[1],),
-            (_('Plain'), KEYS.PLAIN[1],),
+            (_('UPPERCASE'), KEYS.UPPER_CASE[1],),
+            (_('lowercase'), KEYS.LOWER_CASE[1],),
+            (_('Capitalize Every Word'), KEYS.CAPITALIZE[1],),
+            (_('tOGGLE cASE'), KEYS.TOGGLE_CASE[1],),
         ):
             row += 1
             self._entries.append(
@@ -223,7 +226,7 @@ class HelpScreen(tk.Frame):
         return descLabel, shortcutLabel
 
     def set_font(self, scale):
-        size = int(int(prefs['font_size_1']) * scale * 0.8)
+        size = round(get_font_size(prefs['font_size']) * scale * 0.8)
         accFont = (prefs['editor_font'], size, 'bold')
         dscFont = (prefs['editor_font'], size)
         for descLabel, shortcutLabel in self._entries:
@@ -233,7 +236,7 @@ class HelpScreen(tk.Frame):
         for headinglabel in self._headings:
             headinglabel.configure(font=hdFont)
         self._outerFrame.configure(
-            padx=self._frameWidth * scale,
-            pady=self._frameWidth * scale,
+            padx=round(self._frameWidth * scale),
+            pady=round(self._frameWidth * scale),
         )
 
