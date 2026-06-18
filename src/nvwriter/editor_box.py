@@ -30,6 +30,7 @@ class EditorBox(tk.Text):
         master=None,
         vstyle=None,
         authorName=None,
+        marginRight=0,
         **kw,
     ):
         """Copied from tkinter.scrolledtext and modified (use ttk widgets).
@@ -43,6 +44,15 @@ class EditorBox(tk.Text):
         self.vbar.pack(side='right', fill='y')
 
         kw.update({'yscrollcommand': self.vbar.set})
+
+        self._rightMargin = tk.Label(
+            self.frame,
+            bg=kw['bg'],
+            width=marginRight,
+        )
+        self._rightMargin.pack(side='right', fill='both')
+        kw['relief'] = 'flat'
+
         tk.Text.__init__(self, self.frame, **kw)
         self.pack(side='left', fill='both', expand=True)
         self.vbar['command'] = self.yview
@@ -129,6 +139,12 @@ class EditorBox(tk.Text):
         self._novxParser.comments.append(newComment)
         return self._set_format(
             f'{COMMENT_PREFIX}:{len(self._novxParser.comments)-1}'
+        )
+
+    def configure(self, marginRight=0, **kw):
+        super().configure(kw)
+        self._rightMargin.configure(
+            width=marginRight,
         )
 
     def configure_font(self, font):

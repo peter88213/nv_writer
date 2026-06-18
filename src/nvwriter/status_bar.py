@@ -74,15 +74,15 @@ class StatusBar(tk.Frame):
     def normal(self):
         self.configure(background=prefs['color_bg'])
         self._breadcrumbs.configure(
-            foreground=prefs['color_fg'],
+            foreground=prefs['color_strong'],
             background=prefs['color_bg'],
         )
         self._modificationIndicator.configure(
-            foreground=prefs['color_fg'],
+            foreground=prefs['color_strong'],
             background=prefs['color_bg'],
         )
         self._wordCount.configure(
-            foreground=prefs['color_fg'],
+            foreground=prefs['color_strong'],
             background=prefs['color_bg'],
         )
 

@@ -42,7 +42,7 @@ class WriterView(ModalDialog):
         self._ui = view
         self._ctrl = controller
         self._focus_app_window(False)
-        super().__init__(view, bg=prefs['color_desktop'])
+        super().__init__(view, bg=prefs['color_ambient'])
 
         self._section = None
         self._scId = None
@@ -82,9 +82,8 @@ class WriterView(ModalDialog):
         ttk.Style().configure(
             'CustomScrollbarStyle.Vertical.TScrollbar',
             troughcolor=prefs['color_bg'],
-            background=prefs['color_desktop'],
+            background=prefs['color_bg'],
         )
-
         self._sectionEditor = EditorBox(
             self._editorWindow,
             vstyle='CustomScrollbarStyle.Vertical.TScrollbar',
@@ -96,10 +95,11 @@ class WriterView(ModalDialog):
             fg=prefs['color_fg'],
             bg=prefs['color_bg'],
             insertbackground=prefs['color_fg'],
-            spacing1=int(int(prefs['paragraph_spacing']) * scale),
+            spacing3=int(int(prefs['paragraph_spacing']) * scale),
             spacing2=int(int(prefs['line_spacing']) * scale),
-            padx=int(int(prefs['margin_horizontal']) * scale),
-            pady=int(int(prefs['margin_vertical']) * scale),
+            padx=int(int(prefs['padding_x']) * scale),
+            pady=int(int(prefs['padding_y']) * scale),
+            marginRight=int(int(prefs['margin_right']) * scale),
             font=(
                 prefs['editor_font'],
                 int(int(prefs['font_size_1']) * scale),
@@ -495,14 +495,15 @@ class WriterView(ModalDialog):
             width=width,
         )
         self._sectionEditor.configure(
-            spacing1=int(int(prefs['paragraph_spacing']) * scale),
+            spacing3=int(int(prefs['paragraph_spacing']) * scale),
             spacing2=int(int(prefs['line_spacing']) * scale),
-            padx=int(int(prefs['margin_horizontal']) * scale),
-            pady=int(int(prefs['margin_vertical']) * scale),
+            padx=int(int(prefs['padding_x']) * scale),
+            pady=int(int(prefs['padding_y']) * scale),
             font=(
                 prefs['editor_font'],
                 int(int(prefs['font_size_1']) * scale),
             ),
+            marginRight=int(int(prefs['margin_right']) * scale),
         )
         self._sectionEditor.configure_font(
             (

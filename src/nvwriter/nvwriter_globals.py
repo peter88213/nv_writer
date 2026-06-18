@@ -55,8 +55,8 @@ PARAGRAPH_NESTING_TAGS = (T_COMMENT, T_NOTE)
 EMPHASIZING_TAGS = (T_EM, T_STRONG)
 
 FONTS = [
-    'Consolas',  # available on Windows
     'DejaVu Sans Mono',  # usually bundled with LibreOffice
+    'Consolas',  # available on Windows
     'Liberation Mono',
     'Courier',  # fallback, if none of the above is installed
 ]

@@ -5,6 +5,19 @@
 ## Changelog
 
 
+### Version 5.3.0
+
+- Added a right margin (10 characters).
+- Displaying the status bar in "strong" color when the menu is hidden.
+- Adjusted the default line/paragraph spacing.
+- Changed the default font back to DejaVu Sans Mono.
+- Changed the scrollbar color to the background color.
+- Changed the ambient color to black.
+
+API: 5.55
+Based on novelibre 5.59.0
+
+
 ### Version 5.2.3
 
 - Toggling commenting with Ctrl-Alt-C.
