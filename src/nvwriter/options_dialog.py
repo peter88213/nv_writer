@@ -177,21 +177,24 @@ class OptionsDialog(ModalDialog):
         optionsFrame.pack(fill='both')
 
         #--- Checkbox for confirmation.
+        def change_ask_for_confirmation():
+            prefs['ask_for_confirmation'] = askForConfirmationVar.get()
+
         askFrame = ttk.Frame(optionsFrame)
         askFrame.pack(side='left', padx=20, pady=10,)
         ttk.Label(
             askFrame,
             text=_('Apply changes')
         ).pack(padx=5, pady=5, anchor='w',)
-        self._askForConfirmationVar = tk.BooleanVar(
+        askForConfirmationVar = tk.BooleanVar(
             askFrame,
             value=prefs['ask_for_confirmation'],
         )
         ttk.Checkbutton(
             askFrame,
             text=_('Ask for confirmation'),
-            variable=self._askForConfirmationVar,
-            command=self._change_ask_for_confirmation,
+            variable=askForConfirmationVar,
+            command=change_ask_for_confirmation,
         ).pack(padx=5, pady=5, anchor='w',)
 
         ttk.Separator(
@@ -200,21 +203,24 @@ class OptionsDialog(ModalDialog):
         ).pack(fill='y', side='left',)
 
         #--- Checkbox for live word count.
+        def change_live_wc():
+            prefs['live_wordcount'] = liveWordcountVar.get()
+
         liveFrame = ttk.Frame(optionsFrame)
         liveFrame.pack(side='left', padx=20, pady=10,)
         ttk.Label(
             liveFrame,
             text=_('Word count')
         ).pack(padx=5, pady=5, anchor='w',)
-        self._liveWordcountVar = tk.BooleanVar(
+        liveWordcountVar = tk.BooleanVar(
             liveFrame,
             value=prefs['live_wordcount'],
         )
         ttk.Checkbutton(
             liveFrame,
             text=_('Live update'),
-            variable=self._liveWordcountVar,
-            command=self._change_live_wc,
+            variable=liveWordcountVar,
+            command=change_live_wc,
         ).pack(padx=5, pady=5, anchor='w',)
 
         ttk.Separator(
@@ -223,21 +229,34 @@ class OptionsDialog(ModalDialog):
         ).pack(fill='y', side='left',)
 
         #--- Characters per line entry.
+        def change_cpl(event):
+            try:
+                charactersPerLine = cplVar.get()
+            except:
+                pass
+            else:
+                if charactersPerLine < MIN_CH_PER_LINE:
+                    charactersPerLine = MIN_CH_PER_LINE
+                elif charactersPerLine > MAX_CH_PER_LINE:
+                    charactersPerLine = MAX_CH_PER_LINE
+                prefs['characters_per_line'] = charactersPerLine
+            cplVar.set(prefs['characters_per_line'])
+
         cplFrame = ttk.Frame(optionsFrame)
         cplFrame.pack(side='left', padx=20, pady=10,)
         ttk.Label(
             cplFrame,
             text=_('Characters per line'),
         ).pack(padx=5, pady=5, anchor='w',)
-        self._cplVar = tk.IntVar(
+        cplVar = tk.IntVar(
             value=prefs['characters_per_line']
         )
         cplEntry = ttk.Entry(
             cplFrame,
-            textvariable=self._cplVar,
+            textvariable=cplVar,
         )
         cplEntry.pack(padx=5, pady=5, anchor='w',)
-        cplEntry.bind('<Return>', self._change_cpl)
+        cplEntry.bind('<Return>', change_cpl)
 
         ttk.Separator(
             optionsFrame,
@@ -245,6 +264,11 @@ class OptionsDialog(ModalDialog):
         ).pack(fill='y', side='left',)
 
         #--- Color mode settings.
+        def set_option(theme):
+            for color in self.THEMES[theme]:
+                prefs[color] = self.THEMES[theme][color]
+            self._update_colors()
+
         ttk.Separator(
             window,
             orient='horizontal',
@@ -277,7 +301,7 @@ class OptionsDialog(ModalDialog):
             ttk.Button(
                 preview,
                 text=theme,
-                command=lambda t=theme: self._set_option(t)
+                command=lambda t=theme: set_option(t)
             ).pack(pady=5)
 
         ttk.Separator(self, orient='horizontal').pack(fill='x')
@@ -290,44 +314,17 @@ class OptionsDialog(ModalDialog):
         ).pack(padx=5, pady=5, side='right')
 
         # "Help" button.
+        def open_help(event=None):
+            NvwriterHelp.open_help_page('options.html')
+
         ttk.Button(
             self,
             text=_('Online help'),
-            command=self._open_help,
+            command=open_help,
         ).pack(padx=5, pady=5, side='right')
 
         # Set Key bindings.
-        self.bind(KEYS.OPEN_HELP[0], NvwriterHelp.open_help_page)
-
-    def _change_live_wc(self):
-        prefs['live_wordcount'] = self._liveWordcountVar.get()
-
-    def _change_ask_for_confirmation(self):
-        prefs['ask_for_confirmation'] = self._askForConfirmationVar.get()
-
-    def _change_cpl(self, event=None):
-        try:
-            charactersPerLine = self._cplVar.get()
-        except:
-            pass
-        else:
-            if charactersPerLine < MIN_CH_PER_LINE:
-                charactersPerLine = MIN_CH_PER_LINE
-            elif charactersPerLine > MAX_CH_PER_LINE:
-                charactersPerLine = MAX_CH_PER_LINE
-            prefs['characters_per_line'] = charactersPerLine
-        self._cplVar.set(prefs['characters_per_line'])
-
-    def _change_colors(self, *args, **kwargs):
-        pass
-
-    def _open_help(self, event=None):
-        NvwriterHelp.open_help_page('options.html')
-
-    def _set_option(self, theme):
-        for color in self.THEMES[theme]:
-            prefs[color] = self.THEMES[theme][color]
-        self._update_colors()
+        self.bind(KEYS.OPEN_OPTIONS_HELP[0], open_help)
 
     def _update_colors(self):
         self._currentSettingPreview.configure_display(
