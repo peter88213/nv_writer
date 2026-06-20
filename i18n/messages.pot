@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 5.3.0\n"
-"POT-Creation-Date: 2026-06-18 13:36:48\n"
+"Project-Id-Version: 5.4.0\n"
+"POT-Creation-Date: 2026-06-20 17:32:24\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -42,6 +42,9 @@ msgid "Change case"
 msgstr ""
 
 msgid "Characterization"
+msgstr ""
+
+msgid "Characters per line"
 msgstr ""
 
 msgid "Clone"

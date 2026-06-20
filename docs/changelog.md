@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.4.0
+
+- The maximum number of characters per line can be set inthe Options dialog.
+
+API: 5.55
+Based on novelibre 5.59.0
+
+
 ### Version 5.3.0
 
 - Added a right margin (10 characters).
