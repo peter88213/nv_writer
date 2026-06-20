@@ -6,6 +6,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from configparser import ConfigParser
 import os
+from tkinter import font as tkFont
 from tkinter import ttk
 
 from nvlib.gui.widgets.modal_dialog import ModalDialog
@@ -15,6 +16,9 @@ from nvwriter.footer_bar import FooterBar
 from nvwriter.help_screen import HelpScreen
 from nvwriter.nvwriter_globals import DEFAULT_HEIGHT
 from nvwriter.nvwriter_globals import FEATURE
+from nvwriter.nvwriter_globals import MAX_CH_PER_LINE
+from nvwriter.nvwriter_globals import MAX_FONT_SIZE
+from nvwriter.nvwriter_globals import MIN_FONT_SIZE
 from nvwriter.nvwriter_globals import PRJ_CONFIG_FILE
 from nvwriter.nvwriter_globals import RECENT
 from nvwriter.nvwriter_globals import RECENT_POSITION
@@ -63,17 +67,19 @@ class WriterView(ModalDialog):
         )
         self._editorWindow.pack(expand=True,)
         self._editorWindow.pack_propagate(0)
+        paddingX = round(int(prefs['padding_x']) * scale)
+        fontSize = self._get_font_size(width - (2 * paddingX))
 
         #--- Add a status bar to the editor window.
         self._statusBar = StatusBar(self._editorWindow, self._mdl)
-        self._statusBar.set_font(scale)
+        self._statusBar.set_font(fontSize)
         self._statusBar.pack(fill='x')
 
         #--- Add a help window to the editor window.
         self._helpScreen = HelpScreen(
             self._editorWindow,
         )
-        self._helpScreen.set_font(scale)
+        self._helpScreen.set_font(fontSize, scale)
 
         #--- Add a text editor with scrollbar to the editor window.
 
@@ -95,21 +101,21 @@ class WriterView(ModalDialog):
             fg=prefs['color_fg'],
             bg=prefs['color_bg'],
             insertbackground=prefs['color_fg'],
-            spacing3=int(int(prefs['paragraph_spacing']) * scale),
-            spacing2=int(int(prefs['line_spacing']) * scale),
-            padx=int(int(prefs['padding_x']) * scale),
-            pady=int(int(prefs['padding_y']) * scale),
-            width=prefs['text_width'],
+            spacing3=round(int(prefs['paragraph_spacing']) * scale),
+            spacing2=round(int(prefs['line_spacing']) * scale),
+            padx=paddingX,
+            pady=round(int(prefs['padding_y']) * scale),
+            width=prefs['characters_per_line'],
             font=(
                 prefs['editor_font'],
-                int(int(prefs['font_size_1']) * scale),
+                fontSize,
             ),
         )
         self._sectionEditor.pack(fill='both', expand=True)
 
         #--- Add a footer bar to the editor window.
         self._footerBar = FooterBar(self._editorWindow)
-        self._footerBar.set_font(scale)
+        self._footerBar.set_font(fontSize)
 
         #--- Restore the previous session's layout.
         if prefs['show_footer_bar']:
@@ -388,6 +394,16 @@ class WriterView(ModalDialog):
                 break
         return result
 
+    def _get_font_size(self, textAreaWidth):
+        result = 10
+        for fontSize in range(MIN_FONT_SIZE, MAX_FONT_SIZE):
+            font = tkFont.Font(family=prefs['editor_font'], size=fontSize)
+            if font.measure('0') * MAX_CH_PER_LINE >= textAreaWidth:
+                break
+
+            else: result = fontSize
+        return result
+
     def _hide_help_screen(self, event=None):
         self._helpScreen.pack_forget()
         prefs['show_help_screen'] = False
@@ -487,27 +503,29 @@ class WriterView(ModalDialog):
         resolutionIndex = int(prefs['resolution_index'])
         height, width = RESOLUTIONS[resolutionIndex]
         scale = height / DEFAULT_HEIGHT
-        self._statusBar.set_font(scale)
-        self._helpScreen.set_font(scale)
-        self._footerBar.set_font(scale)
+        paddingX = round(int(prefs['padding_x']) * scale)
+        fontSize = self._get_font_size(width - (2 * paddingX))
+        self._statusBar.set_font(fontSize)
+        self._helpScreen.set_font(fontSize, scale)
+        self._footerBar.set_font(fontSize)
         self._editorWindow.configure(
             height=height,
             width=width,
         )
         self._sectionEditor.configure(
-            spacing3=int(int(prefs['paragraph_spacing']) * scale),
-            spacing2=int(int(prefs['line_spacing']) * scale),
-            padx=int(int(prefs['padding_x']) * scale),
-            pady=int(int(prefs['padding_y']) * scale),
+            spacing3=round(int(prefs['paragraph_spacing']) * scale),
+            spacing2=round(int(prefs['line_spacing']) * scale),
+            padx=paddingX,
+            pady=round(int(prefs['padding_y']) * scale),
             font=(
                 prefs['editor_font'],
-                int(int(prefs['font_size_1']) * scale),
+                fontSize,
             ),
         )
         self._sectionEditor.configure_font(
             (
                 prefs['editor_font'],
-                int(int(prefs['font_size_1']) * scale),
+                fontSize,
             ),
         )
 

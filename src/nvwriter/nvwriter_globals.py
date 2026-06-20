@@ -30,6 +30,11 @@ RESOLUTIONS = [
 # (height, width, font size, margin)
 MIN_HEIGHT, MIN_WIDTH = RESOLUTIONS[0]
 DEFAULT_HEIGHT, DEFAULT_WIDTH = RESOLUTIONS[0]
+MAX_CH_PER_LINE = 8
+
+MAX_FONT_SIZE = 40
+MIN_FONT_SIZE = 10
+# font auto-sizing limits
 
 NOTE_MARK = '†'
 NOTE_PREFIX = 'ntId'

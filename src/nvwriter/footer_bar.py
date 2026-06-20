@@ -29,8 +29,8 @@ class FooterBar(tk.Frame):
         ):
             self._create_menu_entry(desc, shortcut, sequence)
 
-    def set_font(self, scale):
-        size = int(int(prefs['font_size_1']) * scale * 0.8)
+    def set_font(self, fontSize):
+        size = int(fontSize * 0.8)
         font = (prefs['editor_font'], size)
         for descLabel, shortcutLabel in self._entries:
             descLabel.configure(font=font)

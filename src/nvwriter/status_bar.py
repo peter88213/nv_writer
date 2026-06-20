@@ -101,8 +101,8 @@ class StatusBar(tk.Frame):
             text=(f'{book} | {chapter} | {section}')
         )
 
-    def set_font(self, scale):
-        size = int(int(prefs['font_size_1']) * scale * 0.8)
+    def set_font(self, fontSize):
+        size = int(fontSize * 0.8)
         font = (prefs['editor_font'], size)
         self._breadcrumbs.configure(font=font)
         self._modificationIndicator.configure(font=font)

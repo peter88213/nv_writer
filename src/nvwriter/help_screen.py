@@ -11,6 +11,7 @@ import tkinter as tk
 
 
 class HelpScreen(tk.Frame):
+    PAD_X = 3
 
     def __init__(self, parent, **kw):
         super().__init__(parent, bg=prefs['color_bg'],)
@@ -200,7 +201,6 @@ class HelpScreen(tk.Frame):
             foreground=prefs['color_fg'],
             text=desc,
             anchor='w',
-            padx=10,
         )
         descLabel.grid(
             row=row,
@@ -213,7 +213,6 @@ class HelpScreen(tk.Frame):
             foreground=prefs['color_fg'],
             text=shortcut,
             anchor='w',
-            padx=10,
         )
         shortcutLabel.grid(
             row=row,
@@ -222,16 +221,25 @@ class HelpScreen(tk.Frame):
         )
         return descLabel, shortcutLabel
 
-    def set_font(self, scale):
-        size = int(int(prefs['font_size_1']) * scale * 0.8)
+    def set_font(self, fontSize, scale):
+        size = int(fontSize * 0.8)
         accFont = (prefs['editor_font'], size, 'bold')
         dscFont = (prefs['editor_font'], size)
         for descLabel, shortcutLabel in self._entries:
-            shortcutLabel.configure(font=accFont)
-            descLabel.configure(font=dscFont)
+            shortcutLabel.configure(
+                font=accFont,
+                padx=int(self.PAD_X * scale),
+            )
+            descLabel.configure(
+                font=dscFont,
+                padx=int(self.PAD_X * scale),
+            )
         hdFont = (prefs['editor_font'], size, 'bold')
         for headinglabel in self._headings:
-            headinglabel.configure(font=hdFont)
+            headinglabel.configure(
+                font=hdFont,
+                padx=int(self.PAD_X * scale),
+            )
         self._outerFrame.configure(
             padx=self._frameWidth * scale,
             pady=self._frameWidth * scale,
