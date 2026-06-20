@@ -183,7 +183,6 @@ class HelpScreen(tk.Frame):
             foreground=prefs['color_shortcut'],
             text=heading,
             anchor='w',
-            padx=10,
         )
         headingLabel.grid(
             row=row,

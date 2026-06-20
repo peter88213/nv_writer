@@ -24,6 +24,7 @@ from nvwriter.nvwriter_globals import RECENT
 from nvwriter.nvwriter_globals import RECENT_POSITION
 from nvwriter.nvwriter_globals import RECENT_SECTION
 from nvwriter.nvwriter_globals import RESOLUTIONS
+from nvwriter.nvwriter_globals import SCROLLBAR_WIDTH
 from nvwriter.nvwriter_globals import check_editor_settings
 from nvwriter.nvwriter_globals import prefs
 from nvwriter.nvwriter_help import NvwriterHelp
@@ -68,7 +69,7 @@ class WriterView(ModalDialog):
         self._editorWindow.pack(expand=True,)
         self._editorWindow.pack_propagate(0)
         paddingX = round(int(prefs['padding_x']) * scale)
-        fontSize = self._get_font_size(width - (2 * paddingX))
+        fontSize = self._get_font_size(width - (2 * paddingX) - SCROLLBAR_WIDTH)
 
         #--- Add a status bar to the editor window.
         self._statusBar = StatusBar(self._editorWindow, self._mdl)
@@ -395,13 +396,13 @@ class WriterView(ModalDialog):
         return result
 
     def _get_font_size(self, textAreaWidth):
-        result = 10
+        result = MIN_FONT_SIZE
         for fontSize in range(MIN_FONT_SIZE, MAX_FONT_SIZE):
             font = tkFont.Font(family=prefs['editor_font'], size=fontSize)
             if font.measure('0') * MAX_CH_PER_LINE >= textAreaWidth:
                 break
 
-            else: result = fontSize
+            result = fontSize
         return result
 
     def _hide_help_screen(self, event=None):
@@ -504,7 +505,7 @@ class WriterView(ModalDialog):
         height, width = RESOLUTIONS[resolutionIndex]
         scale = height / DEFAULT_HEIGHT
         paddingX = round(int(prefs['padding_x']) * scale)
-        fontSize = self._get_font_size(width - (2 * paddingX))
+        fontSize = self._get_font_size(width - (2 * paddingX) - SCROLLBAR_WIDTH)
         self._statusBar.set_font(fontSize)
         self._helpScreen.set_font(fontSize, scale)
         self._footerBar.set_font(fontSize)
