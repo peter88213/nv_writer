@@ -7,7 +7,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 from tkinter import ttk
 
 from nvlib.gui.widgets.modal_dialog import ModalDialog
-from nvwriter.nvwriter_globals import prefs
+from nvwriter.nvwriter_globals import prefs, MIN_CH_PER_LINE, MAX_CH_PER_LINE
 from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.theme_preview import ThemePreview
@@ -222,6 +222,28 @@ class OptionsDialog(ModalDialog):
             orient='vertical'
         ).pack(fill='y', side='left',)
 
+        #--- Characters per line entry.
+        cplFrame = ttk.Frame(optionsFrame)
+        cplFrame.pack(side='left', padx=20, pady=10,)
+        ttk.Label(
+            cplFrame,
+            text=_('Characters per line'),
+        ).pack(padx=5, pady=5, anchor='w',)
+        self._cplVar = tk.IntVar(
+            value=prefs['characters_per_line']
+        )
+        cplEntry = ttk.Entry(
+            cplFrame,
+            textvariable=self._cplVar,
+        )
+        cplEntry.pack(padx=5, pady=5, anchor='w',)
+        cplEntry.bind('<Return>', self._change_cpl)
+
+        ttk.Separator(
+            optionsFrame,
+            orient='vertical'
+        ).pack(fill='y', side='left',)
+
         #--- Color mode settings.
         ttk.Separator(
             window,
@@ -282,6 +304,19 @@ class OptionsDialog(ModalDialog):
 
     def _change_ask_for_confirmation(self):
         prefs['ask_for_confirmation'] = self._askForConfirmationVar.get()
+
+    def _change_cpl(self, event=None):
+        try:
+            charactersPerLine = self._cplVar.get()
+        except:
+            pass
+        else:
+            if charactersPerLine < MIN_CH_PER_LINE:
+                charactersPerLine = MIN_CH_PER_LINE
+            elif charactersPerLine > MAX_CH_PER_LINE:
+                charactersPerLine = MAX_CH_PER_LINE
+            prefs['characters_per_line'] = charactersPerLine
+        self._cplVar.set(prefs['characters_per_line'])
 
     def _change_colors(self, *args, **kwargs):
         pass
