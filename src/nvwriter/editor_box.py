@@ -48,13 +48,12 @@ class EditorBox(tk.Text):
         self._rightMargin = tk.Label(
             self.frame,
             bg=kw['bg'],
-            width=marginRight,
         )
-        self._rightMargin.pack(side='right', fill='both')
+        self._rightMargin.pack(side='right', fill='both', expand=True)
         kw['relief'] = 'flat'
 
         tk.Text.__init__(self, self.frame, **kw)
-        self.pack(side='left', fill='both', expand=True)
+        self.pack(side='left', fill='y', expand=False)
         self.vbar['command'] = self.yview
 
         # Copy geometry methods of self.frame without overriding Text
@@ -139,12 +138,6 @@ class EditorBox(tk.Text):
         self._novxParser.comments.append(newComment)
         return self._set_format(
             f'{COMMENT_PREFIX}:{len(self._novxParser.comments)-1}'
-        )
-
-    def configure(self, marginRight=0, **kw):
-        super().configure(kw)
-        self._rightMargin.configure(
-            width=marginRight,
         )
 
     def configure_font(self, font):

@@ -36,11 +36,11 @@ class WriterService(SubController):
         editor_font=DEFAULT_FONT,
         font_size_1=12,
         line_spacing=4,
-        margin_right=10,
         paragraph_spacing=25,
         padding_x=10,
         padding_y=10,
         resolution_index=1,
+        text_width=60,
     )
     OPTIONS = dict(
         ask_for_confirmation=True,
