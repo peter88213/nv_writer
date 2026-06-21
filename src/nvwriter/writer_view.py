@@ -126,10 +126,7 @@ class WriterView(ModalDialog):
             padx=paddingX,
             pady=round(int(prefs['padding_y']) * scale),
             width=prefs['characters_per_line'],
-            font=(
-                prefs['editor_font'],
-                fontSize,
-            ),
+            font=(prefs['editor_font'], fontSize),
         )
         self._sectionEditor.pack(fill='both', expand=True)
 
@@ -252,11 +249,7 @@ class WriterView(ModalDialog):
         # Save the last edited section and the cursor position.
         prjConfig = ConfigParser()
         prjConfig.add_section(RECENT)
-        prjConfig.set(
-            RECENT,
-            RECENT_SECTION,
-            self._scId,
-        )
+        prjConfig.set(RECENT, RECENT_SECTION, self._scId)
         prjConfig.set(
             RECENT,
             RECENT_POSITION,
@@ -279,7 +272,10 @@ class WriterView(ModalDialog):
                 self._section.sectionContent = sectionText
 
     def _apply_changes_after_asking(self, event=None):
-        """Transfer the editor content to the project, if modified. Ask first."""
+        """Transfer the editor content to the project.
+        
+        If modified. Ask first.
+        """
         if not self._scId in self._mdl.novel.sections:
             return True
 
@@ -305,9 +301,7 @@ class WriterView(ModalDialog):
     def _confirm(self, message):
         if self._askForConfirmation:
             return self._ui.ask_yes_no_cancel(
-                message=message,
-                title=FEATURE,
-                parent=self,
+                message=message, title=FEATURE, parent=self
             )
         else:
             return True
@@ -527,17 +521,9 @@ class WriterView(ModalDialog):
             spacing2=round(int(prefs['line_spacing']) * scale),
             padx=paddingX,
             pady=round(int(prefs['padding_y']) * scale),
-            font=(
-                prefs['editor_font'],
-                fontSize,
-            ),
+            font=(prefs['editor_font'], fontSize,),
         )
-        self._sectionEditor.configure_font(
-            (
-                prefs['editor_font'],
-                fontSize,
-            ),
-        )
+        self._sectionEditor.configure_font((prefs['editor_font'], fontSize,))
 
     def _reset_modified_flag(self, event=None):
         self._statusBar.set_modified(False)
@@ -606,7 +592,7 @@ class WriterView(ModalDialog):
             scType=self._mdl.novel.sections[self._scId].scType,
             scene=sceneKind,
             status=self._mdl.novel.sections[self._scId].status
-            )
+        )
         if newId:
 
             # Cut the actual section's content from the cursor position

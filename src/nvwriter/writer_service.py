@@ -22,7 +22,7 @@ class WriterService(SubController):
     INI_FILENAME = 'writer.ini'
     INI_FILEPATH = '.novx/config'
     SETTINGS = dict(
-        characters_per_line=60,
+        characters_per_line=80,
         color_ambient='#000000',
         color_bg='#262626',
         color_button_bg='#b3b3b3',

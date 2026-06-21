@@ -5,9 +5,9 @@
 ## Changelog
 
 
-### Version 5.4.0
+### Version 5.4.1
 
-- The maximum number of characters per line can be set inthe Options dialog.
+- The line length can be set in the Options dialog.
 
 API: 5.55
 Based on novelibre 5.59.0
