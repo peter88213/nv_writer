@@ -17,7 +17,6 @@ from nvwriter.help_screen import HelpScreen
 from nvwriter.nvwriter_globals import DEFAULT_HEIGHT
 from nvwriter.nvwriter_globals import FEATURE
 from nvwriter.nvwriter_globals import MAX_CH_PER_LINE
-from nvwriter.nvwriter_globals import MAX_FONT_SIZE
 from nvwriter.nvwriter_globals import MIN_FONT_SIZE
 from nvwriter.nvwriter_globals import PRJ_CONFIG_FILE
 from nvwriter.nvwriter_globals import RECENT
@@ -58,6 +57,26 @@ class WriterView(ModalDialog):
         self.attributes('-fullscreen', True)
         check_editor_settings(self)
 
+        #--- Calculate the font sizes for various scales.
+
+        def get_x_sizes(height, width, fontSize):
+            scale = height / DEFAULT_HEIGHT
+            paddingX = round(int(prefs['padding_x']) * scale)
+            textAreaWidth = width - (2 * paddingX) - SCROLLBAR_WIDTH
+            font = tkFont.Font(family=prefs['editor_font'], size=fontSize)
+            lineLength = font.measure('0') * MAX_CH_PER_LINE
+            return lineLength, textAreaWidth
+
+        self._fontSizes = []
+        fontSize = MIN_FONT_SIZE
+        for height, width in RESOLUTIONS:
+            lineLength, textAreaWidth = get_x_sizes(height, width, fontSize)
+            while lineLength < textAreaWidth:
+                fontSize += 1
+                lineLength, textAreaWidth = get_x_sizes(height, width, fontSize)
+            self._fontSizes.append(fontSize - 1)
+
+        #--- Set the workspace.
         resolutionIndex = int(prefs['resolution_index'])
         height, width = RESOLUTIONS[resolutionIndex]
         scale = height / DEFAULT_HEIGHT
@@ -69,7 +88,7 @@ class WriterView(ModalDialog):
         self._editorWindow.pack(expand=True,)
         self._editorWindow.pack_propagate(0)
         paddingX = round(int(prefs['padding_x']) * scale)
-        fontSize = self._get_font_size(width - (2 * paddingX) - SCROLLBAR_WIDTH)
+        fontSize = self._fontSizes[resolutionIndex]
 
         #--- Add a status bar to the editor window.
         self._statusBar = StatusBar(self._editorWindow, self._mdl)
@@ -395,16 +414,6 @@ class WriterView(ModalDialog):
                 break
         return result
 
-    def _get_font_size(self, textAreaWidth):
-        result = MIN_FONT_SIZE
-        for fontSize in range(MIN_FONT_SIZE, MAX_FONT_SIZE):
-            font = tkFont.Font(family=prefs['editor_font'], size=fontSize)
-            if font.measure('0') * MAX_CH_PER_LINE >= textAreaWidth:
-                break
-
-            result = fontSize
-        return result
-
     def _hide_help_screen(self, event=None):
         self._helpScreen.pack_forget()
         prefs['show_help_screen'] = False
@@ -505,7 +514,7 @@ class WriterView(ModalDialog):
         height, width = RESOLUTIONS[resolutionIndex]
         scale = height / DEFAULT_HEIGHT
         paddingX = round(int(prefs['padding_x']) * scale)
-        fontSize = self._get_font_size(width - (2 * paddingX) - SCROLLBAR_WIDTH)
+        fontSize = self._fontSizes[resolutionIndex]
         self._statusBar.set_font(fontSize)
         self._helpScreen.set_font(fontSize, scale)
         self._footerBar.set_font(fontSize)

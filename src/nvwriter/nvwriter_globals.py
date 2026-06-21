@@ -34,7 +34,6 @@ SCROLLBAR_WIDTH = 20
 MAX_CH_PER_LINE = 80
 MIN_CH_PER_LINE = 20
 
-MAX_FONT_SIZE = 40
 MIN_FONT_SIZE = 10
 # font auto-sizing limits
 
