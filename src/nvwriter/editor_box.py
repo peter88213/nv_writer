@@ -51,6 +51,7 @@ class EditorBox(tk.Text):
         )
         self._rightMargin.pack(side='right', fill='both', expand=True)
         kw['relief'] = 'flat'
+        kw['highlightthickness'] = 0
 
         tk.Text.__init__(self, self.frame, **kw)
         self.pack(side='left', fill='y', expand=False)

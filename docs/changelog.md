@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.4.2
+
+- Added an extra EditorBox setting for a better look under Linux. 
+
+API: 5.55
+Based on novelibre 5.59.0
+
+
 ### Version 5.4.1
 
 - The line length can be set in the Options dialog.
