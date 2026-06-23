@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.4.3
+
+- Renamed the spacing parameters to ensure they take effect after the update. 
+
+API: 5.55
+Based on novelibre 5.59.0
+
+
 ### Version 5.4.2
 
 - Added an extra EditorBox setting for a better look under Linux. 

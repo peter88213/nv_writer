@@ -35,11 +35,11 @@ class WriterService(SubController):
         color_status_fg='#262626',
         color_strong='#d9d9d9',
         editor_font=DEFAULT_FONT,
-        line_spacing=4,
-        paragraph_spacing=25,
         padding_x=10,
         padding_y=10,
         resolution_index=1,
+        spacing_line=4,
+        spacing_paragraph=25,
     )
     OPTIONS = dict(
         ask_for_confirmation=True,

@@ -121,8 +121,8 @@ class WriterView(ModalDialog):
             fg=prefs['color_fg'],
             bg=prefs['color_bg'],
             insertbackground=prefs['color_fg'],
-            spacing3=round(int(prefs['paragraph_spacing']) * scale),
-            spacing2=round(int(prefs['line_spacing']) * scale),
+            spacing3=round(int(prefs['spacing_paragraph']) * scale),
+            spacing2=round(int(prefs['spacing_line']) * scale),
             padx=paddingX,
             pady=round(int(prefs['padding_y']) * scale),
             width=prefs['characters_per_line'],
@@ -517,8 +517,8 @@ class WriterView(ModalDialog):
             width=width,
         )
         self._sectionEditor.configure(
-            spacing3=round(int(prefs['paragraph_spacing']) * scale),
-            spacing2=round(int(prefs['line_spacing']) * scale),
+            spacing3=round(int(prefs['spacing_paragraph']) * scale),
+            spacing2=round(int(prefs['spacing_line']) * scale),
             padx=paddingX,
             pady=round(int(prefs['padding_y']) * scale),
             font=(prefs['editor_font'], fontSize,),
