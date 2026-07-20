@@ -4,6 +4,16 @@
 
 ## Changelog
 
+### Version 5.4.4
+
+- Made WriterView a tk.Toplevel subclass. This is necessary because the 
+  ModalDialog class was changed with novelibre 5.62.2 to force the toplevel 
+  window in front, so the online help would be covered by the editor 
+  in fullscreen mode.
+
+API: 5.55
+Based on novelibre 5.62.2
+
 
 ### Version 5.4.3
 

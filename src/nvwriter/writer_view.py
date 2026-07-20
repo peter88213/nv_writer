@@ -9,7 +9,6 @@ import os
 from tkinter import font as tkFont
 from tkinter import ttk
 
-from nvlib.gui.widgets.modal_dialog import ModalDialog
 from nvlib.novx_globals import CH_ROOT
 from nvwriter.editor_box import EditorBox
 from nvwriter.footer_bar import FooterBar
@@ -32,9 +31,10 @@ from nvwriter.platform.platform_settings import PLATFORM
 from nvwriter.section_content_validator import SectionContentValidator
 from nvwriter.status_bar import StatusBar
 from nvwriter.writer_locale import _
+import tkinter as tk
 
 
-class WriterView(ModalDialog):
+class WriterView(tk.Toplevel):
 
     def __init__(
         self,
@@ -46,7 +46,10 @@ class WriterView(ModalDialog):
         self._ui = view
         self._ctrl = controller
         self._focus_app_window(False)
-        super().__init__(view, bg=prefs['color_ambient'])
+
+        tk.Toplevel.__init__(self, bg=prefs['color_ambient'])
+        self.grab_set()
+        self.focus()
 
         self._section = None
         self._scId = None
