@@ -4,6 +4,15 @@
 
 ## Changelog
 
+### Version 5.5.0
+
+- Calling up the online help with `Ctrl`-`F1`, 
+  because `Alt`-`F1` wouldn't work with the Cinnamon desktop.
+
+API: 5.55
+Based on novelibre 5.62.2
+
+
 ### Version 5.4.4
 
 - Made WriterView a tk.Toplevel subclass. This is necessary because the 

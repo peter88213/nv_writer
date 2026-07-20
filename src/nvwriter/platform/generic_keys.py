@@ -23,7 +23,7 @@ class GenericKeys:
     LOWER_CASE = ('<Control-Y>', f'{_("Ctrl")}-{_("Shift")}-Y')
     NEXT = ('<Control-Next>', f'{_("Ctrl")}-{_("PgDn")}')
     OPEN_OPTIONS_HELP = ('<F1>', 'F1')
-    OPEN_HELP = ('<Alt-F1>', 'Alt-F1')
+    OPEN_HELP = ('<Control-F1>', f'{_("Ctrl")}-F1')
     PASTE = ('<Control-v>', f'{_("Ctrl")}-V')
     PLAIN = ('<Control-m>', f'{_("Ctrl")}-M')
     PREVIOUS = ('<Control-Prior>', f'{_("Ctrl")}-{_("PgUp")}')
