@@ -36,7 +36,7 @@ class Plugin(PluginBase):
     # DTD version supported by the plugin.
 
     def install(self, model, view, controller):
-        """Extend the 'View' menu.
+        """Install the plugin at runtime.
         
         Positional arguments:
             model -- reference to the novelibre main model instance.
@@ -65,7 +65,7 @@ class Plugin(PluginBase):
         self.writerService = WriterService(model, view, controller)
         self._icon = self._get_icon('writer.png')
 
-        # Add the "Write" command to novelibre's "Section" menu.
+        # Add an entry to novelibre's Section menu.
         self._ui.sectionMenu.add_separator()
 
         label = FEATURE
@@ -78,7 +78,7 @@ class Plugin(PluginBase):
         )
         self._ui.sectionMenu.disableOnLock.append(label)
 
-        # Add the "Write" command to novelibre's section context menu.
+        # Add an entry to novelibre's section context menu.
         self._ui.sectionContextMenu.add_separator()
         self._ui.sectionContextMenu.add_command(
             label=label,
