@@ -8,7 +8,6 @@ from tkinter import ttk
 
 from nvlib.gui.widgets.modal_dialog import ModalDialog
 from nvwriter.nvwriter_globals import prefs, MIN_CH_PER_LINE, MAX_CH_PER_LINE
-from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.theme_preview import ThemePreview
 from nvwriter.writer_locale import _
@@ -163,8 +162,9 @@ class OptionsDialog(ModalDialog):
         ),
     }
 
-    def __init__(self, view, icon, **kw):
+    def __init__(self, view, controller, icon, **kw):
         super().__init__(view, **kw)
+        self._ctrl = controller
 
         self.title(_('Distraction-free writing plugin Options'))
         if icon:
@@ -315,11 +315,11 @@ class OptionsDialog(ModalDialog):
 
         # "Help" button.
         def open_help(event=None):
-            NvwriterHelp.open_help_page('options.html')
+            self._ctrl.helpService.open_help_page('nv_writer/options.html')
 
         ttk.Button(
             self,
-            text=_('Online help'),
+            text=_('Help'),
             command=open_help,
         ).pack(padx=5, pady=5, side='right')
 

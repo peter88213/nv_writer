@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 5.5.0\n"
 "POT-Creation-Date: 2025-09-22 18:04:56\n"
-"PO-Revision-Date: 2026-07-20 20:53:47\n"
+"PO-Revision-Date: 2026-08-02 20:51:53\n"
 "Last-Translator: Peter Triesberger\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -91,11 +91,11 @@ msgstr "Zeichen rechts löschen"
 msgid "Delete to end of line"
 msgstr "Löschen bis Zeilenende"
 
-msgid "Distraction-free writing plugin Online help"
-msgstr "Ablenkungsfreies Schreiben-Plugin Online-Hilfe"
-
 msgid "Distraction-free writing plugin Options"
 msgstr "Ablenkungsfreies Schreiben-Plugin Einstellungen"
+
+msgid "Distraction-free writing plugin help"
+msgstr "Ablenkungsfreies Schreiben-Plugin Hilfe"
 
 msgid "Documents found that might be edited"
 msgstr "Dokumente gefunden, die bearbeitet sein könnten"
@@ -133,6 +133,9 @@ msgstr "Ziele"
 msgid "Green"
 msgstr "Grün"
 
+msgid "Help"
+msgstr "Hilfe"
+
 msgid "Help on/off"
 msgstr "Hilfe ein/aus"
 
@@ -162,9 +165,6 @@ msgstr "Neu"
 
 msgid "Next"
 msgstr "Vor"
-
-msgid "Online help"
-msgstr "Online-Hilfe"
 
 msgid "Open new line"
 msgstr "Neue Zeile öffnen"
@@ -244,6 +244,9 @@ msgstr "Rückgängig"
 msgid "Untitled"
 msgstr "Unbenannt"
 
+msgid "User guide"
+msgstr "Benutzerhandbuch"
+
 msgid "View"
 msgstr "Ansicht"
 
@@ -258,9 +261,6 @@ msgstr "Weltenbau"
 
 msgid "Write in distraction free mode"
 msgstr "Im ablenkungsfreien Modus schreiben"
-
-msgid "https://peter88213.github.io/nvhelp-en"
-msgstr "https://peter88213.github.io/nvhelp-de"
 
 msgid "lowercase"
 msgstr "kleinbuchstaben"

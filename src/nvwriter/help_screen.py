@@ -85,7 +85,7 @@ class HelpScreen(tk.Frame):
             (_('Word count'), KEYS.UPDATE_WORDCOUNT[1],),
             (_('Menu on/off'), KEYS.TOGGLE_FOOTER_BAR[1],),
             (_('Help on/off'), KEYS.TOGGLE_HELP[1],),
-            (_('Online help'), KEYS.OPEN_HELP[1],),
+            (_('User guide'), KEYS.OPEN_HELP[1],),
             (_('Enlarge'), KEYS.INCREASE_SIZE[1],),
             (_('Shrink'), KEYS.DECREASE_SIZE[1],),
         ):

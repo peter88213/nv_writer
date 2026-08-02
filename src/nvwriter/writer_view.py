@@ -25,7 +25,6 @@ from nvwriter.nvwriter_globals import RESOLUTIONS
 from nvwriter.nvwriter_globals import SCROLLBAR_WIDTH
 from nvwriter.nvwriter_globals import check_editor_settings
 from nvwriter.nvwriter_globals import prefs
-from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.platform.platform_settings import PLATFORM
 from nvwriter.section_content_validator import SectionContentValidator
@@ -99,9 +98,7 @@ class WriterView(tk.Toplevel):
         self._statusBar.pack(fill='x')
 
         #--- Add a help window to the editor window.
-        self._helpScreen = HelpScreen(
-            self._editorWindow,
-        )
+        self._helpScreen = HelpScreen(self._editorWindow)
         self._helpScreen.set_font(fontSize, scale)
 
         #--- Add a text editor with scrollbar to the editor window.
@@ -498,7 +495,7 @@ class WriterView(tk.Toplevel):
         self._sectionEditor.focus()
 
     def _open_help(self, event=None):
-        NvwriterHelp.open_help_page('operation.html')
+        self._ctrl.helpService.open_help_page('nv_writer/operation.html')
         return 'break'
 
     def _plain(self, event=None):

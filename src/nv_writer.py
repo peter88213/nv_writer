@@ -18,7 +18,6 @@ GNU General Public License for more details.
 from nvwriter.writer_locale import _
 from nvlib.controller.plugin.plugin_base import PluginBase
 from nvwriter.nvwriter_globals import FEATURE
-from nvwriter.nvwriter_help import NvwriterHelp
 from nvwriter.options_dialog import OptionsDialog
 from nvwriter.platform.platform_settings import KEYS
 from nvwriter.writer_service import WriterService
@@ -27,7 +26,7 @@ from nvwriter.writer_service import WriterService
 class Plugin(PluginBase):
     """novelibre distraction free editor mode class."""
     VERSION = '@release'
-    API_VERSION = '5.55'
+    API_VERSION = '5.63'
     DESCRIPTION = 'Distraction free editor'
     URL = 'https://github.com/peter88213/nv_writer'
 
@@ -99,12 +98,12 @@ class Plugin(PluginBase):
         )
 
         # Add an entry to the Help menu.
-        label = _('Distraction-free writing plugin Online help')
+        label = _('Distraction-free writing plugin help')
         self._ui.helpMenu.add_command(
             label=label,
             image=self._icon,
             compound='left',
-            command=NvwriterHelp.open_help_page,
+            command=self.open_help,
         )
 
         #--- Configure the toolbar.
@@ -124,9 +123,12 @@ class Plugin(PluginBase):
     def on_quit(self, event=None):
         self.writerService.on_quit()
 
+    def open_help(self, event=None):
+        self._ctrl.helpService.open_help_page('nv_writer')
+
     def start_editor(self, event=None):
         self.writerService.start_editor()
         return 'break'
 
     def _open_options_dialog(self):
-        OptionsDialog(self._ui, self._icon)
+        OptionsDialog(self._ui, self._ctrl, self._icon)
