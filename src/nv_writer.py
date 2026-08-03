@@ -118,10 +118,8 @@ class Plugin(PluginBase):
             command=open_help,
         )
 
-        #--- Configure the toolbar.
-        self._ui.toolbar.add_separator(),
-
         # Put a button on the toolbar.
+        self._ui.toolbar.add_separator(),
         self._ui.toolbar.new_button(
             text=FEATURE,
             image=self._icon,
