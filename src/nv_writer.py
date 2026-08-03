@@ -64,6 +64,18 @@ class Plugin(PluginBase):
         self.writerService = WriterService(model, view, controller)
         self._icon = self._get_icon('writer.png')
 
+        #--- Configure the main menu.
+
+        def start_editor(event=None):
+            self.writerService.start_editor()
+            return 'break'
+
+        def open_help():
+            self._ctrl.helpService.open_help_page('nv_writer')
+
+        def open_options_dialog():
+            OptionsDialog(self._ui, self._ctrl, self._icon)
+
         # Add an entry to novelibre's Section menu.
         self._ui.sectionMenu.add_separator()
 
@@ -73,7 +85,7 @@ class Plugin(PluginBase):
             image=self._icon,
             compound='left',
             accelerator=KEYS.START_EDITOR[1],
-            command=self.start_editor,
+            command=start_editor,
         )
         self._ui.sectionMenu.disableOnLock.append(label)
 
@@ -84,7 +96,7 @@ class Plugin(PluginBase):
             image=self._icon,
             compound='left',
             accelerator=KEYS.START_EDITOR[1],
-            command=self.start_editor,
+            command=start_editor,
         )
         self._ui.sectionContextMenu.disableOnLock.append(label)
 
@@ -94,7 +106,7 @@ class Plugin(PluginBase):
             label=label,
             image=self._icon,
             compound='left',
-            command=self._open_options_dialog,
+            command=open_options_dialog,
         )
 
         # Add an entry to the Help menu.
@@ -103,7 +115,7 @@ class Plugin(PluginBase):
             label=label,
             image=self._icon,
             compound='left',
-            command=self._open_help,
+            command=open_help,
         )
 
         #--- Configure the toolbar.
@@ -113,22 +125,13 @@ class Plugin(PluginBase):
         self._ui.toolbar.new_button(
             text=FEATURE,
             image=self._icon,
-            command=self.start_editor,
+            command=start_editor,
             accelerator=KEYS.START_EDITOR[1],
         ).pack(side='left')
 
         # Hotkey to start the distraction-free editing mode.
-        self._ui.root.bind(KEYS.START_EDITOR[0], self.start_editor)
+        self._ui.root.bind(KEYS.START_EDITOR[0], start_editor)
 
     def on_quit(self, event=None):
         self.writerService.on_quit()
 
-    def start_editor(self, event=None):
-        self.writerService.start_editor()
-        return 'break'
-
-    def _open_help(self, event=None):
-        self._ctrl.helpService.open_help_page('nv_writer')
-
-    def _open_options_dialog(self):
-        OptionsDialog(self._ui, self._ctrl, self._icon)
