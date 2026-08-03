@@ -103,7 +103,7 @@ class Plugin(PluginBase):
             label=label,
             image=self._icon,
             compound='left',
-            command=self.open_help,
+            command=self._open_help,
         )
 
         #--- Configure the toolbar.
@@ -123,12 +123,12 @@ class Plugin(PluginBase):
     def on_quit(self, event=None):
         self.writerService.on_quit()
 
-    def open_help(self, event=None):
-        self._ctrl.helpService.open_help_page('nv_writer')
-
     def start_editor(self, event=None):
         self.writerService.start_editor()
         return 'break'
+
+    def _open_help(self, event=None):
+        self._ctrl.helpService.open_help_page('nv_writer')
 
     def _open_options_dialog(self):
         OptionsDialog(self._ui, self._ctrl, self._icon)
