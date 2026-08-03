@@ -64,7 +64,7 @@ class Plugin(PluginBase):
         self.writerService = WriterService(model, view, controller)
         self._icon = self._get_icon('writer.png')
 
-        #--- Configure the main menu.
+        #--- Configure the user interface.
 
         def start_editor(event=None):
             self.writerService.start_editor()
