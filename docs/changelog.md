@@ -4,6 +4,16 @@
 
 ## Changelog
 
+
+### Version 5.6.0
+
+- Using the novelibre 5.63+ help service.
+- Refactored the code
+
+API: 5.63
+Based on novelibre 5.63.0
+
+
 ### Version 5.5.0
 
 - Calling up the online help with `Ctrl`-`F1`, 
