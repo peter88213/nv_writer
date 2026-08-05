@@ -29,6 +29,7 @@ class Plugin(PluginBase):
     API_VERSION = '5.63'
     DESCRIPTION = 'Distraction free editor'
     URL = 'https://github.com/peter88213/nv_writer'
+    HELP_PAGE = 'nv_writer'
 
     DTD_MAJOR_VERSION = 1
     DTD_MINOR_VERSION = 10
@@ -70,9 +71,6 @@ class Plugin(PluginBase):
             self.writerService.start_editor()
             return 'break'
 
-        def open_help():
-            self._ctrl.helpService.open_help_page('nv_writer')
-
         def open_options_dialog():
             OptionsDialog(self._ui, self._ctrl, self._icon)
 
@@ -109,14 +107,7 @@ class Plugin(PluginBase):
             command=open_options_dialog,
         )
 
-        # Add an entry to the Help menu.
-        label = _('Distraction-free writing plugin help')
-        self._ui.helpMenu.add_command(
-            label=label,
-            image=self._icon,
-            compound='left',
-            command=open_help,
-        )
+        self._add_help_menu_entry(_('Distraction-free writing plugin help'))
 
         # Put a button on the toolbar.
         self._ui.toolbar.add_separator(),
