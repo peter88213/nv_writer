@@ -315,7 +315,7 @@ class OptionsDialog(ModalDialog):
 
         # "Help" button.
         def open_help(event=None):
-            self._ctrl.helpService.open_help_page('nv_writer/options.html')
+            self._ctrl.open_help(page='nv_writer/options.html')
 
         ttk.Button(
             self,

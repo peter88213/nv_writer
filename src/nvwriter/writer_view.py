@@ -495,7 +495,7 @@ class WriterView(tk.Toplevel):
         self._sectionEditor.focus()
 
     def _open_help(self, event=None):
-        self._ctrl.helpService.open_help_page('nv_writer/operation.html')
+        self._ctrl.open_help(page='nv_writer/operation.html')
         return 'break'
 
     def _plain(self, event=None):
