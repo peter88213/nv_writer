@@ -169,11 +169,8 @@ class OptionsDialog(ModalDialog):
         self.title(_('Distraction-free writing plugin Options'))
         if icon:
             self.iconphoto(False, icon)
-        window = ttk.Frame(self)
-        window.pack(
-            fill='both',
-        )
-        optionsFrame = ttk.Frame(window)
+
+        optionsFrame = ttk.Frame(self)
         optionsFrame.pack(fill='both')
 
         #--- Checkbox for confirmation.
@@ -270,12 +267,12 @@ class OptionsDialog(ModalDialog):
             self._update_colors()
 
         ttk.Separator(
-            window,
+            self,
             orient='horizontal',
         ).pack(fill='x')
 
         # Show current setting.
-        currentSettingsFrame = ttk.Frame(window)
+        currentSettingsFrame = ttk.Frame(self)
         currentSettingsFrame.pack(fill='both')
         ttk.Label(
             currentSettingsFrame,
@@ -289,14 +286,17 @@ class OptionsDialog(ModalDialog):
         self._update_colors()
 
         # Show theme previews.
-        themesPerFrame = 5
-        themeFrames = []
-        for __ in range((len(self.THEMES) + 1) // themesPerFrame):
-            themeFrames.append(ttk.Frame(window))
-            themeFrames[-1].pack(fill='both')
+        previewWindow = ttk.Frame(self)
+        previewWindow.pack(fill='both')
 
+        themesPerFrame = 5
         for i, theme in enumerate(self.THEMES):
-            preview = ThemePreview(themeFrames[i // themesPerFrame])
+            themeFrame = ttk.Frame(previewWindow)
+            themeFrame.grid(
+                row=i // themesPerFrame,
+                column=i % themesPerFrame,
+            )
+            preview = ThemePreview(themeFrame)
             preview.configure_display(self.THEMES[theme])
             ttk.Button(
                 preview,
@@ -306,9 +306,12 @@ class OptionsDialog(ModalDialog):
 
         ttk.Separator(self, orient='horizontal').pack(fill='x')
 
+        footer = tk.Frame(self)
+        footer.pack(fill='x', expand=False)
+
         # "Close" button.
         ttk.Button(
-            self,
+            footer,
             text=_('Close'),
             command=self.destroy,
         ).pack(padx=5, pady=5, side='right')
@@ -318,7 +321,7 @@ class OptionsDialog(ModalDialog):
             self._ctrl.open_help(page='nv_writer/options.html')
 
         ttk.Button(
-            self,
+            footer,
             text=_('Help'),
             command=open_help,
         ).pack(padx=5, pady=5, side='right')
