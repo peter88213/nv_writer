@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.6.4
+
+- Updated the options dialog layout.
+
+API: 5.63
+Based on novelibre 5.65.1
+
+
 ### Version 5.6.3
 
 - The settings dialog is no longer resizable.

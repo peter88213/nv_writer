@@ -148,7 +148,7 @@ class OptionsDialog(ModalDialog):
             color_button_fg=WHITE,
             color_shortcut=WHITE,
         ),
-        'RJS': dict(
+        'Star7': dict(
             color_bg=BLACK,
             color_fg='#00cdcd',
             color_em='#d9d9d9',
@@ -295,6 +295,8 @@ class OptionsDialog(ModalDialog):
             themeFrame.grid(
                 row=i // themesPerFrame,
                 column=i % themesPerFrame,
+                padx='5',
+                pady='5',
             )
             preview = ThemePreview(themeFrame)
             preview.configure_display(self.THEMES[theme])
@@ -302,7 +304,7 @@ class OptionsDialog(ModalDialog):
                 preview,
                 text=theme,
                 command=lambda t=theme: set_option(t)
-            ).pack(pady=5)
+            ).pack(pady=5, fill='x',)
 
         ttk.Separator(self, orient='horizontal').pack(fill='x')
 
