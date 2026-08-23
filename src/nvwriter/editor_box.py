@@ -29,7 +29,7 @@ class EditorBox(tk.Text):
         self,
         master=None,
         vstyle=None,
-        authorName=None,
+        username=None,
         marginRight=0,
         **kw,
     ):
@@ -74,7 +74,7 @@ class EditorBox(tk.Text):
         # Configure the content parsers.
         self._novxParser = NovxParser()
         self._textParser = TextParser()
-        self._authorName = authorName or ''
+        self._username = username or ''
         # used for new comments
 
         self.configure_font(kw['font'])
@@ -132,7 +132,7 @@ class EditorBox(tk.Text):
 
         # Add a new comment to the parser's list of comments.
         newComment = Comment()
-        newComment.creator = self._authorName
+        newComment.creator = self._username
         newComment.date = datetime.now().replace(
             microsecond=0
         ).isoformat()

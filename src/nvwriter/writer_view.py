@@ -35,6 +35,8 @@ import tkinter as tk
 
 class WriterView(tk.Toplevel):
 
+    HELP_PAGE = 'nv_writer/operation.html'
+
     def __init__(
         self,
         model,
@@ -113,7 +115,7 @@ class WriterView(tk.Toplevel):
         self._sectionEditor = EditorBox(
             self._editorWindow,
             vstyle='CustomScrollbarStyle.Vertical.TScrollbar',
-            authorName=self._mdl.novel.authorName,
+            username=prefs['username'] or self._mdl.novel.authorName,
             wrap='word',
             undo=True,
             maxundo=-1,
@@ -495,7 +497,7 @@ class WriterView(tk.Toplevel):
         self._sectionEditor.focus()
 
     def _open_help(self, event=None):
-        self._ctrl.open_help(page='nv_writer/operation.html')
+        self._ctrl.open_help(page=self.HELP_PAGE)
         return 'break'
 
     def _plain(self, event=None):

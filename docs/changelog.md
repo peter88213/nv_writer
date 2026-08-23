@@ -5,6 +5,16 @@
 ## Changelog
 
 
+### Version 5.7.0
+
+- Using the username for comments.
+   - Added an *Username* entry to the options dialog.
+   - Storing the username in the INI file.
+
+API: 5.63
+Based on novelibre 5.65.1
+
+
 ### Version 5.6.4
 
 - Updated the options dialog layout.

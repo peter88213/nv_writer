@@ -12,11 +12,13 @@ from nvwriter.platform.platform_settings import KEYS
 from nvwriter.theme_preview import ThemePreview
 from nvwriter.writer_locale import _
 import tkinter as tk
+from test.support.os_helper import change_cwd
 
 
 class OptionsDialog(ModalDialog):
     """A pop-up window with view preference settings."""
     OFFSET = 0
+    HELP_PAGE = 'nv_writer/options.html'
 
     BLACK = '#000000'
     CRT_BG = '#262626'
@@ -163,12 +165,20 @@ class OptionsDialog(ModalDialog):
     }
 
     def __init__(self, view, controller, icon, **kw):
+
         super().__init__(view, **kw)
         self._ctrl = controller
 
         self.title(_('Distraction-free writing plugin Options'))
         if icon:
             self.iconphoto(False, icon)
+
+        def on_quit(event=None):
+            change_cpl(event)
+            change_username(event)
+            self.destroy()
+
+        self.protocol("WM_DELETE_WINDOW", on_quit)
 
         optionsFrame = ttk.Frame(self)
         optionsFrame.pack(fill='both')
@@ -253,7 +263,37 @@ class OptionsDialog(ModalDialog):
             textvariable=cplVar,
         )
         cplEntry.pack(padx=5, pady=5, anchor='w',)
-        cplEntry.bind('<Return>', change_cpl)
+        cplEntry.bind('<FocusOut>', change_cpl)
+
+        ttk.Separator(
+            optionsFrame,
+            orient='vertical'
+        ).pack(fill='y', side='left',)
+
+        #--- Characters per line entry.
+        def change_username(event):
+            try:
+                username = usernameVar.get()
+            except:
+                pass
+            else:
+                prefs['username'] = username
+            usernameVar.set(prefs['username'])
+
+        usernameFrame = ttk.Frame(optionsFrame)
+        usernameFrame.pack(side='left', padx=20, pady=10,)
+        ttk.Label(
+            usernameFrame,
+            text=_('Username'),
+        ).pack(padx=5, pady=5, anchor='w',)
+        usernameVar = tk.StringVar(
+            value=prefs['username']
+        )
+        usernameEntry = ttk.Entry(
+            usernameFrame,
+            textvariable=usernameVar,
+        )
+        usernameEntry.pack(padx=5, pady=5, anchor='w',)
 
         ttk.Separator(
             optionsFrame,
@@ -315,12 +355,12 @@ class OptionsDialog(ModalDialog):
         ttk.Button(
             footer,
             text=_('Close'),
-            command=self.destroy,
+            command=on_quit,
         ).pack(padx=5, pady=5, side='right')
 
         # "Help" button.
         def open_help(event=None):
-            self._ctrl.open_help(page='nv_writer/options.html')
+            self._ctrl.open_help(page=self.HELP_PAGE)
 
         ttk.Button(
             footer,
