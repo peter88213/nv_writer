@@ -102,9 +102,7 @@ class StatusBar(tk.Frame):
         lengthEntry = lengthTotal // 2
         chapter = chapter or _('Untitled')
         chapter = shorten(chapter, lengthEntry)
-        lengthTotal -= len(chapter)
         section = section or _('Untitled')
-        section = shorten(section, lengthTotal)
         self._breadcrumbs.configure(
             text=(f'{book} | {chapter} | {section}')
         )
