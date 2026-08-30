@@ -87,16 +87,24 @@ class StatusBar(tk.Frame):
         )
 
     def set_breadcrumbs(self, book, chapter, section):
+
+        def shorten(text, length):
+            if len(text) > length:
+                return f'{text[:length - 3]}[…]'
+
+            return text
+
         lengthTotal = 80
         lengthEntry = 25
         book = book or _('Untitled')
-        book = self.shorten(book, lengthEntry)
+        book = shorten(book, lengthEntry)
         lengthTotal -= len(book)
         lengthEntry = lengthTotal // 2
         chapter = chapter or _('Untitled')
-        chapter = self.shorten(chapter, lengthEntry)
+        chapter = shorten(chapter, lengthEntry)
         lengthTotal -= len(chapter)
         section = section or _('Untitled')
+        section = shorten(section, lengthTotal)
         self._breadcrumbs.configure(
             text=(f'{book} | {chapter} | {section}')
         )
@@ -122,8 +130,3 @@ class StatusBar(tk.Frame):
     def set_wordcount(self, wcText):
         self._wordCount.configure(text=wcText)
 
-    def shorten(self, text, length):
-        if len(text) > length:
-            return f'{text[:length - 3]}[…]'
-
-        return text
