@@ -5,6 +5,14 @@
 ## Changelog
 
 
+### Version 5.7.1
+
+- Refactored the code for better maintainability.
+
+API: 5.63
+Based on novelibre 5.66.7
+
+
 ### Version 5.7.0
 
 - Using the username for comments.

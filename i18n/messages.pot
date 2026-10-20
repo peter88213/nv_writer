@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 5.7.0\n"
-"POT-Creation-Date: 2026-08-23 10:53:09\n"
+"Project-Id-Version: 5.7.1\n"
+"POT-Creation-Date: 2026-10-20 20:59:06\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: LANGUAGE\n"
@@ -237,6 +237,9 @@ msgid "Tagged manuscript for proofing"
 msgstr ""
 
 msgid "UPPERCASE"
+msgstr ""
+
+msgid "Undefined"
 msgstr ""
 
 msgid "Undo"
