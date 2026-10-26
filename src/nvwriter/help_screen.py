@@ -222,8 +222,8 @@ class HelpScreen(tk.Frame):
 
     def set_font(self, fontSize, scale):
         size = int(fontSize * 0.8)
-        accFont = (prefs['editor_font'], size, 'bold')
-        dscFont = (prefs['editor_font'], size)
+        accFont = (prefs['font_name'], size, 'bold')
+        dscFont = (prefs['font_name'], size)
         for descLabel, shortcutLabel in self._entries:
             shortcutLabel.configure(
                 font=accFont,
@@ -233,7 +233,7 @@ class HelpScreen(tk.Frame):
                 font=dscFont,
                 padx=int(self.PAD_X * scale),
             )
-        hdFont = (prefs['editor_font'], size, 'bold')
+        hdFont = (prefs['font_name'], size, 'bold')
         for headinglabel in self._headings:
             headinglabel.configure(
                 font=hdFont,

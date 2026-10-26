@@ -61,8 +61,8 @@ PARAGRAPH_NESTING_TAGS = (T_COMMENT, T_NOTE)
 EMPHASIZING_TAGS = (T_EM, T_STRONG)
 
 FONTS = [
-    'DejaVu Sans Mono',  # usually bundled with LibreOffice
     'Consolas',  # available on Windows
+    'DejaVu Sans Mono',  # usually bundled with LibreOffice
     'Liberation Mono',
     'Courier',  # fallback, if none of the above is installed
 ]
@@ -107,7 +107,7 @@ def check_editor_settings(window):
         prefs['resolution_index'] = resolutionIndex
         passed = False
 
-    if not prefs['editor_font'] in INSTALLED_FONTS:
-        prefs['editor_font'] = DEFAULT_FONT
+    if not prefs['font_name'] in INSTALLED_FONTS:
+        prefs['font_name'] = DEFAULT_FONT
 
     return passed

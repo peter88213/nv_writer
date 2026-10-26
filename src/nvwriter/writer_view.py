@@ -67,7 +67,7 @@ class WriterView(tk.Toplevel):
             scale = height / DEFAULT_HEIGHT
             paddingX = round(int(prefs['padding_x']) * scale)
             textAreaWidth = width - (2 * paddingX) - SCROLLBAR_WIDTH
-            font = tkFont.Font(family=prefs['editor_font'], size=fontSize)
+            font = tkFont.Font(family=prefs['font_name'], size=fontSize)
             lineLength = font.measure('0') * MAX_CH_PER_LINE
             return lineLength, textAreaWidth
 
@@ -128,7 +128,7 @@ class WriterView(tk.Toplevel):
             padx=paddingX,
             pady=round(int(prefs['padding_y']) * scale),
             width=prefs['characters_per_line'],
-            font=(prefs['editor_font'], fontSize),
+            font=(prefs['font_name'], fontSize),
         )
         self._sectionEditor.pack(fill='both', expand=True)
 
@@ -523,9 +523,9 @@ class WriterView(tk.Toplevel):
             spacing2=round(int(prefs['spacing_line']) * scale),
             padx=paddingX,
             pady=round(int(prefs['padding_y']) * scale),
-            font=(prefs['editor_font'], fontSize,),
+            font=(prefs['font_name'], fontSize,),
         )
-        self._sectionEditor.configure_font((prefs['editor_font'], fontSize,))
+        self._sectionEditor.configure_font((prefs['font_name'], fontSize,))
 
     def _reset_modified_flag(self, event=None):
         self._statusBar.set_modified(False)

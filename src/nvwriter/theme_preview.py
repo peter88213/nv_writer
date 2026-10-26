@@ -22,7 +22,7 @@ class ThemePreview(ttk.Frame):
         self._statusBar = tk.Label(
             self,
             text=_('Status'),
-            font=(prefs['editor_font'], uiSize)
+            font=(prefs['font_name'], uiSize)
         )
         self._statusBar.pack(
             fill='x',
@@ -37,7 +37,7 @@ class ThemePreview(ttk.Frame):
         self._regularText = tk.Label(
             self._textFrame,
             text=_('Regular text'),
-            font=(prefs['editor_font'], wsSize),
+            font=(prefs['font_name'], wsSize),
         )
         self._regularText.pack(
             anchor='w',
@@ -47,7 +47,7 @@ class ThemePreview(ttk.Frame):
         self._emphasizedText = tk.Label(
             self._textFrame,
             text=_('Emphasis'),
-            font=(prefs['editor_font'], wsSize, 'italic'),
+            font=(prefs['font_name'], wsSize, 'italic'),
         )
         self._emphasizedText.pack(
             anchor='w',
@@ -57,7 +57,7 @@ class ThemePreview(ttk.Frame):
         self._strongText = tk.Label(
             self._textFrame,
             text=_('Strong emphasis'),
-            font=(prefs['editor_font'], wsSize, 'bold'),
+            font=(prefs['font_name'], wsSize, 'bold'),
         )
         self._strongText.pack(
             anchor='w',
@@ -67,7 +67,7 @@ class ThemePreview(ttk.Frame):
         self._invertedText = tk.Label(
             self._textFrame,
             text=_('Comment'),
-            font=(prefs['editor_font'], wsSize),
+            font=(prefs['font_name'], wsSize),
         )
         self._invertedText.pack(
             anchor='w',
@@ -90,7 +90,7 @@ class ThemePreview(ttk.Frame):
         self._button = tk.Label(
             self._footer,
             text=_('Command'),
-            font=(prefs['editor_font'], uiSize)
+            font=(prefs['font_name'], uiSize)
         )
         self._button.pack(
             padx=10,
@@ -100,7 +100,7 @@ class ThemePreview(ttk.Frame):
         self._shortcut = tk.Label(
             self._footer,
             text=_('Key shortcut'),
-            font=(prefs['editor_font'], uiSize)
+            font=(prefs['font_name'], uiSize)
         )
         self._shortcut.pack(
             fill='x',

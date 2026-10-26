@@ -35,7 +35,7 @@ class WriterService(SubController):
         color_status_bg='#b3b3b3',
         color_status_fg='#262626',
         color_strong='#d9d9d9',
-        editor_font=DEFAULT_FONT,
+        font_name=DEFAULT_FONT,
         padding_x=10,
         padding_y=10,
         resolution_index=1,

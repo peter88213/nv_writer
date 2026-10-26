@@ -109,7 +109,7 @@ class StatusBar(tk.Frame):
 
     def set_font(self, fontSize):
         size = int(fontSize * 0.8)
-        font = (prefs['editor_font'], size)
+        font = (prefs['font_name'], size)
         self._breadcrumbs.configure(font=font)
         self._modificationIndicator.configure(font=font)
         self._wordCount.configure(font=font)
