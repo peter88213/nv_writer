@@ -4,6 +4,13 @@
 
 ## Changelog
 
+### Version 5.8.0
+
+- Improved "default font" handling.
+
+API: 5.63
+Based on novelibre 5.66.8
+
 
 ### Version 5.7.1
 
