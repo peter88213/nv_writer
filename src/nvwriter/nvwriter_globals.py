@@ -27,7 +27,7 @@ RESOLUTIONS = [
     (1600, 2133,),
 ]
 # settings for different screen resolutions
-# (height, width, font size, margin)
+# (height, width)
 MIN_HEIGHT, MIN_WIDTH = RESOLUTIONS[0]
 DEFAULT_HEIGHT, DEFAULT_WIDTH = RESOLUTIONS[0]
 SCROLLBAR_WIDTH = 20
