@@ -112,6 +112,7 @@ class WriterView(tk.Toplevel):
             troughcolor=prefs['color_bg'],
             background=prefs['color_bg'],
         )
+        lineSpacing, paragraphSpacing = self._get_spacing()
         self._sectionEditor = EditorBox(
             self._editorWindow,
             vstyle='CustomScrollbarStyle.Vertical.TScrollbar',
@@ -123,8 +124,8 @@ class WriterView(tk.Toplevel):
             fg=prefs['color_fg'],
             bg=prefs['color_bg'],
             insertbackground=prefs['color_fg'],
-            spacing3=round(int(prefs['spacing_paragraph']) * scale),
-            spacing2=round(int(prefs['spacing_line']) * scale),
+            spacing2=round(lineSpacing * scale),
+            spacing3=round(paragraphSpacing * scale),
             padx=paddingX,
             pady=round(int(prefs['padding_y']) * scale),
             width=prefs['characters_per_line'],
@@ -410,6 +411,12 @@ class WriterView(tk.Toplevel):
                 break
         return result
 
+    def _get_spacing(self):
+        return (
+            int(prefs['spacing_line']),
+            int(prefs['spacing_paragraph'])
+        )
+
     def _hide_help_screen(self, event=None):
         self._helpScreen.pack_forget()
         prefs['show_help_screen'] = False
@@ -518,9 +525,10 @@ class WriterView(tk.Toplevel):
             height=height,
             width=width,
         )
+        lineSpacing, paragraphSpacing = self._get_spacing()
         self._sectionEditor.configure(
-            spacing3=round(int(prefs['spacing_paragraph']) * scale),
-            spacing2=round(int(prefs['spacing_line']) * scale),
+            spacing2=round(lineSpacing * scale),
+            spacing3=round(paragraphSpacing * scale),
             padx=paddingX,
             pady=round(int(prefs['padding_y']) * scale),
             font=(prefs['font_name'], fontSize,),
