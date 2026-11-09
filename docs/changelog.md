@@ -4,9 +4,9 @@
 
 ## Changelog
 
-### Version 5.9.1
+### Version 5.9.2
 
-Changed spacing defaults(#1).
+Rebuilt the plugin based on the official novelibre release.
 
 API: 5.63
 Based on novelibre 5.66.9

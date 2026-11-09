@@ -39,8 +39,8 @@ class WriterService(SubController):
         padding_x=10,
         padding_y=10,
         resolution_index=1,
-        line_height=1.0,
-        para_spacing=1.0,
+        line_height=1.2,
+        para_spacing=0.5,
     )
     OPTIONS = dict(
         ask_for_confirmation=True,
