@@ -4,6 +4,14 @@
 
 ## Changelog
 
+### Version 5.9.1
+
+Changed spacing defaults(#1).
+
+API: 5.63
+Based on novelibre 5.66.9
+
+
 ### Version 5.9.0
 
 Extended the options dialog (#1) 
