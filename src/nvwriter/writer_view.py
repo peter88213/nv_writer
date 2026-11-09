@@ -412,10 +412,13 @@ class WriterView(tk.Toplevel):
         return result
 
     def _get_spacing(self):
-        return (
-            int(prefs['spacing_line']),
-            int(prefs['spacing_paragraph'])
+        CHARACTER_HEIGHT = 20
+        lineHeight = CHARACTER_HEIGHT * float(prefs['line_height'])
+        lineSpacing = lineHeight - CHARACTER_HEIGHT
+        paragraphSpacing = lineSpacing + (
+            lineHeight * float(prefs['para_spacing'])
         )
+        return lineSpacing, paragraphSpacing
 
     def _hide_help_screen(self, event=None):
         self._helpScreen.pack_forget()

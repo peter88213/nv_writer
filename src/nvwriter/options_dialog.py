@@ -12,7 +12,6 @@ from nvwriter.platform.platform_settings import KEYS
 from nvwriter.theme_preview import ThemePreview
 from nvwriter.writer_locale import _
 import tkinter as tk
-from test.support.os_helper import change_cwd
 
 
 class OptionsDialog(ModalDialog):
@@ -176,6 +175,7 @@ class OptionsDialog(ModalDialog):
         def on_quit(event=None):
             change_cpl(event)
             change_username(event)
+            change_spacing(event)
             self.destroy()
 
         self.protocol("WM_DELETE_WINDOW", on_quit)
@@ -270,7 +270,54 @@ class OptionsDialog(ModalDialog):
             orient='vertical'
         ).pack(fill='y', side='left',)
 
-        #--- Characters per line entry.
+        #--- Spacing sliders.
+        def change_spacing(event):
+            try:
+                prefs['line_height'] = lineHeightVar.get()
+            except:
+                pass
+            try:
+                prefs['para_spacing'] = paraSpacingVar.get()
+            except:
+                pass
+
+        spacingFrame = ttk.Frame(optionsFrame)
+        spacingFrame.pack(side='left', padx=20, pady=10,)
+
+        lineHeightVar = tk.DoubleVar(
+            value=prefs['line_height'],
+        )
+        tk.Scale(
+            spacingFrame,
+            label=_('Line height'),
+            orient='horizontal',
+            length=200,
+            variable=lineHeightVar,
+            resolution=0.1,
+            from_=1.0,
+            to=2.0,
+        ).pack(pady=10)
+
+        paraSpacingVar = tk.DoubleVar(
+            value=prefs['para_spacing'],
+        )
+        tk.Scale(
+            spacingFrame,
+            label=_('Paragraph spacing (lines)'),
+            orient='horizontal',
+            length=200,
+            variable=paraSpacingVar,
+            resolution=0.1,
+            from_=0.0,
+            to=1.0,
+        ).pack(pady=10)
+
+        ttk.Separator(
+            optionsFrame,
+            orient='vertical'
+        ).pack(fill='y', side='left',)
+
+        #--- User name entry.
         def change_username(event):
             try:
                 username = usernameVar.get()
@@ -294,11 +341,6 @@ class OptionsDialog(ModalDialog):
             textvariable=usernameVar,
         )
         usernameEntry.pack(padx=5, pady=5, anchor='w',)
-
-        ttk.Separator(
-            optionsFrame,
-            orient='vertical'
-        ).pack(fill='y', side='left',)
 
         #--- Color mode settings.
         def set_option(theme):
