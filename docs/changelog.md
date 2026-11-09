@@ -4,6 +4,17 @@
 
 ## Changelog
 
+### Version 5.9.0
+
+Extended the options dialog (#1) 
+
+- A slider for the line height (from single-line to double-line).
+- A slider for the paragraph spacing (up to one line).
+
+API: 5.63
+Based on novelibre 5.67.3
+
+
 ### Version 5.8.0
 
 - Improved "default font" handling.

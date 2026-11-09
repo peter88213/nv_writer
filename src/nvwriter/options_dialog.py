@@ -192,7 +192,7 @@ class OptionsDialog(ModalDialog):
         ttk.Label(
             askFrame,
             text=_('Apply changes')
-        ).pack(padx=5, pady=5, anchor='w',)
+        ).pack(padx=5, pady=5, anchor='nw',)
         askForConfirmationVar = tk.BooleanVar(
             askFrame,
             value=prefs['ask_for_confirmation'],
