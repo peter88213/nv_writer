@@ -4,6 +4,14 @@
 
 ## Changelog
 
+### Version 5.9.3
+
+- Resetting the message at the footer bar when starting the editor.
+
+API: 5.63
+Based on novelibre 5.67.4
+
+
 ### Version 5.9.2
 
 Rebuilt the plugin based on the official novelibre release.
