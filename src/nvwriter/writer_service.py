@@ -87,6 +87,7 @@ class WriterService(SubController):
             pass
 
     def start_editor(self):
+        self._ui.restore_status()
         if self._ctrl.isLocked:
             return
 
