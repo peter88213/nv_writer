@@ -226,6 +226,7 @@ class TextParser():
     def _remove_redundant_tags(self, text):
         for name in EMPHASIZING_TAGS:
             text = text.replace(f'</{name}><{name}>', '')
+            text = text.replace(f'<{name}></{name}>', '')
         for name in self._spanNames:
             text = text.replace(f'<{name}></{T_SPAN}>', '')
         return text
