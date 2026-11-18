@@ -243,6 +243,13 @@ class EditorBox(tk.Text):
     def _lower(self, text):
         return text.lower()
 
+    def _remove_format(self, newTag):
+        if not newTag in EMPHASIZING_TAGS:
+            return False
+
+        self.tag_remove(newTag, 'sel.first', 'sel.last')
+        return True
+
     def _replace_selected(self, modify, modFirst=None):
         if not self.tag_ranges('sel'):
             return
@@ -287,7 +294,7 @@ class EditorBox(tk.Text):
         # Is the new tag already applied to the entire selection?
         willModify = False
         index = 'sel.first'
-        while self.compare(index, '<=', 'sel.last'):
+        while self.compare(index, '<', 'sel.last'):
             if not newTag in self.tag_names(index):
                 willModify = True
                 break
@@ -297,7 +304,7 @@ class EditorBox(tk.Text):
                 break
 
         if not willModify:
-            return False
+            return self._remove_format(newTag)
 
         # Insert the new tag before the first character's
         # paragraph-opening tag, if any.
