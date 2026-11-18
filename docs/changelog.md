@@ -4,6 +4,15 @@
 
 ## Changelog
 
+### Version 5.10.0
+
+- Format shortcuts `Ctrl`-`I` and `Ctrl`-`B` toggling the formatting.
+- Editor text import removing empty format elements.
+
+API: 5.63
+Based on novelibre 5.68.0
+
+
 ### Version 5.9.3
 
 - Resetting the message at the footer bar when starting the editor.
